@@ -4,14 +4,14 @@ BRANCH=$1
 
 if [ -z "$BRANCH" ]
 then
-  echo "usage: checkout-all.sh <git branch> <svn branch>
+  echo 'usage: checkout-all.sh <git branch> <svn branch>'
   exit 1
 fi
 
 SVN_BRANCH=$2
 if [ -z "$SVN_BRANCH" ]
 then
-  echo "usage: checkout-all.sh <git branch> <svn branch>
+  echo 'usage: checkout-all.sh <git branch> <svn branch>'
   exit 2
 fi
 
