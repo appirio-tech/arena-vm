@@ -4,17 +4,18 @@ BRANCH=$1
 
 if [ -z "$BRANCH" ]
 then
-  echo "branch name is required"
+  echo "usage: checkout-all.sh <git branch> <svn branch>
   exit 1
 fi
 
-SVN_BRANCH=$BRANCH
-if [ "$BRANCH" != "trunk" ]
+SVN_BRANCH=$2
+if [ -z "$SVN_BRANCH" ]
 then
-  SVN_BRANCH="branches/$BRANCH"
+  echo "usage: checkout-all.sh <git branch> <svn branch>
+  exit 2
 fi
 
-echo Checking out branch $BRANCH
+echo Checking out branch $SVN_BRANCH
 
 cd ~/dev
 svn co https://coder.topcoder.com/internal/libs/encoder/$SVN_BRANCH libs/encoder
@@ -29,6 +30,8 @@ svn co https://coder.topcoder.com/internal/farm-deployer/$SVN_BRANCH farm-deploy
 svn co https://coder.topcoder.com/internal/farm-shared/$SVN_BRANCH farm-shared
 svn co https://coder.topcoder.com/internal/shared/$SVN_BRANCH shared
 svn co https://coder.topcoder.com/internal/comp-eng/client-common/$SVN_BRANCH comp-eng/client-common
+
+echo Checking out branch $BRANCH
 
 # unique git hostnames are needed for multiple github deploy keys - see ~/.ssh/config
 git clone git@git-farm-server:appirio-tech/arena-farm-server.git -b $BRANCH farm-server
