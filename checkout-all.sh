@@ -18,6 +18,7 @@ fi
 echo Checking out branch $SVN_BRANCH
 
 cd ~/dev
+svn co https://coder.topcoder.com/internal/glue/$SVN_BRANCH glue
 svn co https://coder.topcoder.com/internal/libs/encoder/$SVN_BRANCH libs/encoder
 svn co https://coder.topcoder.com/internal/libs/logging/$SVN_BRANCH libs/logging
 svn co https://coder.topcoder.com/internal/libs/nbio-listener/$SVN_BRANCH libs/nbio-listener
