@@ -1,7 +1,7 @@
 #!/bin/bash
 
-ARENA_GIT_BRANCH=$1
-ARENA_SVN_BRANCH=$2
+ARENA_GIT_BRANCH=`get-vm-param arena-git-branch`
+ARENA_SVN_BRANCH=`get-vm-param arena-svn-branch`
 
 # get the source
 ./checkout-all.sh $ARENA_GIT_BRANCH $ARENA_SVN_BRANCH
@@ -11,6 +11,7 @@ APP_ROOT=~/dev/app
 FARM_ROOT=~/dev/farm-server
 
 cd $APP_ROOT
+ant clean-all clean-cache
 ant publish-workspace-all
 ant compile-cpp2
 
