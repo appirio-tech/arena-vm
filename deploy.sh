@@ -3,6 +3,16 @@
 ARENA_GIT_BRANCH=`get-vm-param arena-git-branch`
 ARENA_SVN_BRANCH=`get-vm-param arena-svn-branch`
 
+if [ -z "$ARENA_GIT_BRANCH" ]
+then
+  ARENA_GIT_BRANCH=dev
+fi
+
+if [ -z "$ARENA_SVN_BRANCH" ]
+then
+  ARENA_SVN_BRANCH=trunk
+fi
+
 # get the source
 ./checkout-all.sh $ARENA_GIT_BRANCH $ARENA_SVN_BRANCH
 
@@ -33,3 +43,8 @@ tar -xzvf $APP_ROOT/build/artifacts/osfiles.tgz
 
 tar -xvzf $FARM_ROOT/build/artifacts/linux-osfiles.tgz
 
+# start arena services
+cd ~/dev/app/arena-vm
+./start-services.sh
+
+exit

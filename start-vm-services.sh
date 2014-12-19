@@ -2,7 +2,7 @@
 
 # it is assumed openldap, informix, and mysql are already installed
 
-cd /root
+cd /root/arena-vm
 
 # ldap
 service slapd start
@@ -13,8 +13,17 @@ su - informix -c /opt/IBM/informix/bin/oninit
 # mysql
 service mysql start
 
+# cache
+su - cache -c '~/jboss-4.0.5.GA/bin/start.sh'
+
+# reg2
+su - web -c '~/jboss-4.0.4.GA/bin/start.sh'
+
+# tc-api
+su - api -c '~/tc-api/start.sh'
+
 # copy member key for login
-copy-member-key.sh > member-key.log 2>&1
+./copy-member-key.sh > member-key.log 2>&1
 
 su - apps -c 'cd /home/apps/dev/arena-vm;git pull'
 
