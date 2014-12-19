@@ -30,4 +30,4 @@ service nginx start
 
 su - apps -c 'cd /home/apps/dev/arena-vm;git pull'
 
-su - apps -c 'cd /home/apps/dev/arena-vm; ./deploy.sh > deploy.log >2&1'
+su - apps -c 'cd /home/apps/dev/arena-vm;./deploy.sh' > deploy.log 2>&1

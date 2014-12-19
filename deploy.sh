@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# clear existing source
+./delete-dev-source.sh
+
 ARENA_GIT_BRANCH=`get-vm-param arena-git-branch`
 ARENA_SVN_BRANCH=`get-vm-param arena-svn-branch`
 
