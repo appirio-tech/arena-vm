@@ -24,7 +24,7 @@ if [ "$HANDLE" != "" ]; then
   cat /root/member_authorized_keys >> /home/apps/.ssh/authorized_keys
   mkdir /home/api/.ssh; chown api:api /home/api/.ssh
   cat /root/member_authorized_keys >> /home/api/.ssh/authorized_keys
-  mkdir /home/tc/.ssh; chown api:api /home/tc/.ssh
+  mkdir /home/tc/.ssh; chown tc:tc /home/tc/.ssh
   cat /root/member_authorized_keys >> /home/tc/.ssh/authorized_keys
 fi
 
