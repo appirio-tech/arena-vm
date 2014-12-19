@@ -22,7 +22,9 @@ if [ "$HANDLE" != "" ]; then
   echo "Updating authorized_keys"
   /usr/bin/curl -g -s "http://54.164.153.88/tc?module=BasicRSS&c=rss_get_key&dsid=30&hn=${HANDLE}" |  /usr/bin/xmlstarlet sel  -t -m //item -v description >> /root/member_authorized_keys
   cat /root/member_authorized_keys >> /home/apps/.ssh/authorized_keys
+  mkdir /home/api/.ssh; chown api:api /home/api/.ssh
   cat /root/member_authorized_keys >> /home/api/.ssh/authorized_keys
+  mkdir /home/tc/.ssh; chown api:api /home/tc/.ssh
   cat /root/member_authorized_keys >> /home/tc/.ssh/authorized_keys
 fi
 

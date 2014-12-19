@@ -11,7 +11,7 @@ service slapd start
 su - informix -c /opt/IBM/informix/bin/oninit
 
 # mysql
-service mysql start
+service mysqld start
 
 # cache
 su - cache -c 'cd ~/jboss-4.0.5.GA/bin;./start.sh'
@@ -30,4 +30,4 @@ service nginx start
 
 su - apps -c 'cd /home/apps/dev/arena-vm;git pull'
 
-su - apps -c '/home/apps/dev/arena-vm/deploy.sh > deploy.log >2&1'
+su - apps -c 'cd /home/apps/dev/arena-vm; ./deploy.sh > deploy.log >2&1'
