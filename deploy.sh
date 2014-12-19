@@ -45,7 +45,7 @@ tar -xzvf $APP_ROOT/build/artifacts/osfiles.tgz
 tar -xvzf $FARM_ROOT/build/artifacts/linux-osfiles.tgz
 
 # start arena services
-cd ~/dev/app/arena-vm
+cd ~/dev/arena-vm
 ./start-services.sh
 
 exit
