@@ -22,6 +22,9 @@ su - tc -c 'cd ~/jboss-4.0.4.GA/bin;./start.sh'
 # tc-api
 su - api -c 'cd tc-api;sh start.sh'
 
+# nginx - tc/reg2
+service nginx start
+
 # copy member key for login
 ./copy-member-key.sh > member-key.log 2>&1
 
