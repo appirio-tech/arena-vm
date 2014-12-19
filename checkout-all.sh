@@ -39,6 +39,7 @@ echo Checking out branch $BRANCH
 git clone git@git-farm-server:appirio-tech/arena-farm-server.git -b $BRANCH farm-server
 git clone git@github.com:cloudspokes/arena-shared.git -b $BRANCH comp-eng/arena-shared
 git clone git@github.com:cloudspokes/arena-client.git -b $BRANCH comp-eng/arena-client
+git clone git@github.com:cloudspokes/mpsqas-client.git -b $BRANCH comp-eng/mpsqas-client
 git clone git@github.com:cloudspokes/compeng-common.git -b $BRANCH libs/compeng-common
 git clone git@github.com:cloudspokes/app.git -b $BRANCH app
 
