@@ -14,13 +14,13 @@ su - informix -c /opt/IBM/informix/bin/oninit
 service mysql start
 
 # cache
-su - cache -c '~/jboss-4.0.5.GA/bin/start.sh'
+su - cache -c 'cd ~/jboss-4.0.5.GA/bin;./start.sh'
 
 # reg2
-su - web -c '~/jboss-4.0.4.GA/bin/start.sh'
+su - tc -c 'cd ~/jboss-4.0.4.GA/bin;./start.sh'
 
 # tc-api
-su - api -c '~/tc-api/start.sh'
+su - api -c 'cd tc-api;sh start.sh'
 
 # copy member key for login
 ./copy-member-key.sh > member-key.log 2>&1
