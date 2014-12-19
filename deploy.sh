@@ -32,6 +32,7 @@ cd ../mpsqas-client
 ant package-applet
 
 cd $APP_ROOT
+ant generate-farm-deployer
 ant package-app-deployment
 
 cd $FARM_ROOT
