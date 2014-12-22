@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cp ./security.keystore.cloud ~/app/scripts/
+
 mkdir ~/processor/work
 mkdir ~/processor/cache
 chmod +x ~/processor/deploy/app/cpp/timeout/timeout
