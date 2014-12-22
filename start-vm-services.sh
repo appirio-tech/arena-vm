@@ -20,6 +20,8 @@ su - cache -c 'cd ~/jboss-4.0.5.GA/bin;./start.sh'
 su - tc -c 'cd ~/jboss-4.0.4.GA/bin;./start.sh'
 
 # tc-api
+# need to copy a config with CORS support
+cp ./web.js /home/api/tc-api/config/servers/
 su - api -c 'cd tc-api;sh start.sh'
 
 # nginx - tc/reg2

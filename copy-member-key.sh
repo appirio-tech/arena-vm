@@ -11,7 +11,7 @@ echo script start...
 
 #get the handle for the user's public key
 HANDLE=`/root/get-vm-param.sh handle`
-ROOT=`/root/get-vm-param/root.sh root`
+ROOT=`/root/get-vm-param.sh root`
 
 #Get the Public IP of this VM
 NEW_PUBLIC_IP=`/root/ec2-metadata --public-ipv4 |  awk -F ' ' '{print $2}'`
