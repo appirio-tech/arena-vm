@@ -1,6 +1,7 @@
 #!/bin/bash
 
 cp ./security.keystore.cloud ~/app/scripts/
+cp ./TC.cloud.ldap.keystore ~/app/scripts/
 
 mkdir ~/processor/work
 mkdir ~/processor/cache
