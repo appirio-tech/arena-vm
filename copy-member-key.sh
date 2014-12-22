@@ -10,11 +10,11 @@ echo script start...
 #cd /root/startup-tmp
 
 #get the handle for the user's public key
-HANDLE=`get-vm-param handle`
-ROOT=`get-vm-param root`
+HANDLE=`/root/get-vm-param.sh handle`
+ROOT=`/root/get-vm-param/root.sh root`
 
 #Get the Public IP of this VM
-NEW_PUBLIC_IP=`ec2-metadata --public-ipv4 |  awk -F ' ' '{print $2}'`
+NEW_PUBLIC_IP=`/root/ec2-metadata --public-ipv4 |  awk -F ' ' '{print $2}'`
 
 
 # Add member public key to all user's authorized_keys file
