@@ -38,13 +38,21 @@ cd $APP_ROOT
 ant generate-farm-deployer
 ant package-app-deployment
 
+
+OS_BITS=`getconf LONG_BIT`
+PROCESSOR_TYPE="-64bit"
+if [ $OS_BITS -eq 32 ]; then
+    PROCESSOR_TYPE=""
+fi
 cd $FARM_ROOT
-ant package-processor-deployment
+ant -DprocessorType=$PROCESSOR_TYPE package-processor-deployment
 
 # deploy the files
 cd
+rm -rf /home/apps/app/controller /home/apps/app/lib /home/apps/app/resources /home/apps/app/scripts /home/apps/app/wrapper
 tar -xzvf $APP_ROOT/build/artifacts/osfiles.tgz
 
+rm -rf rm -rf /home/apps/processor
 tar -xvzf $FARM_ROOT/build/artifacts/linux-osfiles.tgz
 
 # start arena services

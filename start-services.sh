@@ -3,11 +3,13 @@
 cp ./security.keystore.cloud ~/app/scripts/
 cp ./TC.cloud.ldap.keystore ~/app/scripts/
 
+rm -rf ~/processor/work
 mkdir ~/processor/work
+rm -rf ~/processor/cache
 mkdir ~/processor/cache
 chmod +x ~/processor/deploy/app/cpp/timeout/timeout
 
-java -jar elasticmq-server-0.8.3.jar &
+java -jar ~/dev/arena-vm/elasticmq-server-0.8.3.jar &
 
 sleep 10
 
@@ -16,9 +18,15 @@ java -cp "/home/apps/app/lib/jars/*" -Darena.sqs-endpoint='http://localhost:9324
 
 sleep 2
 
+OS_BITS=`getconf LONG_BIT`
+CPP_ARGUMENTS="-DcppArguments='--std=c++0x'"
+if [ $OS_BITS -eq 32 ]; then
+    CPP_ARGUMENTS=""
+fi
+
 # localhost:9324 = elasticmq (local sqs)
 # also set dummy aws credentials
-export JAVA_OPTS="-Darena.sqs-endpoint=http://localhost:9324 -Darena.env-prefix=dev -Daws.accessKeyId=x -Daws.secretKey=x -DconfigurationProvider.class=com.topcoder.farm.controller.configuration.XMLConfigurationProvider -Dconfiguration.xml.url=file:///home/apps/app/controller/config.xml"
+export JAVA_OPTS="$CPP_ARGUMENTS -Darena.sqs-endpoint=http://localhost:9324 -Darena.env-prefix=dev -Daws.accessKeyId=x -Daws.secretKey=x -DconfigurationProvider.class=com.topcoder.farm.controller.configuration.XMLConfigurationProvider -Dconfiguration.xml.url=file:///home/apps/app/controller/config.xml"
 export JBOSS_JAVA_OPTS="$JBOSS_JAVA_OPTS -Djavax.net.ssl.trustStore=TC.cloud.ldap.keystore"
 
 cd ~/app/scripts
