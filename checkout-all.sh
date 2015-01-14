@@ -22,7 +22,7 @@ git clone git@github.com:appirio-tech/arena-http-tunnel-client.git -b $BRANCH li
 git clone git@github.com:appirio-tech/arena-farm-client.git -b $BRANCH farm-client
 git clone git@github.com:appirio-tech/arena-farm-deployer.git -b $BRANCH farm-deployer
 git clone git@github.com:appirio-tech/arena-farm-shared.git -b $BRANCH farm-shared
-git clone git@github.com:appirio-tech/arena-shared.git -b $BRANCH shared
+git clone git@github.com:appirio-tech/arena-tc-shared.git -b $BRANCH shared
 git clone git@github.com:appirio-tech/arena-comp-eng-client-common.git -b $BRANCH comp-eng/client-common
 git clone git@github.com:appirio-tech/arena-farm-server.git -b $BRANCH farm-server
 git clone git@github.com:cloudspokes/arena-shared.git -b $BRANCH comp-eng/arena-shared
