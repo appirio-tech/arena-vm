@@ -4,20 +4,14 @@
 ./delete-dev-source.sh
 
 ARENA_GIT_BRANCH=`get-vm-param arena-git-branch`
-ARENA_SVN_BRANCH=`get-vm-param arena-svn-branch`
 
 if [ -z "$ARENA_GIT_BRANCH" ]
 then
   ARENA_GIT_BRANCH=dev
 fi
 
-if [ -z "$ARENA_SVN_BRANCH" ]
-then
-  ARENA_SVN_BRANCH=trunk
-fi
-
 # get the source
-./checkout-all.sh $ARENA_GIT_BRANCH $ARENA_SVN_BRANCH
+./checkout-all.sh $ARENA_GIT_BRANCH
 
 # build everything
 APP_ROOT=~/dev/app
