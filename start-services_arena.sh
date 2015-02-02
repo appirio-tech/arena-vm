@@ -5,12 +5,8 @@ rm -rf ~/processor/cache
 mkdir ~/processor/cache
 chmod +x ~/processor/deploy/app/cpp/timeout/timeout
 
-java -jar ~/dev/arena-vm/elasticmq-server-0.8.3.jar &
-
-sleep 10
-
-# create local sqs queues
-java -cp "/home/apps/app/lib/jars/*" -Darena.sqs-endpoint='http://localhost:9324' com.topcoder.arena.util.sqs.LocalSqsSetup 'http://localhost:9324' devArenaCode- compile admin-test listener-results proc-results mm-test practice srm-test
+echo Elasticmq Server...
+sh ~/dev/arena-vm/start-sqs-service.sh
 
 sleep 2
 
