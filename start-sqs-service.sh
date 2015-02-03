@@ -1,6 +1,6 @@
 #!/bin/bash
 
-java -jar ~/dev/arena-vm/elasticmq-server-0.8.5.jar &
+java -Dconfig.file=elasticmq-server.conf -jar ~/dev/arena-vm/elasticmq-server-0.8.5.jar &
 
 sleep 10
 
