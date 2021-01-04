@@ -25,9 +25,9 @@ git clone git@github.com:appirio-tech/arena-farm-shared.git -b $BRANCH farm-shar
 git clone git@github.com:appirio-tech/arena-tc-shared.git -b $BRANCH shared
 git clone git@github.com:appirio-tech/arena-comp-eng-client-common.git -b $BRANCH comp-eng/client-common
 git clone git@github.com:appirio-tech/arena-farm-server.git -b $BRANCH farm-server
-git clone git@github.com:cloudspokes/arena-shared.git -b $BRANCH comp-eng/arena-shared
-git clone git@github.com:cloudspokes/arena-client.git -b $BRANCH comp-eng/arena-client
-git clone git@github.com:cloudspokes/mpsqas-client.git -b $BRANCH comp-eng/mpsqas-client
-git clone git@github.com:cloudspokes/compeng-common.git -b $BRANCH libs/compeng-common
-git clone git@github.com:cloudspokes/app.git -b $BRANCH app
+git clone git@github.com:appirio-tech/arena-shared.git -b $BRANCH comp-eng/arena-shared
+git clone git@github.com:appirio-tech/arena-client.git -b $BRANCH comp-eng/arena-client
+git clone git@github.com:appirio-tech/mpsqas-client.git -b $BRANCH comp-eng/mpsqas-client
+git clone git@github.com:appirio-tech/compeng-common.git -b $BRANCH libs/compeng-common
+git clone git@github.com:appirio-tech/app.git -b $BRANCH app
 
