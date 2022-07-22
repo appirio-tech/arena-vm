@@ -18,24 +18,7 @@ Initialization scripts for the Arena VM
     * run `mvn clean package -DskipTests=true` to build package
     * run `cp target/commons-aws-0.0.1-SNAPSHOT.jar ~/.ivy2/.ivy-cache/` move the package for ivy build. If you don't have this folder, you should create it first.
   2. set env `BUILD_COMPILE_SOURCE=1.8`
-  3. run `./build.sh` to pull all dependencies project and create db containers.
-  4. fix repos config
-    * app/ivy.xml:40 replace `4.1.0.RELEASE` to `5.3.22`
-    * app/token.properties:11 replace `localhost` to `arena-informix`
-    * app/token.properties:12 replace `localhost` to `arena-informix`
-    * app/token.properties:54 replace `localhost` to `arena-mysql`
-    * app/farm-deployer/deployment/controller/deploy-in-classpath/conf/hibernate.cfg.xml:36 add a new line `<property name="hibernate.hbm2ddl.auto">create</property>`
-    * farm-server/ivy.xml:10 add a new line `<dependency org="commons-codec" name="commons-codec" rev="1.10" transitive="false"/>`
-    * farm-server/ivy.xml:55 add a new lines 
-
-      ```
-       <dependency org="com.amazonaws" name="aws-java-sdk" rev="1.8.6">
-		    <artifact name="aws-java-sdk" type="jar"/>
-		</dependency>
-      ```
-
-    * glue/settings/ivysettings-public.xml replace line 3 to `<ibiblio name="public" m2compatible="true" root="https://repo1.maven.org/maven2" />`
-  5. run `./build.sh` again to create arena-app container
+  3. run `./build.sh` to pull all dependencies project and create containers.
 
 ### verify
 
