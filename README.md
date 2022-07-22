@@ -26,3 +26,18 @@ Initialization scripts for the Arena VM
   2. run `ant package-AdminTool` in `repos/app` folder
   3. navigate to `dist` foler and run `unzip admin-client-7.1.5.zip -d admin-client`
   4. navigate to `admin-client` and run `sh admin.sh`
+
+### file updated
+
+    * app/ivy.xml:40 replace `4.1.0.RELEASE` to `5.3.22`
+    * app/token.properties:11 replace `localhost` to `arena-informix`
+    * app/token.properties:12 replace `localhost` to `arena-informix`
+    * app/token.properties:54 replace `localhost` to `arena-mysql`
+    * farm-server/ivy.xml:10 add a new line `<dependency org="commons-codec" name="commons-codec" rev="1.10" transitive="false"/>`
+    * farm-server/ivy.xml:55 add a new lines
+      ```
+       <dependency org="com.amazonaws" name="aws-java-sdk" rev="1.8.6">
+		    <artifact name="aws-java-sdk" type="jar"/>
+		</dependency>
+      ```
+    * glue/settings/ivysettings-public.xml replace line 3 to `<ibiblio name="public" m2compatible="true" root="https://repo1.maven.org/maven2" />`

@@ -30,7 +30,6 @@ if [ ! -d "repos" ]; then
   docker-compose up -d arena-informix arena-mysql
   cp fix_files/app/ivy.xml repos/app/
   cp fix_files/app/token.properties repos/app/
-  cp fix_files/app/hibernate.cfg.xml repos/app/farm-deployer/deployment/controller/deploy-in-classpath/conf/
   cp fix_files/farm-server/ivy.xml repos/farm-server/
   cp fix_files/glue/ivysettings-public.xml repos/glue/settings/
 fi
