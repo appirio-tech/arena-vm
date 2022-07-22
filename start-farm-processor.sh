@@ -13,7 +13,7 @@ if [ $OS_BITS -eq 32 ]; then
 fi
 
 # sqs.topcoder.com:9324 = elasticmq (remote sqs server)
-export JAVA_OPTS="$CPP_ARGUMENTS -Darena.sqs-endpoint=http://sqs.topcoder.com:9324 -Darena.env-prefix=dev -Daws.accessKeyId=x -Daws.secretKey=x"
+export JAVA_OPTS="$CPP_ARGUMENTS -Darena.sqs-endpoint=http://localhost:9324 -Darena.env-prefix=dev -Daws.accessKeyId=x -Daws.secretKey=x"
 
 cd ~/processor/deploy/bin
 echo Starting processor...

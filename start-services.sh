@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd ~/dev/arena-vm
+
 cp ./security.keystore.cloud ~/app/scripts/
 cp ./TC.cloud.ldap.keystore ~/app/scripts/
 
@@ -40,5 +42,5 @@ echo Starting web socket listener...
 sh ~/dev/arena-vm/start-farm-processor.sh
 
 echo Startup complete
-exit
+sleep 365d
 
