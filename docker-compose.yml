@@ -18,6 +18,9 @@ services:
     image: mysql:5.7
     cap_add:
       - SYS_NICE
+    volumes:
+      - ./mysql-files:/docker-entrypoint-initdb.d
+    container_name: arena-mysql
     environment:
       MYSQL_ROOT_PASSWORD: my-secret-pw
       MYSQL_USER: farm
@@ -37,6 +40,7 @@ services:
       - "5016:5016"
       - "9324:9324"
       - "5037:5037"
+      - "5006:5006"
       - "5003:5003"
       - "5002:5002"
       - "5001:5001"

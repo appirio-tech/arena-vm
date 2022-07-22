@@ -52,6 +52,9 @@
         <dependency org="com.topcoder.internal" name="nbio-listener" rev="latest.integration"/>
 
 		<dependency org="com.appirio" name="commons-aws" rev="0.0.1-SNAPSHOT"/>
+        <dependency org="com.amazonaws" name="aws-java-sdk" rev="1.8.6">
+		    <artifact name="aws-java-sdk" type="jar"/>
+		</dependency>
 		<dependency org="org.springframework" name="spring-context" rev="4.1.0.RELEASE"/>
 		
 		<dependency org="org.apache.commons" name="commons-lang3" rev="3.3.2">
