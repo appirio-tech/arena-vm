@@ -28,11 +28,20 @@ services:
       MYSQL_DATABASE: farm
     ports:
       - "3306:3306"
+  arena-ldap:
+    image: "arena-ldap:latest"
+    container_name: arena-ldap
+    build:
+      context: ./
+      dockerfile: Dockerfile_ldap
+    ports:
+      - "389:389"
   arena-app:
     image: "arena-app:latest"
     depends_on:
       - arena-informix
       - arena-mysql
+      - arena-ldap
     container_name: "arena-app"
     build:
       context: ./
