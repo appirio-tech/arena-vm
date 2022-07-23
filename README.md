@@ -33,9 +33,11 @@ docker exec -it arena-app bash -c "cd /home/apps/dev/arena-vm && /home/apps/dev/
 
 
 
-### Verify Admin Client
+### Verify Client
 
 Add `127.0.0.1 tc.cloud.topcoder.com` to your hosts. Then:
+
+Verify admin client:
 
 ```bash
 # Copy built admin client from docker
@@ -47,6 +49,22 @@ unzip admin-client-7.1.5.zip -d admin-client
 # Run admin client
 cd admin-client
 sh admin.sh
+
+# Then login with heffan/password
+```
+
+Verify arena client:
+
+```bash
+# Copy built arena client from docker
+docker cp arena-app:/home/apps/dev/comp-eng/arena-client/build/arena-client-7.1.3.zip .
+
+# Unzip
+unzip arena-client-7.1.3.zip -d arena-client
+
+# Run arena client
+cd arena-client
+sh arena.sh
 
 # Then login with heffan/password
 ```

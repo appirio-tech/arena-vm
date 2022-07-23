@@ -19,7 +19,7 @@ ant compile-cpp2
 ant package-AdminTool
 
 cd ../comp-eng/arena-client
-ant
+ant package-applet
 
 cd ../mpsqas-client
 ant package-applet
