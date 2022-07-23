@@ -24,7 +24,7 @@ RUN adduser -s /bin/bash apps
 USER apps
 WORKDIR /home/apps
 
-RUN wget -O jboss-4.0.5.GA.zip --no-check-certificate http://192.168.0.100:8080/jboss-4.0.5.GA.zip \
+RUN wget -O jboss-4.0.5.GA.zip --no-check-certificate https://sourceforge.net/projects/jboss/files/JBoss/JBoss-4.0.5.GA/jboss-4.0.5.GA.zip/download \
   && unzip jboss-4.0.5.GA.zip \
   && rm -f jboss-4.0.5.GA.zip
 

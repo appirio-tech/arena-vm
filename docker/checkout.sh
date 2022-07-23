@@ -40,6 +40,8 @@ sed -i 's/sqs.topcoder.com/localhost/' ~/dev/arena-vm/elasticmq-server.conf
 sed -i 's/sqs.topcoder.com/localhost/' ~/dev/arena-vm/start-farm-processor.sh
 sed -i 's/java -Dconfig.file=elasticmq-server.conf/nohup java -Dconfig.file=elasticmq-server.conf/' ~/dev/arena-vm/start-sqs-service.sh
 
+echo "sleep 10" >> ~/dev/farm-server/src/scripts/processor.sh
+
 # The docker/TC.cloud.ldap.keystore is created using TC_PROD_CA.pem from appiriodevops/ldap
 cp ~/docker/TC.cloud.ldap.keystore ~/dev/arena-vm/TC.cloud.ldap.keystore
 

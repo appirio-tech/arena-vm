@@ -83,6 +83,8 @@ Refer to `docker/checkout.sh` for the file changes:
   - change ldap host to `arena-ldap`
 - `farm-server/ivy.xml`:
   - add `commons-codec` and `aws-java-sdk` dependencies
+- `farm-server/src/scripts/processor.sh`:
+  - add `sleep 10` to wait for processor to start
 - `glue/settings/ivysettings-public.xml`:
   - set public root to `https://repo1.maven.org/maven2` 
 - `glue/settings/ivysettings-default-chain.xml`:
