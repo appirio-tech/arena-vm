@@ -30,6 +30,7 @@ sed -i 's/name="spring-context" rev="4.1.0.RELEASE"/name="spring-context" rev="5
 
 sed -i 's/@database.server@=localhost/@database.server@=arena-informix/' ~/dev/app/token.properties
 sed -i 's/@database.dwserver@=localhost/@database.dwserver@=arena-informix/' ~/dev/app/token.properties
+sed -i 's/@database.DWSERVER@=datawarehouse_tcp/@database.DWSERVER@=informixoltp_tcp/' ~/dev/app/token.properties
 sed -i 's/@ldapHost@=localhost/@ldapHost@=arena-ldap/' ~/dev/app/token.properties
 sed -i 's/@farm.mysql.host@=localhost/@farm.mysql.host@=arena-mysql/' ~/dev/app/token.properties
 

@@ -4,7 +4,7 @@ services:
     image: "appiriodevops/tc-database-scripts:latest"
     platform: linux/amd64
     hostname: informix.cloud.topcoder.com
-    container_name: arena-db
+    container_name: arena-informix
     environment:
       LICENSE: accept
     ports:
