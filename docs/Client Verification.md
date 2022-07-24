@@ -10,11 +10,11 @@ Refer to https://youtu.be/Tdq16Pn8IsU for details.
 
    - When create contest, enter **Name**, set the **End Date** to 2 days later
 
-     ![create-contest](/Users/mac/GitHub/arena-vm/docs/screenshots/create-contest.png)
+     ![create-contest](screenshots/create-contest.png)
 
    - When assign round problems, need set **Division**, **Difficulty** and **Points**:
 
-     ![round-problems](/Users/mac/GitHub/arena-vm/docs/screenshots/round-problems.png)
+     ![round-problems](screenshots/round-problems.png)
 
    - When set round segments, set following values:
 
@@ -24,15 +24,15 @@ Refer to https://youtu.be/Tdq16Pn8IsU for details.
       Coding Start = {current_time} + 10 minutes
      ```
 
-     ![round-segments](/Users/mac/GitHub/arena-vm/docs/screenshots/round-segments.png)
+     ![round-segments](screenshots/round-segments.png)
 
    - Then click menu **File -> Load Round Access** and select the round you just created:
 
-     ![select-round](/Users/mac/GitHub/arena-vm/docs/screenshots/select-round.png)
+     ![select-round](screenshots/select-round.png)
 
    - Then click menu **Run contest -> Before contest -> Load round**, then click **Yes** button:
 
-     ![load-round](/Users/mac/GitHub/arena-vm/docs/screenshots/load-round.png)
+     ![load-round](screenshots/load-round.png)
 
 2. After about 5 minutes the Registration phase starts. Login to arena client and register to contest, refer to https://youtu.be/k0nfujuWQtI for details
 
@@ -47,7 +47,7 @@ Refer to https://youtu.be/Tdq16Pn8IsU for details.
    p = 2.0
    ```
 
-   ![assign-rooms](/Users/mac/GitHub/arena-vm/docs/screenshots/assign-rooms.png)
+   ![assign-rooms](screenshots/assign-rooms.png)
 
 4. After about 10 minutes the Coding phase starts. Use arena client to enter room and compete, refer to https://youtu.be/qT8fjyc4__M for details:
 
