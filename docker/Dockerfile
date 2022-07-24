@@ -35,6 +35,7 @@ ENV ANT_OPTS=-Xmx1024m
 ENV PATH=$JAVA_HOME/bin:$ANT_HOME/bin:/opt/apache-maven-3.2.5/bin:$PATH
 ENV BUILD_COMPILE_SOURCE=1.6
 
+RUN mkdir -p /home/apps/docker
 COPY . /home/apps/docker/
 
 CMD ["sleep", "infinity"]
