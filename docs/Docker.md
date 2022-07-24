@@ -109,7 +109,7 @@ sh arena.sh
 
 
 
-Refer to [Client Verification.md](Client Verification.md) for verification details.
+Refer to [Client Verification.md](./Client Verification.md) for verification details.
 
 
 
