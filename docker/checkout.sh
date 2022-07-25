@@ -19,9 +19,6 @@ git clone git@github.com:appirio-tech/arena-vm.git
 cd ~/dev/arena-vm
 ./checkout-all.sh dev
 
-cd ~/dev/app
-git checkout liuliquan
-
 # fix files for docker
 sed -i '10i <dependency org="commons-codec" name="commons-codec" rev="1.10" transitive="false"/>' ~/dev/farm-server/ivy.xml
 sed -i '54i <dependency org="com.amazonaws" name="aws-java-sdk" rev="1.8.6"><artifact name="aws-java-sdk" type="jar"/></dependency>' ~/dev/farm-server/ivy.xml
