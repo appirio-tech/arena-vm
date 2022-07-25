@@ -55,6 +55,19 @@ docker exec -it arena-app bash -c "cd /home/apps/dev/arena-vm && ./start-service
 
 
 
+The server log files:
+
+- JBOSS log: /home/apps/jboss-4.0.5.GA/server/default/log/server.log
+- MPSQAS server log: /home/apps/app/scripts/mpsqasserver-<time>.log
+- Admin server log: /home/apps/app/scripts/adminServer-<time>.log
+- Arena server log: /home/apps/app/scripts/server-<time>.log
+- WebSocket server log: /home/apps/app/scripts/webSocketServer-<time>.log
+- nohup output:
+  - /home/apps/app/scripts/nohup.out
+  - /home/apps/processor/deploy/bin/nohup.out
+
+
+
 ### Verify Clients
 
 At first add `127.0.0.1 tc.cloud.topcoder.com` to your hosts.
