@@ -1,0 +1,39 @@
+BOOT_ENV=$1
+
+echo "BOOT_ENV=$BOOT_ENV"
+
+# read boot-env config to get JAVA_OPTS
+. $BOOT_ENV
+export JAVA_OPTS
+
+chown ec2-user:ec2-user -R /home/ec2-user/app
+
+echo Downloading keystore
+echo aws s3 cp s3://tc-deploy/arena/${ENV_PREFIX}/app/TC.${ENV_PREFIX}.ldap.keystore /home/ec2-user/app/scripts/TC.cloud.ldap.keystore
+aws s3 cp s3://tc-deploy/arena/${ENV_PREFIX}/app/TC.${ENV_PREFIX}.ldap.keystore /home/ec2-user/app/scripts/TC.cloud.ldap.keystore
+aws s3 cp s3://tc-deploy/arena/${ENV_PREFIX}/app/security.keystore /home/ec2-user/app/jboss-4.0.5.GA/server/default/conf
+aws s3 cp s3://tc-deploy/arena/${ENV_PREFIX}/app/Util.properties /home/ec2-user/app/jboss-4.0.5.GA/server/default/conf/com/topcoder/security/
+aws s3 cp s3://tc-deploy/arena/${ENV_PREFIX}/app/LDAP.properties /home/ec2-user/app/resources
+cp /home/ec2-user/app/resources/LDAP.properties /home/ec2-user/app/jboss-4.0.5.GA/server/default/conf/
+cp /home/ec2-user/app/jboss-4.0.5.GA/server/default/conf/com/topcoder/security/Util.properties /home/ec2-user/app/resources/com/topcoder/security/
+cp /home/ec2-user/app/scripts/TC.cloud.ldap.keystore /home/ec2-user/app/jboss-4.0.5.GA/bin/
+
+echo "modifiying /etc/resolv.conf"
+# need this b/c jboss is trying to resolve the hostname
+echo -e "search ec2.internal topcoder.com" | tee -a /etc/resolv.conf
+
+# need to add our IP to /etc/hosts
+IP=$(ifconfig eth0 | awk -F"[: ]+" '/inet addr:/ {print $4}')
+echo "IP=$IP"
+echo -e "$IP\tarena-app.topcoder.com" | tee -a /etc/hosts
+
+# start mysql
+service mysqld start
+sleep 10
+
+export JBOSS_JAVA_OPTS="-Xms4096m"
+
+cd /home/ec2-user/app/scripts
+su ec2-user -c './start-app-processes.sh'
+
+exit

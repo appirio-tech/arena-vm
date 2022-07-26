@@ -1,0 +1,9 @@
+#! /bin/sh
+
+# assume /app, but allow environment value to override
+TOPCODERROOT=${TOPCODERROOT:-/app}
+
+echo moving to topcoder root $TOPCODERROOT
+cd $TOPCODERROOT
+
+java -jar lib/bin/cache.jar "$*"

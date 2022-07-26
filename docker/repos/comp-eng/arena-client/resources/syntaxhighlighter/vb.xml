@@ -1,0 +1,92 @@
+<language name="VB">
+    <styles>
+        <style name="KEYWORD_STYLE">
+            <color>
+                <red>0</red>
+                <green>0</green>
+                <blue>255</blue>
+            </color>
+            <bgcolor>
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
+            </bgcolor>
+            <font>
+                <family>Courier New</family>
+                <size>14</size>
+            </font>
+        </style>
+        <style name="BLOCK_STYLE">
+            <color>
+                <red>0</red>
+                <green>128</green>
+                <blue>0</blue>
+            </color>
+            <bgcolor>
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
+            </bgcolor>
+            <font>
+                <family>Courier New</family>
+                <style>ITALIC</style>
+                <size>14</size>
+            </font>
+        </style>
+        <style name="LITERAL_STYLE">
+            <color>
+                <red>128</red>
+                <green>0</green>
+                <blue>128</blue>
+            </color>
+            <bgcolor>
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
+            </bgcolor>
+            <font>
+                <family>Courier New</family>
+                <style>ITALIC</style>
+                <size>14</size>
+            </font>
+        </style>
+        <style name="DEFAULT_STYLE">
+            <color>
+                <red>200</red>
+                <green>95</green>
+                <blue>22</blue>
+            </color>
+            <bgcolor>
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
+            </bgcolor>
+            <font>
+                <family>Courier New</family>
+                <size>14</size>
+            </font>
+        </style>
+    </styles>
+    <categories>
+
+        <category name="blockComment" precedence="0" style="BLOCK_STYLE">
+            <patternMatchRule>
+                <pattern>('|REM )[^\n]*</pattern>
+            </patternMatchRule>
+        </category>
+        <category name="literal" precedence="0" style="LITERAL_STYLE">
+            <patternMatchRule>
+                <pattern>"([^"\\\n]|\\[^\n])*("|\n)?</pattern>
+            </patternMatchRule>
+        </category>
+        <category name="keywords" precedence="0" style="KEYWORD_STYLE">
+            <wordMatchRule> <wordlist>AddHandler,AddressOf,Alias,And,AndAlso,Ansi,As,Assembly,Auto,Boolean,ByRef,Byte,ByVal,Call,Case,Catch,CBool,CByte,CChar,CDate,CDbl,CDec,Char,CInt,Class,CLng,CObj,Const,CShort,CSng,CStr,CType,Date,Decimal,Declare,Default,Delegate,Dim,DirectCast,Do,Double,Each,Else,ElseIf,End,EndIf,Enum,Erase,Error,Event,Exit,False,Finally,For,Friend,Function,Get,GetType,GoSub,GoTo,Handles,If,Implements,Imports,In,Inherits,Integer,Interface,Is,Let,Lib,Like,Long,Loop,Me,Mod,Module,MustInherit,MustOverride,MyBase,MyClass,Namespace,New,Next,Not,Nothing,NotInheritable,NotOverridable,Object,On,Option,Optional,Or,OrElse,Overloads,Overridable,Overrides,ParamArray,Preserve,Private,Property,Protected,Public,RaiseEvent,ReadOnly,ReDim,RemoveHandler,Resume,Return,Select,Set,Shadows,Shared,Short,Single,Static,Step,Stop,String,Structure,Sub,SyncLock,Then,Throw,To,True,Try,TypeOf,Unicode,Until,Variant,Wend,When,While,With,WithEvents,WriteOnly,Xor</wordlist>
+            </wordMatchRule>
+        </category>
+        <category name="default" precedence="2" style="DEFAULT_STYLE">
+            <patternMatchRule>
+                <pattern>.+</pattern>
+            </patternMatchRule>
+        </category>
+    </categories>
+</language>

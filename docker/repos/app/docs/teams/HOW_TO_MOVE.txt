@@ -1,0 +1,496 @@
+This document contains complete (hopefully) instructions on how to get the teams
+code working in Production.
+
+It is the pretty much the exact procedure I used to get things going in QA, with
+some added comments which should help if there are differences between QA and 
+Production.
+
+0. BRIEF OVERVIEW:
+
+   I. APP SIDE (for Contest Stuff)
+
+      1. Update the Code
+      2. Install gSOAP
+      3. Install JWSDP (Java Web Services Developer Pack - Includes Tomcat)
+      4. Update Properties Files - WebServiceGenerator.properties, 
+         JavaDocGenerator.properties, Tester.policy)
+      5. Update Classpaths - add the jars needed by web services for the testers
+      6. Update the Database
+      7. Bounce Everything (Contains instructions for starting Tomcat and the 
+         Web Service Generator)
+
+   II. WEB SIDE (for Java Doc Servlet)
+
+      8.  Update the Code
+      9.  Update Weblogic Properties
+      10.  Bounce Weblogic
+
+********************************************************************************
+I. APP SIDE
+********************************************************************************
+
+1. UPDATE THE CODE:
+
+   On the listener server:
+
+      cd APP_BASE/app (In QA, this was "cd /export/home/apps/app")
+      rm -r src
+      cvs update build.xml
+      cvs update -dP src
+      cvs update cpp
+      cvs update lib
+      cvs update scripts/services/tester.policy
+      cvs update resources/WebServiceGenerator.properties
+      ant clean compile 
+   
+   
+   On the application server:
+   
+      cd APP_BASE/app (In QA, this was "cd /app")
+      rm -r src
+      cvs update build.xml
+      cvs update -dP src
+      cvs update cpp
+      cvs update lib
+      cvs update scripts/services/tester.policy
+      cvs update resources/WebServiceGenerator.properties
+      ant clean build-ejbs compile-cpp
+
+      
+   On the tester / compiler servers:
+   
+      cd APP_BASE/app (In QA, the application server is treated as the tester 
+                       / compiler server)
+      rm -r src
+      cvs update build.xml
+      cvs update -dP src
+      cvs update cpp
+      cvs update lib
+      cvs update scripts/services/tester.policy
+      cvs update resources/WebServiceGenerator.properties
+      ant clean compile compile-cpp
+
+   On the windows server:
+
+      cd APP_BASE
+      setEnv (do you have to do this in prod?)
+      cd app
+      ant stop-csharp
+      rm -r src
+      update build.xml
+      cvs update -dP src
+      cvs update cpp
+      cvs update lib
+      cvs update scripts/services/tester.policy
+      cvs update resources/WebServiceGenerator.properties
+      ant clean compile build-csharp
+
+2. INSTALL GSOAP:
+
+   gSOAP must be installed on the machine on which the web service generator 
+   will run and on which the JWSDP (Tomcat) is installed.
+
+   In Dev we were running this on the listener (a SunOS box) and the version of 
+   gSOAP we were using was the version for SunOS, so I recommend putting gSOAP 
+   on the SunOS listener machine in production.  The web service generator isn't 
+   used too much, so the amount of resources it uses is pretty negligible. 
+  
+   The installation is just a matter of untaring a tar file. 
+   To install, pick a base directory, I'll call it GSOAP_BASE (In QA, I picked 
+   /export/home/apps).  Put the soapcpp.sun7.2.1.2.tar in this base directory.  
+   This tar file can be found in /export/home/coresys/packages on 172.16.210.55.
+      cd GSOAP_BASE 
+      ftp 172.16.210.55 (user: coresys / sanford)
+         binary
+         cd packages
+         get soapcpp.sun7.2.1.2.tar
+         quit
+   Untar the file.
+      tar xvf soapcpp.sun7.2.1.2.tar
+
+   Note soapcpp (the executable we use) is now installed in 
+   GSOAP_BASE/soapcpp-sun7-2.1.2 (/export/home/apps/soapcpp-sun7-2.1.2 in QA).
+   Remember this directory for later (4. Update Properties Files)
+
+3. INSTALL JWSDP (JAVA WEB SERVICES DEVELOPER PACK)
+
+   In Dev and QA, we had this installed on the listener (a SunOS box), so I 
+   recommend doing the same in Production.
+
+   Note the JWSDP includes Tomcat.
+
+   To install, pick a base directory, I'll call it JWSDP_BASE (In QA, I picked 
+   /export/home/apps).  Put the jw.jar file in this base directory.  This jar 
+   file can be found in /export/home/coresys/packages on 172.16.210.55.
+      cd JWSDP_BASE
+      ftp 172.16.210.55 (user: coresys / sanford)
+         binary
+         cd packages
+         get jw.jar
+         quit
+   Unjar the file.
+      jar xvf jw.jar
+
+   Add a manager user for the Web Service Generator:
+      cd JWSDP_BASE/jwsdp-1_0/conf
+      edit tomcat-users.xml
+      Replace the coresys/sanford user/password with the user/password of the 
+      user who will start Tomcat. (In QA, apps/rapid).
+      Add the following line:
+      <user username="TopCoder" password="WebServiceGenerator" roles="manager"/>
+
+
+4. UPDATE PROPERTIES FILES
+
+   On the box which which will be running the Web Service Generator and on 
+   which you installed gSOAP and the JWSDP, update the 
+   APP_BASE/app/resources/WebServiceGenerator.properties resource file.
+
+      Set UNIX_TEMP_LOCATION to be APP_BASE/app/webservices/generation 
+         (In QA, /export/home/apps/app/webservices/generation)
+
+      Set SOAPCPP_FULL_PATH to be GSOAP_BASE/soapcpp-sun7-2.1.2/soapcpp 
+         (In QA, /export/home/apps/soapcpp-sun7-2.1.2/soapcpp2)
+   
+      Set WSCOMPILE_FULL_PATH to be JWSDP_BASE/jwsdp-1_0/bin/wscompile.sh 
+         (In QA, /export/home/apps/jwsdp-1_0/bin/wscompile.sh)
+   
+      Set WSDEPLOY_FULL_PATH to be JWSDP_BASE/jwsdp-1_0/bin/wsdeploy.sh 
+         (In QA, /export/home/apps/jwsdp-1_0/bin/wsdeploy.sh)
+   
+      Set WAR_STORAGE_LOCATION to be JWSDP_BASE/jwsdp-1_0/webservicewars/ 
+         (In QA, /export/home/apps/jwsdp-1_0/webservicewars/)
+
+      Set REMOTE_SERVER to be the internal ip of the Windows Server 
+         (In QA, 172.16.20.154).
+   
+      Set REMOTE_PORT to be the port the Windows CSharp Web Service Generator 
+         runs on (In QA, 5018).
+
+  On all boxes except the windows box, (listener server, application server, 
+  compiler / tester servers), update the 
+  APP_BASE/app/resources/WebServiceGenerator.properties resource file.
+
+      Set WS_JAXRPC_RI_JAR to be APP_BASE/app/lib/jars/jaxrpc-ri.jar 
+         (In QA, /export/home/apps/app/lib/jars/jaxrpc-ri.jar on listener,
+                 /app/lib/jars/jaxrpc-ri.jar on application)
+
+      Set WS_JAXRPC_API_JAR to be APP_BASE/app/lib/jars/jaxrpc-api.jar 
+         (In QA, /export/home/apps/app/lib/jars/jaxrpc-api.jar on listener,
+                 /app/lib/jars/jaxrpc-api.jar on application)
+
+      Set CPP_SOAP_HEADER_FILE to be APP_BASE/app/lib 
+        (In QA, /export/home/apps/app/lib on listener, /app/lib on application). 
+         Note this is a directory and not a file.
+
+      Set CPP_SOAP_OBJECT_FILE to be APP_BASE/app/lib/stdsoap2.o 
+         (In QA, /export/home/apps/app/lib/stdsoap2.o on listener,
+                 /app/lib/stdsoap2.o on application).
+
+   On all boxes (listener server, application server, compiler / tester servers,
+   windows server), update the 
+   APP_BASE/app/resources/WebServiceGenerator.properties resource file.
+
+      Set TOMCAT_SERVER to be the internal address of the machine on which you 
+      installed the JWSDP (In QA, 172.16.212.52).
+
+      Set TOMCAT_PORT to be 8080.  (If port 8080 is used for anything else, 
+      replace 8080 in JWSDP_BASE/jwsdp-1_0/conf/server.xml with another port 
+      and put this new value in the properties files).
+
+   On the windows server, update the APP_BASE/app/WebServiceGenerator.properties
+   resource file.
+
+      Set WINDOWS_TEMP_LOCATION to be where you want the temporary files to go 
+         during web service generation.  
+         (In QA, C:/topcoder/webservices/generation/)
+
+      Set WSDLEXE_FULL_PATH to be where the wsdl executable is.  
+         (In QA, C:/Program Files/Microsoft.NET/FrameworkSDK/Bin/wsdl).
+
+   On the application server, update the 
+   APP_BASE/app/JavaDocGeneration.properties resource file.
+
+      Set sourceBaseDir to be APP_BASE/app/javadocs/input/ 
+         (In QA, /app/javadocs/input)
+
+      Set outputDir to be APP_BASE/app/javadocs/output/ 
+         (In QA, /app/javadocs/output)
+
+   On the tester / compiler servers, update the 
+   APP_BASE/app/scripts/services/tester.policy file.
+   Change the ip address in the SocketPermission line to be the internal ip 
+   address of the machine running Tomcat.
+
+   On the tester / compiler servers, make sure the
+   APP_BASE/app/resources/Tester.properties has the right base specified.
+   (To make sure you use the newly compiled sandbox).
+
+5.  UPDATE CLASSPATHS
+
+    On all boxes except the windows server (listener server, application server,
+    compiler / tester servers), update the .profile directories of the users who
+    start the Listeners, Web Service Generator, Weblogic, Testers and Compilers
+    and add the following jar files in this order to the end of the CLASSPATH:
+      
+      APP_BASE/app/lib/jars/jaxrpc-ri.jar
+      APP_BASE/app/lib/jars/jaxrpc-api.jar
+      APP_BASE/app/lib/jars/saaj-api.jar
+      APP_BASE/app/lib/jars/saaj-ri.jar  (In QA, APP_BASE is /export/home/apps 
+         on the listener server and / on the application server)
+
+   Log out and back in so the new classpath takes effect.
+
+
+6.  UPDATE THE DATABASE
+
+   This SQL adds the missing tables to the DB:
+
+      BEGIN WORK;
+
+      CREATE TABLE team_type_lu (
+          team_type_id DECIMAL(3,0) NOT NULL,
+          team_type_desc VARCHAR(50),
+          PRIMARY KEY (team_type_id));
+      
+      CREATE TABLE team (
+          team_id DECIMAL(10, 0) NOT NULL,
+          team_name VARCHAR(50, 0),
+          team_type DECIMAL(3, 0),
+          PRIMARY KEY (team_id),
+          FOREIGN KEY (team_type)
+              REFERENCES team_type_lu(team_type_id)
+              CONSTRAINT teamtypelu_teamtype_fk);
+      
+      CREATE TABLE team_coder_component_xref (
+          team_id DECIMAL(10, 0) NOT NULL,
+          coder_id DECIMAL(10, 0) NOT NULL,
+          component_id DECIMAL(10, 0) NOT NULL,
+          round_id DECIMAL(10, 0) NOT NULL,
+          active DECIMAL(3, 0),
+          time_stamp DATETIME YEAR TO FRACTION(3),
+          PRIMARY KEY (team_id, coder_id, component_id, round_id),
+          FOREIGN KEY (team_id)
+              REFERENCES team(team_id)
+              CONSTRAINT team_teamid_fk,
+          FOREIGN KEY (coder_id)
+              REFERENCES coder(coder_id)
+              CONSTRAINT coder_coderid_fk,
+          FOREIGN KEY (component_id)
+              REFERENCES component(component_id)
+              CONSTRAINT component_componentid_fk,
+          FOREIGN KEY (round_id)
+              REFERENCES round(round_id)
+              CONSTRAINT round_roundid_fk);
+      
+      CREATE TABLE team_coder_xref (
+          team_id DECIMAL(10, 0) NOT NULL,
+          coder_id DECIMAL(10, 0) NOT NULL,
+          captain DECIMAL(10, 0),
+          PRIMARY KEY(team_id, coder_id),
+          UNIQUE (coder_id),
+          FOREIGN KEY (team_id)
+              REFERENCES team(team_id)
+              CONSTRAINT team_teamid_2_fk,
+          FOREIGN KEY (coder_id)
+              REFERENCES coder(coder_id)
+              CONSTRAINT coder_coderid_2_fk);
+      
+      CREATE TABLE problem_web_service_xref (
+          problem_id DECIMAL(10, 0) NOT NULL,
+          web_service_id DECIMAL(10, 0) NOT NULL,
+          PRIMARY KEY (problem_id, web_service_id),
+          FOREIGN KEY (problem_id)
+              REFERENCES problem(problem_id)
+              CONSTRAINT problem_problemid_fk,
+          FOREIGN KEY (web_service_id)
+              REFERENCES web_service(web_service_id)
+              CONSTRAINT webservice_webserviceid_fk);
+
+      CREATE TABLE web_service_java_doc (
+            web_service_java_doc_id DECIMAL(10, 0),
+            web_service_id DECIMAL(10, 0),
+            path VARCHAR(255),
+            content TEXT,
+            PRIMARY KEY(web_service_java_doc_id),
+            FOREIGN KEY (web_service_id)
+                REFERENCES web_service(web_service_id)
+                CONSTRAINT webservice_webserviceid_2_fk);
+
+      COMMIT;
+
+   Also, make sure you have all these tables.  They were in QA, so they are 
+   probably already in Production:
+      web_service
+      web_service_compilation
+      web_service_file_type
+      web_service_source_file
+
+   This SQL adds the missing rows to the look up tables:
+
+      BEGIN WORK;
+
+      INSERT INTO web_service_file_type (web_service_file_type_id, description)
+          VALUES (1, 'Web Service Interface');
+      INSERT INTO web_service_file_type (web_service_file_type_id, description)
+          VALUES (2, 'Web Service Implementation');
+      INSERT INTO web_service_file_type (web_service_file_type_id, description)
+          VALUES (3, 'Web Service Helper');
+      INSERT INTO web_service_file_type (web_service_file_type_id, description)
+          VALUES (4, 'Web Service Client Header');
+      INSERT INTO web_service_file_type (web_service_file_type_id, description)
+          VALUES (5, 'Web Service Client Source');
+      INSERT INTO web_service_file_type (web_service_file_type_id, description)
+          VALUES (6, 'Web Service Client Object');
+      INSERT INTO web_service_file_type (web_service_file_type_id, description)
+          VALUES (7, 'Web Service User Helper File');
+      
+      INSERT INTO room_type (room_type_id, room_type_desc)
+          VALUES (6, 'Team Contest');
+      INSERT INTO room_type (room_type_id, room_type_desc)
+          VALUES (7, 'Team Practice');
+      INSERT INTO room_type (room_type_id, room_type_desc)
+          VALUES (8, 'Team Admin');
+      
+      INSERT INTO round_type_lu (round_type_id, round_type_desc)
+          VALUES (7, 'Team Single Round Match');
+      INSERT INTO round_type_lu (round_type_id, round_type_desc)
+          VALUES (8, 'Team Tournament Round');
+      INSERT INTO round_type_lu (round_type_id, round_type_desc)
+          VALUES (9, 'Team Practice Round');
+      
+      INSERT INTO team_type_lu (team_type_id, team_type_desc)
+          VALUES (1, 'Permanent Team');
+      INSERT INTO team_type_lu (team_type_id, team_type_desc)
+          VALUES (2, 'Pick Up Team');
+      INSERT INTO team_type_lu (team_type_id, team_type_desc)
+          VALUES (3, 'Practice Team');
+      
+      INSERT INTO component_type_lu (component_type_id, component_type_desc)
+          VALUES (2, 'Supporting Component');
+            
+      INSERT INTO component_status_lu (component_status_id, status_desc)
+          VALUES (111, 'Reassigned');
+      
+      INSERT INTO sequence_object (id, current_value, name)
+          VALUES (40, 10, 'WEB_SERVICE_SEQ');
+      INSERT INTO sequence_object (id, current_value, name)
+          VALUES (41, 100, 'WEB_SERVICE_SOURCE_FILE_S');
+      INSERT INTO sequence_object (id, current_value, name)
+          VALUES (90, 100, 'WEB_SERVICE_JAVA_DOC_SEQ');
+      
+      COMMIT;
+
+   Also, you should probably create a team for each of the Admins so they
+   can use the team admin rooms.  Create a team by inserting a record into 
+   the team table and team_coder_xref table:
+
+      INSERT INTO team (team_id, team_name, team_type) 
+          VALUES(123, 'gt494 Admin Team', 1);
+      INSERT INTO team_coder_xref (team_id, coder_id, captain) 
+          SELECT 123, user_id, 1 FROM user WHERE handle = 'gt494';
+
+7.  BOUNCE EVERYTHING
+
+   (Also contains instructions for starting web service generator & tomcat)
+
+   First, kill everything:
+
+      On listener:
+         APP_BASE/app/scripts/listener.sh stop <port>   
+         APP_BASE/app/scripts/adminListener.sh stop <port>   
+         APP_BASE/app/scripts/mpsqasListener.sh stop <port>   
+
+      On application server:
+         WEB_LOGIC_HOME/stop*
+
+      On tester / compiler servers:
+          APP_BASE/app/scripts/services/killcompilers.sh
+          APP_BASE/app/scripts/services/killtesters.sh
+
+      On windows server:
+          cd APP_BASE/app/
+          ant stop-csharp (this should already be done)
+
+      Maybe do some "ps -augxww | grep java" to make sure everything is down
+
+   Repackage the applets:
+
+      Somewhere,
+          ant package-MPSQASApplet
+          ant package-ContestApplet
+      And put them wherever you put the MPSQAS and Contest Applet jars.
+
+   Now, bring everything up while saying prayers:
+
+      On application server, 
+         WEB_LOGIC_HOME/start
+
+      On listener:
+         Start Tomcat:
+            cd JWSDP_BASE/jwsdp-1_0/bin
+            chmod a+x *.sh 
+            ./startup.sh  
+            (Logs are in JWSDP_BASE/jwsdp-1_0/logs)
+         Start listeners:
+            cd APP_BASE/app/scripts
+            ./mpsqasListener.sh start <port1>
+            ./listener.sh start <port2> d <port3> d <port4> d
+            ./adminListener.sh start <port5> <ip>:<port3>  (Where ip is local 
+               ip of listener - 'localhost' doesn't work)
+            In QA, port1 = 5037, port2 = 5001, port3 = 5002, port4 = 5006, 
+               port5 = 5003, ip = 172.16.210.56
+         Start Web Service Generator:
+            cd APP_BASE/app/scripts/services
+            chmod a+x webservice.sh
+            ./webservice.sh start 
+
+      On compiler / tester servers:
+          cd APP_BASE/app/scripts/services
+          ./compiler.sh X
+          ./tester.sh X
+
+      On Windows server:
+         Start CSharp tester:
+            cd APP_BASE
+            setEnv 
+            cd app
+            ant start-csharp
+         Start CSharp Web Service server:
+            start /B rmiregistry 5018
+            start /B java com.topcoder.server.webservice.remoteserver.CSServer
+
+
+********************************************************************************
+II. WEB SIDE
+********************************************************************************
+
+The web side is much less involved, just have to add a Servlet and EJB to deploy.
+
+8.  UPDATE THE CODE
+
+   On the web servers:
+      cd WEB_BASE/web (In Dev, WEB_BASE is /usr)
+      cvs update build.xml
+      cvs update src
+      ant package-EJB-JavaDocServicesBean
+      ant deploy
+
+9.  UPDATE WEBLOGIC PROPERTIES
+
+   On the web servers:
+      cd WEBLOGIC_HOME/tc_cluster
+      Edit weblogic.properties
+      Add to the weblogic.ejb.deploy property:
+         WEB_BASE/web/build/ejb_jars/JavaDocServicesBean.jar 
+            (In Dev, WEB_BASE is /usr)
+      Then add the line:
+        weblogic.httpd.register.javadocs=com.topcoder.web.servlet.JavaDocServlet
+
+10.  BOUNCE WEBLOGIC
+
+    On the web servers:
+       cd WEBLOGIC_HOME
+       stop*
+       start
+

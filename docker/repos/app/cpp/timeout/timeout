@@ -1,0 +1,12 @@
+#!/usr/bin/perl
+use POSIX;
+POSIX::setpgid(0,0);
+$t=shift;
+#print STDERR "timeout: $t\ncommand: ".join(' ',@ARGV)."\n";
+$SIG{CHLD} = sub { wait; 
+		   #print STDERR "(status: $?)\n"; 
+		   exit $?/256 };
+$pid=fork; die "Couldn't fork: $!" unless defined $pid;
+exec @ARGV if $pid==0;
+select(undef,undef,undef,$t/1000);
+kill ALRM => -$$;

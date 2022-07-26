@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+        
+<hibernate-mapping>
+
+    <class name="com.topcoder.farm.controller.model.InvocationProperty" table="FARM_INVOCATION_PROPERTY"  >
+		<id name="id" column="IPR_ID" type="long">
+            <generator class="native">
+            	<param name="sequence">farm_invpro_seq</param>
+            </generator>
+		</id>
+        
+        <!--natural-id-->
+			<many-to-one name="invocation" class="com.topcoder.farm.controller.model.InvocationData" column="INV_ID" not-null="true" foreign-key="FK_FARM_INVPRO_INV" unique-key="UK_FARM_FK_FARM_INVPRO_INV" update="false"/>
+    		<property name="propertyName" type="string" column="PROP_NAME" length="30" not-null="true" unique-key="UK_FARM_FK_FARM_INVPRO_INV" update="false"/>
+		 <!--/natural-id-->
+		<many-to-one name="sharedObject" class="com.topcoder.farm.controller.model.SharedObjectImpl" column="SHO_ID"  foreign-key="FK_FARM_INVPRO_SHO" lazy="false" update="false"/>
+    </class>
+
+</hibernate-mapping>

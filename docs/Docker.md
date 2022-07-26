@@ -38,24 +38,7 @@ exit
 
 
 
-### Build & Start Arena Services
-
-```bash
-# Checkout Github repos 
-# Note your Github account need be configured with SSH key
-# Replace "/path-to-ssh-private-key" to your actual path of SSH private key
-docker exec -it arena-app bash /home/apps/docker/checkout.sh "$(cat /path-to-ssh-private-key)"
-
-# Build arena services, will take several minutes
-docker exec -it arena-app bash /home/apps/docker/build.sh
-
-# Start arena services, will take several minutes, when you see "Startup Complete" then it's finished
-docker exec -it arena-app bash -c "cd /home/apps/dev/arena-vm && ./start-services.sh"
-```
-
-
-
-The server log files:
+### The server log files:
 
 - JBOSS log: /home/apps/jboss-4.0.5.GA/server/default/log/server.log
 - MPSQAS server log: /home/apps/app/scripts/mpsqasserver-<time>.log
@@ -158,3 +141,13 @@ Refer to `docker/checkout.sh` for the file changes:
 - `arena-vm/TC.cloud.ldap.keystore`:
   - created using `TC_PROD_CA.pem` from `appiriodevops/ldap` docker image
 
+### Start Dev Docker Containers
+
+```bash
+# Goto docker folder
+cd docker
+
+# Start docker containers
+docker-compose -f docker-compose-dev.yml up -d
+
+```

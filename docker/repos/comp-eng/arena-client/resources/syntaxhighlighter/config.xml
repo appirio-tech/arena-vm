@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CMConfig>
+    <Config name = "com.topcoder.util.syntaxhighlighter">
+        <Property name="language_files">
+            <Value>syntaxhighlighter/java.xml</Value>
+            <Value>syntaxhighlighter/cpp.xml</Value>
+            <Value>syntaxhighlighter/csharp.xml</Value>
+            <Value>syntaxhighlighter/vb.xml</Value>
+            <Value>syntaxhighlighter/python.xml</Value>
+        </Property>
+	</Config>
+</CMConfig>

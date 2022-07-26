@@ -1,0 +1,19 @@
+<handle>,
+Your test for the problem <className> has completed.
+
+Example scores:
+<exampleScoresList><exampleIndex>) <exampleScore>
+</exampleScoresList>
+
+Example Results
+http://www.topcoder.com/longcontest/?module=ViewExampleResults&pm=<problemId>&rd=<roundId>&cr=<coderId>
+
+View This Solution
+http://www.topcoder.com/longcontest/?module=ViewProblemSolution&pm=<problemId>&rd=<roundId>&cr=<coderId>&subnum=<submissionNumber>&ex=1
+
+Standings
+http://www.topcoder.com/longcontest/?module=ViewStandings&rd=<roundId>
+
+Example Submission History
+http://www.topcoder.com/longcontest/?module=ViewExampleHistory&cr=<coderId>&rd=<roundId>&compid=<componentId>
+

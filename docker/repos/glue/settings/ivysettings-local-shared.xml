@@ -1,0 +1,12 @@
+<ivysettings>
+    <property name="ivy.shared.default.root" value="${ivy.local.shared.dir}/.ivy-cache" override="false" />
+    <property name="ivy.shared.default.ivy.pattern" value="${ivy.filesystem.ivy.pattern}" override="false" />
+    <property name="ivy.shared.default.artifact.pattern" value="${ivy.filesystem.artifact.pattern}" override="false" />
+    <resolvers>
+        <filesystem name="local-shared">
+            <ivy pattern="${ivy.shared.default.root}/${ivy.shared.default.ivy.pattern}" />
+            <artifact pattern="${ivy.shared.default.root}/${ivy.shared.default.artifact.pattern}" />
+        </filesystem>
+    </resolvers>
+</ivysettings>
+

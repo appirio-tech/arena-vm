@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss>
+  <enterprise-beans>
+    <session>
+      <depends>jboss.jca:service=LocalTxCM,name=InformixDS</depends>
+      <ejb-name>AdminServices</ejb-name>
+      <jndi-name>com.topcoder.server.ejb.AdminServicesHome</jndi-name>
+    </session>
+  </enterprise-beans>
+</jboss>

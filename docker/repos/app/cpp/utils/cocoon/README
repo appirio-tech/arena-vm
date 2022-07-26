@@ -1,0 +1,67 @@
+
+
+    Cocoon, Version 4.0
+    Copyright 1995-2000  Jeff Kotula
+
+
+    The Cocoon utilities are used to extract HTML documentation pages
+    from specially formatted C or C++ header files.  For a full
+    description of the usage of the utilities, lists of known problems,
+    lists of coming attractions, sample Cocoon output, etc.,
+    refer to the Cocoon website.
+
+
+    The Cocoon utilities are composed of seven executables: cobweb, keyweb,
+    anchorword, lineage, cocoon, recombine, and relativize.  The cocoon task
+    is the main routine.  It invokes the other utilities to produce the
+    documentation files.
+
+
+    The distribution consists of the following files:
+
+	README		-- this file
+	Makefile	-- what else? (Note: Some users have reported problems
+			   with the Makefile being in DOS format after
+			   unpacking onto a Unix variant. Just strip off the
+			   extra characters and everything will be fine...)
+
+			-- header files
+	cobweb.h	-- goes with cobweb.cpp
+	cocoon.h	-- goes with cocoon.cpp
+	sys.h		-- goes with sys.cpp
+	util.h		-- goes with util.cpp
+
+			-- source code
+	anchorword.cpp	-- main for the anchorword executable
+	cobweb.cpp	-- main for the cobweb executable
+	cocoon.cpp	-- main for the cocoon executable
+	custom.cpp	-- customization information handling
+	handlers.cpp	-- source code processing
+	keyweb.cpp	-- main for the keyweb executable
+	lineage.cpp	-- main for the lineage executable
+	recombine.cpp	-- main for the recombine executable
+	relativize.cpp  -- main for the relativize executable
+	sys.cpp		-- OS-dependent utilities
+	util.cpp	-- generic utilities
+
+			-- helpers
+    	coclogo.gif	-- image file for the Cocoon logo
+	srchkey.pl	-- perl script for keyword searching
+	srchform.htm	-- page for searching
+
+
+    The make file is for Unix compilers and the Visual C++ compiler for NT,
+    but could be adapted fairly easily other compilers.  All the
+    OS-dependent functions are implemented in sys.cpp, so OS ports can be
+    accomplished by modifying just the one file.  Please contact me if you
+    do a port so that I can incorporate it into the distribution.
+
+
+    To install Cocoon locally, use the make file to create the other
+    executables.  Copy all the executables to some directory on your path.
+    That's it.
+
+
+    Please contact me at jkotula@stratasys.com if you have questions/comments,
+    or hot stock tips.
+
