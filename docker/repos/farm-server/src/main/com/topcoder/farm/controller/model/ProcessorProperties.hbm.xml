@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+        
+<hibernate-mapping default-lazy="false">
+
+    <class name="com.topcoder.farm.controller.model.ProcessorProperties" table="FARM_PROCESSOR_PROPERTIES">
+        <id name="id" column="PRO_ID" type="long">
+            <generator class="native"/>
+        </id>
+        <property name="name" type="string" not-null="true" unique-key="UK_FARM_PROCESSOR">
+            <column name="NAME" length="20"/>
+        </property>
+        <property name="description" type="string">
+        	<column name="DESCRIPTION" length="50"/>
+		</property>
+        <property name="maxRunnableTasks" type="int" not-null="true" column="MAX_TASKS"/>
+        <map name="properties" 
+        		table="FARM_PROC_PROPERTIES_MAP" 
+        		order-by="PROPERTY_NAME asc">
+		    <key column="PRO_ID" foreign-key="FARMPROCPROPS_TO_PROCPROPMAP"/>
+		    <map-key type="string">
+				<column name="PROPERTY_NAME" length="50"/>
+			</map-key>
+		    <element  type="com.topcoder.farm.controller.dao.hibernate.XMLUserType">
+		    	<column name="PROPERTY_VALUE"/>
+		    </element>
+		</map>
+    </class>
+
+</hibernate-mapping>

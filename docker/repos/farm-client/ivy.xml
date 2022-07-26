@@ -1,0 +1,7 @@
+<ivy-module version="2.0">
+    <info organisation="com.topcoder.internal" module="farm-client"/>
+    <dependencies>
+        <dependency org="commons-logging" name="commons-logging" rev="1.1"/>
+        <dependency org="com.topcoder.internal" name="farm-shared" rev="latest.integration"/>
+    </dependencies>
+</ivy-module>

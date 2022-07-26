@@ -1,0 +1,36 @@
+HTTP Tunneling works by connecting to an HTTP servlet using HttpURLConnection on the client side.  By using this, any proxies should be automatically used.  The session consists of essentially two stages.  The first stage consists of the client sending a get request to the servlet with information about where the listener is.  The servlet connects to the listener during this stage.  All subsequent requests are done by POST with an id number assigned during the first stage.
+
+To set this up, you must add the following paramater to the applet/web start application:
+tunnel="http://<servlet address>?ip=<internal listener ip>+port=<listener port>"
+
+<servlet address> is the ip and path to the servlet.  Something like "www.topcoder.com/servlets/HTTPTunnelling"
+<internal listener ip> is the internal ip of the listener.  This ip is used by the servlet to connect to the listener, so it must be the internal ip
+<listener port> is just the port, 5001 for example.
+
+Also, ant does not like '=' in command line paramaters, so the client converts all ~ into =.  Similarily, windows 2K doesn't like + so all & are converted into +
+thus these are the same thing:
+
+<PARAM value="http://65.112.118.207:80/examples/servlet/com.topcoder.utilities.HTTPTunnelling.Tunnel?host=172.16.20.30+port=5008" name="tunnel">
+<PARAM value="http://65.112.118.207:80/examples/servlet/com.topcoder.utilities.HTTPTunnelling.Tunnel?host~172.16.20.30&port~5008" name="tunnel">
+
+As a result, ~ and & can not be used anywhere in the path.
+
+In setting up the servlet, jakarta should be run on port 80.  The Tunnel.java file should be compiled and put in a directory where servlets are processed.  Because it is in the com.topcoder.utilities.HTTPTunnelling package, it should be put in a sub directory of the classes directory.
+For examples, I put it in webapps/examples/WEB-INF/classes/com/topcoder/utilities/HTTPTunnelling and the path was as above.  You could also set up some other directory, or just put it the the root (webapps/ROOT/WEB-INF/classes/com/topcoder/utilties/HTTPTunnelling)
+
+Wherever you put it, you have to set the path in the tunnel parameter accordingly.
+
+One final note: The Tunnel will cause a lot of exceptions.  This is normal and is generally due simply to lost connections.
+
+Installation instructions:
+
+1) install tomcat
+2) change the port in conf/server.xml from 8080 to 80.  You can leave the other ports alone.
+3) put Tunnel.java in webapps/examples/WEB-INF/classes/com/topcoder/utilties/HTTPTunnelling
+4) compile Tunnel.java in that directory
+5) bin/startup.sh to start the server
+6) add the tunnel parameter to the html for running the applett.  The path will be http://<ip>:80/examples/servlet/com.topcoder.utilities.HTTPTunnelling.Tunnel   (?<listener info> comes after this)
+for example:
+<PARAM value="http://65.112.118.207:80/examples/servlet/com.topcoder.utilities.HTTPTunnelling.Tunnel?host=172.16.20.30+port=5008" name="tunnel">
+
+To start and stop tomcat run bin/startup.sh and bin/shutdown.sh in the tomcat directory.

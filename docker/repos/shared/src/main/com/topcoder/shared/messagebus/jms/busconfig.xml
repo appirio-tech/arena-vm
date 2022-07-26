@@ -1,0 +1,67 @@
+<!-- 
+   This is an example configuration, it should contains an example for each item
+   that can be configure using a bus configuration file. 
+ -->
+<bus>
+	<channels>
+	    <!-- Defines configuration parameters for JMS Connections, Subscribers, Publishers, etc -->
+		
+		<channel name="DEFAULT_TOPIC_CONFIG" 
+			destinationType="TOPIC" 
+			destinationName="MAIN_CHANNEL"
+	    	sharedConnection="false"
+	    	sharedConnectionName=""
+	    	selectorString=""
+	    	noLocal="false"
+	    	durableSubscriber="false"
+	    	durableSubscriberName="false">
+	    	
+	    	<!-- Properties are specific for the provider, in this case ActiveMQ -->
+	    	<property name="URL">
+	    		<value>failover:(tcp://afrodita:61616)?initialReconnectDelay=100&amp;maxReconnectDelay=5000&amp;useExponentialBackOff=false</value>
+	    	</property>
+	    	<property name="connectTimeout" value="5000"/>
+	    	
+	    </channel>
+		
+		<!-- Configuration can extend another configuration, it means it will be created
+		     using the same values of the extended configuration, and defined values will be
+		     overwritten -->
+		<channel name="JMS_TOPIC_CONFIG" extendsConfig="DEFAULT_TOPIC_CONFIG"
+	    		noLocal="false">
+	    	<selectorString>BMType='RoundEvent' AND BMBodyType LIKE 'roundevents:%' AND BMSerializationMethod='CUSTOM'</selectorString>
+	    </channel>
+
+	</channels>
+	
+	<!-- Actual configuration for listener, publisher, etc -->
+	<!-- When searching for a configuration, type, key and module must match. If module is not
+	     defined it applies to any module. --> 
+	<connectors>
+		<connector type="listener"  key="RoundEventCfg" module="" channel="JMS_TOPIC_CONFIG" />
+    	<connector type="publisher" key="RoundEventCfg" module="" channel="JMS_TOPIC_CONFIG" />
+	</connectors>
+	
+	<!-- JMSMessage mappers -->
+	<!-- Defines mapper factories to use when receiving or sending JMS messages.
+	     All attributes are Regular expressions except for mapperFactoryClass. 
+	     Messages sent through the bus, contains 3 properties defining the body of the message.
+	     messageType: The Type of message it represents, eg: RoundEvent
+	     bodyType: Defining the exact type of the body. Recommended: namespace:TypeName
+	     serializationMethod: The Serialization method used for the body. eg: CUSTOM 
+	     
+	     Mappers are searched in the same order in which them are defined. The first matching mapper
+	     will be used. Because of this, more generic mappers you be put after the less generic ones.
+	 --> 
+    <mappers>
+    	<mapper messageType="RoundEvent" 
+    			bodyType="roundevents\:.*"
+    			serializationMethod="CUSTOM" 
+    			mapperFactoryClass="com.topcoder.shared.messagebus.jms.mapper.custom.CustomSerializableMessageMapperFactory"/>
+    			
+    	<mapper messageType="RoundEvent" 
+    			bodyType="roundevents\:.*" 
+    			mapperFactoryClass="com.topcoder.shared.messagebus.jms.mapper.custom.CustomSerializableMessageMapperFactory"/>
+     
+	</mappers>
+</bus>

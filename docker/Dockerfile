@@ -34,8 +34,35 @@ ENV ANT_HOME=/opt/apache-ant-1.7.0
 ENV ANT_OPTS=-Xmx1024m
 ENV PATH=$JAVA_HOME/bin:$ANT_HOME/bin:/opt/apache-maven-3.2.5/bin:$PATH
 ENV BUILD_COMPILE_SOURCE=1.6
+ENV ARENA_BUILD_TARGET=local
 
-RUN mkdir -p /home/apps/docker
-COPY . /home/apps/docker/
+COPY --chown=apps ./repos /home/apps/dev/
 
-CMD ["sleep", "infinity"]
+RUN cd ~/dev/commons-aws \
+  && mvn clean package -DskipTests=true \
+  && mkdir -p ~/.ivy2/.ivy-cache \
+  && cp ~/dev/commons-aws/target/commons-aws-0.0.1-SNAPSHOT.jar ~/.ivy2/.ivy-cache/
+RUN cd ~/dev/app \
+  && ant clean-all clean-cache \
+  && ant publish-workspace-all \
+  && ant compile-cpp2 \
+  && ant package-AdminTool
+RUN cd ~/dev/comp-eng/arena-client \
+  && ant package-applet
+RUN cd ~/dev/comp-eng/mpsqas-client \
+  && ant package-applet
+RUN cd ~/dev/app \
+  && ant package-app-deployment
+RUN cd ~/dev/farm-server \
+  && ant -DprocessorType=-64bit package-processor-deployment
+RUN cd ~ \
+  && tar -xzvf ~/dev/app/build/artifacts/osfiles.tgz \
+  && tar -xzvf ~/dev/farm-server/build/artifacts/linux-osfiles.tgz
+RUN cp -r /home/apps/app/jboss-4.0.5.GA /home/apps/
+RUN cp ~/dev/arena-vm/security.keystore.cloud ~/app/scripts/
+
+COPY --chown=apps ./TC.cloud.ldap.keystore /home/apps/app/scripts/
+RUN sed -i 's/sqs.topcoder.com/localhost/' ~/dev/arena-vm/elasticmq-server.conf
+RUN sed -i 's/sqs.topcoder.com/localhost/' ~/dev/arena-vm/start-farm-processor.sh
+
+CMD ["/home/apps/dev/arena-vm/start-services.sh"]

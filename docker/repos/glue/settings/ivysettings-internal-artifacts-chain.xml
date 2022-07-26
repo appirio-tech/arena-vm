@@ -1,0 +1,8 @@
+<ivysettings>
+    <resolvers>
+        <chain name="internal-artifacts-chain" returnFirst="true" dual="true">
+            <resolver ref="local-chain" />
+            <resolver ref="internal-artifacts" />
+        </chain>
+    </resolvers>
+</ivysettings>

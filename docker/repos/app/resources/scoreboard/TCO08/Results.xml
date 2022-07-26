@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.4.2_01" class="java.beans.XMLDecoder"> 
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.ConnectionEvent">
+   <!--<void property="hostName"><string>172.16.1.69</string></void>-->
+   <void property="hostName"><string>localhost</string></void>
+   <void property="portNo"><int>5006</int></void>
+ </object>
+ <!--<object class="com.topcoder.client.spectatorApp.announcer.events.ConnectionEvent">
+   <void property="hostName"><string>172.16.1.24</string></void>
+   <void property="portNo"><int>5006</int></void>
+ </object>-->
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.ShowInitialEvent">
+   <void property="title"><string>Show Initial Flash Screen</string></void>
+ </object>
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.DefineContestEvent"> 
+  <void property="title"><string>Define Contest - 2008 TCO </string></void> 
+  <void property="contestID"><int>10369</int></void>
+  <void property="contestName"><string>TopCoder Open 2008</string></void>
+  <void property="logoLargeFileName"><string>\TopCoder\Work\LocalSource\app\images\com\topcoder\client\spectatorApp\tco_logo_black.gif</string></void>
+  <void property="logoSmallFileName"><string></string></void>
+  <void property="sponsorFileName"><string></string></void>
+ </object> 
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.DefineRoundEvent"> 
+  <void property="title"><string>Define Round - 2008 TCO</string></void> 
+  <void property="contestID"><int>10369</int></void>
+  <void property="roundID"><int>1000</int></void>
+  <void property="roundName"><string>Development Finals</string></void> 
+  <void property="roundType"><int>1</int></void> 
+ </object> 
+
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.ShowPlacementEvent">
+  <void property="title"><string>Show Placements 1-6</string></void> 
+  <void property="placements">
+    <array class="int" length="8">
+      <void index="0">
+        <int>1</int>
+      </void>
+      <void index="1">
+        <int>2</int>
+      </void>
+      <void index="2">
+        <int>3</int>
+      </void>
+      <void index="3">
+        <int>4</int>
+      </void>
+      <void index="4">
+        <int>5</int>
+      </void>
+      <void index="5">
+        <int>6</int>
+      </void>
+      <void index="6">
+        <int>7</int>
+      </void>
+      <void index="7">
+        <int>8</int>
+      </void>
+    </array>
+  </void>
+ </object>
+ 
+ <object class="com.topcoder.client.spectatorApp.announcer.events.AnnounceTableResultsEvent"> 
+  <void property="title"><string>Announce Review Board Result - Development Set up</string></void> 
+  <void property="roundID"><int>1000</int></void> 
+  <void property="coders"> 
+   <array class="com.topcoder.client.spectatorApp.messages.TCSCoderInfo" length="10"> 
+    <void index="0"> 
+     <object class="com.topcoder.client.spectatorApp.messages.TCSCoderInfo"> 
+      <void property="handle"><string>roma</string></void> 
+      <void property="seed"><int>1</int></void> 
+      <void property="tcRating"><int>997</int></void> 
+     </object> 
+    </void> 
+    <void index="1"> 
+     <object class="com.topcoder.client.spectatorApp.messages.TCSCoderInfo"> 
+      <void property="handle"><string>preben</string></void> 
+      <void property="seed"><int>2</int></void> 
+      <void property="tcRating"><int>819</int></void> 
+     </object> 
+    </void> 
+    <void index="2"> 
+     <object class="com.topcoder.client.spectatorApp.messages.TCSCoderInfo"> 
+      <void property="handle"><string>gladius</string></void> 
+      <void property="seed"><int>3</int></void> 
+      <void property="tcRating"><int>714</int></void> 
+     </object> 
+    </void> 
+    <void index="3"> 
+     <object class="com.topcoder.client.spectatorApp.messages.TCSCoderInfo"> 
+      <void property="handle"><string>visualage</string></void> 
+      <void property="seed"><int>1</int></void> 
+      <void property="tcRating"><int>2000</int></void> 
+     </object> 
+    </void> 
+    <void index="4"> 
+     <object class="com.topcoder.client.spectatorApp.messages.TCSCoderInfo"> 
+      <void property="handle"><string>oldbig</string></void> 
+      <void property="seed"><int>1</int></void> 
+      <void property="tcRating"><int>2201</int></void> 
+     </object> 
+    </void> 
+    <void index="5"> 
+     <object class="com.topcoder.client.spectatorApp.messages.TCSCoderInfo"> 
+      <void property="handle"><string>test2</string></void> 
+      <void property="seed"><int>1</int></void> 
+      <void property="tcRating"><int>1500</int></void> 
+     </object> 
+    </void> 
+    <void index="6"> 
+     <object class="com.topcoder.client.spectatorApp.messages.TCSCoderInfo"> 
+      <void property="handle"><string>test3</string></void> 
+      <void property="seed"><int>1</int></void> 
+      <void property="tcRating"><int>1400</int></void> 
+     </object> 
+    </void> 
+    <void index="7"> 
+     <object class="com.topcoder.client.spectatorApp.messages.TCSCoderInfo"> 
+      <void property="handle"><string>test4</string></void> 
+      <void property="seed"><int>1</int></void> 
+      <void property="tcRating"><int>1200</int></void> 
+     </object> 
+    </void> 
+    <void index="8"> 
+     <object class="com.topcoder.client.spectatorApp.messages.TCSCoderInfo"> 
+      <void property="handle"><string>test5</string></void> 
+      <void property="seed"><int>1</int></void> 
+      <void property="tcRating"><int>1000</int></void> 
+     </object> 
+    </void> 
+    <void index="9"> 
+     <object class="com.topcoder.client.spectatorApp.messages.TCSCoderInfo"> 
+      <void property="handle"><string>test6</string></void> 
+      <void property="seed"><int>1</int></void> 
+      <void property="tcRating"><int>2200</int></void> 
+     </object> 
+    </void>
+   </array> 
+  </void>
+  <void property="columnHeaders"> 
+   <array class="java.lang.String" length="4"> 
+    <void index="0"><string>pzhao</string></void> 
+    <void index="1"><string>AdamSelene</string></void> 
+    <void index="2"><string>mishagam</string></void>
+    <void index="3"><string></string></void>
+   </array> 
+  </void> 
+  <void property="scores"> 
+   <array class="[Ljava.lang.String;" length="10"> 
+    <void index="0"> 
+     <array class="java.lang.String" length="4"> 
+      <void index="0"><string>23.0</string></void> 
+      <void index="1"><string>45.0</string></void> 
+      <void index="2"><string>67.0</string></void> 
+      <void index="3"><string>89.0</string></void> 
+     </array> 
+    </void>
+    <void index="1"> 
+     <array class="java.lang.String" length="4"> 
+      <void index="0"><string>23.0</string></void> 
+      <void index="1"><string>45.0</string></void> 
+      <void index="2"><string>67.0</string></void> 
+      <void index="3"><string>89.0</string></void> 
+     </array> 
+    </void> 
+    <void index="2"> 
+     <array class="java.lang.String" length="4"> 
+      <void index="0"><string>23.0</string></void> 
+      <void index="1"><string>45.0</string></void> 
+      <void index="2"><string>67.0</string></void> 
+      <void index="3"><string>89.0</string></void> 
+     </array> 
+    </void> 
+    <void index="3"> 
+     <array class="java.lang.String" length="4"> 
+      <void index="0"><string>23.0</string></void> 
+      <void index="1"><string>45.0</string></void> 
+      <void index="2"><string>67.0</string></void> 
+      <void index="3"><string>89.0</string></void> 
+     </array> 
+    </void> 
+    <void index="4"> 
+     <array class="java.lang.String" length="4"> 
+      <void index="0"><string>23.0</string></void> 
+      <void index="1"><string>45.0</string></void> 
+      <void index="2"><string>67.0</string></void> 
+      <void index="3"><string>89.0</string></void> 
+     </array> 
+    </void> 
+    <void index="5"> 
+     <array class="java.lang.String" length="4"> 
+      <void index="0"><string>23.0</string></void> 
+      <void index="1"><string>45.0</string></void> 
+      <void index="2"><string>67.0</string></void> 
+      <void index="3"><string>89.0</string></void> 
+     </array> 
+    </void> 
+    <void index="6"> 
+     <array class="java.lang.String" length="4"> 
+      <void index="0"><string></string></void> 
+      <void index="1"><string>45.0</string></void> 
+      <void index="2"><string>67.0</string></void> 
+      <void index="3"><string>89.0</string></void> 
+     </array> 
+    </void> 
+    <void index="7"> 
+     <array class="java.lang.String" length="4"> 
+      <void index="0"><string>23.0</string></void> 
+      <void index="1"><string></string></void> 
+      <void index="2"><string>67.0</string></void> 
+      <void index="3"><string>89.0</string></void> 
+     </array> 
+    </void> 
+    <void index="8"> 
+     <array class="java.lang.String" length="4"> 
+      <void index="0"><string>23.0</string></void> 
+      <void index="1"><string>45.0</string></void> 
+      <void index="2"><string></string></void> 
+      <void index="3"><string>89.0</string></void> 
+     </array> 
+    </void> 
+    <void index="9"> 
+     <array class="java.lang.String" length="4"> 
+      <void index="0"><string>23.0</string></void> 
+      <void index="1"><string>45.0</string></void> 
+      <void index="2"><string>67.0</string></void> 
+      <void index="3"><string></string></void> 
+     </array> 
+    </void>
+   </array> 
+  </void> 
+  <void property="highlights"> 
+   <array class="boolean" length="10"> 
+    <void index="0"><boolean>true</boolean></void> 
+    <void index="1"><boolean>true</boolean></void> 
+    <void index="2"><boolean>false</boolean></void> 
+    <void index="3"><boolean>true</boolean></void> 
+    <void index="4"><boolean>false</boolean></void> 
+    <void index="5"><boolean>true</boolean></void> 
+    <void index="6"><boolean>true</boolean></void> 
+    <void index="7"><boolean>true</boolean></void> 
+    <void index="8"><boolean>false</boolean></void> 
+    <void index="9"><boolean>true</boolean></void>
+   </array> 
+  </void>
+ </object>
+ 
+</java> 

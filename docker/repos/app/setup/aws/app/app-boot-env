@@ -1,0 +1,15 @@
+JAVA_OPTS="${JVM_OPTS} -DEC2_INSTANCE=$EC2_INSTANCE_ID -DconfigurationProvider.class=com.topcoder.farm.controller.configuration.XMLConfigurationProvider -Dconfiguration.xml.url=file:///home/ec2-user/app/controller/config.xml -Djavax.net.ssl.trustStore=TC.cloud.ldap.keystore -Darena.env-prefix=$ENV_PREFIX"
+JAVA_OPTS="${JAVA_OPTS} -Darena.result-monitor-interval=20 -Darena.result-check-interval=20"
+#TOMCAT_NAME=
+#APP_WAR=
+# secure properties contain settings like oauth secret keys and appirio org passwords
+#SECURE_PROPERTIES_URL=
+# overlay jboss and app runtime files
+OS_FILES_ARCHIVE_URL="s3://tc-deploy/arena/$ENV_PREFIX/app/osfiles.tgz"
+# install 'app' folder in /home/ec2-user
+OS_FILES_ARCHIVE_ROOT="/home/ec2-user"
+OS_FILES_OWNER=ec2-user
+OS_FILES_GROUP=ec2-user
+POST_INSTALL_SCRIPT_URL="s3://tc-deploy/arena/common/app/app-post-install"
+SETUP_SPLUNK=false
+JBOSS_HOME=/home/ec2-user/app/jboss-4.0.5.GA

@@ -1,0 +1,8 @@
+<ivy-module version="2.0">
+    <info organisation="com.topcoder.internal" module="http-tunnel-client"/>
+    <dependencies>
+        <dependency org="com.topcoder.internal" name="compeng-common" rev="latest.integration"/>
+        <dependency org="com.topcoder.internal" name="concurrent" rev="latest.integration"/>
+        <dependency org="com.topcoder.internal" name="encoder" rev="latest.integration"/>
+    </dependencies>
+</ivy-module>

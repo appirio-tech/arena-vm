@@ -1,0 +1,99 @@
+<language name="C++">
+    <styles>
+        <style name="KEYWORD_STYLE">
+            <color>
+                <red>0</red>
+                <green>0</green>
+                <blue>255</blue>
+            </color>
+            <bgcolor>
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
+            </bgcolor>
+            <font>
+                <family>Courier New</family>
+                <size>14</size>
+            </font>
+        </style>
+        <style name="BLOCK_STYLE">
+            <color>
+                <red>0</red>
+                <green>128</green>
+                <blue>0</blue>
+            </color>
+            <bgcolor>
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
+            </bgcolor>
+            <font>
+                <family>Courier New</family>
+                <style>ITALIC</style>
+                <size>14</size>
+            </font>
+        </style>
+        <style name="LITERAL_STYLE">
+            <color>
+                <red>128</red>
+                <green>0</green>
+                <blue>128</blue>
+            </color>
+            <bgcolor>
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
+            </bgcolor>
+            <font>
+                <family>Courier New</family>
+                <style>ITALIC</style>
+                <size>14</size>
+            </font>
+        </style>
+        <style name="DEFAULT_STYLE">
+            <color>
+                <red>200</red>
+                <green>95</green>
+                <blue>22</blue>
+            </color>
+            <bgcolor>
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
+            </bgcolor>
+            <font>
+                <family>Courier New</family>
+                <size>14</size>
+            </font>
+        </style>
+    </styles>
+    <categories>
+
+        <category name="blockComment" precedence="0" style="BLOCK_STYLE">
+            <blockMatchRule>
+                <startDelimiter>/*</startDelimiter>
+                <endDelimiter>*/</endDelimiter>
+            </blockMatchRule>
+            <patternMatchRule>
+                <pattern>//[^\n]*</pattern>
+            </patternMatchRule>
+        </category>
+        <category name="literal" precedence="0" style="LITERAL_STYLE">
+            <patternMatchRule>
+                <pattern>"(([^"\\\n]|\\[^\n])*(\\)\s*\n)*([^"\\\n]|\\[^\n])*"|"([^"\\\n]|\\[^\n])*("|\n)?|'([^'\\\n]|\\[^\n])*('|\n)?</pattern>
+            </patternMatchRule>
+        </category>
+        <category name="keywords" precedence="0" style="KEYWORD_STYLE">
+            <wordMatchRule> <wordlist>auto,break,case,char,const,continue,default,do,double,else,enum,extern,float,for,goto,if,int,long,register,return,short,signed,sizeof,static,struct,switch,typedef,union,unsigned,void,volatile,while,asm,bool,catch,const_cast,class,delete,dynamic_cast,explicit,export,false,friend,inline,mutable,namespace,new,operator,private,protected,public,reinterpret_cast,static_cast,string,template,this,throw,true,try,typeid,typename,using,virtual,wchar_t</wordlist>
+            </wordMatchRule>
+           	<patternMatchRule>
+                <pattern>#( )*(#|define|undef|error|include|if|elif|ifdef|ifndef|else|endif|line|pragma)?\s?[^\n]*</pattern>
+            </patternMatchRule>
+        </category>
+        <category name="default" precedence="2" style="DEFAULT_STYLE">
+            <patternMatchRule>
+                <pattern>.+</pattern>
+            </patternMatchRule>
+        </category>
+    </categories>
+</language>

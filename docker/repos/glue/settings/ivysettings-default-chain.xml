@@ -1,0 +1,9 @@
+<ivysettings>
+    <resolvers>
+        <chain name="default" returnFirst="true" checkmodified="true">
+            <resolver ref="local-chain" />
+            <resolver ref="internal-chain" />
+            <resolver ref="public" />
+        </chain>
+    </resolvers>
+</ivysettings>

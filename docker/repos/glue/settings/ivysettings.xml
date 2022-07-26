@@ -1,0 +1,24 @@
+<ivysettings>
+    <settings defaultResolver="default" />
+
+    <include file="${ivy.settings.dir}/ivysettings-local-workspace.xml" />
+    <include file="${ivy.settings.dir}/ivysettings-local-user.xml" />
+    <include file="${ivy.settings.dir}/ivysettings-local-shared.xml" />
+    <include file="${ivy.settings.dir}/ivysettings-local-chain.xml" />
+
+    <include file="${ivy.settings.dir}/ivysettings-internal-artifacts.xml" />
+    <include file="${ivy.settings.dir}/ivysettings-internal-artifacts-chain.xml" />
+    <include file="${ivy.settings.dir}/ivysettings-external-artifacts.xml" />
+    <include file="${ivy.settings.dir}/ivysettings-tcs-artifacts.xml" />
+    <include file="${ivy.settings.dir}/ivysettings-tcs-artifacts-chain.xml" />
+    <include file="${ivy.settings.dir}/ivysettings-internal-chain.xml" />
+
+    <include file="${ivy.settings.dir}/ivysettings-public.xml" />
+
+    <include file="${ivy.settings.dir}/ivysettings-default-chain.xml" />
+
+    <modules>
+        <module organisation="com.topcoder.internal" name="*" resolver="internal-artifacts-chain" />
+        <module organisation="com.topcoder.tcs" name="*" resolver="tcs-artifacts-chain" />
+    </modules>
+</ivysettings>

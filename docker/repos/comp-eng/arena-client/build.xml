@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="arena-client" basedir="." default="publish-workspace">
+    <property environment="env"/>
+    <property name="root.dir" location="${basedir}/../.." />
+    <condition property="glue.dir" value="${env.BUILD_GLUE_DIR}" else="${root.dir}/glue">
+        <isset property="env.BUILD_GLUE_DIR"/>
+    </condition>
+    <condition property="build.properties-file" value="build.properties.${env.ARENA_BUILD_TARGET}" else="build.properties">
+        <isset property="env.ARENA_BUILD_TARGET"/>
+    </condition>
+    <property file="${build.properties-file}"/>
+    
+    <condition property="compile.source" value="${env.BUILD_COMPILE_SOURCE}" else="1.4">
+        <isset property="env.BUILD_COMPILE_SOURCE"/>
+    </condition>
+
+    <import file="${glue.dir}/glue-jar.xml" />
+
+	<property name="yguard.dir" location="${build.dir}/yguard"/>
+	<property name="deployment.dir" location="${basedir}/deployment"/>
+    <property name="is.need.update.jar.security" value="true" />
+    <property name="permission_type" value="all-permissions" />
+    <property name="code_base" value="${applet.codebase}" />
+	
+    <target name="yguard" depends="publish-workspace">
+        <taskdef name="yguard" classname="com.yworks.yguard.YGuardTask" classpathref="glue.lib.path" />
+
+        <mkdir dir="${yguard.dir}" />
+        <yguard>
+            <inoutpairs>
+                <fileset dir="${build.dir}">
+                    <include name="libs/*.jar" />
+                    <include name="artifacts/*.jar" />
+                </fileset>
+                <mapper>
+                    <chainedmapper>
+                        <mapper type="flatten" />
+                        <mapper type="glob" from="*.jar" to="${build.dir}/yguard/*.jar" />
+                    </chainedmapper>
+                </mapper>
+            </inoutpairs>
+            <shrink logfile="${build.dir}/shrinklog.xml">
+                <entrypointjar name="${build.artifacts.dir}/arena-client-${app.version}.jar" />
+                <keep>
+                    <!-- single entrypoint: main method -->
+                    <method class="com.topcoder.client.contestApplet.runner.generic" name="void main(java.lang.String[])" />
+                    <!--<class name="com.topcoder.netCommon.contestantMessages.NetCommonCSHandler" methods="protected" fields="private"/>-->
+                    <class methods="protected">
+                        <patternset>
+                            <include name="com.topcoder.client.contestApplet.LaunchApplet" />
+                            <include name="com.topcoder.client.contestApplet.uilogic.**" />
+                            <include name="com.topcoder.client.ui.**" />
+                            <include name="com.topcoder.client.contestApplet.widgets.**" />
+                            <include name="com.topcoder.client.contestApplet.defaults.ContestScrollBarUI" />
+                            <include name="com.topcoder.client.contestApplet.rooms.${company}LoginRoom" />
+                            <include name="com.topcoder.netCommon.contestantMessages.**" />
+                            <include name="com.topcoder.shared.netCommon.SealedSerializable" />
+                            <include name="com.topcoder.shared.problem.*" />
+                            <include name="com.topcoder.client.contestApplet.editors.Standard.**" />
+                            <include name="com.topcoder.client.render.**" />
+                            <include name="com.topcoder.client.contestant.ProblemComponentModel" />
+                            <include name="com.topcoder.client.contestApplet.common.LocalPreferences" />
+                            <include name="com.topcoder.client.contestant.impl.ProblemComponentModelImpl" />
+                            <include name="com.topcoder.netCommon.contest.Survey**" />
+                            <include name="com.topcoder.netCommon.contest.ResultDisplayType" />
+                            <include name="com.topcoder.netCommon.contest.round.**" />
+                            <include name="com.topcoder.shared.util.logging.**" />
+                        </patternset>
+                    </class>
+                    <method class="com.topcoder.client.ui.impl.xml.swing.XMLSwingDefaults"
+                        name="void set(com.topcoder.client.ui.UIManager)" />
+                </keep>
+            </shrink>
+            <!--
+                <rename mainclass="com.topcoder.client.contestApplet.runner.generic">
+                <property name="naming-scheme" value="small"/>
+                <property name="language-conformity" value="illegal"/>
+                <keep>
+                <class name="com.topcoder.client.contestApplet.LaunchApplet"/>
+                <class name="com.topcoder.client.contestApplet.rooms.TopCoderLoginRoom"/>
+                <class name="com.topcoder.client.contestApplet.common.CommonData" fields="private"/>
+                <class name="com.topcoder.client.contestApplet.editors.Standard.EntryPoint" methods="public"/>
+                <class name="com.topcoder.client.contestant.ProblemComponentModel" methods="protected"/>
+                <class name="com.topcoder.shared.language.Language" methods="protected"/>
+                <class name="com.topcoder.shared.problem.Renderer" methods="protected"/>
+                <class name="com.topcoder.client.contestApplet.common.LocalPreferences" methods="protected"/>
+                <class name="com.topcoder.shared.problem.ProblemComponent" methods="protected" />
+                <class name="com.topcoder.shared.problem.DataType" methods="protected" />
+                <class name="com.topcoder.shared.problem.TestCase" methods="protected" />
+                <method class="com.topcoder.client.ui.impl.xml.swing.XMLSwingDefaults" name="void set(com.topcoder.client.ui.UIManager)"/>
+                <method name="void configure()" class="com.topcoder.client.contestApplet.editors.Standard.EntryPoint"/>
+                <method name="void clear()" class="com.topcoder.client.contestApplet.editors.Standard.EntryPoint"/>
+                <method name="java.swing.JPanel getEditorPanel()" class="com.topcoder.client.contestApplet.editors.Standard.EntryPoint"/>
+                <method name="String getSource()" class="com.topcoder.client.contestApplet.editors.Standard.EntryPoint"/>
+                <method name="void setSource(String)" class="com.topcoder.client.contestApplet.editors.Standard.EntryPoint"/>
+                <method name="void setLanguage(java.lang.Integer)" class="com.topcoder.client.contestApplet.editors.Standard.EntryPoint"/>
+                
+                </keep>
+                <adjust replacePath="false">
+                <include name="com/topcoder/util/config/ConfigManager.properties"/>
+                </adjust>
+                <adjust replaceContent="true" replacePath="false">
+                <include name="ui/*.xml"/>
+                </adjust>
+                </rename>-->
+        </yguard>
+    </target>
+
+    <!-- Should not go here -->
+
+<!--
+    <property name="host" value="www.topcoder.com" />
+    <property name="port" value="5001" />
+    <property name="tunnel" value="http://tunnel1.topcoder.com/dummy?tunnel" />
+-->
+    <property name="company" value="TopCoder" />
+    <property name="poweredby" value="" />
+    <property name="destinationHost" value="" />
+    <property name="sponsor" value="TopCoder" />
+
+	<!-- ================================= 
+          target: package-applet              
+         ================================= -->
+    <target name="package-applet" depends="yguard" description="Package the applet into a single file">
+        <copy todir="${yguard.dir}" overwrite="true">
+            <fileset dir="${deployment.dir}" includes="**/*.bat,**/*.jnlp,**/*.sh"/>
+        	<filterset>
+        		<filter token="filename.arena-client" value="${filename.arena-client}"/>
+        		<filter token="filename.basic_type_serialization" value="${filename.basic_type_serialization}"/>
+        		<filter token="filename.client-socket" value="${filename.client-socket}"/>
+        		<filter token="filename.concurrent" value="${filename.concurrent}"/>
+        		<filter token="filename.encoder" value="${filename.encoder}"/>
+        		<filter token="filename.logging" value="${filename.logging}"/>
+        		<filter token="filename.arena-shared" value="${filename.arena-shared}"/>
+        		<filter token="filename.client-common" value="${filename.client-common}"/>
+        		<filter token="filename.compeng-common" value="${filename.compeng-common}"/>
+        		<filter token="filename.custom-serialization" value="${filename.custom-serialization}"/>
+        		<filter token="filename.http-tunnel-client" value="${filename.http-tunnel-client}"/>
+        		<filter token="filename.log4j" value="${filename.log4j}"/>
+				<filter token="applet.codebase" value="${applet.codebase}"/>
+				<filter token="applet.href" value="${applet.href}"/>
+				<filter token="applet.homepage" value="${applet.homepage}"/>
+				<filter token="applet.lib-url" value="${applet.lib-url}"/>
+				<filter token="applet.arg-hostname" value="${applet.arg-hostname}"/>
+				<filter token="applet.arg-port" value="${applet.arg-port}"/>
+				<filter token="applet.arg-tunnel" value="${applet.arg-tunnel}"/>
+        	</filterset>
+    	</copy>
+    	<zip destfile="${build.dir}/arena-client-${app.version}.zip">
+    		<zipfileset dir="${yguard.dir}"/>
+    	</zip>
+    	
+    </target>
+    
+    <target name="package-applet-zip" description="package the applet for distribution in a consistently named zip">
+    	<zip destfile="${build.dir}/arena-client-package.zip">
+    		<zipfileset dir="${yguard.dir}" includes="*.jnlp"/>
+    		<zipfileset dir="${yguard.dir}" includes="*.jar" prefix="libs"/>
+    	</zip>
+    </target>
+	
+
+    <target name="run-applet-shrunk" description="Runs the shrunk version of the arena applet"  depends="package-applet">
+        <java classname="com.topcoder.client.contestApplet.runner.generic" fork="true">
+            <jvmarg value="-Dsun.java2d.noddraw=true" />
+            <arg value="${applet.arg-hostname}" />
+            <arg value="${applet.arg-port}" />
+            <arg value="${applet.arg-tunnel}" />
+            <arg value="TopCoder" />
+            <arg value="TopCoder" />
+            <arg value="${poweredby}" />
+            <arg value="" />
+            <classpath>
+            	<fileset dir="${yguard.dir}" includes="*.jar"/>
+            </classpath>
+        </java>
+    </target>
+
+    <target name="package-client" description="packages the client for running from a script" depends="package-applet">
+       <zip destfile="${build.dir}/arena-client.zip">
+          <!-- assume variable subst has taken place here -->
+          <zipfileset dir="${yguard.dir}" includes="*.bat,*.sh"/> 
+          <!-- copy the unobfuscated jars -->
+          <zipfileset dir="${build.dir}/artifacts" includes="*.jar" prefix="libs"/>
+          <zipfileset dir="${build.dir}/libs" includes="*.jar" prefix="libs"/>
+        </zip>
+    </target>
+
+    <target name="run-applet" description="Runs the arena applet" depends="publish-workspace, run-applet-standalone" />
+
+    <target name="run-applet-standalone">
+        <java classname="com.topcoder.client.contestApplet.runner.generic" fork="true">
+            <jvmarg value="-Dsun.java2d.noddraw=true" />
+            <arg value="${applet.arg-hostname}" />
+            <arg value="${applet.arg-port}" />
+            <arg value="${applet.arg-tunnel}" />
+            <arg value="${company}" />
+            <arg value="${sponsor}" />
+            <arg value="${poweredby}" />
+            <arg value="${destinationHost}" />
+            <classpath refid="classpath.lib" />
+            <classpath refid="classpath.artifacts" />
+        </java>
+    </target>
+    
+    <target name="sign-applet-jars" description="Signs the applet jars for execution in an applet container">
+        <signjar alias="${applet.keystore-alias}" keystore="${applet.keystore}" storepass="${applet.storepass}">
+            <fileset dir="${yguard.dir}" includes="*.jar"/>
+        </signjar>
+    </target>
+</project>

@@ -1,0 +1,26 @@
+First we create a server socket (NBIO-NonblockingServerSocket, Java 1.4-ServerSocketChannel) 
+and bind it to the given port (e.g. 5001).
+Then we create an accept selector (NBIO-SelectSet, Java 1.4-Selector) and register it with this server socket.
+The accept selector can tell us (the select method) if there are incoming
+connections. If we have an incoming connection, we can call the accept
+method of the server socket class. As a result we get a socket instance (NBIO-NonblockingSocket, 
+Java 1.4-SocketChannel) that represents the connection with the client.
+
+Once we receive a new connection, we assign a unique connection id to this connection, we register it with 
+the read selector and the write selector, create read and write buffers (currently, they both have 
+the same size=100K) for the connection and then notify the processor component. The read selector can tell us 
+(the select and selectedKeys methods)
+what connections are ready for read operations. Then we try to read bytes from those connections into their 
+read buffers and check if there are enough bytes in the buffers to reconstruct an object (we can do it since
+we know the size of the object, it's written at beginning of the block). If we can reconstruct an object,
+we do it and hand it off to the processor component along with the connection id.
+
+Once we notify the processor component, we're ready to send objects to the clients. When the processor
+component hands off an object to send to given connection (identified by the unique connection id),
+we put it in the queue. Then we check with the write selector whether the given connection is ready
+for writing. If it's ready, we try to send the bytes (at some point we serialize the object using
+custom serialization classes) to this connection.
+
+If a client disconnects, we usually get a signal from the read selector, we close the socket connection
+and notify the processor. It's also possible for listener users to close a particular connection, in this
+case we close the socket connection.
