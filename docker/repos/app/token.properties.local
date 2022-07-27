@@ -55,10 +55,10 @@
 @farm.mysql.username@=farm
 @farm.mysql.password@=farmpass
 
-@ssoCookieKey@=tcsso_vm
-@ssoHashSecret@=GKDKJF80dbdc541fe829898aa01d9e30118bab5d6b9fe94fd052a40069385f5628
-@ssoDomain@=topcoder.com
-@jwtCookieKey@=tcjwt_vm
+@ssoCookieKey@=tcsso
+@ssoHashSecret@=Yb2oMAtUoJyl6LvHEnRYF1Q5u5ags7DN6PXgDPZAU9Ku68k7wTJHIDaIT0DjXYubam
+@ssoDomain@=topcoder-dev.com
+@jwtCookieKey@=tcjwt
 
 # Tokens related to TC API
 @tcApi.baseUrl@=http://tc.cloud.topcoder.com:8081

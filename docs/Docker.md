@@ -31,6 +31,7 @@ docker exec -it arena-informix bash
 
 # Fix db schema
 echo "ALTER TABLE round_room_assignment ADD short_name varchar(100)" | dbaccess informixoltp@informixoltp_tcp
+echo "UPDATE security_user SET password='7dGdrcJuCUm4M9JZLae12Q=='" | dbaccess informixoltp@informixoltp_tcp
 
 # Exit from arena-informix containter
 exit
