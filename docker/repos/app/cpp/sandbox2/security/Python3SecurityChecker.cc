@@ -31,19 +31,6 @@ using namespace std;
         return true;                  \
     } while (0);
 
-/**
- *
- * <p>
- * Changes in version 1.1 (TC Competition Engine - C++ and Python Customization Support for SRM v1.0):
- * <ol>
- *    <li>Update {@link #SyscallCheck(struct pstate_t *ps, pid_t childpid)} method to meet python2.7.5.</li>
- *    <li>Add {NR_set_tid_address}, {NR_getdents} to support python2.7.5 blist. </li>
- *    <li>Update {NR_open} to allow customization python install. </li>
- * </ol>
- * </p>
- * @author TCSASSEMBLER
- * @version 1.1
- */
 class Python3SecurityChecker : public SecurityChecker
 {
 private:
