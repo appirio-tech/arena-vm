@@ -35,7 +35,7 @@ public class CodeProcessingRequestMetadata {
 	}
 
 	public static enum LanguageType {
-		JAVA, CPP, DOTNET, PYTHON, R
+		JAVA, CPP, DOTNET, PYTHON, PYTHON3, R
 	}
 
 	public CodeProcessingRequestMetadata() {

@@ -1,3 +1,6 @@
+/*
+ * Copyright (C) - 2022 TopCoder Inc., All Rights Reserved.
+ */
 package com.topcoder.client.contestApplet.uilogic.frames;
 
 import java.awt.event.ActionEvent;
@@ -13,6 +16,19 @@ import com.topcoder.client.contestant.Contestant;
 import com.topcoder.client.ui.event.UIActionListener;
 import com.topcoder.netCommon.contest.ContestConstants;
 
+/**
+ * The MM coding frame.
+ *
+ * <p>
+ * Changes in version 1.1 (Python3 Support):
+ * <ol>
+ *      <li>Updated {@link #createButtonDef()} to remove batch test button.</li>
+ * </ol>
+ * </p>
+ *
+ * @author liuliquan
+ * @version 1.1
+ */
 public class LongCodingFrame extends CodingFrame {
     public LongCodingFrame(ContestApplet parent) {
         super(parent, parent.getCurrentUIManager().getUIPage("long_coding_frame", true));
@@ -22,6 +38,7 @@ public class LongCodingFrame extends CodingFrame {
         Map map = super.createButtonDef();
         map.remove("test_button");
         map.remove("compile_button");
+        map.remove("batch_test_button");
         map.put("example_button", new ButtonDef(new UIActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     exampleLongButtonEvent();

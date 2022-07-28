@@ -1,9 +1,27 @@
+/*
+ * Copyright (C) - 2022 TopCoder Inc., All Rights Reserved.
+ */
+
+/**
+ * <p>The logger for the sandbox.</p>
+ *
+ * <p>
+ * Changes in version 1.1 (Python3 Support):
+ * <ol>
+ *     <li>Initialize 'mutex' in global scope to avoid segment fault.</li>
+ * </ol>
+ * </p>
+ *
+ * @author liuliquan
+ * @version 1.1
+ */
+
 #include "logger.h"
 #include "mutex.h"
 #include <sstream>
 
 //note, this needs to be redone if we need multiple loggers
-Mutex* mutex = NULL;
+Mutex* mutex = new Mutex("mutex", NULL);
 
 Logger::Logger(string f) {
     filename = f;
@@ -13,7 +31,6 @@ Logger::Logger(string f) {
     stringstream s;
     s << "logger." << getpid();
 
-    mutex = new Mutex(s.str().c_str(), NULL);
     mutex->setLogger(this);
 }
 

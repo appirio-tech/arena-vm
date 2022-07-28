@@ -1,3 +1,6 @@
+/*
+ * Copyright (C) - 2022 TopCoder Inc., All Rights Reserved.
+ */
 package com.topcoder.client.contestApplet.uilogic.panels;
 
 import java.awt.Color;
@@ -16,6 +19,21 @@ import com.topcoder.client.ui.UIComponent;
 import com.topcoder.client.ui.UIPage;
 import com.topcoder.client.ui.event.UIActionListener;
 
+/**
+ * The summary configuration panel.
+ *
+ * <p>
+ * Changes in version 1.1 (Python3 Support):
+ * <ol>
+ *      <li>Added {@link #PYTHON3POINTS}, {@link #PYTHON3CHLPASSED}, {@link #PYTHON3CHLFAILED}, {@link #PYTHON3SYSPASSED}
+ *       {@link #PYTHON3SYSFAILED} fields.</li>
+ *      <li>Updated {@link #SummaryConfigurationPanel(FrameLogic, UIPage)}, {@link #savePreferences()} methods.</li>
+ * </ol>
+ * </p>
+ *
+ * @author liuliquan
+ * @version 1.1
+ */
 public class SummaryConfigurationPanel {
     /** Determines if changes are needing to be saved */
     private boolean changesPending = false;
@@ -58,6 +76,12 @@ public class SummaryConfigurationPanel {
     private static final int PYTHONCHLFAILED = CTR++;
     private static final int PYTHONSYSPASSED = CTR++;
     private static final int PYTHONSYSFAILED = CTR++;
+    
+    private static final int PYTHON3POINTS = CTR++;
+    private static final int PYTHON3CHLPASSED = CTR++;
+    private static final int PYTHON3CHLFAILED = CTR++;
+    private static final int PYTHON3SYSPASSED = CTR++;
+    private static final int PYTHON3SYSFAILED = CTR++;
 
     /** Buttons used for the different colors */
     private UIComponent[] colors = new UIComponent[CTR];
@@ -103,6 +127,11 @@ public class SummaryConfigurationPanel {
         createRow(LocalPreferences.SUMMARYPYTHONCHLFAILED, PYTHONCHLFAILED, "summary_python_challengefail_");
         createRow(LocalPreferences.SUMMARYPYTHONSYSPASSED, PYTHONSYSPASSED, "summary_python_testpass_");
         createRow(LocalPreferences.SUMMARYPYTHONSYSFAILED, PYTHONSYSFAILED, "summary_python_testfail_");
+        createRow(LocalPreferences.SUMMARYPYTHON3POINTS, PYTHON3POINTS, "summary_python3_points_");
+        createRow(LocalPreferences.SUMMARYPYTHON3CHLPASSED, PYTHON3CHLPASSED, "summary_python3_challengesuccess_");
+        createRow(LocalPreferences.SUMMARYPYTHON3CHLFAILED, PYTHON3CHLFAILED, "summary_python3_challengefail_");
+        createRow(LocalPreferences.SUMMARYPYTHON3SYSPASSED, PYTHON3SYSPASSED, "summary_python3_testpass_");
+        createRow(LocalPreferences.SUMMARYPYTHON3SYSFAILED, PYTHON3SYSFAILED, "summary_python3_testfail_");
 
         if(!CommonData.allowsJava(parentFrame.getApplet().getCompanyName())) {
             page.getComponent("summary_java_panel").setProperty("Visible", Boolean.FALSE);
@@ -118,6 +147,9 @@ public class SummaryConfigurationPanel {
         }
         if(!CommonData.allowsPython(parentFrame.getApplet().getCompanyName())) {
             page.getComponent("summary_python_panel").setProperty("Visible", Boolean.FALSE);
+        }
+        if(!CommonData.allowsPython3(parentFrame.getApplet().getCompanyName())) {
+            page.getComponent("summary_python3_panel").setProperty("Visible", Boolean.FALSE);
         }
     }
 
@@ -186,6 +218,12 @@ public class SummaryConfigurationPanel {
         saveType(LocalPreferences.SUMMARYPYTHONCHLFAILED, PYTHONCHLFAILED);
         saveType(LocalPreferences.SUMMARYPYTHONSYSPASSED, PYTHONSYSPASSED);
         saveType(LocalPreferences.SUMMARYPYTHONSYSFAILED, PYTHONSYSFAILED);
+        
+        saveType(LocalPreferences.SUMMARYPYTHON3POINTS, PYTHON3POINTS);
+        saveType(LocalPreferences.SUMMARYPYTHON3CHLPASSED, PYTHON3CHLPASSED);
+        saveType(LocalPreferences.SUMMARYPYTHON3CHLFAILED, PYTHON3CHLFAILED);
+        saveType(LocalPreferences.SUMMARYPYTHON3SYSPASSED, PYTHON3SYSPASSED);
+        saveType(LocalPreferences.SUMMARYPYTHON3SYSFAILED, PYTHON3SYSFAILED);
 
         // Save the profile        
         try {

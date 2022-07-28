@@ -1,5 +1,5 @@
 /*
- * Copyright (C) - 2013 TopCoder Inc., All Rights Reserved.
+ * Copyright (C) - 2022 TopCoder Inc., All Rights Reserved.
  */
 package com.topcoder.shared.common;
 
@@ -17,14 +17,14 @@ import java.io.File;
  * Contains constant variables for the services package.
  *
  * <p>
- * Changes in version 1.0 (TC Competition Engine - R Language Compilation Support):
+ * Changes in version 1.1 (TC Competition Engine - R Language Compilation Support):
  * <ol>
  * <li>Added {@link #R_COMPILER} field.</li>
  * </ol>
  * </p>
  *
  * <p>
- * Changes in version 1.1 (TC Competition Engine - R Language Test Support):
+ * Changes in version 1.2 (TC Competition Engine - R Language Test Support):
  * <ol>
  *      <li>Added {@link #R_C_HELPER} field.</li>
  *      <li>Added {@link #LONG_CONTEST_R_EXPOSED_WRAPPER} field.</li>
@@ -34,8 +34,18 @@ import java.io.File;
  *      <li>Added {@link #SANDBOX2_LONG_R_CONFIG} field.</li>
  * </ol>
  * </p>
- * @author Alex Roman, TCSASEMBLER
- * @version 1.1
+ *
+ * <p>
+ * Changes in version 1.3 (Python3 Support):
+ * <ol>
+ *      <li>Updated {@link #PYTHON3_SUBMISSIONS}, {@link #PYTHON3_COMPILER}, {@link #LONG_CONTEST_PYTHON3_USER_WRAPPER},
+ *       {@link #LONG_CONTEST_PYTHON3_EXPOSED_WRAPPER}, {@link #PYTHON3_WRAPPER}, {@link #SANDBOX2_LONG_PYTON3_CONFIG},
+ *       {@link #SANDBOX2_PYTHON3_CONFIG} fields.</li>
+ * </ol>
+ * </p>
+ *
+ * @author Alex Roman, liuliquan, TCSASEMBLER
+ * @version 1.3
  */
 public class ServicesConstants {
 
@@ -56,11 +66,13 @@ public class ServicesConstants {
     /** base directory of java problem user submissions */
     public static final String JAVA_SUBMISSIONS = BASE + "/submissions/java/";
     public static final String PYTHON_SUBMISSIONS = BASE + "/submissions/python/";
+    public static final String PYTHON3_SUBMISSIONS = BASE + "/submissions/python3/";
     /**
      * <p>the R submission.</p>
      */
     public static final String R_SUBMISSIONS = BASE + "/submissions/r/";
     public static final String PYTHON_COMPILER = BASE + "/src/python/compiler.py";
+    public static final String PYTHON3_COMPILER = BASE + "/src/python/compiler3.py";
 
     public static final String CSHARP_SUBMISSIONS = BASE + "/submissions/csharp/";
 
@@ -86,6 +98,7 @@ public class ServicesConstants {
     public static final String LONG_CONTEST_CPP_USER_WRAPPER = BASE + "/wrapper/lcontest/LongContestUserWrapper.cpp";
     public static final String LONG_CONTEST_DOTNET_USER_WRAPPER = BASE + "/wrapper/lcontest/LongContestUserWrapper.cs";
     public static final String LONG_CONTEST_PYTHON_USER_WRAPPER = BASE + "/wrapper/lcontest/LongContestUserWrapper.py";
+    public static final String LONG_CONTEST_PYTHON3_USER_WRAPPER = BASE + "/wrapper/lcontest/LongContestUserWrapper3.py";
 
     /**
      * <p>the R language long contest user wrapper.</p>
@@ -101,6 +114,7 @@ public class ServicesConstants {
     public static final String LONG_CONTEST_EXOPOSED_WRAPPER = BASE + "/wrapper/lcontest/LongContestExposedWrapper.java";
     public static final String LONG_CONTEST_CPP_EXPOSED_WRAPPER = BASE + "/wrapper/lcontest/LongContestExposedWrapper.cpp";
     public static final String LONG_CONTEST_PYTHON_EXPOSED_WRAPPER = BASE + "/wrapper/lcontest/LongContestExposedWrapper.py";
+    public static final String LONG_CONTEST_PYTHON3_EXPOSED_WRAPPER = BASE + "/wrapper/lcontest/LongContestExposedWrapper3.py";
 
     /**
      * the R language long contest exposed wrapper.
@@ -108,6 +122,7 @@ public class ServicesConstants {
     public static final String LONG_CONTEST_R_EXPOSED_WRAPPER = BASE + "/wrapper/lcontest/LongContestExposedWrapper.R";
     
     public static final String PYTHON_WRAPPER = BASE + "/wrapper/srm/PythonUserWrapper.py";
+    public static final String PYTHON3_WRAPPER = BASE + "/wrapper/srm/Python3UserWrapper.py";
 
     /**
      * <p> the R language compiler assistant.</p>
@@ -133,7 +148,11 @@ public class ServicesConstants {
 
     public static final String SANDBOX2_LONG_PYTON_CONFIG = BASE + "/cpp/sandbox2/config_files/long_python.config";
 
+    public static final String SANDBOX2_LONG_PYTON3_CONFIG = BASE + "/cpp/sandbox2/config_files/long_python3.config";
+
     public static final String SANDBOX2_PYTHON_CONFIG = BASE + "/cpp/sandbox2/config_files/python.config";
+
+    public static final String SANDBOX2_PYTHON3_CONFIG = BASE + "/cpp/sandbox2/config_files/python3.config";
 
     /**
      * <p> the R language sandbox2 running configuration file.</p>

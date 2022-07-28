@@ -1,5 +1,5 @@
 /*
-* Copyright (C) - 2014 TopCoder Inc., All Rights Reserved.
+* Copyright (C) - 2022 TopCoder Inc., All Rights Reserved.
 */
 package com.topcoder.client.contestApplet.common;
 
@@ -37,8 +37,19 @@ import com.topcoder.client.contestant.RoundModel;
  *      <li>Update {@link #UPDATE_DATE} field.</li>
  * </ol>
  * </p>
- * @author  aroman, savon_cn
- * @version 1.2
+ *
+ * <p>
+ * Changes in version 1.3 (Python3 Support):
+ * <ol>
+ *      <li>Added {@link #PYTHON3} field.</li>
+ *      <li>Added {@link #allowsPython3(String)} method.</li>
+ *      <li>Update {@link #OracleAllows}, {@link #TopCoderAllows}, {@link #TopCoderHSAllows},  {@link #GoogleAllows},
+ *       {@link #VerizonAllows}, {@link #SunAllows}, {@link #SunPracticeAllows}, {@link #SunOnsiteAllows}, {@link #SunOnsiteFinalsAllows},
+ *       {@link #NvidiaAllows}, {@link #CSFBAllows}, {@link #DblClkAllows}, {@link #VeriSignAllows} fields.</li>
+ * </ol>
+ * </p>
+ * @author  aroman, savon_cn, liuliquan
+ * @version 1.3
  */
 public final class CommonData {
     /**
@@ -188,25 +199,26 @@ public final class CommonData {
     }
 
     
-    public static final boolean[] OracleAllows = {true,false,false,false,false};
-    public static final boolean[] TopCoderAllows = {true,true,true,true,true};
-    public static final boolean[] TopCoderHSAllows = {true,true,true,true,true};
-    public static final boolean[] GoogleAllows = {true,true,true,true,true};
-    public static final boolean[] VerizonAllows = {true,true,true,true,true};
-    public static final boolean[] SunAllows = {true,false,false,false,false};
-    public static final boolean[] SunPracticeAllows = {true,false,false,false,false};
-    public static final boolean[] SunOnsiteAllows = {true,false,false,false,false};
-    public static final boolean[] SunOnsiteFinalsAllows = {true,false,false,false,false};
-    public static final boolean[] NvidiaAllows = {true,true,true,true,true};
-    public static final boolean[] CSFBAllows = {true,true,true,true,true};
-    public static final boolean[] DblClkAllows = {true,true,true,true,true};
-    public static final boolean[] VeriSignAllows = {true,true,true,true,true};
+    public static final boolean[] OracleAllows = {true,false,false,false,false,false};
+    public static final boolean[] TopCoderAllows = {true,true,true,true,true,true};
+    public static final boolean[] TopCoderHSAllows = {true,true,true,true,true,true};
+    public static final boolean[] GoogleAllows = {true,true,true,true,true,true};
+    public static final boolean[] VerizonAllows = {true,true,true,true,true,true};
+    public static final boolean[] SunAllows = {true,false,false,false,false,false};
+    public static final boolean[] SunPracticeAllows = {true,false,false,false,false,false};
+    public static final boolean[] SunOnsiteAllows = {true,false,false,false,false,false};
+    public static final boolean[] SunOnsiteFinalsAllows = {true,false,false,false,false,false};
+    public static final boolean[] NvidiaAllows = {true,true,true,true,true,true};
+    public static final boolean[] CSFBAllows = {true,true,true,true,true,true};
+    public static final boolean[] DblClkAllows = {true,true,true,true,true,true};
+    public static final boolean[] VeriSignAllows = {true,true,true,true,true,true};
 
     private static final int JAVA = 0;
     private static final int CPP = 1;
     private static final int CS = 2;
     private static final int VB = 3;
     private static final int PYTHON = 4;
+    private static final int PYTHON3 = 5;
 
     private static boolean allows(String companyName, int index) {
         try {
@@ -237,6 +249,10 @@ public final class CommonData {
     
     public static boolean allowsPython(String companyName) {
         return allows(companyName, PYTHON);
+    }
+
+    public static boolean allowsPython3(String companyName) {
+        return allows(companyName, PYTHON3);
     }
     /**
      * The current version of applet

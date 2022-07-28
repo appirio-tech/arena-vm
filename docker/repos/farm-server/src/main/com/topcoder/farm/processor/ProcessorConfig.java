@@ -1,5 +1,5 @@
 /*
-* Copyright (C) - 2014 TopCoder Inc., All Rights Reserved.
+* Copyright (C) - 2022 TopCoder Inc., All Rights Reserved.
 */
 package com.topcoder.farm.processor;
 
@@ -24,7 +24,16 @@ import java.util.List;
  *      <li>Add {@link #setCppArguments(String cppArguments)} method.</li>
  * </ol>
  * </p>
- * @author james, TCSASSEMBLER
+ *
+ * <p>
+ * Changes in version 1.2 (Python3 Support):
+ * <ol>
+ *      <li>Added {@link #python3TestCommand} field and its getter/setter.</li>
+ * </ol>
+ * </p>
+ *
+ * @author james, liuliquan, TCSASSEMBLER
+ * @version 1.2
  */
 public class ProcessorConfig {
     private List<String> monitoredQueues;
@@ -37,6 +46,7 @@ public class ProcessorConfig {
     private boolean analyzeLog = false;
     private boolean keepResultFolder = false;
     private String pythonTestCommand = "/usr/bin/python";
+    private String python3TestCommand = "/usr/bin/python3";
     /**
      * The cpp arguments.
      * @since 1.1
@@ -164,6 +174,14 @@ public class ProcessorConfig {
 
     public void setPythonTestCommand(String pythonTestCommand) {
         this.pythonTestCommand = pythonTestCommand;
+    }
+
+    public String getPython3TestCommand() {
+        return python3TestCommand;
+    }
+
+    public void setPython3TestCommand(String python3TestCommand) {
+        this.python3TestCommand = python3TestCommand;
     }
 
     public String getMonitoredQueuesString() {

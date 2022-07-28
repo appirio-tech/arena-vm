@@ -1,6 +1,6 @@
 FROM centos:centos7
 
-RUN yum install -y which wget unzip git make gcc gcc-c++ net-tools.x86_64 java-1.8.0-openjdk-devel
+RUN yum install -y which wget unzip git make gcc gcc-c++ python3.x86_64 net-tools.x86_64 java-1.8.0-openjdk-devel
 
 WORKDIR /
 

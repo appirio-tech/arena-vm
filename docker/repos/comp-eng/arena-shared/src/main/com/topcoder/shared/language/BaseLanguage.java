@@ -1,5 +1,5 @@
 /*
- * Copyright (C) - 2013 TopCoder Inc., All Rights Reserved.
+ * Copyright (C) - 2022 TopCoder Inc., All Rights Reserved.
  */
 package com.topcoder.shared.language;
 
@@ -9,7 +9,6 @@ import java.io.ObjectStreamException;
 import com.topcoder.shared.netCommon.CSReader;
 import com.topcoder.shared.netCommon.CSWriter;
 import com.topcoder.shared.netCommon.ResolvedCustomSerializable;
-import com.topcoder.shared.problem.DataType;
 
 /**
  * The <code>Language</code> class is the implementation of all the semantics associated with a supported programming
@@ -17,13 +16,20 @@ import com.topcoder.shared.problem.DataType;
  * type <code>Language</code> also servers as a convenient identifier for a particular language.
  *
  * <p>
- * Changes in version 1.0 (TC Competition Engine - R Language Compilation Support):
+ * Changes in version 1.1 (TC Competition Engine - R Language Compilation Support):
  * <ol>
  *      <li>Update {@link #getLanguage(int typeID)} method.</li>
  * </ol>
  * </p>
- * @author Logan Hanks, savon_cn
- * @version 1.0
+ *
+ * <p>
+ * Changes in version 1.2 (Python3 Support):
+ * <ol>
+ *      <li>Updated {@link #getLanguage(int)} method to generate Python3 language.</li>
+ * </ol>
+ * </p>
+ * @author Logan Hanks, savon_cn, liuliquan
+ * @version 1.2
  */
 abstract public class BaseLanguage implements Language, ResolvedCustomSerializable {
     /** Represents the unique ID of this programming language. */
@@ -131,6 +137,8 @@ abstract public class BaseLanguage implements Language, ResolvedCustomSerializab
             return VBLanguage.VB_LANGUAGE;
         case PythonLanguage.ID:
             return PythonLanguage.PYTHON_LANGUAGE;
+        case Python3Language.ID:
+            return Python3Language.PYTHON3_LANGUAGE;
         case RLanguage.ID:
             return RLanguage.R_LANGUAGE;
         default:

@@ -49,7 +49,10 @@ Refer to https://youtu.be/Tdq16Pn8IsU for details.
 
    ![assign-rooms](screenshots/assign-rooms.png)
 
-4. After about 10 minutes the Coding phase starts. Use arena client to enter room and compete, refer to https://youtu.be/qT8fjyc4__M for details:
+4. After about 10 minutes the Coding phase starts. Use arena client to enter room and compete, refer to https://youtu.be/4RoU7hYQO6o for details:
 
-   ![compete](screenshots/compete.png)
+   ![java](screenshots/java.png)
 
+5. To verify Python3, choose "Python3" radio button:
+
+   ![python3](screenshots/python3.png)

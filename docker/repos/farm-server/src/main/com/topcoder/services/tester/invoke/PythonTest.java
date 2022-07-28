@@ -1,5 +1,5 @@
 /*
-* Copyright (C) - 2014 TopCoder Inc., All Rights Reserved.
+* Copyright (C) - 2022 TopCoder Inc., All Rights Reserved.
 */
 package com.topcoder.services.tester.invoke;
 
@@ -103,8 +103,16 @@ import com.topcoder.shared.util.logging.Logger;
  * </ol>
  * </p>
  *
- * @author savon_cn, gevak, dexy, Selena
- * @version 1.8
+ * <p>
+ * Changes in version 1.9 (Python3 Support):
+ * <ol>
+ *      <li>Added {@link #SRM_PYTHON3_COMMAND_PROPERTY_NAME}, {@link #DEFAULT_SRM_PYTHON3_COMMAND} fields.</li>
+ *      <li>Updated constructor to add <code>python3</code> parameter.</li>
+ * </ol>
+ * </p>
+ *
+ * @author savon_cn, gevak, dexy, Selena, liuliquan
+ * @version 1.9
  */
 @SuppressWarnings({"rawtypes", "unchecked"})
 public final class PythonTest {
@@ -114,6 +122,9 @@ public final class PythonTest {
      */
     private static final String SRM_PYTHON_COMMAND_PROPERTY_NAME =
             "com.topcoder.services.tester.invoke.PythonTest.srmPythonCommand";
+
+    private static final String SRM_PYTHON3_COMMAND_PROPERTY_NAME =
+            "com.topcoder.services.tester.invoke.PythonTest.srmPython3Command";
 
     private static Logger logger = Logger.getLogger(PythonTest.class);
 
@@ -127,7 +138,6 @@ public final class PythonTest {
      */
     public int submission_maxusedmem;
     public Object submission_result;    /* already in java format, null if there was a problem parsing */
-    public Object expected_result;
     public String submission_stdout;
     public String submission_stderr;
     public String crash_backtrace;      /* empty if not available or not needed */
@@ -141,23 +151,11 @@ public final class PythonTest {
      * <p> the default python command</p>
      */
     private static final String DEFAULT_SRM_PYTHON_COMMAND = "/usr/bin/python";
-
     /**
-     * <p>the Python Test constructor</p>
-     * @param restype  the resource type.
-     * @param expected_result the expected result.
-     * @param args the arguments.
-     * @param classname the user submission class name.
-     * @param pathstr the full path of the submission.
-     * @param allow_debug if it is allowed debug.
-     * @param custom problem customization.
+     * <p> the default python3 command</p>
      */
-    public PythonTest(String restype, Object[] args, Object expected_result,
-            String classname,String pathstr, boolean allow_debug, ProblemCustomSettings custom) {
-        this(restype,args,classname,pathstr,allow_debug, custom);
-        this.expected_result = expected_result;
-//        supplied_testcase = true;
-    }
+    private static final String DEFAULT_SRM_PYTHON3_COMMAND = "/usr/bin/python3";
+
 
     /**
      * <p>
@@ -182,12 +180,13 @@ public final class PythonTest {
      * @param pathstr the full path of the submission.
      * @param allow_debug if it is allowed debug.
      * @param custom problem customization.
+     * @param python3 whether for python3 test.
      */
     public PythonTest(String restype, Object[] args, String classname,
-            String pathstr, boolean allow_debug, ProblemCustomSettings custom) {
+            String pathstr, boolean allow_debug, ProblemCustomSettings custom, boolean python3) {
 //        supplied_testcase = false;
         this.executionTimeLimit = custom.getExecutionTimeLimit();
-        logger.info("In PythonTest");
+        logger.info("In PythonTest for " + (python3 ? "python3" : "python2"));
         StringBuffer packed = new StringBuffer();
         int i;
         for (i = 0; i < args.length; i++)
@@ -206,7 +205,7 @@ public final class PythonTest {
         argv.add("--stackdump");
         argv.add(allow_debug ? "1" : "0");
         argv.add("--config");
-        argv.add(ServicesConstants.SANDBOX2_PYTHON_CONFIG);
+        argv.add(python3 ? ServicesConstants.SANDBOX2_PYTHON3_CONFIG : ServicesConstants.SANDBOX2_PYTHON_CONFIG);
         //add execution time limit
         argv.add("--maxcpu");
         /**
@@ -226,7 +225,11 @@ public final class PythonTest {
         wrapperApprovedPath(pythonApprovedPath,argv);
 
         if (pythonCommand == null || pythonCommand.trim().length() == 0) {
-            pythonCommand = System.getProperty(SRM_PYTHON_COMMAND_PROPERTY_NAME, DEFAULT_SRM_PYTHON_COMMAND);
+            if (python3) {
+                pythonCommand = System.getProperty(SRM_PYTHON3_COMMAND_PROPERTY_NAME, DEFAULT_SRM_PYTHON3_COMMAND);                
+            } else {
+                pythonCommand = System.getProperty(SRM_PYTHON_COMMAND_PROPERTY_NAME, DEFAULT_SRM_PYTHON_COMMAND);                
+            }
         }
         argv.add(pythonCommand);
         argv.add(path + "/Wrapper.pyc");
@@ -328,24 +331,6 @@ public final class PythonTest {
         new File(resultdir + File.separator + "log").delete();
         new File(resultdir + File.separator + "temp").delete();
         new File(resultdir).delete();
-    }
-    /**
-     * <p>the Python Test constructor.</p>
-     * @param restype  the resource type.
-     * @param args the arguments.
-     * @param probfiles the component files.
-     * @param allow_debug if it is allowed debug.
-     * @param custom problem customization.
-     */
-    public PythonTest(String restype, Object[] args, ComponentFiles probfiles, boolean allow_debug,
-            ProblemCustomSettings custom) {
-        /* need to change a few things in order to use this */
-        //this.probfiles = probfiles;
-
-        // this is just an alternate interface to CPPTest
-
-        this(restype, args, probfiles.getComponentName(),
-                probfiles.getFullComponentPath(), allow_debug, custom);
     }
 
 

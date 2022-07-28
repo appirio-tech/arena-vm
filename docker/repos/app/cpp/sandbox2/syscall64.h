@@ -1,3 +1,21 @@
+/*
+ * Copyright (C) - 2022 TopCoder Inc., All Rights Reserved.
+ */
+
+/**
+ * <p>The syscall header for 64 bits system.</p>
+ *
+ * <p>
+ * Changes in version 1.1 (Python3 Support):
+ * <ol>
+ *     <li>Add 'NR_getrandom' which is used by Python3.</li>
+ * </ol>
+ * </p>
+ *
+ * @author liuliquan
+ * @version 1.1
+ */
+
 #ifndef _Syscall_H
 #define	_Syscall_H
 
@@ -330,4 +348,5 @@ const char *scname(int);
 #define NR_waitid                 247
 #define NR_write                  1
 #define NR_writev                 20
+#define NR_getrandom              318
 #endif
