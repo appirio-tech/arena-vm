@@ -119,13 +119,6 @@ class PythonSecurityChecker : public SecurityChecker {
                     if((strstr(filename, "../Wrapper.pyc") == filename)) {
                         return true;
                     }
-                    
-                    if((strstr(filename, "/etc/passwd") == filename)) {
-                        stringstream s;
-                        s << "Allowing " << filename << endl;
-                        config->log(s.str());
-                        return true;
-                    }
 
                     /**
                      * allow customization python install to visit it's own site_packages and libs

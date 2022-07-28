@@ -144,7 +144,7 @@ public:
                     SYS_FAIL(EFAULT);
                 }
 
-                if ((strstr(filename, "../Wrapper.pyc") == filename) || (strstr(filename, "/etc/passwd") == filename))
+                if ((strstr(filename, "../Wrapper.pyc") == filename))
                 {
                     stringstream s;
                     s << "Allowing " << filename << endl;
