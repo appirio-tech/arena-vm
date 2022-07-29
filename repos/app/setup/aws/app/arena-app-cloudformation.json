@@ -1,0 +1,420 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Parameters":
+    {
+        "KeyName":
+        {
+            "Description": "Name of an existing EC2 KeyPair for SSH access",
+            "Type": "String",
+            "Default": "topcoder-QA-20140310"
+        },
+        "EC2ImageId":
+        {
+            "Description": "AMI Id to use for EC2 images",
+            "Type": "String",
+            "Default": "ami-b6098cde"
+        },
+        "EC2ImageType":
+        {
+            "Description": "EC2 Image Type (e.g., t2.micro, m3.medium, etc)",
+            "Type": "String",
+            "Default": "m3.large"
+        },
+        "EC2AvZones":
+        {
+            "Description": "EC2 Availability zones (comma-delimited)",
+            "Type": "CommaDelimitedList",
+            "Default": "us-east-1d"
+        },
+        "BootScriptUrl":
+        {
+            "Description": "s3 URL to the EC2 boot script",
+            "Type": "String",
+            "Default": "s3://tc-deploy/boot/v1/tc-boot"
+        },
+        "BootEnvUrl":
+        {
+            "Description": "s3 URL to the boot env config file",
+            "Type": "String",
+            "Default": "s3://tc-deploy/arena/qa/app/app-boot-env"
+        },
+        "EnvironmentPrefix":
+        {
+            "Description": "A prefix to use for resources (e.g., dev, qa, prod)",
+            "Type": "String",
+            "Default": "qa"
+        },
+        "SecurityGroups":
+        {
+            "Description": "comma-delimited list of existing security group IDs",
+            "Type": "CommaDelimitedList",
+            "Default": "sg-dd6004b8"
+        },
+        "PoolMinSize":
+        {
+            "Description": "Minimum pool size",
+            "Type": "Number",
+            "Default": "1"
+        },
+        "PoolMaxSize":
+        {
+            "Description": "Maximum pool size",
+            "Type": "Number",
+            "Default": "1"
+        },
+        "JVMArgs":
+        {
+            "Description": "Additional JVM args",
+            "Type": "String",
+            "Default": "-Dnetworkaddress.cache.ttl=60 -XX:-OmitStackTraceInFastThrow"
+        },
+        "AssociateIpAddress":
+        {
+            "Description": "Whether to associate an IP address from the pool of elastic IPs",
+            "Type": "String",
+            "Default": "false",
+            "AllowedValues": ["true", "false"]
+        },
+        "VPCZoneId":
+        {
+        	"Description": "The VPC Zone IDs (comma-delimited list)",
+        	"Type": "CommaDelimitedList",
+        	"Default": "subnet-b89483fe"
+        },
+        "ElasticNetworkInterfaceId":
+        {
+        	"Description": "An ENI id for a second network interface with a static private IP",
+        	"Type": "String"
+        },
+        "CustomHostname":
+        {
+        	"Description": "Sets a custom hostname on boot",
+        	"Type": "String",
+        	"Default": "qa.arena-app.topcoder.com"
+        }
+    },
+    "Resources":
+    {
+    	"CompileQ": {
+			"Type": "AWS::SQS::Queue",
+			"Properties": {
+				"QueueName" : {"Fn::Join": ["", [{"Ref": "EnvironmentPrefix"},"ArenaCode-compile"]]},
+				"VisibilityTimeout" : 300
+			}
+    	},
+    	"CompileWinQ": {
+			"Type": "AWS::SQS::Queue",
+			"Properties": {
+				"QueueName" : {"Fn::Join": ["", [{"Ref": "EnvironmentPrefix"},"ArenaCode-compile-windows"]]},
+				"VisibilityTimeout" : 300
+			}
+    	},
+    	"ListenerQ": {
+			"Type": "AWS::SQS::Queue",
+			"Properties": {
+				"QueueName" : {"Fn::Join": ["", [{"Ref": "EnvironmentPrefix"},"ArenaCode-listener-results"]]},
+				"VisibilityTimeout" : 300
+			}
+    	},
+    	"ResultsQ": {
+			"Type": "AWS::SQS::Queue",
+			"Properties": {
+				"QueueName" : {"Fn::Join": ["", [{"Ref": "EnvironmentPrefix"},"ArenaCode-proc-results"]]},
+				"VisibilityTimeout" : 300
+			}
+    	},
+    	"MarathonTestQ": {
+			"Type": "AWS::SQS::Queue",
+			"Properties": {
+				"QueueName" : {"Fn::Join": ["", [{"Ref": "EnvironmentPrefix"},"ArenaCode-mm-test"]]},
+				"VisibilityTimeout" : 300
+			}
+    	},
+    	"MarathonTestWinQ": {
+			"Type": "AWS::SQS::Queue",
+			"Properties": {
+				"QueueName" : {"Fn::Join": ["", [{"Ref": "EnvironmentPrefix"},"ArenaCode-mm-test-windows"]]},
+				"VisibilityTimeout" : 300
+			}
+    	},
+    	"SrmTestQ": {
+			"Type": "AWS::SQS::Queue",
+			"Properties": {
+				"QueueName" : {"Fn::Join": ["", [{"Ref": "EnvironmentPrefix"},"ArenaCode-srm-test"]]},
+				"VisibilityTimeout" : 300
+			}
+    	},
+    	"AdminTestQ": {
+			"Type": "AWS::SQS::Queue",
+			"Properties": {
+				"QueueName" : {"Fn::Join": ["", [{"Ref": "EnvironmentPrefix"},"ArenaCode-admin-test"]]},
+				"VisibilityTimeout" : 300
+			}
+    	},
+    	"SrmTestWinQ": {
+			"Type": "AWS::SQS::Queue",
+			"Properties": {
+				"QueueName" : {"Fn::Join": ["", [{"Ref": "EnvironmentPrefix"},"ArenaCode-srm-test-windows"]]},
+				"VisibilityTimeout" : 300
+			}
+    	},
+    	"PracticeQ": {
+			"Type": "AWS::SQS::Queue",
+			"Properties": {
+				"QueueName" : {"Fn::Join": ["", [{"Ref": "EnvironmentPrefix"},"ArenaCode-practice"]]},
+				"VisibilityTimeout" : 300
+			}
+    	},
+        "ArenaAppRole":
+        {
+            "Type": "AWS::IAM::Role",
+            "Properties":
+            {
+                "AssumeRolePolicyDocument":
+                {
+                    "Statement": [
+                    {
+                        "Effect": "Allow",
+                        "Principal":
+                        {
+                            "Service": ["ec2.amazonaws.com"]
+                        },
+                        "Action": ["sts:AssumeRole"]
+                    }]
+                },
+                "Path": "/",
+                "Policies": [
+                {
+                    "PolicyName": "ArenaAppRuntimePolicy",
+                    "PolicyDocument":
+                    {
+                        "Version": "2012-10-17",
+                        "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Action": ["cloudwatch:PutMetricData", "cloudwatch:PutMetricAlarm", "cloudwatch:SetAlarmState"],
+                            "Resource": "*"
+                        },
+                        {
+                            "Effect": "Allow",
+                            "Action": ["ec2:DescribeInstances", "ec2:AssociateAddress", "ec2:DescribeAddresses", "ec2:DescribeTags",
+                                "ec2:DisassociateAddress", "ec2:RebootInstances", "ec2:DescribeNetworkInterfaces", "ec2:AttachNetworkInterface"
+                            ],
+                            "Resource": "*"
+                        },
+                        {
+                            "Effect": "Allow",
+                            "Action": ["SNS:publish"],
+                            "Resource": "*"
+                        },
+                        {
+                            "Effect": "Allow",
+                            "Action": ["autoscaling:SetInstanceHealth"],
+                            "Resource": "*"
+                        },
+                        {
+                            "Effect": "Allow",
+                            "Action": ["sqs:*"],
+                            "Resource":[
+                            	{"Fn::GetAtt": ["CompileQ", "Arn"]},
+                            	{"Fn::GetAtt": ["CompileWinQ", "Arn"]},
+                            	{"Fn::GetAtt": ["ListenerQ", "Arn"]},
+                            	{"Fn::GetAtt": ["ResultsQ", "Arn"]},
+                            	{"Fn::GetAtt": ["MarathonTestQ", "Arn"]},
+                            	{"Fn::GetAtt": ["MarathonTestWinQ", "Arn"]},
+                            	{"Fn::GetAtt": ["PracticeQ", "Arn"]},
+                            	{"Fn::GetAtt": ["SrmTestQ", "Arn"]},
+                            	{"Fn::GetAtt": ["SrmTestWinQ", "Arn"]},
+                            	{"Fn::GetAtt": ["AdminTestQ", "Arn"]}
+                            ]
+                            
+                        },
+                        {
+                            "Resource": [
+                            {
+                                "Fn::Join": ["", ["arn:aws:s3:::tc-deploy/arena/",
+                                {
+                                    "Ref": "EnvironmentPrefix"
+                                }, "/*"]]
+                            }, "arn:aws:s3:::tc-deploy/common/*", "arn:aws:s3:::tc-deploy/arena/common/*", "arn:aws:s3:::tc-deploy/boot/*"],
+                            "Action": ["s3:GetObject"],
+                            "Effect": "Allow"
+                        }]
+                    }
+                }]
+            }
+        },
+        "ArenaAppInstanceProfile":
+        {
+            "Type": "AWS::IAM::InstanceProfile",
+            "Properties":
+            {
+                "Path": "/",
+                "Roles": [
+                {
+                    "Ref": "ArenaAppRole"
+                }]
+            }
+        },
+        "ArenaAppLaunchConfig":
+        {
+            "Type": "AWS::AutoScaling::LaunchConfiguration",
+            "Properties":
+            {
+                "ImageId":
+                {
+                    "Ref": "EC2ImageId"
+                },
+                "IamInstanceProfile":
+                {
+                    "Ref": "ArenaAppInstanceProfile"
+                },
+                "InstanceType":
+                {
+                    "Ref": "EC2ImageType"
+                },
+                "KeyName":
+                {
+                    "Ref": "KeyName"
+                },
+                "SecurityGroups":
+                {
+                    "Ref": "SecurityGroups"
+                },
+                "UserData" : { "Fn::Base64" : { "Fn::Join" : ["", [
+            		"Content-Type: multipart/mixed; boundary=\"===============3585321300151562773==\"\n",
+		            "MIME-Version: 1.0\n",
+		            "\n",
+		            "--===============3585321300151562773==\n",
+		            "Content-Type: text/cloud-config; charset=\"us-ascii\"\n",
+		            "MIME-Version: 1.0\n",
+		            "Content-Transfer-Encoding: 7bit\n",
+		            "Content-Disposition: attachment; filename=\"cloud.cfg\"\n",
+		            "\n",
+		            "#cloud-config\n",
+		            "manage-resolv-conf: true\n",
+		            "  resolv_conf:\n",
+		            "  nameservers: ['10.25.70.15', '10.25.70.16']\n",
+		            "  searchdomains:\n",
+		            "    - topcoder.com\n",
+		            "    - ec2.internal\n",
+		            "\n",
+		            "--===============3585321300151562773==\n",
+		            "Content-Type: text/x-shellscript; charset=\"us-ascii\"\n",
+		            "MIME-Version: 1.0\n",
+		            "Content-Transfer-Encoding: 7bit\n",
+		            "Content-Disposition: attachment; filename=\"arena-install.sh\"\n",
+		            "\n",
+		            "#!/bin/bash\n",
+		            "touch /tmp/arena-install \n",
+		            "\n",
+		            "--===============3585321300151562773==--"]]}}
+		        }
+        },
+        "ArenaAppAutoScalingGroup":
+        {
+            "Type": "AWS::AutoScaling::AutoScalingGroup",
+            "Properties":
+            {
+                "AvailabilityZones":
+                {
+                    "Ref": "EC2AvZones"
+                },
+                "LaunchConfigurationName":
+                {
+                    "Ref": "ArenaAppLaunchConfig"
+                },
+                "MinSize":
+                {
+                    "Ref": "PoolMinSize"
+                },
+                "MaxSize":
+                {
+                    "Ref": "PoolMaxSize"
+                },
+                "VPCZoneIdentifier": {"Ref": "VPCZoneId"},
+                "Cooldown": "10",
+                "HealthCheckType": "EC2",
+                "HealthCheckGracePeriod": "600",
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value":
+                        {
+                            "Fn::Join": [" ", [
+                            {
+                                "Ref": "AWS::StackName"
+                            }, "Auto-Scale Instance"]]
+                        },
+                        "PropagateAtLaunch": "true"
+                    },
+                    {
+                        "Key": "appirio:boot:boot-script",
+                        "Value":
+                        {
+                            "Ref": "BootScriptUrl"
+                        },
+                        "PropagateAtLaunch": "true"
+                    },
+                    {
+                        "Key": "appirio:boot:java-iam-role",
+                        "Value":
+                        {
+                            "Ref": "ArenaAppRole"
+                        },
+                        "PropagateAtLaunch": "true"
+                    },
+                    {
+                        "Key": "appirio:boot:jvm-opts",
+                        "Value":
+                        {
+                            "Ref": "JVMArgs"
+                        },
+                        "PropagateAtLaunch": "true"
+                    },
+                    {
+                        "Key": "appirio:boot:boot-env",
+                        "Value":
+                        {
+                            "Ref": "BootEnvUrl"
+                        },
+                        "PropagateAtLaunch": "true"
+                    },
+                    {
+                        "Key": "appirio:boot:assign-elastic-ip",
+                        "Value":
+                        {
+                            "Ref": "AssociateIpAddress"
+                        },
+                        "PropagateAtLaunch": "true"
+                    },
+                    {
+                        "Key": "appirio:boot:elastic-network-interface-id",
+                        "Value":
+                        {
+                            "Ref": "ElasticNetworkInterfaceId"
+                        },
+                        "PropagateAtLaunch": "true"
+                    },
+                    {
+                        "Key": "appirio:boot:custom-hostname",
+                        "Value":
+                        {
+                            "Ref": "CustomHostname"
+                        },
+                        "PropagateAtLaunch": "true"
+                    },
+                    {
+                        "Key": "appirio:boot:env-prefix",
+                        "Value":
+                        {
+                            "Ref": "EnvironmentPrefix"
+                        },
+                        "PropagateAtLaunch": "true"
+                    }
+
+                ]
+            }
+        }
+    }
+}

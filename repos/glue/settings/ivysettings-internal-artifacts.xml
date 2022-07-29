@@ -1,0 +1,8 @@
+<ivysettings>
+    <resolvers>
+        <url name="internal-artifacts" m2compatible="false">
+            <ivy pattern="https://coder.topcoder.com/internal/internal-artifacts/trunk/[module]/[revision]/[module].xml" />
+            <artifact pattern="https://coder.topcoder.com/internal/internal-artifacts/trunk/[module]/[revision]/[artifact].[ext]" />
+        </url>
+    </resolvers>
+</ivysettings>

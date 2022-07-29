@@ -1,0 +1,2 @@
+To make links work, you should add a line like:
+com.topcoder.client.contestApplet.common.LocalPreferences.browserlocation=c:\<path to browser exe file>

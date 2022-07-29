@@ -1,3 +1,0 @@
-FROM appiriodevops/ldap
-
-CMD ["/bin/bash", "-c", " service slapd restart && tail -f /dev/null"]

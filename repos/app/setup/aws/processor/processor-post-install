@@ -1,0 +1,41 @@
+BOOT_ENV=$1
+
+echo "BOOT_ENV=$BOOT_ENV"
+
+# read boot-env config to get JAVA_OPTS
+. $BOOT_ENV
+export JAVA_OPTS
+echo "JAVA_OPTS=$JAVA_OPTS"
+
+# clear old credential info
+rm -rf /home/ec2-user/.aws
+
+mkdir /home/ec2-user/processor/work
+mkdir /home/ec2-user/processor/cache
+
+chown ec2-user:ec2-user -R /home/ec2-user/processor
+
+chmod u+x /home/ec2-user/processor/deploy/app/cpp/timeout/timeout
+
+# needed for execution of c# test app
+chmod a+rx -R /home/ec2-user/processor/deploy/app/build
+
+if [ -n "$PROCESSOR_ARCHIVE_URL" ]
+then
+    cd /home/ec2-user/processor/cache
+	echo Downloading archive $PROCESSOR_ARCHIVE_URL
+	aws s3 cp $PROCESSOR_ARCHIVE_URL ./cache.tar
+	tar -xvf ./cache.tar
+	chmod +rx -R *
+fi
+
+cd /home/ec2-user/processor/deploy/bin
+# ec2-user may not exist (i.e., windows/cygwin)
+if id -u ec2-user > /dev/null 2>&1; then
+  su ec2-user -c './processor.sh PR-LX-$EC2_INSTANCE_ID'
+else 
+  ./processor.sh PR-LX-$EC2_INSTANCE_ID
+  find /home/ec2-user/processor -type f -name '*.exe' | xargs chmod a+rx
+fi
+
+exit

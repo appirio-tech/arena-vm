@@ -1,0 +1,2 @@
+## Tokens used in deploymentFolder of web.xml in farm-deployer project
+@deploymentFolder@=/home/apps/deployer

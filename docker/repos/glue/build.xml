@@ -1,9 +1,0 @@
-<project name="glue" 
-         xmlns:ivy="antlib:org.apache.ivy.ant" basedir=".">
-
-    <property name="root.dir" location="${basedir}/.." />
-    <property name="glue.dir" location="${root.dir}/glue" />
-    
-    <import file="${glue.dir}/glue-svn.xml"/>
-    <import file="${glue.dir}/glue-git.xml"/>
-</project>

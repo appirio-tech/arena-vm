@@ -1,7 +1,0 @@
-1) One possible issue with dbs is round_type_lu values should match values in ContestConstants.
-(e.g. moderated should be 5).
-
-2) When you create the contest, start date should be in the past and the end date should be far in the future.
-
-3) For the invite_list you can use register_user but it only affects the runtime. But if you insert it manually
-in the db, it will be loaded.

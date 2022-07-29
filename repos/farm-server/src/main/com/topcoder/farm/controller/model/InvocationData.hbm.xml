@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+        
+<hibernate-mapping>
+
+    <class name="com.topcoder.farm.controller.model.InvocationData" table="FARM_INVOCATION" >
+        <id name="id" column="INV_ID" type="long">
+            <generator class="native">
+            	<param name="sequence">farm_inv_seq</param>
+            </generator>
+        </id>
+        
+		<!--natural-id-->
+	    	<property name="clientName" type="string" not-null="true" unique-key="UK_FARM_INVOCATION" update="false">
+				<column name="CLIENT_NAME" length="30"/>
+			</property>
+			<property name="clientRequestId" type="string" not-null="true" unique-key="UK_FARM_INVOCATION" update="false">
+				<column name="CLIENT_REQ_ID" length="70"/>
+			</property>
+		<!--/natural-id-->
+		
+		<property name="clientAttachment" update="false" >
+			<column name="CLIENT_ATTACHMENT"/>
+			<type name="com.topcoder.farm.controller.dao.hibernate.CustomSerializableUserType">
+			</type>
+		</property>
+		
+        <property name="receivedDate" type="java.util.Date" column="RECEIVE_DATE" not-null="true" update="false"/>
+        <property name="dropDate" type="java.util.Date" column="DROP_DATE" not-null="true"/>
+        <property name="assignDate" type="java.util.Date" column="ASSIGN_DATE"/>
+		<property name="assignationTtl" type="long" column="ASSIGN_TTL" not-null="true"/>
+        <property name="solveDate" type="java.util.Date" column="SOLVE_DATE"/>
+        <property name="notifyDate" type="java.util.Date" column="NOTIFY_DATE"/>
+        <property name="assignAttempts" type="int" column="ASSIGN_ATTEMPTS" not-null="true"/>
+        <property name="assignedProcessor" type="string" not-null="true">
+			<column name="ASSIGN_PROCESSOR" length="30"/>
+		</property>
+        
+	    <property name="status" type="int" column="STATUS" not-null="true"/>
+		<property name="priority" type="int" column="PRIORITY" not-null="true"/>
+		<property name="requiredResources" type="int" column="REQ_RESOURCES" not-null="true"/>
+		
+
+		<property name="requirements" lazy="true" not-null="true" update="false">
+			<column name="REQUIREMENTS"/>
+			<type name="com.topcoder.farm.controller.dao.hibernate.CustomSerializableUserType">
+				<param name="class">com.topcoder.farm.shared.invocation.InvocationRequirements</param>
+			</type>
+		</property>
+		
+	    <set name="propertiesToSet" cascade="all-delete-orphan" inverse="true">
+	    	<key column="INV_ID" on-delete="cascade"/>
+			<one-to-many class="com.topcoder.farm.controller.model.InvocationProperty"/>
+	    </set>
+			
+		<property name="invocation" lazy="true" not-null="true" update="false">
+			<column name="INVOCATION" />
+			<type name="com.topcoder.farm.controller.dao.hibernate.CustomSerializableUserType">
+				<param name="class">com.topcoder.farm.shared.invocation.Invocation</param>
+			</type>
+		</property>
+		
+		<property name="result" lazy="true">
+			<column name="RESULT"/>
+			<type name="com.topcoder.farm.controller.dao.hibernate.CustomSerializableUserType">
+				<param name="class">com.topcoder.farm.shared.invocation.InvocationResult</param>
+			</type>
+		</property>
+    </class>
+
+</hibernate-mapping>

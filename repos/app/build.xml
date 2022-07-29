@@ -1,0 +1,916 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="classes" basedir="." default="publish-workspace">
+    <property environment="env"/>
+    <property name="root.dir" location="${basedir}/.." />
+    
+    <condition property="build.props" value="build.properties.${env.ARENA_BUILD_TARGET}" else="build.properties">
+        <isset property="env.ARENA_BUILD_TARGET"/>
+    </condition>
+    <property file="${build.props}" />
+    
+    <condition property="applet.props" value="applet.properties.${env.ARENA_BUILD_TARGET}" else="applet.properties">
+        <isset property="env.ARENA_BUILD_TARGET"/>
+    </condition>
+    <property file="${applet.props}"/>
+    
+    <condition property="token.propfile" value="token.properties.${env.ARENA_BUILD_TARGET}" else="token.properties">
+        <isset property="env.ARENA_BUILD_TARGET"/>
+    </condition>
+    
+    <condition property="glue.dir" value="${env.BUILD_GLUE_DIR}" else="${root.dir}/glue">
+        <isset property="env.BUILD_GLUE_DIR"/>
+    </condition>
+
+    <property name="skip.resources" value="true" />
+
+    <property name="tokenized_resource" value="${basedir}/build/resource"/>
+    <property name="tokenized_scripts" value="${basedir}/build/scripts"/>    
+    <property name="deployer_dist" value="${basedir}/build/farm-deployer"/>
+    
+    <condition property="isWindows">
+        <os family="windows" />
+    </condition>
+
+    <condition property="isLinux">
+        <os family="unix" />
+    </condition>
+
+    <import file="${glue.dir}/glue-jar.xml" />
+
+    <property name="admin.deployment.dir" value="deployment" />
+    <property name="setup.dir" value="${basedir}/setup" />
+
+    <!--  Old Build stuffs -->
+    <property name="lib.dir" value="lib" />
+    <property name="javacc_home" value="${lib.dir}/javacc-4.0" />
+    <property name="ejb_jars_jboss" value="${dist.dir}/ejbs" />
+
+    <!-- Application dependencies (all versions). -->
+    <property name="app.proj.deps.all" value="classes-*.jar,
+            arena-shared-*.jar,
+            client-common-*.jar,
+            client-socket-*.jar,
+            compeng-common-*.jar,
+            shared-*.jar,
+            concurrent-*.jar,
+            custom-serialization-*.jar,
+            encoder-*.jar,
+            farm-client-*.jar,
+            farm-deployer-*.jar,
+            farm-shared-*.jar,
+            http-tunnel-client-*.jar,
+            http-tunnel-server-*.jar,
+            logging-*.jar,
+            nbio-listener-*.jar,
+            PactsClientServices-*.jar,
+            id_generator-*.jar,
+            ifxjdbc-*.jar,
+            security*.jar,
+            basic_type_serialization-*.jar,
+            db_connection_factory-*.jar,
+            base_exception-*.jar"/>
+
+    <property name="classes-all.proj.deps" value="classes-*.jar,
+                arena-shared-*.jar,
+                client-common-*.jar
+                client-socket-*.jar,
+                compeng-common-*.jar,
+                shared-*.jar,
+                concurrent-*.jar,
+                custom-serialization-*.jar,
+                encoder-*.jar,
+                http-tunnel-client-*.jar,
+                http-tunnel-server-*.jar,
+                logging-*.jar,
+                nbio-listener-*.jar,
+                basic_type_serialization-*.jar"/>
+
+
+
+    <!-- =======================Old Targets needs to move to subprojects ===============================  -->
+
+    <target name="jjtree">
+        <jjtree target="${src.main.dir}/com/topcoder/services/compiler/util/MSILGrammar.jjt"
+            outputdirectory="${src.main.dir}/com/topcoder/services/compiler/util/MSILParser" javacchome="${javacc_home}" />
+    </target>
+
+    <target name="javacc" depends="jjtree">
+        <javacc target="${src.main.dir}/com/topcoder/services/compiler/util/MSILParser/MSILGrammar.jj"
+            outputdirectory="${src.main.dir}/com/topcoder/services/compiler/util/MSILParser" javacchome="${javacc_home}" />
+    </target>
+
+    <target name="compile-cpp">
+        <exec executable="g++" dir="cpp/sandbox" os="Linux">
+            <arg line="-Wall -O2 -pipe -s main.c system.c util.c -o sandbox" />
+        </exec>
+        <exec executable="g++" dir="cpp/sandbox" os="Linux">
+            <arg line="-Wall -O2 -pipe -s long_main.c system.c util.c -o long_sandbox" />
+        </exec>
+    </target>
+
+    <target name="compile-cpp2">
+        <exec command="make" dir="cpp/sandbox2" />
+    </target>
+
+    <target name="tokenize" description="Tokenize the resource configuration files and script files">
+        <mkdir dir="${tokenized_resource}"/>
+        <mkdir dir="${tokenized_scripts}"/>
+        <copy todir="${tokenized_resource}" overwrite="true">
+            <fileset dir="${basedir}/resources">
+                <include name="**/*.properties"/>
+                <include name="**/*.xml"/>
+                <include name="**/*.conf"/>
+                <include name="**/*.xsd"/>
+                <include name="**/*.dtd"/>
+                <include name="**/*.props"/>
+                <include name="**/*.txt"/>
+                <include name="**/*.keystore"/>
+            </fileset>
+            <fileset dir="${root.dir}/comp-eng/mpsqas-client/resources">
+                <include name="MPSQASApplet.properties"/>
+            </fileset>
+            <fileset dir="${root.dir}/comp-eng/arena-client/resources">
+                <include name="firstTimeUser.properties"/>
+                <include name="intermission.properties"/>
+            </fileset>
+            <fileset dir="${root.dir}/libs/nbio-listener/resources">
+                <include name="keepalive.properties"/>
+		<!--
+                <include name="listener.properties"/>
+		-->
+            </fileset>
+            <fileset dir="${root.dir}/comp-eng/arena-client/resources">
+                <include name="neverCompeted.properties"/>
+            </fileset>
+        </copy>
+        <copy todir="${tokenized_scripts}" overwrite="true">
+            <fileset dir="${basedir}/scripts">
+                <include name="**/*.xml"/>
+                <include name="**/*.conf"/>
+                <include name="**/*.properties"/>
+                <include name="**/*.sh"/>
+                <include name="**/*.bat"/>
+            </fileset>
+        </copy>
+	    <replace dir="${tokenized_scripts}" includes="**/*">
+	        <replacefilter token="@filename.classes@" value="${filename.classes}"/>
+	        <replacefilter token="@filename.arena-shared@" value="${filename.arena-shared}"/>
+	        <replacefilter token="@filename.client-common@" value="${filename.client-common}"/>
+	        <replacefilter token="@filename.client-socket@" value="${filename.client-socket}"/>
+	        <replacefilter token="@filename.compeng-common@" value="${filename.compeng-common}"/>
+	        <replacefilter token="@filename.shared@" value="${filename.shared}"/>
+	        <replacefilter token="@filename.concurrent@" value="${filename.concurrent}"/>
+	        <replacefilter token="@filename.custom-serialization@" value="${filename.custom-serialization}"/>
+	        <replacefilter token="@filename.encoder@" value="${filename.encoder}"/>
+	        <replacefilter token="@filename.farm-client@" value="${filename.farm-client}"/>
+	        <replacefilter token="@filename.farm-deployer@" value="${filename.farm-deployer}"/>
+	        <replacefilter token="@filename.farm-shared@" value="${filename.farm-shared}"/>
+	        <replacefilter token="@filename.http-tunnel-client@" value="${filename.http-tunnel-client}"/>
+	        <replacefilter token="@filename.http-tunnel-server@" value="${filename.http-tunnel-server}"/>
+	        <replacefilter token="@filename.logging@" value="${filename.logging}"/>
+	        <replacefilter token="@filename.nbio-listener@" value="${filename.nbio-listener}"/>
+	        <replacefilter token="@filename.security@" value="${filename.security}"/>
+	        <replacefilter token="@filename.log4j@" value="${filename.log4j}"/>
+	        <replacefilter token="@filename.commons-digester@" value="${filename.commons-digester}"/>
+	        <replacefilter token="@filename.activemq-core@" value="${filename.activemq-core}"/>
+	        <replacefilter token="@filename.activeio-core@" value="${filename.activeio-core}"/>
+	        <replacefilter token="@filename.backport-util-concurrent@" value="${filename.backport-util-concurrent}"/>
+	        <replacefilter token="@filename.jms@" value="${filename.jms}"/>
+	        <replacefilter token="@filename.xpp3_min@" value="${filename.xpp3_min}"/>
+	        <replacefilter token="@filename.commons-beanutils@" value="${filename.commons-beanutils}"/>
+	        <replacefilter token="@filename.commons-collections@" value="${filename.commons-collections}"/>
+	        <replacefilter token="@filename.commons-logging@" value="${filename.commons-logging}"/>
+	        <replacefilter token="@filename.jbossall-client@" value="${filename.jbossall-client}"/>
+	        <replacefilter token="@filename.base_exception@" value="${filename.base_exception}"/>
+	        <replacefilter token="@filename.basic_type_serialization@" value="${filename.basic_type_serialization}"/>
+	        <replacefilter token="@filename.ifxjdbc@" value="${filename.ifxjdbc}"/>
+	        <replacefilter token="@filename.lightweight_xml_parser@" value="${filename.lightweight_xml_parser}"/>
+	        <replacefilter token="@filename.netty-socketio@" value="${filename.netty-socketio}"/>
+	        <replacefilter token="@filename.netty-buffer@" value="${filename.netty-buffer}"/>
+	        <replacefilter token="@filename.netty-common@" value="${filename.netty-common}"/>
+	        <replacefilter token="@filename.netty-transport@" value="${filename.netty-transport}"/>
+	        <replacefilter token="@filename.netty-handler@" value="${filename.netty-handler}"/>
+	        <replacefilter token="@filename.netty-codec-http@" value="${filename.netty-codec-http}"/>
+	        <replacefilter token="@filename.netty-codec@" value="${filename.netty-codec}"/>
+	        <replacefilter token="@filename.slf4j-api@" value="${filename.slf4j-api}"/>
+	        <replacefilter token="@filename.jackson-core@" value="${filename.jackson-core}"/>
+	        <replacefilter token="@filename.jackson-databind@" value="${filename.jackson-databind}"/>
+	        <replacefilter token="@filename.jackson-annotations@" value="${filename.jackson-annotations}"/>
+	        <replacefilter token="@filename.httpclient@" value="${filename.httpclient}"/>
+	        <replacefilter token="@filename.httpcore@" value="${filename.httpcore}"/>
+	        <replacefilter token="@filename.commons-io@" value="${filename.commons-io}"/>
+	    </replace>
+        <replace replacefilterfile="${token.propfile}" dir="${tokenized_resource}"/>
+        <replace replacefilterfile="${token.propfile}" dir="${tokenized_scripts}"/>
+    </target>
+
+    <!-- override default to include this resource (skip.resources is otherwise true for some reason) -->
+    <target name="resources">
+	<copy todir="${build.classes.dir}" file="${src.resources.dir}/server-applicationContext.xml"/>
+    </target>
+    
+    <target name="jar_writer" description="Generates jar file required for compiling writer solutions." depends="preold-build">
+        <jar jarfile="${build.artifacts.dir}/writer-${app.version}.jar">
+            <manifest>
+                <attribute name="Built-By" value="${user.name}" />
+                <attribute name="Build-Version" value="${app.version}" />
+            </manifest>
+            <fileset dir="${jarextract}">
+                <include name="com/topcoder/shared/netCommon/CustomSerializable*.class" />
+                <include name="com/topcoder/shared/netCommon/CSReader*.class" />
+                <include name="com/topcoder/shared/netCommon/CSWriter*.class" />
+                <include name="com/topcoder/shared/netCommon/ResolvedCustomSerializable*.class" />
+            </fileset>
+        </jar>
+    </target>
+
+    <macrodef name="jar-service">
+        <attribute name="name"/>
+        <sequential>
+            <jar jarfile="${ejb_jars_jboss}/@{name}.jar" basedir="${build.classes.dir}"
+                includes="com/topcoder/server/ejb/@{name}/**">
+                <metainf dir="${src.main.dir}/com/topcoder/server/ejb/@{name}" includes="*.xml" />
+                <manifest>
+                    <attribute name="Built-By" value="${user.name}" />
+                    <attribute name="Build-Version" value="${app.version}" />
+                </manifest>
+            </jar>
+        </sequential>
+    </macrodef>
+
+    <target name="ejb-jars-jboss" depends="publish-workspace" description="Builds all JBoss services jars">
+        <mkdir dir="${ejb_jars_jboss}" />
+        <!--
+            variations.properties,
+            ApplicationServer_JBoss.properties,
+            CoreServices.properties,
+            DBMS.properties,
+            ProblemParser.properties,
+            Tester.properties,
+            terms.properties,
+            terms.txt,
+            dwload.properties,
+            com/topcoder/security/Util.properties,
+        -->
+
+        <jar-service name="DBServices" />
+        <jar-service name="ProblemServices" />
+        <jar-service name="TrackingServices" />
+        <jar-service name="TestServices" />
+        <jar-service name="asyncservices" />
+        <jar-service name="AdminServices" />
+        <jar-service name="MPSQASServices" />
+
+        <jar jarfile="${ejb_jars_jboss}/farm-factory.sar" basedir="${build.classes.dir}" includes="com/topcoder/server/farm/jboss/**" excludes="**/jboss-service.xml">
+            <metainf dir="${src.main.dir}/com/topcoder/server/farm/jboss" includes="*.xml" />
+            <manifest>
+                <attribute name="Built-By" value="${user.name}" />
+                <attribute name="Build-Version" value="${app.version}" />
+            </manifest>
+        </jar>
+    </target>
+    
+    <target name="preold-build" depends="publish-workspace, tokenize">
+        <property name="jarextract" location="${build.dir}/jarclasses" />
+        <mkdir  dir="${jarextract}" />
+        <unjar src="${build.lib.dir}/${filename.shared}" dest="${jarextract}" />
+        <unjar src="${build.lib.dir}/${filename.custom-serialization}" dest="${jarextract}" />
+        <unjar src="${build.lib.dir}/${filename.arena-shared}" dest="${jarextract}" />
+        <unjar src="${build.lib.dir}/${filename.client-socket}" dest="${jarextract}" />
+        <unjar src="${build.lib.dir}/${filename.http-tunnel-client}" dest="${jarextract}" />
+        <unjar src="${build.lib.dir}/${filename.logging}" dest="${jarextract}" />
+        <unjar src="${build.lib.dir}/${filename.client-common}" dest="${jarextract}" />
+        <unjar src="${build.lib.dir}/${filename.compeng-common}" dest="${jarextract}" />
+        <unjar src="${jar.name}" dest="${jarextract}" />
+    </target>
+    
+    <target name="package-AdminTool" depends="preold-build" description="Package admin tool applet">
+        <mkdir dir="${dist.dir}"/>
+
+        <property name="admintool.jar" location="${build.dir}/ContestAdminTool.jar"/>
+        <property name="permission_type" value="all-permissions" />
+        <property name="code_base" value="${applet.codebase}" />
+        
+        <jar jarfile="${admintool.jar}">
+            <manifest>
+                <attribute name="Main-Class" value="com/topcoder/client/contestMonitor/view/gui/MonitorGUIMain" />
+                <attribute name="Built-By" value="${user.name}" />
+                <attribute name="Build-Version" value="${app.version}" />
+                <attribute name="Permissions" value="${permission_type}"/>
+                <attribute name="Codebase" value="${code_base}"/>
+            </manifest>
+            <fileset dir="${jarextract}/"
+                includes="com/topcoder/client/**,
+                          com/topcoder/shared/netCommon/*,
+                          com/topcoder/shared/netCommon/customserializer/*,
+                          com/topcoder/netCommon/contest/*,
+                          com/topcoder/netCommon/io/**,
+                          com/topcoder/shared/dataAccess/StringUtilities.class,
+                          com/topcoder/shared/problem/**,
+                          com/topcoder/shared/language/**,
+                          com/topcoder/shared/util/logging/**,
+                          com/topcoder/shared/util/DBMS.class,
+                          com/topcoder/shared/util/TCResourceBundle.class,
+                          com/topcoder/shared/util/StoppableThread*.class,
+                          com/topcoder/server/util/logging/**,
+                          com/topcoder/server/util/*,
+                          com/topcoder/server/contest/*,
+                          com/topcoder/net/httptunnel/common/**,
+                          com/topcoder/net/httptunnel/client/**,
+                          com/topcoder/server/AdminListener/AdminConstants.class,
+                          com/topcoder/server/listener/monitor/*Response.class,
+                          com/topcoder/server/listener/monitor/*Item.class,
+                          com/topcoder/server/listener/monitor/MonitorProperties.class,
+                          com/topcoder/server/AdminListener/request/**,
+                          com/topcoder/server/AdminListener/response/**,
+                          com/topcoder/server/common/BackupCopy.class,
+                          com/topcoder/server/listener/monitor/MonitorCSHandler.class"
+                excludes="com/topcoder/client/spectatorApp/**,
+                          com/topcoder/client/mpsqasApplet/**,
+                          com/topcoder/client/contestApplet/**,
+                          com/topcoder/client/connectiontype/**,
+                          com/topcoder/client/security/**,
+                          com/topcoder/client/screening/**,
+                          com/topcoder/client/draftApp/**,
+                          com/topcoder/netCommon/mpsqas/**,
+                          com/topcoder/netCommon/draftApp/**,
+                          com/topcoder/netCommon/screening/**" />
+            <fileset dir="${tokenized_resource}/"
+                includes="monitor_log4j.properties,
+                          terms.properties,
+                          monitor.properties,
+                          dwload.xml,
+                          monitor_server.properties,
+                          DBMS.properties" />
+        </jar>
+        <mkdir dir="${build.dir}/tmp-admin-client"/>
+        <copy todir="${build.dir}/tmp-admin-client" overwrite="true">
+            <fileset dir="${admin.deployment.dir}" includes="**/*.bat, **/*.sh, **/*.jnlp"/>
+            <fileset file="${basedir}/scripts/custom.security"/>
+            <filterset>
+                <filter token="filename.basic_type_serialization" value="${filename.basic_type_serialization}"/>
+                <filter token="filename.security" value="${filename.security}"/>
+                <filter token="filename.log4j" value="${filename.log4j}"/>
+                <filter token="filename.lightweight_xml_parser" value="${filename.lightweight_xml_parser}"/>
+                <filter token="applet.codebase" value="${applet.codebase}"/>
+                <filter token="applet.href" value="${applet.href}"/>
+                <filter token="applet.homepage" value="${applet.homepage}"/>
+                <filter token="applet.lib-url" value="${applet.lib-url}"/>
+                <filter token="applet.arg-hostname" value="${applet.arg-hostname}"/>
+                <filter token="applet.arg-port" value="${applet.arg-port}"/>
+            </filterset>
+        </copy>
+
+<!--
+	<signjar alias="${applet.keystore-alias}" keystore="${applet.keystore}" storepass="${applet.storepass}">
+            <path>
+                <fileset file="${admintool.jar}"/>
+                <fileset dir="${build.lib.dir}" includes="${filename.log4j},${filename.security},
+                                                    ${filename.lightweight_xml_parser},
+                                                    ${filename.basic_type_serialization}"/>
+	    </path>
+	</signjar>
+-->
+        
+        <zip destfile="${dist.dir}/admin-client-${app.version}.zip">
+            <zipfileset file="${admintool.jar}"/>
+            <zipfileset dir="${build.lib.dir}" includes="${filename.log4j},${filename.security},
+                                                    ${filename.lightweight_xml_parser},
+                                                    ${filename.basic_type_serialization}"/>
+            <zipfileset dir="${build.dir}/tmp-admin-client" includes="*.jnlp,*.bat,*.sh,custom.security"/>
+        </zip>
+    </target>
+
+    <target name="copy-admin-zip" depends="version">
+	<copy file="${dist.dir}/admin-client-${app.version}.zip" 
+		tofile="${dist.dir}/admin-client.zip"
+		verbose="true"/>
+    </target>
+
+    <target name="deploy-app" depends="publish-workspace, tokenize" description="Deploys all jars into app folder. DEPLOY_APP env var must be defined">
+        <property name="app.jars.dir" location="${deploy_app}/lib/jars"/>
+        <mkdir dir="${app.jars.dir}"/>
+        <delete>
+            <fileset dir="${app.jars.dir}" includes="*.jar"/>
+        </delete>
+        <copy todir="${app.jars.dir}">
+            <fileset dir="${build.lib.dir}"
+               includes="${filename.arena-shared},
+                         ${filename.client-common},
+                         ${filename.client-socket},
+                         ${filename.compeng-common},
+                         ${filename.shared},
+                         ${filename.concurrent},
+                         ${filename.custom-serialization},
+                         ${filename.encoder},
+                         ${filename.farm-client},
+                         ${filename.farm-deployer},
+                         ${filename.farm-shared},
+                         ${filename.http-tunnel-client},
+                         ${filename.http-tunnel-server},
+                         ${filename.logging},
+                         ${filename.nbio-listener},
+                         ${filename.security},
+                         ${filename.log4j},
+                         ${filename.commons-digester},
+                         ${filename.activemq-core},
+                         ${filename.activeio-core},
+                         ${filename.backport-util-concurrent},
+                         ${filename.jms},
+                         ${filename.xpp3_min},
+                         ${filename.commons-beanutils},
+                         ${filename.commons-collections},
+                         ${filename.commons-logging},
+                         ${filename.jbossall-client},
+                         ${filename.base_exception},
+                         ${filename.basic_type_serialization},
+                         ${filename.ifxjdbc},
+                         ${filename.lightweight_xml_parser},
+                         ${filename.netty-socketio},
+                         ${filename.netty-buffer},
+                         ${filename.netty-common},
+                         ${filename.netty-transport},
+                         ${filename.netty-handler},
+                         ${filename.netty-codec-http},
+                         ${filename.netty-codec},
+                         ${filename.slf4j-api},
+                         ${filename.jackson-core},
+                         ${filename.jackson-databind},
+                         ${filename.jackson-annotations},
+                         ${filename.httpclient},
+                         ${filename.httpcore},
+                         ${filename.commons-io}
+               "/>
+            <fileset file="${jar.name}"/>
+        </copy>
+        <copy todir="${deploy_app}/wrapper" overwrite="true">
+             <fileset dir="${basedir}/wrapper" excludes="**/.svn"/>
+        </copy>
+        <!-- we also need to copy resource dir and scripts dir to finish deployment -->
+        <copy tofile="${deploy_app}/resources/ProblemParser.properties"
+            file="${tokenized_resource}/ProblemParser_App.properties" overwrite="true"/>
+        <copy tofile="${deploy_app}/resources/jbossmq-destinations-service.xml"
+            file="${tokenized_resource}/jbossmq-destinations-service_App.xml" overwrite="true"/>
+        <copy todir="${deploy_app}/resources" overwrite="true">
+             <fileset dir="${tokenized_resource}"
+                includes="screening/**,
+                          scoreboard/TCCC04/**,
+                          scoreboard/TCO04/**,
+                          scoreboard/SemifinalRound1.xml,
+                          scoreboard/SemifinalRound2.xml,
+                          scoreboard/SemifinalRound3.xml,
+                          scoreboard/SemifinalRound4.xml,
+                          scoreboard/Spectator.conf,
+                          scoreboard/TCFinalRound.xml,
+                          scoreboard/TCSFinalRound.xml,
+                          ApplicationServer.properties,
+                          ApplicationServer_JBoss.properties,
+                          broadcaster.properties,
+                          cache.properties,
+                          config.xml,
+                          CoreServices.properties,
+                          DBMS.properties,
+                          dwload.dtd,
+                          dwload.properties,
+                          dwload.xml,
+                          EmailEngineConfig.properties,
+                          ErrorMessages.properties,
+                          EventService.properties,
+                          farm-config.properties,
+                          informix-ds.xml,
+                          informix-service.xml,
+                          JavaDocGeneration.properties,
+                          log4j.properties,
+                          messagebus.xml,
+                          monitor.properties,
+                          monitor_log4j.properties,
+                          monitor_server.properties,
+                          MPSQASListener.properties,
+                          MPSQASProcessor.properties,
+                          problem.xsd,
+                          Processor.properties,
+                          recordActions.properties,
+                          samplecontest.props,
+                          ServerEncryption.properties,
+                          terms.properties,
+                          terms.txt,
+                          testdata.properties,
+                          Tester.properties,
+                          Util.properties,
+                          variations.properties,
+                          Verify.properties,
+                          WebServiceGenerator.properties,
+                          MPSQASApplet.properties,
+                          firstTimeUser.properties,
+                          intermission.properties,
+                          keepalive.properties,
+                          listener.properties,
+                          neverCompeted.properties,
+                          TunnelConfig.properties,
+                          tunnel.properties,
+                          WebSocketServer.properties,
+                          server-applicationContext.properties,
+                          webSocketServer.keystore"
+                excludes="**/.svn"/>
+        </copy>
+        <copy todir="${deploy_app}/resources" overwrite="true">
+            <fileset dir="${basedir}/resources"
+                includes="Verify.class,
+                          Verify.java,
+                          VerifyConfigurationGenerator.class,
+                          VerifyConfigurationGenerator.java" />
+        </copy>
+        <antcall target="deploy-app-scripts-in-windows" />
+        <antcall target="deploy-app-scripts-in-linux" />
+    </target>
+    
+    <target name="deploy-app-scripts-in-windows" if="isWindows">
+        <copy todir="${deploy_app}/scripts" overwrite="true">
+            <fileset dir="${tokenized_scripts}"
+                includes="*.bat, localSpectator.conf" />
+        </copy>
+    </target>
+    
+    <target name="deploy-app-scripts-in-linux" if="isLinux">
+        <copy todir="${deploy_app}/scripts" overwrite="true">
+            <fileset file="${basedir}/scripts/custom.security"/>
+            <fileset dir="${tokenized_scripts}"
+                includes="adminListener.sh,
+                          chatCount.sh,
+                          listener.sh,
+                          memory.sh,
+                          mpsqasListener.sh,
+                          runAdminListener.sh,
+                          runMainListener.sh,
+                          stopAdminListener.sh,
+                          stopMainListener.sh,
+                          webSocketListener.sh,
+                          stopWebSocketListener.sh,
+                          runWebSocketListener.sh,
+                          localSpectator.conf" />
+        </copy>    
+        <chmod perm="ugo+x" type="file">
+            <fileset dir="${deploy_app}/scripts">
+                <include name="*.sh"/>
+            </fileset>
+        </chmod>
+    </target>
+    <!-- copy the linux processor -->
+    <macrodef name="copyLinuxProcessor">
+      <attribute name="destDir"/>
+      <attribute name="pName"/>
+      <sequential>
+        <copy todir="@{destDir}/@{pName}/deploy-in-appfolder/app" overwrite="true">
+            <fileset dir="${basedir}"
+                   includes="src/python/*,
+                             src/r/*,
+                             cpp/long_io.cc"/>
+        </copy>
+      </sequential>
+    </macrodef>
+    <!-- copy the windows processor -->
+    <macrodef name="copyWindowsProcessor">
+      <attribute name="destDir"/>
+      <attribute name="pName"/>
+      <sequential>
+        <copy todir="@{destDir}/@{pName}/deploy-in-appfolder/app" overwrite="true">
+             <fileset dir="${basedir}"
+                  includes="src/csharp/LongTesterIO.cs"/>
+        </copy>
+      </sequential>
+    </macrodef>
+    <!-- copy wrapper and build jars to windows and linux processor -->
+    <macrodef name="copyProcessor">
+      <attribute name="destDir"/>
+      <attribute name="pName"/>
+      <sequential>
+          <copy todir="@{destDir}/@{pName}/deploy-in-appfolder/app/wrapper" overwrite="true">
+              <fileset dir="${basedir}/wrapper" excludes="**/.svn"/>
+          </copy>
+          <copy todir="@{destDir}/@{pName}/deploy-in-appfolder/app/build" overwrite="true">
+                <fileset dir="${build.lib.dir}" includes="${filename.basic_type_serialization} ${filename.custom-serialization} ${filename.shared} ${filename.farm-server}"/>
+                <fileset dir="${build.artifacts.dir}" includes="writer-${app.version}.jar"/>
+                <mapper type="regexp" from="^(.*)-(([0-9].*)|SNAPSHOT)\.jar$$" to="\1.jar"/>
+          </copy>
+       </sequential>
+    </macrodef>
+    <!--
+        Generate the deployers including 32bit and 64bit of linux and windows
+    -->
+    <target name="generate-farm-deployer" depends="publish-workspace,jar_writer" description="generate all the deployers">
+        <property name="deployer.dist.deployment" value="${deployer_dist}/deployment"/>
+        <property name="deployer.dist.jars" value="${deployer_dist}/jars"/>
+        <mkdir dir="${deployer_dist}"/>
+        <delete>
+            <fileset dir="${deployer_dist}" includes="**"/>
+        </delete>
+        <mkdir dir="${deployer.dist.deployment}"/>
+        <mkdir dir="${deployer.dist.jars}"/>
+        
+        <copy todir="${deployer_dist}" overwrite="true">
+            <fileset dir="${basedir}/farm-deployer" includes="**"/>
+        </copy>
+
+        <copyLinuxProcessor destDir="${deployer.dist.deployment}" pName="processor"/>
+        <copyLinuxProcessor destDir="${deployer.dist.deployment}" pName="processor-64bit"/>
+        
+        <copyWindowsProcessor destDir="${deployer.dist.deployment}" pName="processor-windows-def"/>
+        <copyWindowsProcessor destDir="${deployer.dist.deployment}" pName="processor-windows-def-64bit"/>
+        
+	    <replace dir="${deployer.dist.deployment}" includes="**/*.xml,**/*.properties">
+	        <replacefilter token="@filename.farm-server@" value="${filename.farm-server}"/>
+	        <replacefilter token="@filename.http-tunnel-client@" value="${filename.http-tunnel-client}"/>
+	        <replacefilter token="@filename.classes@" value="${filename.classes}"/>
+	        <replacefilter token="@filename.shared@" value="${filename.shared}"/>
+	        <replacefilter token="@filename.client-common@" value="${filename.client-common}"/>
+	        <replacefilter token="@filename.client-socket@" value="${filename.client-socket}"/>
+	        <replacefilter token="@filename.concurrent@" value="${filename.concurrent}"/>
+	        <replacefilter token="@filename.compeng-common@" value="${filename.compeng-common}"/>
+	        <replacefilter token="@filename.custom-serialization@" value="${filename.custom-serialization}"/>
+	        <replacefilter token="@filename.encoder@" value="${filename.encoder}"/>
+	        <replacefilter token="@filename.logging@" value="${filename.logging}"/>
+	        <replacefilter token="@filename.arena-shared@" value="${filename.arena-shared}"/>
+	        <replacefilter token="@filename.farm-shared@" value="${filename.farm-shared}"/>
+	        <replacefilter token="@filename.farm-deployer@" value="${filename.farm-deployer}"/>
+	        <replacefilter token="@filename.nbio-listener@" value="${filename.nbio-listener}"/>
+	        <replacefilter token="@filename.log4j@" value="${filename.log4j}"/>
+	    </replace>
+        <replace replacefilterfile="${token.propfile}" dir="${deployer.dist.deployment}" includes="**/*.xml,**/*.properties,**/*.config"/>                
+        
+    <copy todir="${deployer.dist.jars}" overwrite="true">
+            <fileset dir="${build.lib.dir}" includes="*.jar"/>
+            <fileset file="${jar.name}"/>
+        </copy>
+        
+        <copyProcessor destDir="${deployer.dist.deployment}" pName="processor"/>
+        <copyProcessor destDir="${deployer.dist.deployment}" pName="processor-64bit"/>
+        <copyProcessor destDir="${deployer.dist.deployment}" pName="processor-windows-def"/>
+        <copyProcessor destDir="${deployer.dist.deployment}" pName="processor-windows-def-64bit"/>
+    </target>
+    <!--
+        Update the classes.jar in the farm deployer application, clears the Controller and Processor folders to force the refresh on next restart 
+    -->
+    <target name="update-farm-deployer" depends="generate-farm-deployer" description="Copies all required arena-related jars to the Farm deployer application">
+        <mkdir dir="${tmp.deployer.dist.dir}"/>
+        <delete>
+            <fileset dir="${tmp.deployer.dist.dir}" includes="**"/>
+        </delete>
+        <copy todir="${tmp.deployer.dist.dir}" overwrite="true">
+            <fileset dir="${deployer_dist}" includes="**"/>
+        </copy>
+        <chmod dir="${tmp.deployer.dist.dir}" perm="ugo+rx" includes="*.sh"/>
+        <antcall target="update-farm-deployer-in-windows" />
+        <antcall target="update-farm-deployer-in-linux" />
+    </target>
+
+    <target name="update-farm-deployer-in-windows" if="isWindows">
+        <echo level="info">Update Processors</echo>
+        <copy todir="${deployer.dir}" overwrite="true">
+            <fileset dir="${tmp.deployer.dist.dir}" includes="**"/>
+        </copy>
+        <delete>
+            <fileset dir="${deployer.dir}/jars" includes="farm-deployment-*.jar"/>
+        </delete>
+
+        <echo level="info">Clean Controller</echo>
+
+        <delete>
+            <fileset dir="${controller.dir}" includes="deploy/*;launcher/cache/*"/>
+        </delete>
+
+        <echo level="info">Clean Processor</echo>
+
+        <delete>
+            <fileset dir="${processor.dir}" includes="deploy/*;launcher/cache/*"/>
+        </delete>
+
+        <echo>Restarting controller and processor in order to force jars refreshing</echo>
+        <!-- exec command="bash ${controller.dir}/launcher/restart.sh" dir="${controller.dir}/launcher" os="unix" /-->
+    </target>
+
+    <target name="update-farm-deployer-in-linux" if="isLinux">
+        <exec command="ssh -o StrictHostKeyChecking=no deployer@farm-controller.topcoder.com  '. /home/deployer/.bash_profile; cd /home/deployer/deployer; rm -rf deployment/controller deployment/processor deployment/processor-64bit deployment/processor-windows-def deployment/processor-windows-def-64bit; cp -r ${tmp.deployer.dist.dir}/* .;./signall.sh jars; rm jars/farm-deployment-*.jar'"/>
+
+        <!-- We need to clean processor and controller folders. There is no easy way to force an update without changing version numbers.
+           Controller and processor will need a restart in order to get updated.
+        -->
+        <exec command="rm -rf ${controller.dir}/deploy ${controller.dir}/launcher/cache"/>
+        <exec command="ssh -o StrictHostKeyChecking=no farm@farm-controller.topcoder.com 'rm -rf ${processor.dir}/deploy ${processor.dir}/launcher/cache'"/>
+        <echo>Restarting controller and processor in order to force jars refreshing</echo>
+        <exec command="bash ${controller.dir}/launcher/restart.sh" dir="${controller.dir}/launcher" />
+    </target>
+
+    <target name="clean-jboss" depends="init">
+        <property name="jboss.lib.dir"  location="${deploy_jboss}/lib" />
+        <property name="jboss.deploy.dir"  location="${deploy_jboss}/deploy" />
+        <delete>
+           <fileset dir="${jboss.lib.dir}" includes="${app.proj.deps.all}"/>
+        </delete>
+    </target>
+
+    <target name="deploy-internal" depends="tokenize" description="Deploy the related configurations and libs">
+        <copy todir="${jboss.deploy.dir}">
+            <fileset dir="${tokenized_resource}"
+                includes="dw-ds.xml, informix-ds.xml" />
+        </copy>
+        
+        <copy tofile="${deploy_jboss}/conf/ProblemParser.properties"
+            file="${tokenized_resource}/ProblemParser_Jboss.properties" overwrite="true"/>
+        <copy tofile="${deploy_jboss}/deploy/jms/jbossmq-destinations-service.xml"
+            file="${tokenized_resource}/jbossmq-destinations-service_Jboss.xml" overwrite="true"/>
+        <copy todir="${deploy_jboss}/conf">
+            <fileset dir="${tokenized_resource}"
+                includes="com/**,
+                          longcontest/examplesMsgTemplate.txt,
+                          longcontest/submissionMsgTemplate.txt,
+                          ApplicationServer.properties,
+                          ApplicationServer_JBoss.properties,
+                          MPSQASRestricted.properties,
+                          cache.properties,
+                          CoreServices.properties,
+                          DBMS.properties,
+                          EmailEngineConfig.properties,
+                          farm-config.properties,
+                          LongContest.properties,
+                          problem.xsd,
+                          terms.properties,
+                          terms.txt,
+                          Tester.properties,
+                          LDAP.properties,
+                          variations.properties" />
+        </copy>
+    </target>
+    
+    <target name="setup-controller" description="setup the farm controller">
+        <copy todir="${controller.dir}">
+            <fileset dir="${setup.dir}/controller" includes="**/*" />
+        </copy>
+        <chmod dir="${controller.dir}/launcher" perm="ugo+rx" includes="**/*.sh"/>
+    </target>
+    
+    <target name="setup-processor" description="setup the farm processor">
+        <mkdir dir="${tmp.farm-processor.dir}"/>
+        <copy todir="${tmp.farm-processor.dir}">
+            <fileset dir="${setup.dir}/processor" includes="**/*" />
+        </copy>
+        <exec command="ssh -o StrictHostKeyChecking=no farm@farm-controller.topcoder.com 'cp -r ${tmp.farm-processor.dir} ${processor.dir}; chmod +x ${processor.dir}/launcher/*.sh'"/>
+        <delete dir="${tmp.farm-processor.dir}" />
+    </target>
+    
+    <target name="setup-jboss" description="which will setup a clean jboss and make it ready for deployment">
+        <copy todir="${jboss_home}">
+            <fileset dir="${setup.dir}/jboss-4.0.5.GA" includes="**/*" />
+        </copy>
+        <chmod dir="${jboss_home}/bin" perm="ugo+rx" includes="**/*.sh"/>
+    </target>
+    
+    <target name="deploy-jboss" depends="ejb-jars-jboss,clean-jboss,deploy-internal" description="Deploys all jboss jars into JBoss application server">
+    	<antcall target="copy-app-jars-to-jboss">
+    		<param name="jboss.server-dir" value="${deploy_jboss}"/>
+    	</antcall>
+    </target>
+    
+    <target name="copy-app-jars-to-jboss" description="copies jars to jboss">
+    	<!-- assumes param is passed -->
+    	<echo message="copying jars to ${jboss.server-dir}"/>
+    	<!-- Application dependencies (current versions). -->
+    	<property name="app.proj.deps.cur" value="${filename.classes},
+            ${filename.arena-shared},
+            ${filename.client-common},
+            ${filename.client-socket},
+            ${filename.compeng-common},
+            ${filename.shared},
+            ${filename.concurrent},
+            ${filename.custom-serialization},
+            ${filename.encoder},
+            ${filename.farm-client},
+            ${filename.farm-deployer},
+            ${filename.farm-shared},
+            ${filename.http-tunnel-client},
+            ${filename.http-tunnel-server},
+            ${filename.logging},
+            ${filename.nbio-listener},
+            ${filename.PactsClientServices},
+            ${filename.id_generator},
+            ${filename.ifxjdbc},
+            ${filename.security},
+            ${filename.basic_type_serialization},
+            ${filename.db_connection_factory},
+            ${filename.base_exception}"/>
+            
+        <copy todir="${jboss.server-dir}/lib">
+            <fileset dir="${build.lib.dir}" includes="${app.proj.deps.cur}"/>
+            <fileset dir="${build.lib.dir}" includes="jackson-*.jar,spring*.jar,commons-*.jar,aws-*.jar,httpc*.jar,joda-time*.jar,farm-*.jar,xstream*.jar,xpp*.jar,hibernate*.jar,mysql*.jar,c3p0*.jar"/>
+            <fileset dir="${build.artifacts.dir}" includes="${app.proj.deps.cur}"/>
+            <fileset dir="${basedir}/lib/jars/tcs" includes="tcsUtil.jar, ldap_sdk_interface.jar"/>
+            <fileset dir="${basedir}/lib/jars/third_party" includes="ldap.jar, netscape_ldap_sdk.jar"/>
+        </copy>
+
+        <copy todir="${jboss.server-dir}/deploy">
+            <fileset dir="${ejb_jars_jboss}" includes="**"/>
+            <fileset dir="${basedir}/lib/jars/tcs" includes="reconnect.jar, tc.jar, security.ear"/>
+        </copy>
+    </target>
+    
+    <target name="package-app-deployment" depends="ejb-jars-jboss,generate-farm-deployer" description="packages the app processes for deployment in a tar file">
+    	<property name="pkg.dir" value="${build.dir}/package/app"/>
+    	<property name="pkg.jboss-dir" value="${pkg.dir}/jboss-4.0.5.GA"/>
+    	<!-- jboss properties come from build.properties -->
+    	<property name="pkg.jboss-server-dir" value="${pkg.jboss-dir}/server/${jboss.config.name}"/>
+    	
+    	<mkdir dir="${pkg.jboss-server-dir}"/>
+    	
+    	<!-- copy source jboss config -->
+    	<copy todir="${pkg.jboss-dir}">
+    		<fileset dir="${basedir}/setup/jboss-4.0.5.GA" includes="**/*"/>
+    	</copy>
+    	<!-- copy jars -->
+    	<mkdir dir="${pkg.jboss-server-dir}/lib"/>
+    	<mkdir dir="${pkg.jboss-server-dir}/deploy"/>
+    	<antcall target="copy-app-jars-to-jboss">
+    		<param name="jboss.server-dir" value="${pkg.jboss-server-dir}"/>
+    	</antcall>
+    	
+    	<!-- copy config -->
+    	<mkdir dir="${pkg.jboss-server-dir}/conf"/>
+    	<antcall target="deploy-internal">
+    		<param name="jboss.deploy.dir" value="${pkg.jboss-server-dir}/deploy"/>
+    		<param name="deploy_jboss" value="${pkg.jboss-server-dir}"/>
+    	</antcall>
+    	
+    	<!-- copy resources -->
+    	<mkdir dir="${pkg.dir}/resources"/>
+    	<copy todir="${pkg.dir}/resources">
+    		<fileset dir="${tokenized_resource}"/>
+    	</copy>
+    	
+    	<!-- copy jars for server processes -->
+    	<property name="app.proj.deps.cur" value="${filename.classes},
+            ${filename.arena-shared},
+            ${filename.client-common},
+            ${filename.client-socket},
+            ${filename.compeng-common},
+            ${filename.shared},
+            ${filename.concurrent},
+            ${filename.custom-serialization},
+            ${filename.encoder},
+            ${filename.farm-client},
+            ${filename.farm-deployer},
+            ${filename.farm-shared},
+            ${filename.http-tunnel-client},
+            ${filename.http-tunnel-server},
+            ${filename.logging},
+            ${filename.nbio-listener},
+            ${filename.PactsClientServices},
+            ${filename.id_generator},
+            ${filename.ifxjdbc},
+            ${filename.security},
+            ${filename.basic_type_serialization},
+            ${filename.db_connection_factory},
+            ${filename.base_exception}"/>
+    	<mkdir dir="${pkg.dir}/lib/jars"/>
+    	<copy todir="${pkg.dir}/lib/jars">
+    		<fileset dir="${build.lib.dir}" includes="*.jar"/>
+    		<!-- 
+    		<fileset dir="${build.lib.dir}" 
+    			includes="jackson-*.jar,spring*.jar,commons-*.jar,aws-*.jar,httpc*.jar,joda-time*.jar,farm-*.jar,xstream*.jar,xpp*.jar,hibernate*.jar,mysql*.jar,c3p0*.jar,jbossall-client*.jar,log4j-*.jar,dom4j-*.jar,cglib-*.jar,asm-*.jar"/>
+    			-->
+            <fileset dir="${build.artifacts.dir}" includes="${app.proj.deps.cur}"/>
+    	</copy>
+    	
+    	<!-- copy scripts -->
+    	<mkdir dir="${pkg.dir}/scripts"/>
+    	<copy todir="${pkg.dir}/scripts" verbose="false" failonerror="true">
+    		<fileset dir="${basedir}/setup/aws/app" includes="*.sh"/>
+    		<fileset dir="${tokenized_scripts}" 
+    			includes="adminListener.sh,runAdminListener.sh,listener.sh,runMainListener.sh,mpsqasListener.sh,runWebSocketListener.sh,webSocketListener.sh" />
+    		<!-- need this to be in the dir we execute jboss from -->
+    		<fileset file="${basedir}/setup/jboss-4.0.5.GA/bin/TC.cloud.ldap.keystore"/>
+    		<fileset file="${basedir}/scripts/custom.security"/>
+    	</copy>
+    	
+    	<!-- copy controller deployer folder -->
+    	<mkdir dir="${pkg.dir}/controller"/>
+    	<copy file="${deployer_dist}/deployment/controller/config.xml" todir="${pkg.dir}/controller"/>
+    	
+    	<copy todir="${pkg.jboss-server-dir}/conf">
+    		<fileset dir="${deployer_dist}/deployment/controller/deploy-in-classpath/conf" excludes="log4j.xml"/>
+    	</copy>
+
+	<copy todir="${pkg.dir}">
+		<fileset dir="${basedir}" includes="wrapper/**"/>
+	</copy>
+    	
+    	<copy todir="${pkg.dir}/resources">
+    		<fileset file="${deployer_dist}/deployment/controller/deploy-in-classpath/conf/hibernate.cfg.xml"/>
+    		<fileset file="${basedir}/resources/Verify.class"/>
+    	</copy>
+    	
+    	
+    	<tar destfile="${build.artifacts.dir}/osfiles.tgz" longfile="gnu" compression="gzip">
+    		<tarfileset dir="${build.dir}/package" excludes="**/*.sh"/>
+    		<tarfileset dir="${build.dir}/package" includes="**/*.sh" filemode="755"/>
+    	</tar>
+    </target>
+
+</project>

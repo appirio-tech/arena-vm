@@ -1,0 +1,23 @@
+# the home directory for deployment
+env_home=C:/deployment
+
+# directory for app deployment
+deploy_app=${env_home}/app
+
+# jboss server configuration
+jboss_home=${env_home}/jboss-4.0.5.GA
+server.name=default
+jboss.config.name=${server.name}
+deploy_jboss=${jboss_home}/server/${jboss.config.name}
+
+# directory for controller
+controller.dir=${env_home}/controller
+
+# directory for processor
+processor.dir=${env_home}/processor
+
+# farm deployer related configuration.
+tmp.farm-deps.dir=${env_home}/tmp/farm-dep
+tmp.farm-appfolder.dir=${env_home}/tmp/deploy-in-appfolder/app
+deployer.dir=${env_home}/deployer
+tmp.deployer.dist.dir=${env_home}/tmp/dist/deployer

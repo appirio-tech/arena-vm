@@ -1,0 +1,11 @@
+Your test for the problem <className> has completed.
+
+View This Solution
+http://winningformula.espn.com/algorithm?module=ViewProblemSolution&rd=<roundId>&subnum=<submissionNumber>
+
+View Example Result
+http://winningformula.espn.com/algorithm?module=ViewExampleResults&rd=<roundId>
+
+Manage My Algorithms
+http://winningformula.espn.com/algorithm?module=ManageMyAlgorithms
+

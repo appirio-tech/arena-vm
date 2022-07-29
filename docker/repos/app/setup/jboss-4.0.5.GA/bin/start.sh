@@ -1,1 +1,0 @@
-nohup ./run.sh &

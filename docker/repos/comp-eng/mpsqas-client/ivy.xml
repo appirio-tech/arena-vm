@@ -1,6 +1,0 @@
-<ivy-module version="2.0">
-    <info organisation="com.topcoder.internal" module="mpsqas-client"/>
-    <dependencies>
-        <dependency org="com.topcoder.internal" name="client-socket" rev="latest.integration"/>
-    </dependencies>
-</ivy-module>

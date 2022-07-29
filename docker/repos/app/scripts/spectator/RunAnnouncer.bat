@@ -1,1 +1,0 @@
-C:\j2sdk1.4.2_01\bin\java -classpath C:\java\code\main\app\lib\jars\log4j-1.2.7.jar;C:\java\code\main\app\build\classes com.topcoder.client.spectatorApp.announcer.Announcer C:\java\code\main\app\resources\scoreboard\SemifinalRound1.xml

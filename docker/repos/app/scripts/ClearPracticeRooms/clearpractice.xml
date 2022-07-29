@@ -1,7 +1,0 @@
-  <loadDefinition>
-    <db>jdbc:informix-sqli://192.168.14.51:2020/informixoltp:INFORMIXSERVER=informixoltp_tcp;user=coder;password=teacup</db>
-    <simulate>false</simulate>
-    <dayX>10</dayX>
-    <dayY>10</dayY>
-    <dayZ>10</dayZ>
-  </loadDefinition>

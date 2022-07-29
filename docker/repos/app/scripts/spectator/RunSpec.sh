@@ -1,1 +1,0 @@
-java -Xmx512M -Xms512M -Xincgc -Dcom.topcoder.client.spectatorApp.EmulatePlasma=false  -classpath ../../lib/jars/log4j-1.2.7.jar:../../build/classes:../../images:../../resources  com.topcoder.client.spectatorApp.SpectatorApp ../../resources/scoreboard/Spectator.conf

@@ -1,0 +1,131 @@
+Giorgos Zervas
+Admin Tool - Group 3 - Phase 1 Changes
+11/07/2003
+
+README 1ST
+----------
+
+The design of Phase 1 / Group 3 changed after the submission deadline. Just for historical purposes
+I have kept at the end the list of changes done for the initial submission. Below you can find a list of
+the latest changes.
+
+IMPORTANT NOTE
+--------------
+The package com.topcoder.utilities.monitor was moved to com.topcoder.client.contestMonitor
+both in src/main and src/testcases. This results in many import statement changes in various
+files which are documented below. Also the package statement of every single file had to be
+updated to reflect this refactoring.
+
+*** PLEASE MAKE SURE THAT YOU MANUALLY DELETE THE FOLLOWING DIRECTORIES ***
+* src/main/com/topcoder/utilities/monitor/                                *
+* src/testcases/com/topcoder/utilities/monitor/                           *
+***************************************************************************
+
+The remaining substantial changes are documented per-file below. For detailed explanation of
+each change check the comments in the respective source file.
+
+ 1. src/main/com/topcoder/client/contestMonitor/model/ContestManagementController.java
+    * added method public void getComponents(int roundID, ResponseWaiter waiter)
+
+ 2. src/main/com/topcoder/client/contestMonitor/view/gui/ContestSelectionFrame.java
+    * added method public ContestManagementController getContestManagementController()
+
+ 3. src/main/com/topcoder/client/contestMonitor/view/gui/menu/AbstractListModel.java
+    * new file, see inside for documentation
+
+ 4. src/main/com/topcoder/client/contestMonitor/view/gui/menu/BroadcastSubmenu.java
+    * in method private GenericDialog getComponentBroadcastDialog()
+      changed the 1st entry from IntegerField to ProblemList field
+
+ 5. src/main/com/topcoder/client/contestMonitor/view/gui/menu/DropDownField.java
+    * added default constructor public DropDownField(), this is used by the constructor of
+      ProblemListField to construct a subclass of JComboBox with a default empty list model
+
+ 6. src/main/com/topcoder/client/contestMonitor/view/gui/menu/ProblemListField.java
+    * new file, see inside for documentation
+
+ 7. src/main/com/topcoder/server/AdminListener/request/GetRoundProblemComponentsRequest.java
+    * added private boolean isGlobal attribute and accompanying getter method isGlobal()
+
+ 8. src/main/com/topcoder/client/contestMonitor/model/CommandSender.java
+    * added abstract method void sendGetRoundProblemComponents(int roundID)
+
+ 9. src/main/com/topcoder/client/contestMonitor/model/MonitorNetClient.java
+    * added implementation method void sendGetRoundProblemComponents(int roundID)
+
+10. src/main/com/topcoder/server/ejb/AdminServices/AdminServices.java
+    * added abstract method Collection getRoundProblemComponents(int roundID) throws RemoteException, SQLException
+
+11. src/main/com/topcoder/server/ejb/AdminServices/AdminServicesBean.java
+    * added implementation method Collection getRoundProblemComponents(int roundID) throws RemoteException, SQLException
+
+12. src/main/com/topcoder/server/AdminListener/ContestManagemenProcessor.java
+    * in method Object processRequest(ContestManagementRequest request)
+      when a GetRoundProblemComponentsRequest is received we check whether
+      it isGlobal() and dispatch it accordingly
+    * added method private GetRoundProblemComponentsAck processGetRoundProblemComponents(int roundID)
+
+13. src/testcases/com/topcoder/client/contestMonitor/model/ComponentBroadcastTest.java
+    * new file, see inside for documentation
+
+14. src/testcases/com/topcoder/server/AdminListener/request/GetRoundProblemComponentsRequestTest.java
+    * new file, see inside for documentation
+
+15. build.xml
+    * added testcase com.topcoder.client.contestMonitor.model.ComponentBroadcastTest in target "run-tests"
+    * added  <sysproperty key="testdata.properties" value="${basedir}/${resources}/testdata.properties"/> for
+      target run-tests
+    * changed classpath element in target run-tests to value class.path instead of class.path.win
+    * added testcase com.topcoder.server.AdminListener.request.GetRoundProblemComponentsRequestTest in target "run-AdminServices-tests"
+
+16. resources/testdata.properties
+    * new file, see inside for documentation
+
+Also the following script files were updated to reflect on the refactoring mentioned above
+
+1. scripts/monitor_gui.bat
+2. scripts/monitor_gui.sh
+
+Post-review changes
+-------------------
+1. src/testcases/com/topcoder/client/contestMonitor/view/gui/menu/ProblemListFieldTest.java
+    * new file, see inside for documentation
+
+
+Tests
+-----
+
+Before running any tests you should make sure to start jboss, the contest listener and the admin listener by hand.
+Otherwise the tests will fail. Also make sure that the values inside the file resources/testdata.properties
+match the ones you use to start above services.
+
+Here is how i start them and then run tests:
+scripts/listener.sh start 9991 d 9992 d 9993
+scripts/adminListener.sh start 9994 192.168.0.5:9992
+ant run-tests
+
+To run the admin services tests you don't need to start either the listener or the admin listener (even though
+if they are already running it should not inhibit the process). Just run:
+ant run-AdminServices-tests
+
+OLD CHANGES LIST (OBSOLETE)
+---------------------------
+1. src/main/com/topcoder/client/contestMonitor/model/ContestManagementController.java
+    * added method public void getProblems(int roundID, ResponseWaiter waiter)
+
+2. src/main/com/topcoder/client/contestMonitor/view/gui/ContestSelectionFrame.java
+    * added method public ContestManagementController getContestManagementController()
+
+3. src/main/com/topcoder/client/contestMonitor/view/gui/menu/AbstractListModel.java
+    * new file, see inside for documentation
+
+4. src/main/com/topcoder/client/contestMonitor/view/gui/menu/BroadcastSubmenu.java
+    * in method private GenericDialog getComponentBroadcastDialog()
+      changed the 1st entry from IntegerField to ProblemList field
+
+5. src/main/com/topcoder/client/contestMonitor/view/gui/menu/DropDownField.java
+    * added default constructor public DropDownField()
+
+6. src/main/com/topcoder/client/contestMonitor/view/gui/menu/ProblemListField.java
+    * new file, see inside for documentation
+

@@ -1,0 +1,9 @@
+<ivysettings>
+    <resolvers>
+        <chain name="tcs-artifacts-chain" returnFirst="true" dual="true">
+            <resolver ref="local-chain" />
+            <resolver ref="external-artifacts" />
+            <resolver ref="tcs-artifacts" />
+        </chain>
+    </resolvers>
+</ivysettings>

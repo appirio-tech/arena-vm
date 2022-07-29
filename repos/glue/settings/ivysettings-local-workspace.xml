@@ -1,0 +1,11 @@
+<ivysettings>
+    <property name="ivy.local-workspace.default.root" value="${root.dir}/dist/artifacts" override="false" />
+    <property name="ivy.local-workspace.default.ivy.pattern" value="${ivy.filesystem.ivy.pattern}" override="false" />
+    <property name="ivy.local-workspace.default.artifact.pattern" value="${ivy.filesystem.artifact.pattern}" override="false" />
+    <resolvers>
+        <filesystem name="local-workspace" changingPattern="latest.integration" changingMatcher="exact">
+            <ivy pattern="${ivy.local-workspace.default.root}/${ivy.local-workspace.default.ivy.pattern}" />
+            <artifact pattern="${ivy.local-workspace.default.root}/${ivy.local-workspace.default.artifact.pattern}" />
+        </filesystem>
+    </resolvers>
+</ivysettings>

@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-  <loadDefinition>
-    <sourcedb>jdbc:informix-sqli://192.168.14.51:2020/informixoltp:INFORMIXSERVER=informixoltp_tcp;user=coder;password=Rev.A049</sourcedb>
-    <targetdb>jdbc:informix-sqli://192.168.14.52:2022/tc_prod_dw:INFORMIXSERVER=datawarehouse_tcp;user=coder;password=Rev.A049</targetdb>
-    <load>
-      <classname>com.topcoder.utilities.dwload.TCLoadCoders</classname>
-    </load>
-  </loadDefinition>

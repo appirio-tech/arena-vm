@@ -1,0 +1,10 @@
+applet.codebase=http://qa.arena.topcoder.com
+applet.href=/applets/ContestApplet.jnlp
+applet.homepage=http://qa.arena.topcoder.com
+applet.lib-url=https://qa.arena.topcoder.com/applets/lib
+applet.arg-hostname=qa.arena.topcoder.com
+applet.arg-port=5001
+applet.arg-tunnel=http://tunnel1.qa.topcoder.com/tunnel?dummy
+applet.keystore-alias=qa
+applet.storepass=applets-qa
+applet.keystore=applets-qa.jks

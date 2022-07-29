@@ -1,1 +1,0 @@
-for /F %%V in (idfile) do javaws -wait http://localhost:8080/farm-deployer/launch.jnlp?type=controller^&id=%%V

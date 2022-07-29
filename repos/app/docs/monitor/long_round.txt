@@ -1,0 +1,6 @@
+1) The following update should be executed:
+ 
+INSERT INTO round_type_lu (round_type_id, round_type_desc) VALUES (10, 'Long Round')
+
+2) When you create the round through the admin client, you must select the "Long Round" type.
+3) When you run AssignRooms, you must select the "Empty Room" type.

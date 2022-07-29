@@ -1,0 +1,50 @@
+<project name="glue-macros" basedir=".">
+
+    <macrodef name="compile">
+        <attribute name="srcdir" default="${src.main.dir}" />
+        <attribute name="destdir" default="${build.classes.dir}" />
+        <attribute name="target" default="${compile.source}" />
+        <attribute name="classpathref" default="classpath.lib" />
+        <element name="includes" />
+        <element name="extra-compile" optional="true" />
+        <sequential>
+            <mkdir dir="@{destdir}" />
+            <depend srcdir="@{srcdir}" destdir="@{destdir}" cache="${build.dir}/cache">
+                <includes />
+            </depend>
+
+            <javac destdir="@{destdir}" srcdir="@{srcdir}" optimize="${compile.optimize}" source="@{target}" target="@{target}" debug="${compile.debug}" memoryInitialSize="512m" memoryMaximumSize="512m" fork="yes" includeantruntime="false">
+                <classpath refid="@{classpathref}" />
+                <includes />
+                <extra-compile />
+            </javac>
+        </sequential>
+    </macrodef>
+    
+    <macrodef name="copyproperty">
+        <attribute name="src" />
+        <attribute name="dest" />
+        <sequential>
+            <property name="@{dest}" value="${@{src}}" />
+        </sequential>
+    </macrodef>
+    <!-- convert project name -->
+    <macrodef name="mappingproperty">
+        <attribute name="src" />
+        <attribute name="value1" />
+        <attribute name="value2" />
+        <attribute name="dest" />
+        <sequential>
+            <!-- manually convert classes to app -->
+	        <if>
+	            <equals arg1="@{src}" arg2="@{value1}" />
+	            <then>
+	                <property name="@{dest}" value="${@{value2}}" />
+	            </then>
+	            <else>
+	                <property name="@{dest}" value="${@{src}}" />
+	            </else>
+	        </if>
+        </sequential>
+    </macrodef>
+</project>
