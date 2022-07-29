@@ -1,3 +1,6 @@
+/*
+ * Copyright (C) - 2022 TopCoder Inc., All Rights Reserved.
+ */
 package com.topcoder.client.contestApplet.panels;
 
 //import java.util.*;
@@ -15,6 +18,21 @@ import com.topcoder.client.contestApplet.frames.AppletPreferencesFrame;
 
 import java.io.IOException;
 
+/**
+ * The summary configuration panel.
+ *
+ * <p>
+ * Changes in version 1.1 (Python3 Support):
+ * <ol>
+ *      <li>Added {@link #PYTHON3POINTS}, {@link #PYTHON3CHLPASSED}, {@link #PYTHON3CHLFAILED}, {@link #PYTHON3SYSPASSED}
+ *       {@link #PYTHON3SYSFAILED} fields.</li>
+ *      <li>Updated {@link #SummaryConfigurationPanel(JDialog)}, {@link #savePreferences()} methods.</li>
+ * </ol>
+ * </p>
+ *
+ * @author liuliquan
+ * @version 1.1
+ */
 public class SummaryConfigurationPanel extends JPanel {
 
     /** Determines if changes are needing to be saved */
@@ -56,6 +74,12 @@ public class SummaryConfigurationPanel extends JPanel {
     private static final int PYTHONCHLFAILED = CTR++;
     private static final int PYTHONSYSPASSED = CTR++;
     private static final int PYTHONSYSFAILED = CTR++;
+    
+    private static final int PYTHON3POINTS = CTR++;
+    private static final int PYTHON3CHLPASSED = CTR++;
+    private static final int PYTHON3CHLFAILED = CTR++;
+    private static final int PYTHON3SYSPASSED = CTR++;
+    private static final int PYTHON3SYSFAILED = CTR++;
 
     /** Buttons used for the different colors */
     private JButton[] colors = new JButton[CTR];
@@ -133,6 +157,16 @@ public class SummaryConfigurationPanel extends JPanel {
         createRow(python, LocalPreferences.SUMMARYPYTHONCHLFAILED, "Challenge Failed", PYTHONCHLFAILED, row++);
         createRow(python, LocalPreferences.SUMMARYPYTHONSYSPASSED, "Passed System Test", PYTHONSYSPASSED, row++);
         createRow(python, LocalPreferences.SUMMARYPYTHONSYSFAILED, "Failed System Test", PYTHONSYSFAILED, row);
+        
+        // Settings specific to Python
+        JPanel python3 = createPanel("Python3 Settings");
+        row=0;
+        createHeader(python3, row++);
+        createRow(python3, LocalPreferences.SUMMARYPYTHON3POINTS, "Points", PYTHON3POINTS, row++);
+        createRow(python3, LocalPreferences.SUMMARYPYTHON3CHLPASSED, "Challenge Succeeded", PYTHON3CHLPASSED, row++);
+        createRow(python3, LocalPreferences.SUMMARYPYTHON3CHLFAILED, "Challenge Failed", PYTHON3CHLFAILED, row++);
+        createRow(python3, LocalPreferences.SUMMARYPYTHON3SYSPASSED, "Passed System Test", PYTHON3SYSPASSED, row++);
+        createRow(python3, LocalPreferences.SUMMARYPYTHON3SYSFAILED, "Failed System Test", PYTHON3SYSFAILED, row);
 
         // Create a dummy row to consume the resize space
         row=0;
@@ -147,6 +181,8 @@ public class SummaryConfigurationPanel extends JPanel {
             add(vb, new GridBagConstraints(0,row++,1,1,1,1,GridBagConstraints.WEST,GridBagConstraints.HORIZONTAL,new Insets(15,0,0,0),0,0));
         if(CommonData.allowsPython(parentFrame.getApplet().getCompanyName()))
             add(python, new GridBagConstraints(0,row++,1,1,1,1,GridBagConstraints.WEST,GridBagConstraints.HORIZONTAL,new Insets(15,0,0,0),0,0));
+        if(CommonData.allowsPython3(parentFrame.getApplet().getCompanyName()))
+            add(python3, new GridBagConstraints(0,row++,1,1,1,1,GridBagConstraints.WEST,GridBagConstraints.HORIZONTAL,new Insets(15,0,0,0),0,0));
     }
 
     /** Creates a 'header' section */
@@ -272,6 +308,12 @@ public class SummaryConfigurationPanel extends JPanel {
         saveType(LocalPreferences.SUMMARYPYTHONCHLFAILED, PYTHONCHLFAILED);
         saveType(LocalPreferences.SUMMARYPYTHONSYSPASSED, PYTHONSYSPASSED);
         saveType(LocalPreferences.SUMMARYPYTHONSYSFAILED, PYTHONSYSFAILED);
+        
+        saveType(LocalPreferences.SUMMARYPYTHON3POINTS, PYTHON3POINTS);
+        saveType(LocalPreferences.SUMMARYPYTHON3CHLPASSED, PYTHON3CHLPASSED);
+        saveType(LocalPreferences.SUMMARYPYTHON3CHLFAILED, PYTHON3CHLFAILED);
+        saveType(LocalPreferences.SUMMARYPYTHON3SYSPASSED, PYTHON3SYSPASSED);
+        saveType(LocalPreferences.SUMMARYPYTHON3SYSFAILED, PYTHON3SYSFAILED);
 
         // Save the profile        
         try {

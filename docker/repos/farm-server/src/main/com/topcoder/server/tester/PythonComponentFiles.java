@@ -1,3 +1,6 @@
+/*
+ * Copyright (C) - 2022 TopCoder Inc., All Rights Reserved.
+ */
 package com.topcoder.server.tester;
 
 import java.io.File;
@@ -10,7 +13,20 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.topcoder.netCommon.contest.ContestConstants;
 import com.topcoder.shared.common.ServicesConstants;
 
-public final class PythonComponentFiles extends ComponentFiles {
+/**
+ * Python component files.
+ *
+ * <p>
+ * Changes in version 1.1 (Python3 Support):
+ * <ol>
+ *      <li>Change this class to be non-final, so that it can be extended by Python3ComponentFiles.</li>
+ * </ol>
+ * </p>
+ *
+ * @author liuliquan
+ * @version 1.1
+ */
+public class PythonComponentFiles extends ComponentFiles {
     
     public PythonComponentFiles() {
     }

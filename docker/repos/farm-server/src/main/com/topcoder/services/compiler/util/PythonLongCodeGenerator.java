@@ -1,7 +1,5 @@
 /*
- * DotNetLongCodeGenerator
- * 
- * Created 05/13/2006
+ * Copyright (C) -2022 TopCoder Inc., All Rights Reserved.
  */
 package com.topcoder.services.compiler.util;
 
@@ -18,14 +16,30 @@ import com.topcoder.shared.problem.ProblemComponent;
 
 /**
  * LongComponentCodeGenerator implementation for
- * Python solutions and submissions
- * 
- * @author Diego Belfer (mural)
- * @version $Id: PythonLongCodeGenerator.java 70823 2008-05-27 20:49:33Z dbelfer $
+ * Python solutions and submissions.
+ *
+ * <p>
+ * Changes in version 1.1 (Python3 Support):
+ * <ol>
+ *      <li>Added {@link #python3} fields.</li>
+ *      <li>Updated constructor to take <code>python3</code> parameter.</li>
+ *      <li>Updated {@link #generateWrapperForUserCode(ProblemComponent, String)} and
+ *       {@link #generateWrapperForExposedCode(ProblemComponent, String)} methods.</li>
+ * </ol>
+ * </p>
+ *
+ * @author Diego Belfer (mural), liuliquan
+ * @version 1.1
  */
 public class PythonLongCodeGenerator implements LongComponentCodeGenerator {
     private static final Logger logger = Logger.getLogger(PythonLongCodeGenerator.class);
     
+    private final boolean python3;
+
+    public PythonLongCodeGenerator(boolean python3) {
+        this.python3 = python3;
+    }
+
     /**
      * @see com.topcoder.services.compiler.util.LongComponentCodeGenerator#generateWrapperForUserCode(com.topcoder.shared.problem.ProblemComponent, java.lang.String)
      */
@@ -35,7 +49,7 @@ public class PythonLongCodeGenerator implements LongComponentCodeGenerator {
         
             //load the code from the local fs, then replace variables as needed
             try {
-                BufferedReader ir = new BufferedReader(new FileReader(ServicesConstants.LONG_CONTEST_PYTHON_USER_WRAPPER));
+                BufferedReader ir = new BufferedReader(new FileReader(python3 ? ServicesConstants.LONG_CONTEST_PYTHON3_USER_WRAPPER : ServicesConstants.LONG_CONTEST_PYTHON_USER_WRAPPER));
                 while(ir.ready()) {
                     sol.append(ir.readLine());
                     sol.append("\n");
@@ -140,7 +154,7 @@ public class PythonLongCodeGenerator implements LongComponentCodeGenerator {
         
             //load the code from the local fs, then replace variables as needed
             try {
-                BufferedReader ir = new BufferedReader(new FileReader(ServicesConstants.LONG_CONTEST_PYTHON_EXPOSED_WRAPPER));
+                BufferedReader ir = new BufferedReader(new FileReader(python3 ? ServicesConstants.LONG_CONTEST_PYTHON3_EXPOSED_WRAPPER : ServicesConstants.LONG_CONTEST_PYTHON_EXPOSED_WRAPPER));
                 while(ir.ready()) {
                     sol.append(ir.readLine());
                     sol.append("\n");

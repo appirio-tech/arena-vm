@@ -1,7 +1,5 @@
 /*
- * ExternalizableCSHandler
- *
- * Created Mar 23, 2007
+ * Copyright (C) - 2022 TopCoder Inc., All Rights Reserved.
  */
 package com.topcoder.server.serialization;
 
@@ -18,11 +16,7 @@ import com.topcoder.server.common.RoundComponent;
 import com.topcoder.server.common.Submission;
 import com.topcoder.server.ejb.TestServices.to.ComponentAndDependencyFiles;
 import com.topcoder.server.ejb.TestServices.to.SystemTestResult;
-import com.topcoder.server.tester.CPPComponentFiles;
-import com.topcoder.server.tester.DotNetComponentFiles;
-import com.topcoder.server.tester.JavaComponentFiles;
-import com.topcoder.server.tester.PythonComponentFiles;
-import com.topcoder.server.tester.Solution;
+import com.topcoder.server.tester.*;
 import com.topcoder.shared.netCommon.CSHandler;
 import com.topcoder.shared.netCommon.CustomSerializable;
 import com.topcoder.shared.problem.DataType;
@@ -32,10 +26,16 @@ import com.topcoder.shared.problem.SimpleComponent;
 import com.topcoder.shared.problem.TestCase;
 
 /**
- * CSHandler used for Externalizable types
+ * CSHandler used for Externalizable types.
  *
- * @author Diego Belfer (mural)
- * @version $Id: ExternalizableCSHandler.java 70823 2008-05-27 20:49:33Z dbelfer $
+ * <p>
+ * Changes in version 1.1 (Python3 Support):
+ * <ol>
+ *      <li>Register {@link Python3ComponentFiles} class.</li>
+ * </ol>
+ * </p>
+ * @author Diego Belfer (mural), liuliquan
+ * @version 1.1
  */
 public class ExternalizableCSHandler extends CSHandler {
     private static final Map writeMap;
@@ -69,6 +69,7 @@ public class ExternalizableCSHandler extends CSHandler {
         registerClassID(ComponentInformation.class        , (byte)-111);
 
         registerClassID(TestCase.class                    , (byte)-110);
+        registerClassID(Python3ComponentFiles.class        , (byte)-109);
     }
 
     private static void registerClassID(Class clazz, byte classID) {

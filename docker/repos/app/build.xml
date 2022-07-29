@@ -562,7 +562,7 @@
       <sequential>
         <copy todir="@{destDir}/@{pName}/deploy-in-appfolder/app" overwrite="true">
             <fileset dir="${basedir}"
-                   includes="src/python/compiler.py,
+                   includes="src/python/*,
                              src/r/*,
                              cpp/long_io.cc"/>
         </copy>

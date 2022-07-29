@@ -27,7 +27,7 @@
         <dependency org="asm" name="asm-attrs" rev="1.5.3"/>
         <dependency org="org.hibernate" name="antlr" rev="2.7.6rc1" transitive="false"/>
         <dependency org="jta" name="jta" rev="1.0.1B"/>
-        <dependency org="mysql" name="mysql-connector-java" rev="5.0.4" transitive="false"/>
+        <dependency org="mysql" name="mysql-connector-java" rev="5.0.8" transitive="false"/>
         <dependency org="hsqldb" name="hsqldb" rev="1.8.0.4" transitive="false"/>
         <dependency org="informix" name="ifxjdbc" rev="3.00.JC3" transitive="false"/>
         <dependency org="xstream" name="xstream" rev="1.2.2" transitive="false"/>

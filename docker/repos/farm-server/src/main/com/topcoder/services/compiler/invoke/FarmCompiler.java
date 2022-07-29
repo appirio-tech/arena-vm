@@ -1,5 +1,5 @@
 /*
- * Copyright (C) - 2013 TopCoder Inc., All Rights Reserved.
+ * Copyright (C) - 2022 TopCoder Inc., All Rights Reserved.
  */
 
 /*
@@ -30,8 +30,16 @@ import com.topcoder.shared.problem.ProblemComponent;
  *      <li>Update {@link #FarmCompiler()} method.</li>
  * </ol>
  * </p>
- * @author Diego Belfer (Mural), TCSASSEMBLER
- * @version 1.0
+ *
+ * <p>
+ * Changes in version 1.1 (Python3 Support):
+ * <ol>
+ *      <li>Update {@link #FarmCompiler()} method to add Python3 compile.</li>
+ * </ol>
+ * </p>
+ *
+ * @author Diego Belfer (Mural), liuliquan, TCSASSEMBLER
+ * @version 1.1
  */
 public class FarmCompiler implements CodeCompiler {
     private final Logger logger = Logger.getLogger(FarmCompiler.class);
@@ -44,7 +52,8 @@ public class FarmCompiler implements CodeCompiler {
     public FarmCompiler() {
        codeCompilers.put(new Integer(ContestConstants.JAVA), new JavaCodeCompiler());
        codeCompilers.put(new Integer(ContestConstants.CPP), new CPPCodeCompiler());
-       codeCompilers.put(new Integer(ContestConstants.PYTHON), new PythonCodeCompiler());
+       codeCompilers.put(new Integer(ContestConstants.PYTHON), new PythonCodeCompiler(false));
+       codeCompilers.put(new Integer(ContestConstants.PYTHON3), new PythonCodeCompiler(true));
        DotNetCodeCompiler dotNetCodeCompiler = new DotNetCodeCompiler();
        codeCompilers.put(new Integer(ContestConstants.VB), dotNetCodeCompiler);
        codeCompilers.put(new Integer(ContestConstants.CSHARP), dotNetCodeCompiler);

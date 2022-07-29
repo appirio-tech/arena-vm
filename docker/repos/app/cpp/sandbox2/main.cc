@@ -21,8 +21,15 @@
  * </ol>
  * </p>
  *
- * @author rfairfax, dexy, Selena
- * @version 1.2
+ * <p>
+ * Changes in version 1.3 (Python3 Support):
+ * <ol>
+ *     <li> Updated {@link #main(int, char**)} method to add PYTHONUSERBASE env and thus avoid /etc/passwd access.</li>
+ * </ol>
+ * </p>
+ *
+ * @author rfairfax, dexy, Selena, liuliquan
+ * @version 1.3
  */
 
 #include <stdlib.h>
@@ -773,9 +780,12 @@ int main(int argc, char** argv) {
 
         /* run the child */
         {
-            /* setting LD_LIBRARY_PATH might be useful... otherwise empty seems best */
-            char *emptyenv[1] = { 0 };
-            execve(childpath.c_str(), childargsptr, emptyenv);
+            /* setting LD_LIBRARY_PATH might be useful... */
+            // For python set PYTHONUSERBASE env to BASE_DIR (which is working dir and safe to access),
+            // so that python won't need to access /etc/passwd to get user home
+            string pythonUserBase = "PYTHONUSERBASE=" + config->get(BASE_DIR);
+            char *envp[] = { &pythonUserBase[0], 0 };
+            execve(childpath.c_str(), childargsptr, envp);
         }
 
         (*logger) << "execve failure: " << errno << "\n";

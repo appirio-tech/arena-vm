@@ -1,5 +1,5 @@
 /*
-* Copyright (C) - 2013 TopCoder Inc., All Rights Reserved.
+* Copyright (C) - 2022 TopCoder Inc., All Rights Reserved.
 */
 
 /*
@@ -39,14 +39,23 @@ import com.topcoder.shared.netCommon.ExternalizableHelper;
  * </p>
  *
  * <p>
- * Changes in version 1.0 (TC Competition Engine - R Language Test Support v1.0):
+ * Changes in version 1.1 (TC Competition Engine - R Language Test Support v1.0):
  * <ol>
  *      <li>Update {@link #getInstance(int, int, int, int, int,String)} method.</li>
  *      <li>Update {@link #getInstance(int, int, String, String)} method.</li>
  * </ol>
  * </p>
- * @author TCSASSEMBLER
- * @version 1.0
+ *
+ * <p>
+ * Changes in version 1.2 (Python3 Support):
+ * <ol>
+ *      <li>Update {@link #getInstance(int, int, int, int, int,String)} method to support Python3.</li>
+ *      <li>Update {@link #getInstance(int, int, String, String)} method to support Python3.</li>
+ * </ol>
+ * </p>
+ *
+ * @author liuliquan, TCSASSEMBLER
+ * @version 1.2
  */
 @JsonTypeInfo(use = Id.CLASS, include = As.PROPERTY, property = "@class")
 public abstract class ComponentFiles implements Externalizable, CustomSerializable {
@@ -213,6 +222,9 @@ public abstract class ComponentFiles implements Externalizable, CustomSerializab
         case ContestConstants.PYTHON:
             files = new PythonComponentFiles(coderId, contestId, roundId, componentId, className);
             break;
+        case ContestConstants.PYTHON3:
+            files = new Python3ComponentFiles(coderId, contestId, roundId, componentId, className);
+            break;
         case ContestConstants.R:
             files = new RComponentFiles(coderId, contestId, roundId, componentId, className);
             break;
@@ -247,6 +259,9 @@ public abstract class ComponentFiles implements Externalizable, CustomSerializab
             break;
         case ContestConstants.PYTHON:
             files = new PythonComponentFiles(componentId, className, classesDir);
+            break;
+        case ContestConstants.PYTHON3:
+            files = new Python3ComponentFiles(componentId, className, classesDir);
             break;
         case ContestConstants.R:
             files = new RComponentFiles(componentId, className, classesDir);

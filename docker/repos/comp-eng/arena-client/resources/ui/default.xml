@@ -1425,6 +1425,9 @@
       <component name="phase_system_label" class="com.topcoder.client.ui.impl.component.UILabel">
        <property name="icon" value="com/topcoder/client/contestApplet/images/long-4.png" parser="com.topcoder.client.ui.parser.ImageIconFromResource"/>
       </component>
+      <component name="phase_practice_label" class="com.topcoder.client.ui.impl.component.UILabel">
+       <property name="icon" value="com/topcoder/client/contestApplet/images/6.gif" parser="com.topcoder.client.ui.parser.ImageIconFromResource"/>
+      </component>
      </component>
      <component name="problem_list_panel" class="com.topcoder.client.ui.impl.component.UIPanel">
       <constraints gridx="1" gridy="1" gridwidth="1" gridheight="1" fill="both" anchor="west" insets="1,10,5,15" ipadx="0" ipady="0" weightx="1" weighty="0"/>
@@ -1868,6 +1871,15 @@
       <property name="text" value="Python"/>
       <property name="selected" value="false" parser="com.topcoder.client.ui.parser.BooleanParser"/>
      </component>
+     <component name="python3_radio_button" class="com.topcoder.client.ui.impl.component.UIRadioButton">
+      <constraints gridx="5" gridy="0"/>
+      <property name="background" value="0x333333" parser="com.topcoder.client.ui.parser.ColorParser"/>
+      <property name="foreground" value="0xffffff" parser="com.topcoder.client.ui.parser.ColorParser"/>
+      <property name="opaque" value="false" parser="com.topcoder.client.ui.parser.BooleanParser"/>
+      <property name="actioncommand" value="Python3" />
+      <property name="text" value="Python3"/>
+      <property name="selected" value="false" parser="com.topcoder.client.ui.parser.BooleanParser"/>
+     </component>
     </component><!--language_radio_button_panel-->
    </component><!--editor_toggle_panel-->
    <component name="problem_editor_split_pane" class="com.topcoder.client.ui.impl.component.UISplitPane">
@@ -2013,6 +2025,9 @@
    </action>
    <action name="add">
     <param value="python_radio_button" parser="com.topcoder.client.ui.parser.ComponentReferenceParser"/>
+   </action>
+   <action name="add">
+    <param value="python3_radio_button" parser="com.topcoder.client.ui.parser.ComponentReferenceParser"/>
    </action>
   </component>
  </page>
@@ -2210,6 +2225,15 @@
       <property name="text" value="Python"/>
       <property name="selected" value="false" parser="com.topcoder.client.ui.parser.BooleanParser"/>
      </component>
+     <component name="python3_radio_button" class="com.topcoder.client.ui.impl.component.UIRadioButton">
+      <constraints gridx="5" gridy="0"/>
+      <property name="background" value="0x333333" parser="com.topcoder.client.ui.parser.ColorParser"/>
+      <property name="foreground" value="0xffffff" parser="com.topcoder.client.ui.parser.ColorParser"/>
+      <property name="opaque" value="false" parser="com.topcoder.client.ui.parser.BooleanParser"/>
+      <property name="actioncommand" value="Python3" />
+      <property name="text" value="Python3"/>
+      <property name="selected" value="false" parser="com.topcoder.client.ui.parser.BooleanParser"/>
+     </component>
     </component><!--language_radio_button_panel-->
    </component><!--editor_toggle_panel-->
    <component name="problem_editor_split_pane" class="com.topcoder.client.ui.impl.component.UISplitPane">
@@ -2337,6 +2361,9 @@
    </action>
    <action name="add">
     <param value="python_radio_button" parser="com.topcoder.client.ui.parser.ComponentReferenceParser"/>
+   </action>
+   <action name="add">
+    <param value="python3_radio_button" parser="com.topcoder.client.ui.parser.ComponentReferenceParser"/>
    </action>
   </component>
  </page>
@@ -5988,6 +6015,13 @@
           <property name="foreground" value="0xffffff" parser="com.topcoder.client.ui.parser.ColorParser"/>
           <property name="text" value="Python"/>
          </component>
+         <component name="editor_python3_radio_button" class="com.topcoder.client.ui.impl.component.UIRadioButton">
+          <constraints gridx="5" insets="5,5,5,5"/>
+          <property name="opaque" value="false" parser="com.topcoder.client.ui.parser.BooleanParser"/>
+          <property name="background" value="0x000000" parser="com.topcoder.client.ui.parser.ColorParser"/>
+          <property name="foreground" value="0xffffff" parser="com.topcoder.client.ui.parser.ColorParser"/>
+          <property name="text" value="Python3"/>
+         </component>
         </component><!--editor_radio_button_panel-->
         <component name="editor_hotkeys_label" class="com.topcoder.client.ui.impl.component.UILabel">
          <constraints gridx="0" gridy="6" gridwidth="1" gridheight="1" fill="none" anchor="northwest" insets="5,5,5,5" ipadx="0" ipady="0" weightx="0" weighty="0"/>
@@ -7189,6 +7223,138 @@
          <property name="foreground" value="0xffffff" parser="com.topcoder.client.ui.parser.ColorParser"/>
         </component>
        </component><!--summary_python_panel-->
+       <component name="summary_python3_panel" class="com.topcoder.client.ui.impl.component.UIPanel">
+        <constraints gridx="0" gridy="6" gridwidth="1" gridheight="1" fill="horizontal" anchor="west" insets="15,0,0,0" ipadx="0" ipady="0" weightx="1" weighty="0"/>
+        <property name="background" value="0x000000" parser="com.topcoder.client.ui.parser.ColorParser"/>
+        <property name="foreground" value="0xffffff" parser="com.topcoder.client.ui.parser.ColorParser"/>
+        <property name="border" value="0x999999,5,true,left,above_top,0xccff99,Python3 Settings" parser="com.topcoder.client.contestApplet.widgets.ui.MyTitledBorderParser"/>
+        <component name="summary_python3_color_label" class="com.topcoder.client.ui.impl.component.UILabel">
+         <constraints gridx="1" gridy="0" gridwidth="1" gridheight="1" fill="horizontal" anchor="west" insets="0,5,0,15" ipadx="0" ipady="0" weightx="0" weighty="0"/>
+         <property name="text" value="Color"/>
+         <property name="font" value="Arial-BOLD-12" parser="com.topcoder.client.ui.parser.FontParser"/>
+         <property name="background" value="0x000000" parser="com.topcoder.client.ui.parser.ColorParser"/>
+         <property name="foreground" value="0xccff99" parser="com.topcoder.client.ui.parser.ColorParser"/>
+        </component>
+        <component name="summary_python3_bold_label" class="com.topcoder.client.ui.impl.component.UILabel">
+         <constraints gridx="2" gridy="0" gridwidth="1" gridheight="1" fill="horizontal" anchor="west" insets="0,5,0,15" ipadx="0" ipady="0" weightx="0" weighty="0"/>
+         <property name="text" value="Bold"/>
+         <property name="font" value="Arial-BOLD-12" parser="com.topcoder.client.ui.parser.FontParser"/>
+         <property name="background" value="0x000000" parser="com.topcoder.client.ui.parser.ColorParser"/>
+         <property name="foreground" value="0xccff99" parser="com.topcoder.client.ui.parser.ColorParser"/>
+        </component>
+        <component name="summary_python3_italic_label" class="com.topcoder.client.ui.impl.component.UILabel">
+         <constraints gridx="3" gridy="0" gridwidth="1" gridheight="1" fill="horizontal" anchor="west" insets="0,5,0,15" ipadx="0" ipady="0" weightx="1" weighty="0"/>
+         <property name="text" value="Italic"/>
+         <property name="font" value="Arial-BOLD-12" parser="com.topcoder.client.ui.parser.FontParser"/>
+         <property name="background" value="0x000000" parser="com.topcoder.client.ui.parser.ColorParser"/>
+         <property name="foreground" value="0xccff99" parser="com.topcoder.client.ui.parser.ColorParser"/>
+        </component>
+        <component name="summary_python3_points_label" class="com.topcoder.client.ui.impl.component.UILabel">
+         <constraints gridx="0" gridy="1" gridwidth="1" gridheight="1" fill="horizontal" anchor="northeast" insets="0,5,0,15" ipadx="0" ipady="0" weightx="0" weighty="0"/>
+         <property name="text" value="Points"/>
+         <property name="background" value="0x000000" parser="com.topcoder.client.ui.parser.ColorParser"/>
+         <property name="foreground" value="0xffffff" parser="com.topcoder.client.ui.parser.ColorParser"/>
+         <property name="preferredwidth" value="200" parser="com.topcoder.client.ui.parser.NumberParser"/>
+        </component>
+        <component name="summary_python3_points_color" class="com.topcoder.client.ui.impl.component.UIButton">
+         <constraints gridx="1" gridy="1" gridwidth="1" gridheight="1" fill="horizontal" anchor="west" insets="0,5,0,15" ipadx="0" ipady="0" weightx="0" weighty="0"/>
+         <property name="preferredsize" value="25,15" parser="com.topcoder.client.ui.parser.DimensionParser"/>
+        </component>
+        <component name="summary_python3_points_bold" class="com.topcoder.client.ui.impl.component.UICheckBox">
+         <constraints gridx="2" gridy="1" gridwidth="1" gridheight="1" fill="horizontal" anchor="west" insets="0,5,0,15" ipadx="0" ipady="0" weightx="0" weighty="0"/>
+         <property name="background" value="0x000000" parser="com.topcoder.client.ui.parser.ColorParser"/>
+         <property name="foreground" value="0xffffff" parser="com.topcoder.client.ui.parser.ColorParser"/>
+        </component>
+        <component name="summary_python3_points_italic" class="com.topcoder.client.ui.impl.component.UICheckBox">
+         <constraints gridx="3" gridy="1" gridwidth="1" gridheight="1" fill="horizontal" anchor="west" insets="0,5,0,15" ipadx="0" ipady="0" weightx="1" weighty="0"/>
+         <property name="background" value="0x000000" parser="com.topcoder.client.ui.parser.ColorParser"/>
+         <property name="foreground" value="0xffffff" parser="com.topcoder.client.ui.parser.ColorParser"/>
+        </component>
+        <component name="summary_python3_challengesuccess_label" class="com.topcoder.client.ui.impl.component.UILabel">
+         <constraints gridx="0" gridy="2" gridwidth="1" gridheight="1" fill="horizontal" anchor="northeast" insets="0,5,0,15" ipadx="0" ipady="0" weightx="0" weighty="0"/>
+         <property name="text" value="Challenge Succeeded"/>
+         <property name="background" value="0x000000" parser="com.topcoder.client.ui.parser.ColorParser"/>
+         <property name="foreground" value="0xffffff" parser="com.topcoder.client.ui.parser.ColorParser"/>
+         <property name="preferredwidth" value="200" parser="com.topcoder.client.ui.parser.NumberParser"/>
+        </component>
+        <component name="summary_python3_challengesuccess_color" class="com.topcoder.client.ui.impl.component.UIButton">
+         <constraints gridx="1" gridy="2" gridwidth="1" gridheight="1" fill="horizontal" anchor="west" insets="0,5,0,15" ipadx="0" ipady="0" weightx="0" weighty="0"/>
+         <property name="preferredsize" value="25,15" parser="com.topcoder.client.ui.parser.DimensionParser"/>
+        </component>
+        <component name="summary_python3_challengesuccess_bold" class="com.topcoder.client.ui.impl.component.UICheckBox">
+         <constraints gridx="2" gridy="2" gridwidth="1" gridheight="1" fill="horizontal" anchor="west" insets="0,5,0,15" ipadx="0" ipady="0" weightx="0" weighty="0"/>
+         <property name="background" value="0x000000" parser="com.topcoder.client.ui.parser.ColorParser"/>
+         <property name="foreground" value="0xffffff" parser="com.topcoder.client.ui.parser.ColorParser"/>
+        </component>
+        <component name="summary_python3_challengesuccess_italic" class="com.topcoder.client.ui.impl.component.UICheckBox">
+         <constraints gridx="3" gridy="2" gridwidth="1" gridheight="1" fill="horizontal" anchor="west" insets="0,5,0,15" ipadx="0" ipady="0" weightx="1" weighty="0"/>
+         <property name="background" value="0x000000" parser="com.topcoder.client.ui.parser.ColorParser"/>
+         <property name="foreground" value="0xffffff" parser="com.topcoder.client.ui.parser.ColorParser"/>
+        </component>
+        <component name="summary_python3_challengefail_label" class="com.topcoder.client.ui.impl.component.UILabel">
+         <constraints gridx="0" gridy="3" gridwidth="1" gridheight="1" fill="horizontal" anchor="northeast" insets="0,5,0,15" ipadx="0" ipady="0" weightx="0" weighty="0"/>
+         <property name="text" value="Challenge Failed"/>
+         <property name="background" value="0x000000" parser="com.topcoder.client.ui.parser.ColorParser"/>
+         <property name="foreground" value="0xffffff" parser="com.topcoder.client.ui.parser.ColorParser"/>
+         <property name="preferredwidth" value="200" parser="com.topcoder.client.ui.parser.NumberParser"/>
+        </component>
+        <component name="summary_python3_challengefail_color" class="com.topcoder.client.ui.impl.component.UIButton">
+         <constraints gridx="1" gridy="3" gridwidth="1" gridheight="1" fill="horizontal" anchor="west" insets="0,5,0,15" ipadx="0" ipady="0" weightx="0" weighty="0"/>
+         <property name="preferredsize" value="25,15" parser="com.topcoder.client.ui.parser.DimensionParser"/>
+        </component>
+        <component name="summary_python3_challengefail_bold" class="com.topcoder.client.ui.impl.component.UICheckBox">
+         <constraints gridx="2" gridy="3" gridwidth="1" gridheight="1" fill="horizontal" anchor="west" insets="0,5,0,15" ipadx="0" ipady="0" weightx="0" weighty="0"/>
+         <property name="background" value="0x000000" parser="com.topcoder.client.ui.parser.ColorParser"/>
+         <property name="foreground" value="0xffffff" parser="com.topcoder.client.ui.parser.ColorParser"/>
+        </component>
+        <component name="summary_python3_challengefail_italic" class="com.topcoder.client.ui.impl.component.UICheckBox">
+         <constraints gridx="3" gridy="3" gridwidth="1" gridheight="1" fill="horizontal" anchor="west" insets="0,5,0,15" ipadx="0" ipady="0" weightx="1" weighty="0"/>
+         <property name="background" value="0x000000" parser="com.topcoder.client.ui.parser.ColorParser"/>
+         <property name="foreground" value="0xffffff" parser="com.topcoder.client.ui.parser.ColorParser"/>
+        </component>
+        <component name="summary_python3_testpass_label" class="com.topcoder.client.ui.impl.component.UILabel">
+         <constraints gridx="0" gridy="4" gridwidth="1" gridheight="1" fill="horizontal" anchor="northeast" insets="0,5,0,15" ipadx="0" ipady="0" weightx="0" weighty="0"/>
+         <property name="text" value="Passed System Test"/>
+         <property name="background" value="0x000000" parser="com.topcoder.client.ui.parser.ColorParser"/>
+         <property name="foreground" value="0xffffff" parser="com.topcoder.client.ui.parser.ColorParser"/>
+         <property name="preferredwidth" value="200" parser="com.topcoder.client.ui.parser.NumberParser"/>
+        </component>
+        <component name="summary_python3_testpass_color" class="com.topcoder.client.ui.impl.component.UIButton">
+         <constraints gridx="1" gridy="4" gridwidth="1" gridheight="1" fill="horizontal" anchor="west" insets="0,5,0,15" ipadx="0" ipady="0" weightx="0" weighty="0"/>
+         <property name="preferredsize" value="25,15" parser="com.topcoder.client.ui.parser.DimensionParser"/>
+        </component>
+        <component name="summary_python3_testpass_bold" class="com.topcoder.client.ui.impl.component.UICheckBox">
+         <constraints gridx="2" gridy="4" gridwidth="1" gridheight="1" fill="horizontal" anchor="west" insets="0,5,0,15" ipadx="0" ipady="0" weightx="0" weighty="0"/>
+         <property name="background" value="0x000000" parser="com.topcoder.client.ui.parser.ColorParser"/>
+         <property name="foreground" value="0xffffff" parser="com.topcoder.client.ui.parser.ColorParser"/>
+        </component>
+        <component name="summary_python3_testpass_italic" class="com.topcoder.client.ui.impl.component.UICheckBox">
+         <constraints gridx="3" gridy="4" gridwidth="1" gridheight="1" fill="horizontal" anchor="west" insets="0,5,0,15" ipadx="0" ipady="0" weightx="1" weighty="0"/>
+         <property name="background" value="0x000000" parser="com.topcoder.client.ui.parser.ColorParser"/>
+         <property name="foreground" value="0xffffff" parser="com.topcoder.client.ui.parser.ColorParser"/>
+        </component>
+        <component name="summary_python3_testfail_label" class="com.topcoder.client.ui.impl.component.UILabel">
+         <constraints gridx="0" gridy="5" gridwidth="1" gridheight="1" fill="horizontal" anchor="northeast" insets="0,5,0,15" ipadx="0" ipady="0" weightx="0" weighty="0"/>
+         <property name="text" value="Failed System Test"/>
+         <property name="background" value="0x000000" parser="com.topcoder.client.ui.parser.ColorParser"/>
+         <property name="foreground" value="0xffffff" parser="com.topcoder.client.ui.parser.ColorParser"/>
+         <property name="preferredwidth" value="200" parser="com.topcoder.client.ui.parser.NumberParser"/>
+        </component>
+        <component name="summary_python3_testfail_color" class="com.topcoder.client.ui.impl.component.UIButton">
+         <constraints gridx="1" gridy="5" gridwidth="1" gridheight="1" fill="horizontal" anchor="west" insets="0,5,0,15" ipadx="0" ipady="0" weightx="0" weighty="0"/>
+         <property name="preferredsize" value="25,15" parser="com.topcoder.client.ui.parser.DimensionParser"/>
+        </component>
+        <component name="summary_python3_testfail_bold" class="com.topcoder.client.ui.impl.component.UICheckBox">
+         <constraints gridx="2" gridy="5" gridwidth="1" gridheight="1" fill="horizontal" anchor="west" insets="0,5,0,15" ipadx="0" ipady="0" weightx="0" weighty="0"/>
+         <property name="background" value="0x000000" parser="com.topcoder.client.ui.parser.ColorParser"/>
+         <property name="foreground" value="0xffffff" parser="com.topcoder.client.ui.parser.ColorParser"/>
+        </component>
+        <component name="summary_python3_testfail_italic" class="com.topcoder.client.ui.impl.component.UICheckBox">
+         <constraints gridx="3" gridy="5" gridwidth="1" gridheight="1" fill="horizontal" anchor="west" insets="0,5,0,15" ipadx="0" ipady="0" weightx="1" weighty="0"/>
+         <property name="background" value="0x000000" parser="com.topcoder.client.ui.parser.ColorParser"/>
+         <property name="foreground" value="0xffffff" parser="com.topcoder.client.ui.parser.ColorParser"/>
+        </component>
+       </component><!--summary_python3_panel-->
       </component><!--summary_configuration_panel-->
      </component><!--summary_configuration_scroll_pane-->
      <component name="additional_configuration_scroll_pane" class="com.topcoder.client.ui.impl.component.UIScrollPane">
@@ -7468,6 +7634,9 @@
    </action>
    <action name="add">
     <param value="editor_python_radio_button" parser="com.topcoder.client.ui.parser.ComponentReferenceParser"/>
+   </action>
+   <action name="add">
+    <param value="editor_python3_radio_button" parser="com.topcoder.client.ui.parser.ComponentReferenceParser"/>
    </action>
   </component>
  </page>

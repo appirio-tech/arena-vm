@@ -1,3 +1,6 @@
+/*
+ * Copyright (C) - 2022 TopCoder Inc., All Rights Reserved.
+ */
 package com.topcoder.client.contestApplet.panels;
 
 import java.util.*;
@@ -15,6 +18,20 @@ import com.topcoder.netCommon.contest.ContestConstants;
 
 import java.io.IOException;
 
+/**
+ * The editor configuration panel.
+ *
+ * <p>
+ * Changes in version 1.1 (Python3 Support):
+ * <ol>
+ *      <li>Added {@link #python3RadioButton} field.</li>
+ *      <li>Updated {@link #StdEdConfigurationPanel(JDialog)}, {@link #getLanguage()} methods.</li>
+ * </ol>
+ * </p>
+ *
+ * @author liuliquan
+ * @version 1.1
+ */
 public class StdEdConfigurationPanel extends JPanel {
 
     private JDialog parent;
@@ -28,7 +45,7 @@ public class StdEdConfigurationPanel extends JPanel {
 
     private JComboBox stdFonts;
     private JComboBox stdFontSizes;
-    private JRadioButton javaRadioButton, cplusplusRadioButton, csharpRadioButton, vbRadioButton, pythonRadioButton;
+    private JRadioButton javaRadioButton, cplusplusRadioButton, csharpRadioButton, vbRadioButton, pythonRadioButton, python3RadioButton;
     private JComboBox stdCommentsStyle, stdLiteralsStyle, stdKeywordsStyle, stdDefaultStyle;
     //private final ButtonGroup groupSyntax;
     private JRadioButton syntaxYesButton, syntaxNoButton;
@@ -231,6 +248,15 @@ public class StdEdConfigurationPanel extends JPanel {
         if(CommonData.allowsPython(parentFrame.getApplet().getCompanyName())) {
             radioButtonsPanel.add(pythonRadioButton);
             group2.add(pythonRadioButton);
+        }
+        
+        python3RadioButton = new JRadioButton("Python3", (selectedLanguage == ContestConstants.PYTHON3));
+        python3RadioButton.setBackground(Common.BG_COLOR);
+        python3RadioButton.setForeground(Common.FG_COLOR);
+        python3RadioButton.setOpaque(false);
+        if(CommonData.allowsPython3(parentFrame.getApplet().getCompanyName())) {
+            radioButtonsPanel.add(python3RadioButton);
+            group2.add(python3RadioButton);
         }
         
         gbc.fill = GridBagConstraints.NONE;
@@ -457,6 +483,8 @@ public class StdEdConfigurationPanel extends JPanel {
             language = ContestConstants.VB;
         } else if (pythonRadioButton.isSelected()) {
             language = ContestConstants.PYTHON;
+        } else if (python3RadioButton.isSelected()) {
+            language = ContestConstants.PYTHON3;
         }
         return (language);
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2007-2015 TopCoder Inc., All Rights Reserved.
+ * Copyright (C) 2007-2022 TopCoder Inc., All Rights Reserved.
  */
 package com.topcoder.netCommon.contest.round;
 
@@ -16,12 +16,7 @@ import com.topcoder.netCommon.contest.round.text.NamedComponentNameBuilder;
 import com.topcoder.netCommon.contest.round.text.PointsComponentNameBuilder;
 import com.topcoder.netCommon.contest.round.text.ScoringTypeComponentNameBuilder;
 import com.topcoder.server.common.Rating;
-import com.topcoder.shared.language.CPPLanguage;
-import com.topcoder.shared.language.CSharpLanguage;
-import com.topcoder.shared.language.JavaLanguage;
-import com.topcoder.shared.language.Language;
-import com.topcoder.shared.language.PythonLanguage;
-import com.topcoder.shared.language.VBLanguage;
+import com.topcoder.shared.language.*;
 import com.topcoder.shared.netCommon.CSReader;
 import com.topcoder.shared.netCommon.CSWriter;
 import com.topcoder.shared.netCommon.ResolvedCustomSerializable;
@@ -30,19 +25,28 @@ import com.topcoder.shared.netCommon.ResolvedCustomSerializable;
  * Defines a type of round. This class includes all common properties shared by a type of round.
  *
  * <p>
- * Changes in (Round Type Option Support For SRM Problem):
+ * Changes in version 1.1 (Round Type Option Support For SRM Problem):
  * <ol>
  * <li>Added {@link #SRM_ROUND_QA_TYPE}  field.</li>
  * </ol>
  * </p>
  *
  * <p>
- * Changes in (TopCoder Competition Engine - Support Instant Match Type):
+ * Changes in version 1.2 (TopCoder Competition Engine - Support Instant Match Type):
  * <ol>
  * <li>Added {@link #INSTANT_MATCH_TYPE}  field.</li>
  * </ol>
  * </p>
- * @author Diego Belfer (mural), savon_cn, xjtufreeman
+ *
+ * <p>
+ * Changes in version 1.3 (Python3 Support):
+ * <ol>
+ * <li>Updated {@link #allLanguages} field to add Python3 language.</li>
+ * </ol>
+ * </p>
+ *
+ * @author Diego Belfer (mural), savon_cn, xjtufreeman, liuliquan
+ * @verion 1.3
  */
 public class RoundType implements RoundTypeProperties, Serializable, ResolvedCustomSerializable {
     /** Represents the map of IDs and all round type singletons. */
@@ -275,7 +279,7 @@ public class RoundType implements RoundTypeProperties, Serializable, ResolvedCus
 
     private static final Language[] allLanguages = new Language[] {JavaLanguage.JAVA_LANGUAGE,
         CPPLanguage.CPP_LANGUAGE, CSharpLanguage.CSHARP_LANGUAGE, VBLanguage.VB_LANGUAGE,
-        PythonLanguage.PYTHON_LANGUAGE};
+        PythonLanguage.PYTHON_LANGUAGE, Python3Language.PYTHON3_LANGUAGE};
 
     /**
      * @deprecated

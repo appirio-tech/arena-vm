@@ -1,5 +1,5 @@
 /*
- * Copyright (C) - 2014 TopCoder Inc., All Rights Reserved.
+ * Copyright (C) - 2022 TopCoder Inc., All Rights Reserved.
  */
 package com.topcoder.netCommon.contest;
 
@@ -27,8 +27,16 @@ import com.topcoder.netCommon.contest.round.RoundType;
  * </ol>
  * </p>
  *
- * @author savon_cn, dexy
- * @version 1.2
+ * <p>
+ * Changes in version 1.3 (Python3 Support):
+ * <ol>
+ *      <li>Added {@link #PYTHON3} field.</li>
+ *      <li>Updated {@link #LANG_NAMES} field to add Python3 language.</li>
+ * </ol>
+ * </p>
+ *
+ * @author savon_cn, dexy, liuliquan
+ * @version 1.3
  */
 public final class ContestConstants implements RoundTypes {
 
@@ -617,9 +625,10 @@ public final class ContestConstants implements RoundTypes {
      * the R language id.
      */
     public final static int R = 7;
+    public final static int PYTHON3 = 8;
 
     public final static String[] LANG_NAMES =
-    {"", "Java", "", "C++", "C#", "Visual Basic","Python"};
+    {"", "Java", "", "C++", "C#", "Visual Basic","Python", "R", "Python3"};
 
     // Editor
     public final static int STD_EDITOR = 0;

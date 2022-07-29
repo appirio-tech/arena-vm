@@ -1,5 +1,5 @@
 /*
- * Copyright (C) - 2014 TopCoder Inc., All Rights Reserved.
+ * Copyright (C) - 2022 TopCoder Inc., All Rights Reserved.
  */
 package com.topcoder.services.tester.type.longtest;
 
@@ -127,8 +127,17 @@ import com.topcoder.shared.util.logging.Logger;
  * </ol>
  * </p>
  *
- * @author Diego Belfer (Mural), savon_cn, Selena
- * @version 2.0
+ * <p>
+ * Changes in version 2.1 (Python3 Support):
+ * <ol>
+ *      <li>Added {@link #PYTHON3_TEST_COMMAND} field.</li>
+ *      <li>Update {@link #doProcessLongTest(FarmLongTestRequest, boolean)} method.</li>
+ *      <li>Update {@link #getPythonTestCommand(String, boolean)} method.</li>
+ * </ol>
+ * </p>
+ *
+ * @author Diego Belfer (Mural), savon_cn, Selena, liuliquan
+ * @version 2.1
  */
 @SuppressWarnings("rawtypes")
 public class FarmLongTester {
@@ -136,6 +145,7 @@ public class FarmLongTester {
      * This constant defines name for Python test command property. 
      */
     private static final String PYTHON_TEST_COMMAND;
+    private static final String PYTHON3_TEST_COMMAND;
 
     private static final int MAX_LOG_SIZE_TO_ANALYZE = 150*1024*1024;
     private static final int TIME_TO_WAIT_FOR_PROCESS = 2000;
@@ -151,6 +161,7 @@ public class FarmLongTester {
 		ANALYZE_LOG = config.isAnalyzeLog();
 		KEEP_RESULT_FOLDER = config.isKeepResultFolder();
 		PYTHON_TEST_COMMAND = config.getPythonTestCommand();
+		PYTHON3_TEST_COMMAND = config.getPython3TestCommand();
     }
     
     /**
@@ -284,15 +295,16 @@ public class FarmLongTester {
 
                     abortCmd = buildAbortCommand(fullPath.toString());
                     abortCmd2 = "kill -9 ";
-                }else if(languageID == ContestConstants.PYTHON){
-                    String pythonCommandLine = getPythonTestCommand(testRequest.getProblemCustomSettings().getPythonCommand())+" " + fullPath + "/Wrapper.pyc";
+                }else if(languageID == ContestConstants.PYTHON || languageID == ContestConstants.PYTHON3){
+                    boolean python3 = languageID == ContestConstants.PYTHON3;
+                    String pythonCommandLine = getPythonTestCommand(testRequest.getProblemCustomSettings().getPythonCommand(), python3)+" " + fullPath + "/Wrapper.pyc";
                     
                     cmd = ServicesConstants.SANDBOX2+" --maxcpu " + executionTimeLimit + " --maxwall "
                         + executionTimeLimit + " --port "
                         + ServicesConstants.MARATHON_PORT_NUMBER + " --maxthreads "
                         + maxThreads + " --maxmem " + memory_with_bytes
                         + ((stackLimitBytes > 0) ? (" --maxstack " + stackLimitBytes) : "")
-                        + " --config " + ServicesConstants.SANDBOX2_LONG_PYTON_CONFIG
+                        + " --config " + (python3 ? ServicesConstants.SANDBOX2_LONG_PYTON3_CONFIG : ServicesConstants.SANDBOX2_LONG_PYTON_CONFIG)
                         + " " + getApprovedPath(testRequest.getProblemCustomSettings().getPythonApprovedPath())
                         + " "+ pythonCommandLine;
                     abortCmd = buildAbortCommand(fullPath.toString());
@@ -397,7 +409,7 @@ public class FarmLongTester {
                      */
                     if (languageID == ContestConstants.JAVA || languageID == ContestConstants.CPP ||
                             languageID == ContestConstants.PYTHON || languageID == ContestConstants.CSHARP ||
-                            languageID == ContestConstants.VB) {
+                            languageID == ContestConstants.PYTHON3 || languageID == ContestConstants.VB) {
                         long tmp = 0;
                         do {
                            tmp =  LongTesterIO.getLong(br);
@@ -633,7 +645,7 @@ public class FarmLongTester {
                     return path;
                 }else if(languageID == ContestConstants.CSHARP || languageID == ContestConstants.VB){
                     return path;
-                } else if (languageID == ContestConstants.PYTHON) {
+                } else if (languageID == ContestConstants.PYTHON || languageID == ContestConstants.PYTHON3) {
                     return path.substring(0, path.lastIndexOf('.')).replace('.','/');
                 }  else if (languageID == ContestConstants.R) {
                     return path.substring(0, path.lastIndexOf('.')).replace('.','/');
@@ -710,11 +722,12 @@ public class FarmLongTester {
      *
      * @param customCommand The custom Python test command.
      *      If null/empty, then pre-configured/default value will be used.
+     * @param python3 Whether for python3
      * @return The Python command to be used.
      */
-    private static String getPythonTestCommand(String customCommand) {
+    private static String getPythonTestCommand(String customCommand, boolean python3) {
         if(customCommand == null || customCommand.trim().length() == 0) {
-            return PYTHON_TEST_COMMAND;
+            return python3 ? PYTHON3_TEST_COMMAND : PYTHON_TEST_COMMAND;
         }
         return customCommand;
     }

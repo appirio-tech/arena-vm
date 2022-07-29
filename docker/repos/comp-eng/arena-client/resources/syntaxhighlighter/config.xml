@@ -7,6 +7,7 @@
             <Value>syntaxhighlighter/csharp.xml</Value>
             <Value>syntaxhighlighter/vb.xml</Value>
             <Value>syntaxhighlighter/python.xml</Value>
+            <Value>syntaxhighlighter/python3.xml</Value>
         </Property>
 	</Config>
 </CMConfig>
