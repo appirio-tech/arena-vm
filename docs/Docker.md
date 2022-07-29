@@ -3,14 +3,10 @@
 ### Prerequisites
 
   - Docker
-  - [Github account with SSH key configured](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)
 
 ### Start Docker Containers
 
 ```bash
-# Goto docker folder
-cd docker
-
 # Start docker containers
 docker-compose up -d
 
@@ -23,18 +19,48 @@ docker-compose logs -f
 
 
 
-The informix docker is a bit outdated, need fix db schema:
+### Setup Informix
 
-```bash
-# Login to arena-informix containter
-docker exec -it arena-informix bash
+Use your favorite db tool (for example [DBeaver](https://dbeaver.io/)) to connect to Informix docker:
 
-# Fix db schema
-echo "ALTER TABLE round_room_assignment ADD short_name varchar(100)" | dbaccess informixoltp@informixoltp_tcp
-echo "UPDATE security_user SET password='7dGdrcJuCUm4M9JZLae12Q=='" | dbaccess informixoltp@informixoltp_tcp
+JDBC url is: `jdbc:informix-sqli://localhost:2021/informixoltp:INFORMIXSERVER=informixoltp_tcp`
 
-# Exit from arena-informix containter
-exit
+```properties
+Host=localhost
+Port=2021
+Server=informixoltp_tcp
+Database=informixoltp
+Username=informix
+Password=1nf0rm1x
+```
+
+Then run following sql:
+
+```sql
+ALTER TABLE round_room_assignment ADD short_name varchar(100);
+DROP TRIGGER trig_systemtest_modified;
+
+UPDATE security_user SET password='7dGdrcJuCUm4M9JZLae12Q==';
+
+INSERT INTO informixoltp:informix.language (language_id, language_name, status, language_desc) VALUES(8, 'Python3', 'Y', '');
+
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'integer', 1);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'float', 4);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'string (char)', 6);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'integer (byte)', 7);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'integer (short)', 13);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'long integer', 14);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'float', 15);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'string', 18);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'bool', 19);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'tuple (integer)', 20);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'tuple (float)', 21);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'tuple (string)', 22);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'tuple (long integer)', 24);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'tuple (tuple (integer))', 26);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'tuple (tuple (long integer))', 27);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'tuple (tuple (string))', 23);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'Matrix2D', 8);
 ```
 
 
@@ -46,9 +72,8 @@ exit
 - Admin server log: /home/apps/app/scripts/adminServer-<time>.log
 - Arena server log: /home/apps/app/scripts/server-<time>.log
 - WebSocket server log: /home/apps/app/scripts/webSocketServer-<time>.log
-- nohup output:
-  - /home/apps/app/scripts/nohup.out
-  - /home/apps/processor/deploy/bin/nohup.out
+- Processor log: /home/apps/processor/deploy/bin/logs/processor.log
+- nohup output: use `docker-compose logs -f arena-app`
 
 
 
@@ -116,8 +141,6 @@ Refer to [ClientVerification.md](./ClientVerification.md) for verification detai
 
 ### Files changed
 
-Refer to `docker/checkout.sh` for the file changes:
-
 - `app/ivy.xml`:
   - change `spring-context` version from `4.1.0.RELEASE` to `5.3.22`
 - `app/token.properties`:
@@ -145,12 +168,8 @@ Refer to `docker/checkout.sh` for the file changes:
 ### Start Dev Docker Containers
 
 ```bash
-# Goto docker folder
-cd docker
-
 # Start docker containers
 docker-compose -f docker-compose-dev.yml up -d
-
 ```
 
 Note: 
