@@ -37,6 +37,7 @@ all: $(TARGETDIR_sandbox2)/sandbox2 \
 	$(TARGETDIR_sandbox2)/SRMSecurityChecker.so \
 	$(TARGETDIR_sandbox2)/IntelSecurityChecker.so \
 	$(TARGETDIR_sandbox2)/PythonSecurityChecker.so \
+	$(TARGETDIR_sandbox2)/Python3SecurityChecker.so \
 	$(TARGETDIR_sandbox2)/RLanguageSecurityChecker.so \
 	$(TARGETDIR_sandbox2)/LongInitializer.so \
 	$(TARGETDIR_sandbox2)/MTLongInitializer.so
@@ -112,6 +113,14 @@ OBJS_PythonSecurityChecker.so =  \
 	$(TARGETDIR_sandbox2)/mutex.o \
 	$(TARGETDIR_sandbox2)/logger.o
 
+OBJS_Python3SecurityChecker.so =  \
+	$(TARGETDIR_sandbox2)/SecurityChecker.o \
+	$(TARGETDIR_sandbox2)/configuration.o \
+	$(TARGETDIR_sandbox2)/Python3SecurityChecker.o \
+	$(TARGETDIR_sandbox2)/util.o \
+	$(TARGETDIR_sandbox2)/mutex.o \
+	$(TARGETDIR_sandbox2)/logger.o
+
 OBJS_RLanguageSecurityChecker.so =  \
 	$(TARGETDIR_sandbox2)/SecurityChecker.o \
 	$(TARGETDIR_sandbox2)/configuration.o \
@@ -146,6 +155,9 @@ $(TARGETDIR_sandbox2)/IntelSecurityChecker.so: $(TARGETDIR_sandbox2) $(OBJS_Inte
 
 $(TARGETDIR_sandbox2)/PythonSecurityChecker.so: $(TARGETDIR_sandbox2) $(OBJS_PythonSecurityChecker.so)
 	$(LINK.cc) $(CCFLAGS_sandbox2) $(CPPFLAGS_PythonSecurityChecker.so) -shared -o $@ $(OBJS_PythonSecurityChecker.so) ${LDLIBS_all} $(LDLIBS_PythonSecurityChecker.so)
+
+$(TARGETDIR_sandbox2)/Python3SecurityChecker.so: $(TARGETDIR_sandbox2) $(OBJS_Python3SecurityChecker.so)
+	$(LINK.cc) $(CCFLAGS_sandbox2) $(CPPFLAGS_Python3SecurityChecker.so) -shared -o $@ $(OBJS_Python3SecurityChecker.so) ${LDLIBS_all} $(LDLIBS_Python3SecurityChecker.so)
 
 $(TARGETDIR_sandbox2)/RLanguageSecurityChecker.so: $(TARGETDIR_sandbox2) $(OBJS_RLanguageSecurityChecker.so)
 	$(LINK.cc) $(CCFLAGS_sandbox2) $(CPPFLAGS_RLanguageSecurityChecker.so) -shared -o $@ $(OBJS_RLanguageSecurityChecker.so) ${LDLIBS_all} $(LDLIBS_RLanguageSecurityChecker.so)
@@ -200,6 +212,9 @@ $(TARGETDIR_sandbox2)/IntelSecurityChecker.o: $(TARGETDIR_sandbox2) security/Int
 $(TARGETDIR_sandbox2)/PythonSecurityChecker.o: $(TARGETDIR_sandbox2) security/PythonSecurityChecker.cc
 	$(COMPILE.cc) $(CCFLAGS_sandbox2) $(CPPFLAGS_sandbox2) -o $@ security/PythonSecurityChecker.cc
 
+$(TARGETDIR_sandbox2)/Python3SecurityChecker.o: $(TARGETDIR_sandbox2) security/Python3SecurityChecker.cc
+	$(COMPILE.cc) $(CCFLAGS_sandbox2) $(CPPFLAGS_sandbox2) -o $@ security/Python3SecurityChecker.cc
+
 $(TARGETDIR_sandbox2)/RLanguageSecurityChecker.o: $(TARGETDIR_sandbox2) security/RLanguageSecurityChecker.cc
 	$(COMPILE.cc) $(CCFLAGS_sandbox2) $(CPPFLAGS_sandbox2) -o $@ security/RLanguageSecurityChecker.cc
 #### Clean target deletes all generated files ####
@@ -229,6 +244,8 @@ clean:
 		$(TARGETDIR_sandbox2)/IntelSecurityChecker.so \
 		$(TARGETDIR_sandbox2)/PythonSecurityChecker.o \
 		$(TARGETDIR_sandbox2)/PythonSecurityChecker.so \
+		$(TARGETDIR_sandbox2)/Python3SecurityChecker.o \
+		$(TARGETDIR_sandbox2)/Python3SecurityChecker.so \
 		$(TARGETDIR_sandbox2)/RLanguageSecurityChecker.o \
 		$(TARGETDIR_sandbox2)/RLanguageSecurityChecker.so
 	$(CCADMIN)

@@ -1,5 +1,5 @@
 /*
-* Copyright (C) - 2013 TopCoder Inc., All Rights Reserved.
+* Copyright (C) - 2022 TopCoder Inc., All Rights Reserved.
 */
 package com.topcoder.services.compiler.invoke;
 
@@ -19,6 +19,7 @@ import com.topcoder.server.common.Location;
 import com.topcoder.server.common.Submission;
 import com.topcoder.server.tester.ComponentFiles;
 import com.topcoder.server.tester.LongSubmission;
+import com.topcoder.server.tester.Python3ComponentFiles;
 import com.topcoder.server.tester.PythonComponentFiles;
 import com.topcoder.server.util.FileUtil;
 import com.topcoder.server.util.Java13Utils;
@@ -90,8 +91,20 @@ import com.topcoder.shared.util.logging.Logger;
  *      <li>Update {@link #compileLong(LongCompilationRequest sub)} method to support custom problem setting.</li>
  * </ol>
  * </p>
- * @author savon_cn
- * @version 1.5
+ *
+ * <p>
+ * Changes in version 1.6 (Python3 Support):
+ * <ol>
+ *      <li>Added {@link #ALGO_PYTHON3_COMMAND_PROPERTY_NAME}, {@link #LONG_PYTHON3_COMMAND_PROPERTY_NAME},
+ *       {@link #DEFAULT_PYTHON3_COMMAND}, {@link #python3} fields.</li>
+ *      <li>Updated constructor to take <code>python3</code> parameter.</li>
+ *      <li>Updated {@link #compile(Submission)} and {@link #compile(String, ByteArrayOutputStream, ArrayList)},
+ *       {@link #generateWrapperForUserCode(SimpleComponent)}, {@link #getPythonCommand(int, String)} methods.</li>
+ * </ol>
+ * </p>
+ *
+ * @author savon_cn, liuliquan
+ * @version 1.6
  */
 public final class PythonCodeCompiler implements CodeCompiler {
     /**
@@ -100,6 +113,8 @@ public final class PythonCodeCompiler implements CodeCompiler {
      */
     private static final String ALGO_PYTHON_COMMAND_PROPERTY_NAME =
             "com.topcoder.services.compiler.invoke.PythonCodeCompiler.srmPythonCommand";
+    private static final String ALGO_PYTHON3_COMMAND_PROPERTY_NAME =
+            "com.topcoder.services.compiler.invoke.PythonCodeCompiler.srmPython3Command";
 
     /**
      * This constant defines name for Python command property for MM.
@@ -107,6 +122,8 @@ public final class PythonCodeCompiler implements CodeCompiler {
      */
     private static final String LONG_PYTHON_COMMAND_PROPERTY_NAME =
             "com.topcoder.services.compiler.invoke.PythonCodeCompiler.mmPythonCommand";
+    private static final String LONG_PYTHON3_COMMAND_PROPERTY_NAME =
+            "com.topcoder.services.compiler.invoke.PythonCodeCompiler.mmPython3Command";
 
     private final Logger logger = Logger.getLogger(PythonCodeCompiler.class);
     private final LongCompiler longCompiler = buildLongCompiler();
@@ -124,6 +141,19 @@ public final class PythonCodeCompiler implements CodeCompiler {
      * </p>
      */
     private static final String DEFAULT_PYTHON_COMMAND = "python";
+    private static final String DEFAULT_PYTHON3_COMMAND = "python3";
+
+    /**
+     * <p>
+     * when true, use python3 to compile.
+     * </p>
+     */
+    private final boolean python3;
+
+    public PythonCodeCompiler(boolean python3) {
+        this.python3 = python3;
+    }
+
     /**
      * The compile method performs the compilation of the source file.
      * @param sub            Filled Submission object
@@ -142,13 +172,15 @@ public final class PythonCodeCompiler implements CodeCompiler {
 
         Location location = sub.getLocation();
 
-        ComponentFiles componentFiles = new PythonComponentFiles(sub.getCoderID(),
+        ComponentFiles componentFiles = python3 ? new Python3ComponentFiles(sub.getCoderID(),
+                location.getContestID(), location.getRoundID(),
+                sub.getComponentID(), component.getClassName()): new PythonComponentFiles(sub.getCoderID(),
                 location.getContestID(), location.getRoundID(),
                 sub.getComponentID(), component.getClassName());
 
         classFileDir = componentFiles.getClassesDir();
 
-        sourceDir = ServicesConstants.PYTHON_SUBMISSIONS + classFileDir + "/compile/";
+        sourceDir = (python3 ? ServicesConstants.PYTHON3_SUBMISSIONS : ServicesConstants.PYTHON_SUBMISSIONS) + classFileDir + "/compile/";
         //if (VERBOSE) Log.msg("Source Directory = " + sourceDir);
 
         classSource = sourceDir + component.getClassName() + ".py";
@@ -315,7 +347,7 @@ public final class PythonCodeCompiler implements CodeCompiler {
      */
     private boolean compile(String pythonCommand,ByteArrayOutputStream log, ArrayList args) {
         // convert ArrayList to String
-        String cmd = pythonCommand + " " + ServicesConstants.PYTHON_COMPILER + " ";
+        String cmd = pythonCommand + " " + (python3 ? ServicesConstants.PYTHON3_COMPILER : ServicesConstants.PYTHON_COMPILER) + " ";
 
         for (int i = 0; i < args.size(); i++) {
             cmd += (String) args.get(i) + " ";
@@ -387,7 +419,7 @@ public final class PythonCodeCompiler implements CodeCompiler {
 
             //load the code from the local fs, then replace variables as needed
             try {
-                BufferedReader ir = new BufferedReader(new FileReader(ServicesConstants.PYTHON_WRAPPER));
+                BufferedReader ir = new BufferedReader(new FileReader(python3 ? ServicesConstants.PYTHON3_WRAPPER : ServicesConstants.PYTHON_WRAPPER));
                 while(ir.ready()) {
                     sol.append(ir.readLine());
                     sol.append("\n");
@@ -508,12 +540,14 @@ public final class PythonCodeCompiler implements CodeCompiler {
      * @return The Python command to be used.
      * @since 1.4
      */
-    private static String getPythonCommand(int componentTypeId, String customCommand) {
+    private String getPythonCommand(int componentTypeId, String customCommand) {
         if (customCommand == null || customCommand.trim().length() == 0) {
             if (componentTypeId == ApplicationConstants.LONG_PROBLEM) {
-                return System.getProperty(LONG_PYTHON_COMMAND_PROPERTY_NAME, DEFAULT_PYTHON_COMMAND);
+                return System.getProperty(python3 ? LONG_PYTHON3_COMMAND_PROPERTY_NAME : LONG_PYTHON_COMMAND_PROPERTY_NAME,
+                        python3 ? DEFAULT_PYTHON3_COMMAND : DEFAULT_PYTHON_COMMAND);
             } else {
-                return System.getProperty(ALGO_PYTHON_COMMAND_PROPERTY_NAME, DEFAULT_PYTHON_COMMAND);
+                return System.getProperty(python3 ? ALGO_PYTHON3_COMMAND_PROPERTY_NAME : ALGO_PYTHON_COMMAND_PROPERTY_NAME,
+                        python3 ? DEFAULT_PYTHON3_COMMAND :DEFAULT_PYTHON_COMMAND);
             }
         }
         return customCommand;

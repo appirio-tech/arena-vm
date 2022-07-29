@@ -1,5 +1,5 @@
 /*
-* Copyright (C) - 2014 TopCoder Inc., All Rights Reserved.
+* Copyright (C) - 2022 TopCoder Inc., All Rights Reserved.
 */
 
 package com.topcoder.client.contestApplet.common;
@@ -39,6 +39,7 @@ import com.topcoder.shared.language.CPPLanguage;
 import com.topcoder.shared.language.CSharpLanguage;
 import com.topcoder.shared.language.JavaLanguage;
 import com.topcoder.shared.language.PythonLanguage;
+import com.topcoder.shared.language.Python3Language;
 import com.topcoder.shared.language.VBLanguage;
 import com.topcoder.util.config.ConfigManager;
 import com.topcoder.util.config.ConfigManagerException;
@@ -57,8 +58,17 @@ import com.topcoder.util.config.UnknownNamespaceException;
  * </ol>
  * </p>
  *
- * @author Tim "Pops" Roberts (troberts@bigfoot.com), dexy
- * @version 1.1
+ * <p>
+ * Changes in version 1.2 (Python3 support):
+ * <ol>
+ *      <li>Added {@link #SUMMARYPYTHON3POINTS}, {@link #SUMMARYPYTHON3CHLPASSED}, {@link #SUMMARYPYTHON3CHLFAILED},
+ *      {@link #SUMMARYPYTHON3SYSPASSED}, {@link #SUMMARYPYTHON3SYSFAILED} fields.</li>
+ *      <li>Updated {@link #getColor(String, Color)}, {@link #isTrue(String)}, {@link #resolveStatusPropertyFormat(int, int)} methods.</li>
+ * </ol>
+ * </p>
+ *
+ * @author Tim "Pops" Roberts (troberts@bigfoot.com), dexy, liuliquan
+ * @version 1.2
  */
 public final class LocalPreferences {
 
@@ -235,6 +245,11 @@ public final class LocalPreferences {
     public final static String SUMMARYPYTHONSYSPASSED = "com.topcoder.client.contestApplet.common.LocalPreferences.summarypythonsyspassed";
     public final static String SUMMARYPYTHONSYSFAILED = "com.topcoder.client.contestApplet.common.LocalPreferences.summarypythonsysfailed";
 
+    public final static String SUMMARYPYTHON3POINTS = "com.topcoder.client.contestApplet.common.LocalPreferences.summarypython3points";
+    public final static String SUMMARYPYTHON3CHLPASSED = "com.topcoder.client.contestApplet.common.LocalPreferences.summarypython3chlpassed";
+    public final static String SUMMARYPYTHON3CHLFAILED = "com.topcoder.client.contestApplet.common.LocalPreferences.summarypython3chlfailed";
+    public final static String SUMMARYPYTHON3SYSPASSED = "com.topcoder.client.contestApplet.common.LocalPreferences.summarypython3syspassed";
+    public final static String SUMMARYPYTHON3SYSFAILED = "com.topcoder.client.contestApplet.common.LocalPreferences.summarypython3sysfailed";
 
     public final static String UNUSEDCODECHECK = "com.topcoder.client.contestApplet.common.LocalPreferences.UnusedCodeCheckEnabled";
 
@@ -598,6 +613,13 @@ public final class LocalPreferences {
         if (type.startsWith(SUMMARYPYTHONSYSPASSED)) return pythonColor;
         if (type.startsWith(SUMMARYPYTHONSYSFAILED)) return new Color(255,0,51);
 
+        Color python3Color = new Color(255,150,50);
+        if (type.startsWith(SUMMARYPYTHON3POINTS)) return python3Color;
+        if (type.startsWith(SUMMARYPYTHON3CHLPASSED)) return python3Color;
+        if (type.startsWith(SUMMARYPYTHON3CHLFAILED)) return python3Color;
+        if (type.startsWith(SUMMARYPYTHON3SYSPASSED)) return python3Color;
+        if (type.startsWith(SUMMARYPYTHON3SYSFAILED)) return new Color(255,0,51);
+
         return defaultColor;
     }
 
@@ -638,6 +660,12 @@ public final class LocalPreferences {
         if(key.equals(LocalPreferences.getKeyAttribute(SUMMARYPYTHONCHLPASSED, LocalPreferences.ATTRIBUTEITALIC))) return true;
         if(key.equals(LocalPreferences.getKeyAttribute(SUMMARYPYTHONSYSPASSED, LocalPreferences.ATTRIBUTEITALIC))) return true;
         if(key.equals(LocalPreferences.getKeyAttribute(SUMMARYPYTHONSYSFAILED, LocalPreferences.ATTRIBUTEITALIC))) return true;
+
+        if(key.equals(LocalPreferences.getKeyAttribute(SUMMARYPYTHON3CHLPASSED, LocalPreferences.ATTRIBUTEBOLD))) return true;
+        if(key.equals(LocalPreferences.getKeyAttribute(SUMMARYPYTHON3SYSPASSED, LocalPreferences.ATTRIBUTEBOLD))) return true;
+        if(key.equals(LocalPreferences.getKeyAttribute(SUMMARYPYTHON3CHLPASSED, LocalPreferences.ATTRIBUTEITALIC))) return true;
+        if(key.equals(LocalPreferences.getKeyAttribute(SUMMARYPYTHON3SYSPASSED, LocalPreferences.ATTRIBUTEITALIC))) return true;
+        if(key.equals(LocalPreferences.getKeyAttribute(SUMMARYPYTHON3SYSFAILED, LocalPreferences.ATTRIBUTEITALIC))) return true;
 
         if(key.equals(LocalPreferences.EDSTDINDENT)) return true;
 
@@ -1248,6 +1276,9 @@ public final class LocalPreferences {
                  break;
              case PythonLanguage.ID :
                  language = "python";
+                 break;
+             case Python3Language.ID :
+                 language = "python3";
                  break;
              default :
                  language = "";

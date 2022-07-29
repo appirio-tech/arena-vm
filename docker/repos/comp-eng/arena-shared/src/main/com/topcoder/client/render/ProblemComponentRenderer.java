@@ -1,5 +1,5 @@
 /*
-* Copyright (C) - 2014 TopCoder Inc., All Rights Reserved.
+* Copyright (C) - 2022 TopCoder Inc., All Rights Reserved.
 */
 
 package com.topcoder.client.render;
@@ -10,6 +10,7 @@ import java.util.Locale;
 
 import com.topcoder.shared.language.Language;
 import com.topcoder.shared.language.PythonLanguage;
+import com.topcoder.shared.language.Python3Language;
 import com.topcoder.shared.problem.DataType;
 import com.topcoder.shared.problem.Element;
 import com.topcoder.shared.problem.ProblemComponent;
@@ -42,8 +43,15 @@ import com.topcoder.shared.problem.TestCase;
  * </ol>
  * </p>
  *
- * @author Greg Paul, savon_cn, Selena
- * @version 1.3
+ * <p>
+ * Changes in version 1.4 (Python3 Support):
+ * <ol>
+ *      <li>Updated {@link #toHTML(Language, boolean, boolean)} method to generate HTML for Python3.</li>
+ * </ol>
+ * </p>
+ *
+ * @author Greg Paul, savon_cn, Selena, liuliquan
+ * @version 1.4
  */
 public class ProblemComponentRenderer extends BaseRenderer {
     /** Represents the HTML tag used to render section header. */
@@ -264,7 +272,7 @@ public class ProblemComponentRenderer extends BaseRenderer {
                     allParamNames[n])));
                 buf.append("</td>");
                 buf.append("</tr>");
-                if (language.getId() != PythonLanguage.ID && n == methodNames.length - 1) {
+                if (language.getId() != PythonLanguage.ID && language.getId() != Python3Language.ID && n == methodNames.length - 1) {
                     if (methodNames.length > 1) {
                         buf.append("<tr><td colspan=\"2\">(be sure your methods are public)</td></tr>");
                     } else {
@@ -367,7 +375,7 @@ public class ProblemComponentRenderer extends BaseRenderer {
                 .getReturnType(), problemComponent.getParamTypes(), problemComponent.getParamNames())));
             buf.append("</td>");
             buf.append("</tr>");
-            if (language.getId() != PythonLanguage.ID) {
+            if (language.getId() != PythonLanguage.ID && language.getId() != Python3Language.ID) {
                 buf.append("<tr><td colspan=\"2\">(be sure your method is public)</td></tr>");
             }
             buf.append("</table>");

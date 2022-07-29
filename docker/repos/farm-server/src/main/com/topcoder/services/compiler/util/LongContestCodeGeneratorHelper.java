@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006-2013 TopCoder Inc., All Rights Reserved.
+ * Copyright (C) 2006-2022 TopCoder Inc., All Rights Reserved.
  */
 
 /*
@@ -20,13 +20,21 @@ import com.topcoder.shared.problem.ProblemComponent;
  *
  *
  * <p>
- * Changes in version 1.0 (TC Competition Engine - R Language Compilation Support):
+ * Changes in version 1.1 (TC Competition Engine - R Language Compilation Support):
  * <ol>
  * <li>Update {@link #resolveCodeGenerator(int languageID)} method to support R language.</li>
  * </ol>
  * </p>
- * @author Diego Belfer (mural)
- * @version 1.0
+ *
+ * <p>
+ * Changes in version 1.2 (Python3 Support):
+ * <ol>
+ * <li>Update {@link #resolveCodeGenerator(int languageID)} method to support Python3 language.</li>
+ * </ol>
+ * </p>
+ *
+ * @author Diego Belfer (mural), liuliquan
+ * @version 1.1
  */
 public class LongContestCodeGeneratorHelper {
 
@@ -76,7 +84,9 @@ public class LongContestCodeGeneratorHelper {
             case ContestConstants.VB:
                 return new DotNetLongCodeGenerator();
             case ContestConstants.PYTHON:
-                return new PythonLongCodeGenerator();
+                return new PythonLongCodeGenerator(false);
+            case ContestConstants.PYTHON3:
+                return new PythonLongCodeGenerator(true);
             case ContestConstants.R:
                 return new RLongCodeGenerator();
         }

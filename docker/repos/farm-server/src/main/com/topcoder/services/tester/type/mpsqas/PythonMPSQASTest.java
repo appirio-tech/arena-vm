@@ -1,5 +1,5 @@
 /*
- * Copyright (C)  - 2014 TopCoder Inc., All Rights Reserved.
+ * Copyright (C)  - 2022 TopCoder Inc., All Rights Reserved.
  */
 
 package com.topcoder.services.tester.type.mpsqas;
@@ -46,8 +46,15 @@ import com.topcoder.shared.util.logging.Logger;
  * </ol>
  * </p>
  *
- * @author savon_cn, dexy
- * @version 1.3
+ * <p>
+ * Changes in version 1.4 (Python3 Support):
+ * <ol>
+ *      <li>Update {@link #processPythonMPSQASTest(MPSQASFiles, boolean)} method to support Python3.</li>
+ * </ol>
+ * </p>
+ *
+ * @author savon_cn, dexy, liuliquan
+ * @version 1.4
  */
 public class PythonMPSQASTest {
     private static final Logger log = Logger.getLogger(PythonMPSQASTest.class);
@@ -56,9 +63,11 @@ public class PythonMPSQASTest {
      *
      * @param mpsqasFiles the mpsqasFiles.
      *
+     * @param python3 whether to perform python3 test.
+     *
      * @return boolean the status of execution.
      */
-    public static boolean processPythonMPSQASTest(MPSQASFiles mpsqasFiles) {
+    public static boolean processPythonMPSQASTest(MPSQASFiles mpsqasFiles, boolean python3) {
         List argVals = mpsqasFiles.getArgVals();
 
         Object[] args = new Object[argVals.size()];
@@ -96,7 +105,7 @@ public class PythonMPSQASTest {
         }
 
         PythonTest ct = new PythonTest(resultType, args, className, path, false,
-                mpsqasFiles.getProblemCustomSettings());
+                mpsqasFiles.getProblemCustomSettings(), python3);
 
         mpsqasFiles.setTestStatus(ct.tester_success);
         mpsqasFiles.setStdOut(ct.submission_stdout);

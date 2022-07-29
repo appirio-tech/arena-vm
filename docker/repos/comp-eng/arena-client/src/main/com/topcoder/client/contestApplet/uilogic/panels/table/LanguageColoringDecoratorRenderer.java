@@ -1,7 +1,5 @@
 /*
- * LanguageColoringDecoratorRenderer
- * 
- * Created 06/13/2007
+ * Copyright (C) - 2022 TopCoder Inc., All Rights Reserved.
  */
 package com.topcoder.client.contestApplet.uilogic.panels.table;
 
@@ -17,11 +15,21 @@ import com.topcoder.shared.language.CPPLanguage;
 import com.topcoder.shared.language.CSharpLanguage;
 import com.topcoder.shared.language.JavaLanguage;
 import com.topcoder.shared.language.PythonLanguage;
+import com.topcoder.shared.language.Python3Language;
 import com.topcoder.shared.language.VBLanguage;
 
 /**
- * @autor Diego Belfer (Mural)
- * @version $Id: LanguageColoringDecoratorRenderer.java 67261 2007-12-04 16:49:51Z thefaxman $
+ * The language color renderer.
+ *
+ * <p>
+ * Changes in version 1.1 (Python3 Support):
+ * <ol>
+ *      <li>Updated {@link #getTableCellRendererComponent(JTable, Object, boolean, boolean, int, int)} method.</li>
+ * </ol>
+ * </p>
+ *
+ * @author Diego Belfer (Mural), liuliquan
+ * @version 1.1
  */
 public abstract class LanguageColoringDecoratorRenderer implements TableCellRenderer {
     private LocalPreferences localPref = LocalPreferences.getInstance();
@@ -53,6 +61,9 @@ public abstract class LanguageColoringDecoratorRenderer implements TableCellRend
                     break;
                 case PythonLanguage.ID: 
                     color = getColor(LocalPreferences.SUMMARYPYTHONPOINTS);
+                    break;
+                case Python3Language.ID: 
+                    color = getColor(LocalPreferences.SUMMARYPYTHON3POINTS);
                     break;
                 default:
                     color = Common.CODER_GREEN;

@@ -1,3 +1,6 @@
+/*
+ * Copyright (C) - 2022 TopCoder Inc., All Rights Reserved.
+ */
 package com.topcoder.client.contestApplet.uilogic.panels;
 
 import java.awt.Color;
@@ -31,6 +34,20 @@ import com.topcoder.client.ui.event.UIActionListener;
 import com.topcoder.client.ui.event.UIKeyListener;
 import com.topcoder.netCommon.contest.ContestConstants;
 
+/**
+ * The editor configuration panel.
+ *
+ * <p>
+ * Changes in version 1.1 (Python3 Support):
+ * <ol>
+ *      <li>Added {@link #python3RadioButton} field.</li>
+ *      <li>Updated {@link #StdEdConfigurationPanel(FrameLogic, UIPage)}, {@link #getLanguage()} methods.</li>
+ * </ol>
+ * </p>
+ *
+ * @author liuliquan
+ * @version 1.1
+ */
 public class StdEdConfigurationPanel {
     private FrameLogic parent;
     private UIPage page;
@@ -42,7 +59,7 @@ public class StdEdConfigurationPanel {
     private ActionHandler handler = new ActionHandler();
     private UIComponent stdFonts;
     private UIComponent stdFontSizes;
-    private UIComponent javaRadioButton, cplusplusRadioButton, csharpRadioButton, vbRadioButton, pythonRadioButton;
+    private UIComponent javaRadioButton, cplusplusRadioButton, csharpRadioButton, vbRadioButton, pythonRadioButton, python3RadioButton;
     private UIComponent stdCommentsStyle, stdLiteralsStyle, stdKeywordsStyle, stdDefaultStyle;
     private UIComponent syntaxYesButton, syntaxNoButton;
     private UIComponent tabSize;
@@ -98,6 +115,7 @@ public class StdEdConfigurationPanel {
         csharpRadioButton = page.getComponent("editor_c#_radio_button");
         vbRadioButton = page.getComponent("editor_vb_radio_button");
         pythonRadioButton = page.getComponent("editor_python_radio_button");
+        python3RadioButton = page.getComponent("editor_python3_radio_button");
 
         ContestApplet ca = parentFrame.getApplet(); 
         int selectedLanguage = ContestConstants.VB;
@@ -128,6 +146,10 @@ public class StdEdConfigurationPanel {
         case ContestConstants.PYTHON:
             pythonRadioButton.setProperty("Selected", Boolean.TRUE);
             break;
+
+        case ContestConstants.PYTHON3:
+            python3RadioButton.setProperty("Selected", Boolean.TRUE);
+            break;
         }
 
         if(!CommonData.allowsJava(parentFrame.getApplet().getCompanyName())) {
@@ -144,6 +166,9 @@ public class StdEdConfigurationPanel {
         }
         if(!CommonData.allowsPython(parentFrame.getApplet().getCompanyName())) {
             pythonRadioButton.setProperty("Visible", Boolean.FALSE);
+        }
+        if(!CommonData.allowsPython3(parentFrame.getApplet().getCompanyName())) {
+            python3RadioButton.setProperty("Visible", Boolean.FALSE);
         }
 
         resetPreview();
@@ -260,6 +285,8 @@ public class StdEdConfigurationPanel {
             language = ContestConstants.VB;
         } else if (((Boolean) pythonRadioButton.getProperty("Selected")).booleanValue()) {
             language = ContestConstants.PYTHON;
+        } else if (((Boolean) python3RadioButton.getProperty("Selected")).booleanValue()) {
+            language = ContestConstants.PYTHON3;
         }
         return (language);
     }

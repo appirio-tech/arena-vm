@@ -1,6 +1,6 @@
 /*
-* Copyright (C) - 2014 TopCoder Inc., All Rights Reserved.
-*/
+ * Copyright (C) - 2022 TopCoder Inc., All Rights Reserved.
+ */
 
 package com.topcoder.client.contestApplet.uilogic.frames;
 
@@ -66,6 +66,7 @@ import com.topcoder.shared.language.CSharpLanguage;
 import com.topcoder.shared.language.JavaLanguage;
 import com.topcoder.shared.language.Language;
 import com.topcoder.shared.language.PythonLanguage;
+import com.topcoder.shared.language.Python3Language;
 import com.topcoder.shared.language.VBLanguage;
 import com.topcoder.shared.problem.DataType;
 import com.topcoder.shared.problem.TestCase;
@@ -80,9 +81,17 @@ import com.topcoder.shared.problem.TestCase;
  *      <li>Added {@link #batchTestButtonEvent()} method to handle batch testing button event.</li>
  * </ol>
  * </p>
+ * <p>
+ * Changes in version 1.2 (Python3 Support):
+ * <ol>
+ *      <li>Added {@link #python3RadioButton} field.</li>
+ *      <li>Updated {@link #getLanguage()}, {@link #setLanguage(Language)}, {@link #updateLanguageButtonStatus()},
+ *      {@link #createEditorTogglePanel()}, {@link #languageToggleEvent(ActionEvent)} methods.</li>
+ * </ol>
+ * </p>
  *
- * @author dexy
- * @version 1.1
+ * @author dexy, liuliquan
+ * @version 1.2
  */
 public class CodingFrame implements FrameLogic, ViewerLogic {
     private static final boolean DEBUG = Boolean.getBoolean("com.topcoder.client.contestApplet.frames.CodingFrame");
@@ -102,7 +111,7 @@ public class CodingFrame implements FrameLogic, ViewerLogic {
 
     protected UIComponent[] buttons;
     private BroadcastButton broadcastButton;
-    private UIComponent javaRadioButton, cplusplusRadioButton, csharpRadioButton, vbRadioButton, pythonRadioButton;
+    private UIComponent javaRadioButton, cplusplusRadioButton, csharpRadioButton, vbRadioButton, pythonRadioButton, python3RadioButton;
     private UIComponent editorList;
     private UIComponent frame;
     private UIComponent splitToggleButton;
@@ -540,9 +549,13 @@ public class CodingFrame implements FrameLogic, ViewerLogic {
         vbRadioButton = page.getComponent("vb_radio_button");
         vbRadioButton.addEventListener("action", actionListener);
 
-        // Create VB radio button
+        // Create Python radio button
         pythonRadioButton = page.getComponent("python_radio_button");
         pythonRadioButton.addEventListener("action", actionListener);
+
+        // Create Python3 radio button
+        python3RadioButton = page.getComponent("python3_radio_button");
+        python3RadioButton.addEventListener("action", actionListener);
 
         // Add the listeners
         //editorList.addActionListener(new al("actionPerformed", "editorToggleEvent", this));
@@ -711,6 +724,8 @@ public class CodingFrame implements FrameLogic, ViewerLogic {
             vbRadioButton.setProperty("Selected", Boolean.TRUE);
         } else if (lang.getId() == PythonLanguage.ID && ((Boolean) pythonRadioButton.getProperty("Visible")).booleanValue()) {
             pythonRadioButton.setProperty("Selected", Boolean.TRUE);
+        } else if (lang.getId() == Python3Language.ID && ((Boolean) python3RadioButton.getProperty("Visible")).booleanValue()) {
+            python3RadioButton.setProperty("Selected", Boolean.TRUE);
         } else {
             // POPS - 9/12/2002 -
             // If we made it here - the chose language is not a selectable type - choose the first one that is
@@ -746,6 +761,8 @@ public class CodingFrame implements FrameLogic, ViewerLogic {
             language = ContestConstants.VB;
         } else if (((Boolean) pythonRadioButton.getProperty("Selected")).booleanValue()) {
             language = ContestConstants.PYTHON;
+        } else if (((Boolean) python3RadioButton.getProperty("Selected")).booleanValue()) {
+            language = ContestConstants.PYTHON3;
         }
         return (language);
     }
@@ -757,6 +774,7 @@ public class CodingFrame implements FrameLogic, ViewerLogic {
         csharpRadioButton.setProperty("enabled", Boolean.valueOf(properties.allowsLanguage(CSharpLanguage.CSHARP_LANGUAGE)));
         vbRadioButton.setProperty("enabled", Boolean.valueOf(properties.allowsLanguage(VBLanguage.VB_LANGUAGE)));
         pythonRadioButton.setProperty("enabled", Boolean.valueOf(properties.allowsLanguage(PythonLanguage.PYTHON_LANGUAGE)));
+        python3RadioButton.setProperty("enabled", Boolean.valueOf(properties.allowsLanguage(Python3Language.PYTHON3_LANGUAGE)));
     }
 
     public void setEditor(String pluginName, String source) {
@@ -907,6 +925,8 @@ public class CodingFrame implements FrameLogic, ViewerLogic {
             newLanguage=VBLanguage.VB_LANGUAGE;
         } else if (actionCommand.equals("Python")) {
             newLanguage=PythonLanguage.PYTHON_LANGUAGE;
+        } else if (actionCommand.equals("Python3")) {
+            newLanguage=Python3Language.PYTHON3_LANGUAGE;
         } else {
             throw new RuntimeException("unknown language: " + actionCommand);
         }

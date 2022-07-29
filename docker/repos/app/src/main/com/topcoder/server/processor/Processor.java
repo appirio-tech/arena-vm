@@ -1,5 +1,5 @@
 /*
- * Copyright (C) - 2015 TopCoder Inc., All Rights Reserved.
+ * Copyright (C) - 2022 TopCoder Inc., All Rights Reserved.
  */
 package com.topcoder.server.processor;
 
@@ -187,8 +187,15 @@ import com.topcoder.shared.util.logging.Logger;
  *    	{@link #canRegister(int userID, Round contest, Registration registration, StringBuilder message)} method</li>
  * </ol>
  * </p>
- * @author savon_cn, gevak, dexy, gondzo, xjtufreeman, TCSASSEMBLER
- * @version 1.7
+ *
+ * <p>
+ * Changes in version 1.8 (Python3 Support):
+ * <ol>
+ *      <li>Updated {@link #getPrettyCode(String, int)} method.</li>
+ * </ol>
+ * </p>
+ * @author savon_cn, gevak, dexy, gondzo, xjtufreeman, liuliquan, TCSASSEMBLER
+ * @version 1.8
  */
 @SuppressWarnings({"rawtypes", "unchecked"})
 public final class Processor {
@@ -6100,7 +6107,7 @@ public final class Processor {
      * @return the pretty code
      */
     private static String getPrettyCode(String code, int language) {
-        if (language == ContestConstants.VB || language == ContestConstants.PYTHON || code == null || code.trim().length() == 0) {
+        if (language == ContestConstants.VB || language == ContestConstants.PYTHON || language == ContestConstants.PYTHON3 || code == null || code.trim().length() == 0) {
             return code;
         }
         String[] cmd = new String[] {s_astylePath, null};

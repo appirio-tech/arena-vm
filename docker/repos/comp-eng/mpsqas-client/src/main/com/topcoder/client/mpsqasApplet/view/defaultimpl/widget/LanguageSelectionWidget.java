@@ -1,5 +1,5 @@
 /*
- * Copyright (C) - 2013 TopCoder Inc., All Rights Reserved.
+ * Copyright (C) - 2022 TopCoder Inc., All Rights Reserved.
  */
 package com.topcoder.client.mpsqasApplet.view.defaultimpl.widget;
 
@@ -14,13 +14,20 @@ import java.awt.event.FocusListener;
  * A widget allowing a user to select a language.
  *
  * <p>
- * Changes in version 1.0 (TC Competition Engine - R Language Compilation Support):
+ * Changes in version 1.1 (TC Competition Engine - R Language Compilation Support):
  * <ol>
  *      <li>Update {@link #LANGUAGES} field.</li>
  * </ol>
  * </p>
- * @author mitalub, TCSASSEMBLER
- * @version 1.0
+ *
+ * <p>
+ * Changes in version 1.2 (Python3 Support):
+ * <ol>
+ *      <li>Update {@link #LANGUAGES} to add Python3 language.</li>
+ * </ol>
+ * </p>
+ * @author mitalub, liuliquan, TCSASSEMBLER
+ * @version 1.2
  */
 public class LanguageSelectionWidget extends JPanel {
     /**
@@ -31,7 +38,7 @@ public class LanguageSelectionWidget extends JPanel {
     private static Language[] LANGUAGES =
             {JavaLanguage.JAVA_LANGUAGE, CPPLanguage.CPP_LANGUAGE,
              CSharpLanguage.CSHARP_LANGUAGE, VBLanguage.VB_LANGUAGE,
-             PythonLanguage.PYTHON_LANGUAGE,RLanguage.R_LANGUAGE};
+             PythonLanguage.PYTHON_LANGUAGE,Python3Language.PYTHON3_LANGUAGE,RLanguage.R_LANGUAGE};
 
     private JComboBox comboBox;
     private GridBagLayout layout;

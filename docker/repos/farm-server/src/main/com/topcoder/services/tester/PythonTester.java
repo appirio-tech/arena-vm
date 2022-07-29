@@ -1,5 +1,5 @@
 /*
- * Copyright (C) - 2014 TopCoder Inc., All Rights Reserved.
+ * Copyright (C) - 2022 TopCoder Inc., All Rights Reserved.
  */
 
 package com.topcoder.services.tester;
@@ -41,12 +41,23 @@ import com.topcoder.shared.language.JavaLanguage;
  * </ol>
  * </p>
  *
- * @author Diego Belfer (mural), savon_cn, dexy
- * @version 1.3
+ * <p>
+ * Changes in version 1.4 (Python3 support):
+ * <ol>
+ *      <li>Added {@link #python3} fields.</li>
+ *      <li>Updated constructor to take <code>python3</code> parameter.</li>
+ *      <li>Updated {@link #doTest(TestRequest, Object[], File)} method.</li>
+ * </ol>
+ * </p>
+ *
+ * @author Diego Belfer (mural), savon_cn, dexy, liuliquan
+ * @version 1.4
  */
 public class PythonTester extends BaseTester {
 
-    public PythonTester() {
+    private final boolean python3;
+    public PythonTester(boolean python3) {
+        this.python3 = python3;
     }
     /**
      * <p>
@@ -66,7 +77,7 @@ public class PythonTester extends BaseTester {
         problemFiles.storeClasses(workFolder.getAbsolutePath());
         String fullComponentPath = new File(workFolder, problemFiles.getClassesDir()).getAbsolutePath();
         PythonTest test_results = new PythonTest(resultType, args, className, fullComponentPath, false,
-                testRequest.getComponent().getProblemCustomSettings());
+                testRequest.getComponent().getProblemCustomSettings(), this.python3);
 
         return buildResult(test_results);
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2015 TopCoder Inc., All Rights Reserved.
+ * Copyright (C) 2014 - 2022 TopCoder Inc., All Rights Reserved.
  */
 
 package com.topcoder.server.services;
@@ -189,8 +189,16 @@ import com.topcoder.util.cache.SoftReferenceLRUCache;
  *      <li>Add {@link #removeUserFromCache(int userID)} method.</li>
  * </ol>
  * </p>
- * @author savon_cn, freegod
- * @version 1.8
+ *
+ * <p>
+ * Changes in version 1.9 (Python3 Support):
+ * <ol>
+ *      <li>Updated {@link SourceCode#LANGUAGES} field.</li>
+ *      <li>Updated {@link SourceCode#generateCodeImage(String, String)} method.</li>
+ * </ol>
+ * </p>
+ * @author savon_cn, freegod, liuliquan
+ * @version 1.9
  */
 @SuppressWarnings({"rawtypes", "unchecked"})
 public final class CoreServices {
@@ -4026,7 +4034,7 @@ public final class CoreServices {
          * The supported language names as expected by the TC API, The array key is the languageId
          */
         private static final String[] LANGUAGES =
-                {"", "java", "", "cpp", "c#", "vb","python", "r"};
+                {"", "java", "", "cpp", "c#", "vb","python", "r", "python3"};
 
         /**
          * The text source code.
@@ -4109,7 +4117,7 @@ public final class CoreServices {
             try {
                 req.setEntity(new UrlEncodedFormEntity(Arrays.asList(
                         new BasicNameValuePair("code", code),
-                        new BasicNameValuePair("lang", lang),
+                        new BasicNameValuePair("lang", "python3".equalsIgnoreCase("lang") ? "python" : lang), // Use python for python3
                         new BasicNameValuePair("style", s_coreSettings.getString("tcApi.srcToImg.style")))));
                 CloseableHttpResponse resp = s_httpClient.execute(req);
                 try {

@@ -1,7 +1,5 @@
 /*
- * FarmCSHandlerFactory
- * 
- * Created 06/27/2006
+ * Copyright (C) - 2022 TopCoder Inc., All Rights Reserved.
  */
 package com.topcoder.farm.shared.serialization;
 
@@ -14,10 +12,17 @@ import com.topcoder.shared.netCommon.CSHandler;
 import com.topcoder.shared.netCommon.customserializer.SimpleCustomSerializerProvider;
 
 /**
- * Base Class for Farm Serializer factory
- * 
- * @author Diego Belfer (mural)
- * @version $Id$
+ * Base Class for Farm Serializer factory.
+ *
+ * <p>
+ * Changes in version 1.1 (Python3 Support):
+ * <ol>
+ *      <li>Update {@link #FarmCSHandlerFactory()} to add Python3ComponentFiles class.</li>
+ * </ol>
+ * </p>
+ *
+ * @author Diego Belfer (mural), liuliquan
+ * @version 1.1
  */
 public class FarmCSHandlerFactory implements CSHandlerFactory {
     private static final byte SERIALIZABLE = 99;
@@ -94,6 +99,7 @@ public class FarmCSHandlerFactory implements CSHandlerFactory {
         addClass("com.topcoder.shared.problem.SimpleComponent", byteID++);
         addClass("com.topcoder.shared.problem.TestCase", byteID++);
         addClass("com.topcoder.shared.problem.TextElement", byteID++);
+        addClass("com.topcoder.server.tester.Python3ComponentFiles", byteID++);
     }
     
     private void addClass(String name, byte id) {

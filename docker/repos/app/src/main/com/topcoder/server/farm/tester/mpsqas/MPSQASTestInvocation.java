@@ -1,5 +1,5 @@
 /*
-* Copyright (C) - 2013 TopCoder Inc., All Rights Reserved.
+* Copyright (C) - 2022 TopCoder Inc., All Rights Reserved.
 */
 package com.topcoder.server.farm.tester.mpsqas;
 
@@ -27,8 +27,15 @@ import com.topcoder.shared.netCommon.CSWriter;
  *      <li>Updated {@link #run(InvocationContext context)} method. </li>
  * </ol>
  * </p>
- * @author Diego Belfer (mural), savon_cn
- * @version 1.1
+ *
+ * <p>
+ * Changes in version 1.2 (Python3 Support):
+ * <ol>
+ *      <li>Updated {@link #run(InvocationContext context)} method. </li>
+ * </ol>
+ * </p>
+ * @author Diego Belfer (mural), savon_cn, liuiquan
+ * @version 1.2
  */
 @Deprecated
 public class MPSQASTestInvocation implements Invocation {
@@ -66,7 +73,11 @@ public class MPSQASTestInvocation implements Invocation {
                 break;
 
             case ContestConstants.PYTHON:
-                PythonMPSQASTest.processPythonMPSQASTest(testRequest);
+                PythonMPSQASTest.processPythonMPSQASTest(testRequest, false);
+                break;
+
+            case ContestConstants.PYTHON3:
+                PythonMPSQASTest.processPythonMPSQASTest(testRequest, true);
                 break;
             default:
                 throw new IllegalStateException("Invalid language.");

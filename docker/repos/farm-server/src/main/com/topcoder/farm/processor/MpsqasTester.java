@@ -1,3 +1,6 @@
+/*
+ * Copyright (C) - 2022 TopCoder Inc., All Rights Reserved.
+ */
 package com.topcoder.farm.processor;
 
 import java.io.File;
@@ -15,9 +18,17 @@ import com.topcoder.services.tester.type.mpsqas.JAVAMPSQASTest;
 import com.topcoder.services.tester.type.mpsqas.PythonMPSQASTest;
 
 /**
- * Processor for testing admin tool solutions
- * 
- * @author james
+ * Processor for testing admin tool solutions.
+ *
+ * <p>
+ * Changes in version 1.1 (Python3 Support):
+ * <ol>
+ *      <li>Updated {@link #processRequest(CodeProcessingRequest, File, File)} method to support Python3.</li>
+ * </ol>
+ * </p>
+ *
+ * @author james, liuliquan
+ * @version 1.1
  */
 @Component("mpsqasTester")
 public class MpsqasTester implements CodeProcessor {
@@ -43,7 +54,11 @@ public class MpsqasTester implements CodeProcessor {
                 break;
 
             case ContestConstants.PYTHON:
-                PythonMPSQASTest.processPythonMPSQASTest(files);
+                PythonMPSQASTest.processPythonMPSQASTest(files, false);
+                break;
+
+            case ContestConstants.PYTHON3:
+                PythonMPSQASTest.processPythonMPSQASTest(files, true);
                 break;
             default:
                 throw new IllegalStateException("Invalid language.");
