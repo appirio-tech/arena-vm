@@ -152,3 +152,7 @@ cd docker
 docker-compose -f docker-compose-dev.yml up -d
 
 ```
+
+Note: 
+  - `docker-compose-dev.yml` using ECSDockerfile which set `ENV ARENA_BUILD_TARGET=dev`, that means arena-app container use `token.properties.dev`, `build.properties.dev` and `applet.properties.dev` to build.
+  - `ECSDockerfile` doesn't replace `sqs.topcoder.com` to `localhost` which is different from `Dockerfile`.
