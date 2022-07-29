@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+
+		<!--  <property name="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</property>-->
+
+		<!-- Pool de conexiones a la DB >
+		<property name="hibernate.c3p0.acquire_increment">1</property>
+		<property name="hibernate.c3p0.idle_test_period">100</property> <!- seconds ->
+		<property name="hibernate.c3p0.max_size">200</property>
+		<property name="hibernate.c3p0.max_statements">50</property>
+		<property name="hibernate.c3p0.min_size">10</property>
+		<property name="hibernate.c3p0.timeout">100</property-->
+
+		<!--Hibernate Properties -->
+		<property name="hibernate.current_session_context_class">org.hibernate.context.ThreadLocalSessionContext</property>
+		<property name="hibernate.show_sql">false</property>
+		<property name="hibernate.format_sql">false</property>
+        <property name="hibernate.cache.use_second_level_cache">false</property>
+		<property name="hibernate.jdbc.use_streams_for_binary">false</property>
+		<property name="hibernate.bytecode.use_reflection_optimizer">true</property>
+		<property name="hibernate.jdbc.batch_size">0</property>
+
+
+        <!-- HSQL -->
+        <property name="hibernate.connection.username">sa</property>
+        <property name="hibernate.connection.password"></property>
+        <property name="hibernate.dialect">com.topcoder.farm.controller.dao.hibernate.dialect.HSQLDialect</property>
+        <property name="hibernate.connection.url">jdbc:hsqldb:file:/tmp/farm-integ-test</property>
+        <property name="hibernate.connection.driver_class">org.hsqldb.jdbcDriver</property>
+		<property name="hibernate.connection.shutdown">true</property>
+
+
+        <!-- Mappings -->
+        <mapping resource="com/topcoder/farm/controller/model/InvocationData.hbm.xml"/>
+        <mapping resource="com/topcoder/farm/controller/model/ProcessorData.hbm.xml"/>
+		<mapping resource="com/topcoder/farm/controller/model/ProcessorProperties.hbm.xml"/>
+	  	<mapping resource="com/topcoder/farm/controller/model/ClientData.hbm.xml"/>
+		<mapping resource="com/topcoder/farm/controller/model/SharedObject.hbm.xml"/>
+	    <mapping resource="com/topcoder/farm/controller/model/InvocationProperty.hbm.xml"/>
+	    <mapping resource="com/topcoder/farm/controller/dao/hibernate/invocation-named-queries.hbm.xml"/>
+		<mapping resource="com/topcoder/farm/controller/dao/hibernate/sharedobject-named-queries.hbm.xml"/>
+    </session-factory>
+</hibernate-configuration>

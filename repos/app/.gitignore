@@ -1,0 +1,6 @@
+build/*
+dist/*
+/bin
+.DS_Store
+*/.DS_Store
+cpp/sandbox2/GNU-i386-Linux

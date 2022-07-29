@@ -1,0 +1,70 @@
+Topcoder: MPSQAS Development
+Quality Assurance
+_________________________________
+PROBLEMS
+
+*******Attempting to view a problem that has already been submitted*********
+In the main individual problem when 'view prolem' button is pressed:
+ 
+Choose a problem to view. Error viewing problem: java.lang.NullPointerException 
+at com.topcoder.server.mpsqas.listener.impl.ViewProblemMoveRequestImpl.enter(ViewProblemMoveRequestImpl.java:42)
+ at com.topcoder.server.mpsqas.listener.impl.MPSQASProcessorPeer.moveToNewRoom(MPSQASProcessorPeer.java:154) 
+at com.topcoder.server.mpsqas.listener.impl.ViewProblemMoveRequestImpl.process(ViewProblemMoveRequestImpl.java:29) 
+at com.topcoder.server.mpsqas.listener.MPSQASProcessorQueue.run(MPSQASProcessorQueue.java:41) 
+ Timed out waiting for move response
+
+Then on the next attempt to view it the problem is fine.
+This doesnt happen all the time but happens frequently.
+Trying to reload once this happens keep generating the same error.
+*****************************************************************************
+
+
+******Trying to view main invidual problems**********************************
+In the top tool bar when problem is clicked and 'View Individual Problem Room' is selected"
+
+1)
+Timed out waiting for move response
+
+This happens very frequently.
+Possibly server issue. Tim is working with server while Im testing this.
+
+2)
+Sometimes the rooms loads but only 'Testing Problems' is displayed
+and 'Developing Problems' is not there. 
+*****************************************************************************
+
+
+******Parameter Issues*******************************************************
+1)
+There is no limit on the nubmer of parameters. If I have MPSQAS at a full size window and 
+enter more than 13 parameters then when i goto the 'Constraints" section the window is
+all messed up.
+
+2)
+Also Im not sure if this should be taken care of at submission time. But for parameters
+you can enter any name,number, or symbol(ie.  int %%%) and it does not create any 
+submission error.
+*****************************************************************************
+
+### 08-28-2002 ####
+
+*****Parameter Issue defined above still a problem*********************************
+(not sure if its relevant in all aspects)
+***********************************************************************************
+
+
+******Individual Main Problem Room - NOT WORKING FOr APPROVED PROBLEMS**************
+	a) test cases - testing in test case tab doesnt work
+	b) submitting a solution- doesnt work, even when 5 test cases are present it complains 
+		about XML errors and there is no XML used
+	C)c++ and c# compilers dont specify errorrs
+************************************************************************************
+
+
+*****Submitting problems************************************************************
+In the definition of the problem normally if a field is left out it says
+"please fill out all fileds", but if you do them all but leave paramaters blank
+you get the error "Problem statement XML parses with errors."
+************************************************************************************
+
+	

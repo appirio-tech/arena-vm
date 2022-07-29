@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss>
+  <enterprise-beans>
+      <session>
+        <ejb-name>EmailJob</ejb-name>
+        <jndi-name>com.topcoder.shared.ejb.EmailServices.EmailJobHome</jndi-name>
+      </session>
+      <session>
+        <ejb-name>EmailList</ejb-name>
+        <jndi-name>com.topcoder.shared.ejb.EmailServices.EmailListHome</jndi-name>
+      </session>
+      <session>
+        <ejb-name>EmailTemplate</ejb-name>
+        <jndi-name>com.topcoder.shared.ejb.EmailServices.EmailTemplateHome</jndi-name>
+      </session>
+      <session>
+        <ejb-name>EmailListGroup</ejb-name>
+        <jndi-name>com.topcoder.shared.ejb.EmailServices.EmailListGroupHome</jndi-name>
+      </session>
+      <session>
+        <ejb-name>EmailJobGroup</ejb-name>
+        <jndi-name>com.topcoder.shared.ejb.EmailServices.EmailJobGroupHome</jndi-name>
+      </session>
+      <session>
+        <ejb-name>EmailTemplateGroup</ejb-name>
+        <jndi-name>com.topcoder.shared.ejb.EmailServices.EmailTemplateGroupHome</jndi-name>
+      </session>
+      <session>
+        <ejb-name>EmailServer</ejb-name>
+        <jndi-name>com.topcoder.shared.ejb.EmailServices.EmailServerHome</jndi-name>
+      </session>
+  </enterprise-beans>
+</jboss>

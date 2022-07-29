@@ -1,0 +1,175 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-lazy="false">
+	<query name="com.topcoder.farm.controller.model.InvocationData.byClientKey"><![CDATA[
+    	from com.topcoder.farm.controller.model.InvocationData as inv
+        	where inv.clientName = :clientName
+	        and inv.clientRequestId = :clientRequestId
+	]]></query>
+
+	<query name="com.topcoder.farm.controller.model.InvocationData.idsByClientName"><![CDATA[
+		select inv.id
+			from com.topcoder.farm.controller.model.InvocationData as inv
+			where inv.clientName = :clientName
+	]]></query>
+
+	<query name="com.topcoder.farm.controller.model.InvocationData.ids"><![CDATA[
+		select inv.id
+			from com.topcoder.farm.controller.model.InvocationData as inv
+	]]></query>
+
+	<query name="com.topcoder.farm.controller.model.InvocationData.deleteByClientName"><![CDATA[
+		delete
+			from com.topcoder.farm.controller.model.InvocationData as inv
+			where inv.clientName = :clientName
+	]]></query>
+
+
+	<query name="com.topcoder.farm.controller.model.InvocationData.idsByClientKeyPrefix"><![CDATA[
+		select inv.id
+			from com.topcoder.farm.controller.model.InvocationData as inv
+			where inv.clientName = :clientName and inv.clientRequestId like :prefix
+	]]></query>
+
+	<query name="com.topcoder.farm.controller.model.InvocationData.deleteByClientKeyPrefix"><![CDATA[
+		delete
+			from com.topcoder.farm.controller.model.InvocationData as inv
+			where inv.clientName = :clientName and inv.clientRequestId like :prefix
+	]]></query>
+
+
+	<query name="com.topcoder.farm.controller.model.InvocationData.deleteByClientKey"><![CDATA[
+		delete
+			from com.topcoder.farm.controller.model.InvocationData as inv
+			where inv.clientName = :clientName and inv.clientRequestId = :requestId
+	]]></query>
+
+	<query name="com.topcoder.farm.controller.model.InvocationData.countPendingByClientName"><![CDATA[
+		select count(inv.id)
+			from com.topcoder.farm.controller.model.InvocationData as inv
+			where inv.clientName = :clientName and status <> :status
+	]]></query>
+
+	<query name="com.topcoder.farm.controller.model.InvocationData.countPendingByClientKeyPrefix"><![CDATA[
+		select count(inv.id) from com.topcoder.farm.controller.model.InvocationData as inv
+			where inv.clientName = :clientName and inv.clientRequestId like :prefix and inv.status <> :status
+	]]></query>
+
+	<query name="com.topcoder.farm.controller.model.InvocationData.pendingResponsesByClientName"><![CDATA[
+		select inv.id, inv.clientRequestId, inv.clientAttachment, inv.result
+			from com.topcoder.farm.controller.model.InvocationData as inv
+			where inv.clientName = :clientName and inv.status = :status and inv.dropDate > :currentDate
+	]]></query>
+
+	<query name="com.topcoder.farm.controller.model.InvocationData.responseById"><![CDATA[
+		select inv.clientName, inv.clientRequestId, inv.clientAttachment, inv.result
+			from com.topcoder.farm.controller.model.InvocationData as inv
+			where inv.id = :invocationId and inv.status = :status
+	]]></query>
+
+	<query name="com.topcoder.farm.controller.model.InvocationData.headerById"><![CDATA[
+		select inv.clientName, inv.clientRequestId, inv.clientAttachment
+			from com.topcoder.farm.controller.model.InvocationData as inv
+			where inv.id = :invocationId
+	]]></query>
+
+	<query name="com.topcoder.farm.controller.model.InvocationData.updateResultById"><![CDATA[
+		update
+			from com.topcoder.farm.controller.model.InvocationData
+				set result = :result,
+					status = :newStatus,
+					solveDate = :solveDate
+				where id = :invocationId and (status = :status1 or status = :status2)
+	]]></query>
+
+	<query name="com.topcoder.farm.controller.model.InvocationData.updateAsAssignedById"><![CDATA[
+		update
+			from com.topcoder.farm.controller.model.InvocationData
+			set status = :newStatus,
+				assignDate = :dateValue,
+				assignedProcessor = :assignedProceesor,
+				assignAttempts = assignAttempts + 1
+			where id = :invocationId and status = :status
+	]]></query>
+
+	<query name="com.topcoder.farm.controller.model.InvocationData.updateAsPendingIfAssignationTimeoutById"><![CDATA[
+		update
+			from com.topcoder.farm.controller.model.InvocationData
+			set status = :newStatus,
+				assignedProcessor = null,
+				assignDate = null
+			where id = :invocationId and status = :status and ageless(:dateValue, assignDate, assignationTtl) = TRUE
+	]]></query>
+
+	<query name="com.topcoder.farm.controller.model.InvocationData.updateAsPendingIfAssignedToProcessor"><![CDATA[
+		update
+			from com.topcoder.farm.controller.model.InvocationData
+			set status = :newStatus,
+				assignedProcessor = null,
+				assignDate = null
+        	where id = :invocationId and status = :status and assignedProcessor = :processorName
+	]]></query>
+
+	<query name="com.topcoder.farm.controller.model.InvocationData.updateAsNotifiedByClientKey"><![CDATA[
+		update
+			from com.topcoder.farm.controller.model.InvocationData
+			set status = :newStatus,
+				notifyDate = :dateValue
+			where clientName= :clientName and clientRequestId= :requestId and status = :status
+	]]></query>
+
+	<query name="com.topcoder.farm.controller.model.InvocationData.findInvocationById"><![CDATA[
+		select invocation, requiredResources
+			from com.topcoder.farm.controller.model.InvocationData
+			where id = :id
+	]]></query>
+
+
+	<query name="com.topcoder.farm.controller.model.InvocationData.propertiesForInvocation"><![CDATA[
+			select property from com.topcoder.farm.controller.model.InvocationProperty as property left join property.sharedObject
+			where property.invocation.id = :id
+	]]></query>
+
+
+	<query name="com.topcoder.farm.controller.model.InvocationData.idsDroppedOrNotified"><![CDATA[
+		select inv.id
+			from com.topcoder.farm.controller.model.InvocationData as inv
+			where inv.dropDate < :currentDate or inv.status = :status or (inv.assignAttempts >= :maxAttempts and inv.status = :pendingStatus) 
+	]]></query>
+
+	<query name="com.topcoder.farm.controller.model.InvocationData.deleteByIds"><![CDATA[
+		delete
+			from com.topcoder.farm.controller.model.InvocationData as inv
+			where inv.id in (:ids)
+	]]></query>
+
+	<query name="com.topcoder.farm.controller.model.InvocationData.deleteById"><![CDATA[
+		delete
+			from com.topcoder.farm.controller.model.InvocationData as inv
+			where inv.id = :id
+	]]></query>
+
+	<query name="com.topcoder.farm.controller.model.InvocationData.invocationRefsByClientKeyPrefix"><![CDATA[
+		select new com.topcoder.farm.controller.api.InvocationRequestRef(clientRequestId, clientAttachment)
+			from com.topcoder.farm.controller.model.InvocationData
+			where clientName = :clientName and clientRequestId like :prefix	and status = :status
+			order by priority, receivedDate, id
+	]]></query>
+
+	<query name="com.topcoder.farm.controller.model.InvocationData.allInvocationRefsByClientKeyPrefix"><![CDATA[
+		select new com.topcoder.farm.controller.api.InvocationRequestRef(clientRequestId, clientAttachment)
+			from com.topcoder.farm.controller.model.InvocationData
+			where clientName = :clientName and clientRequestId like :prefix
+			order by priority, receivedDate, id
+	]]></query>
+
+	<query name="com.topcoder.farm.controller.model.InvocationData.invocationSummaryByClientKeyPrefix"><![CDATA[
+		select substring_index(inv.clientRequestId, :delimiter, :delimiterCount), inv.priority, min(inv.receivedDate), max(inv.receivedDate), count(*)
+			from com.topcoder.farm.controller.model.InvocationData as inv
+			where inv.clientName = :clientName and inv.clientRequestId like :prefix	and inv.status = :status
+			group by 1, 2 order by inv.priority, 3
+	]]></query>
+</hibernate-mapping>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+                           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+                           http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+                           
+	<context:component-scan base-package="com.appirio.commons.mq"/>
+	<context:component-scan base-package="com.topcoder.farm.processor"/>
+	
+	<bean id="environmentConfig" class="com.topcoder.farm.controller.configuration.EnvironmentConfig">
+		<property name="prefix" value="#{systemProperties['arena.env-prefix']}"/>
+		<property name="appServiceName" value="ArenaCode"/>
+	</bean>
+	
+	
+	<bean id="processorConfig" class="com.topcoder.farm.processor.ProcessorConfig">
+		<property name="monitoredQueuesString" value="#{systemProperties['arena.processor-queues'] ?: 'compile,mm-test,srm-test,admin-test,practice' }"/>
+		<property name="monitorInterval" value="#{systemProperties['arena.processor-monitor-interval'] ?: 50}"/>
+		<property name="workDir" value="#{systemProperties['arena.processor-work-dir'] ?: '/home/apps/processor/work'}"/>
+		<property name="rootDir" value="#{systemProperties['arena.processor-root-dir'] ?: '/home/apps/processor/deploy/app'}"/>
+		<property name="maxMessages" value="#{systemProperties['arena.processor-max-messages'] ?: 1}"/>
+		<property name="serialProcessing" value="#{systemProperties['arena.processor-serial-processing'] ?: true}"/>
+		<property name="defaultTimeout" value="#{systemProperties['arena.processor-default-timeout'] ?: 5}"/>
+		<property name="dotNetSecurityCheckerPath" value="ildasm.exe"/>
+		<property name="cppArguments" value="#{systemProperties['cppArguments'] ?: ''}"/>
+	</bean>
+	
+	<bean id="processorServiceExecutor" class="java.util.concurrent.Executors" factory-method="newCachedThreadPool">
+	</bean>
+	
+	<bean id="awsCredProvider" class="com.amazonaws.auth.DefaultAWSCredentialsProviderChain"/>
+	
+	<bean id="awsClientConfig" class="com.amazonaws.ClientConfiguration">
+		<property name="maxConnections" value="50"/>
+	</bean>
+	
+	<bean id="sqsClient" class="com.amazonaws.services.sqs.AmazonSQSClient">
+		<constructor-arg ref="awsCredProvider" />
+		<constructor-arg ref="awsClientConfig"/>
+		<property name="endpoint" value="#{systemProperties['arena.sqs-endpoint'] ?: 'http://sqs.us-east-1.amazonaws.com'}"/>
+	</bean>
+	
+</beans>

@@ -1,0 +1,8 @@
+CompileService (com.topcoder.server.services.CompileService)
+
+This class abstracts how we send compile messages.  Right now it basically just handles posting
+JMS messages.  It should be easy to change this to another protocol later without influencing
+any other parts of the system (from the request side).
+
+TestService is similar but for test/challenges.
+

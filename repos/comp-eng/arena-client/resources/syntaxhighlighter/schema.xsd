@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element name="language" type="Language"/>
+<xs:attribute name="name">
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:minLength value="1"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:attribute>
+<xs:attribute name="precedence">
+<xs:simpleType>
+<xs:restriction base="xs:integer">
+<xs:minInclusive value="0"/>
+</xs:restriction> 
+</xs:simpleType>
+</xs:attribute>
+<xs:attribute name="style">
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:minLength value="1"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:attribute>
+<xs:complexType name="Language">
+<xs:sequence>
+<xs:element minOccurs="1" maxOccurs="1" name="styles" type="Styles" />
+<xs:element minOccurs="1" maxOccurs="1" name="categories" type="Categories" />
+</xs:sequence>
+<xs:attribute ref="name" use="required" />
+</xs:complexType>
+
+<xs:complexType name="Styles">
+<xs:sequence>
+<xs:element minOccurs="1" maxOccurs="unbounded" name="style" type="Style"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="Style">
+<xs:sequence>
+<xs:element minOccurs="1" maxOccurs="1" name="color" type="Color" />
+<xs:element minOccurs="0" maxOccurs="1" name="bgcolor" type="Color" />
+<xs:element minOccurs="0" maxOccurs="1" name="font" type="Font" />
+</xs:sequence>
+<xs:attribute ref="name" use="required" />
+</xs:complexType>
+<xs:complexType name="Color">
+<xs:sequence>
+<xs:element minOccurs="1" maxOccurs="1" name="red">
+<xs:simpleType>
+<xs:restriction base="xs:integer">
+<xs:minInclusive value="0"/>
+<xs:maxInclusive value="255"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element minOccurs="1" maxOccurs="1" name="green">
+<xs:simpleType>
+<xs:restriction base="xs:integer">
+<xs:minInclusive value="0"/>
+<xs:maxInclusive value="255"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element minOccurs="1" maxOccurs="1" name="blue">
+<xs:simpleType>
+<xs:restriction base="xs:integer">
+<xs:minInclusive value="0"/>
+<xs:maxInclusive value="255"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="Font">
+<xs:sequence>
+<xs:element minOccurs="1" maxOccurs="1" name="family">
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:minLength value="1"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element minOccurs="0" maxOccurs="1" name="style">
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:minLength value="1"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element minOccurs="1" maxOccurs="1" name="size">
+<xs:simpleType>
+<xs:restriction base="xs:integer">
+<xs:minExclusive value="0"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Categories">
+<xs:sequence>
+<xs:element minOccurs="1" maxOccurs="unbounded" name="category" type="Category"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:element name="rule" type="Rule" abstract="true" />
+<xs:element name="blockMatchRule" type="BlockMatchRule" substitutionGroup="rule" />
+<xs:element name="patternMatchRule" type="PatternMatchRule" substitutionGroup="rule" />
+<xs:element name="wordMatchRule" type="WordMatchRule" substitutionGroup="rule" />
+
+<xs:complexType name="Category">
+<xs:sequence>
+<xs:element minOccurs="0" maxOccurs="unbounded" ref="rule" />
+</xs:sequence>
+<xs:attribute ref="name" use="required" />
+<xs:attribute ref="precedence" use="required" />
+<xs:attribute ref="style" use="required" />
+</xs:complexType>
+<xs:complexType name="Rule">
+</xs:complexType>
+<xs:complexType name="BlockMatchRule">
+<xs:complexContent mixed="false">
+<xs:extension base="Rule">
+<xs:sequence>
+<xs:element minOccurs="1" maxOccurs="1" name="startDelimiter">
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:minLength value="1"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element minOccurs="1" maxOccurs="1" name="endDelimiter">
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:minLength value="1"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+</xs:sequence>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+<xs:complexType name="PatternMatchRule">
+<xs:complexContent mixed="false">
+<xs:extension base="Rule">
+<xs:sequence>
+<xs:element minOccurs="1" maxOccurs="1" name="pattern">
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:minLength value="1"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+</xs:sequence>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+<xs:complexType name="WordMatchRule">
+<xs:complexContent mixed="false">
+<xs:extension base="Rule">
+<xs:sequence>
+<xs:element minOccurs="1" maxOccurs="1" name="wordlist">
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:minLength value="1"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element minOccurs="0" maxOccurs="unbounded" name="word">
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:minLength value="1"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+</xs:sequence>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+</xs:schema> 

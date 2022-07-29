@@ -1,0 +1,8 @@
+<ivy-module version="2.0">
+    <info organisation="com.topcoder.internal" module="concurrent"/>
+    <dependencies>
+        <dependency org="com.topcoder.internal" name="custom-serialization" rev="latest.integration"/>
+        <dependency org="com.topcoder.internal" name="logging" rev="latest.integration"/>
+	<dependency org="junit" name="junit" rev="4.11"/>
+    </dependencies>
+</ivy-module>

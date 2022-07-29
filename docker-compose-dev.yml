@@ -1,0 +1,17 @@
+version: '3'
+services:
+  arena-app-dev:
+    image: "arena-app:dev"
+    container_name: "arena-app-dev"
+    build:
+      context: ./
+      dockerfile: ECSDockerfile
+    ports:
+      - "5016:5016"
+      - "9324:9324"
+      - "5037:5037"
+      - "5006:5006"
+      - "5003:5003"
+      - "5002:5002"
+      - "5001:5001"
+      - "8081:8081"
