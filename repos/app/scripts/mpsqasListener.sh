@@ -10,7 +10,7 @@ CMD=usage
 PID_FILE=mpsqasListener$PORT.pid
 
 LIBS=$BASE/lib/jars
-CP=$CORBA_CLASSPATH:$BASE/resources
+CP=$CP:$BASE/resources
 CP=$CP:$LIBS/*
 CP=$CP:$CLASSPATH
 

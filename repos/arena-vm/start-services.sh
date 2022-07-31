@@ -11,11 +11,10 @@ export JAVA_OPTS="-Darena.sqs-endpoint=http://localhost:9324 -Darena.env-prefix=
 export JBOSS_JAVA_OPTS="$JBOSS_JAVA_OPTS -Djavax.net.ssl.trustStore=TC.cloud.ldap.keystore"
 
 export JAVA_VER=$(javap -verbose java.lang.Object | grep "major version" | cut -d " " -f5)
-export CORBA_CLASSPATH=""
 
 if [ "$JAVA_VER" -ge 55 ] ; then
   echo "Detected JDK >= 11, setup corba jars"
-  export CORBA_CLASSPATH=~/app/lib/corba/*
+  export CP=$CP:~/app/lib/corba/*
 fi
 
 cd ~/app/scripts
