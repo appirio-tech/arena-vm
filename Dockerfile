@@ -1,6 +1,8 @@
 FROM centos:centos7
 
-RUN yum install -y which wget unzip git make gcc gcc-c++ python3.x86_64 net-tools.x86_64 java-1.8.0-openjdk-devel
+RUN yum install -y which wget unzip git make net-tools python3 java-11-openjdk-devel
+RUN yum install -y centos-release-scl-rh
+RUN yum install -y devtoolset-11-gcc devtoolset-11-gcc-c++ 
 
 WORKDIR /
 
@@ -28,11 +30,15 @@ RUN wget -O jboss-4.0.5.GA.zip --no-check-certificate https://sourceforge.net/pr
   && unzip jboss-4.0.5.GA.zip \
   && rm -f jboss-4.0.5.GA.zip
 
+# These are devtoolset-11 env for gcc11
+ENV PCP_DIR=/opt/rh/devtoolset-11/root
+ENV LD_LIBRARY_PATH=$PCP_DIR/usr/lib64:$PCP_DIR/usr/lib:$PCP_DIR/usr/lib64/dyninst:$PCP_DIR/usr/lib/dyninst
+
 ENV JBOSS_HOME=/home/apps/jboss-4.0.5.GA
 ENV JAVA_HOME=/etc/alternatives/java_sdk
 ENV ANT_HOME=/opt/apache-ant-1.7.0
 ENV ANT_OPTS=-Xmx1024m
-ENV PATH=$JAVA_HOME/bin:$ANT_HOME/bin:/opt/apache-maven-3.2.5/bin:$PATH
+ENV PATH=$PCP_DIR/usr/bin:$JAVA_HOME/bin:$ANT_HOME/bin:/opt/apache-maven-3.2.5/bin:$PATH
 ENV BUILD_COMPILE_SOURCE=1.6
 ENV ARENA_BUILD_TARGET=local
 

@@ -38,7 +38,6 @@ if [[ $1 != "" ]] ; then
 fi
 
 CUSTOM_SECURITY=""
-JAVA_VER=$(javap -verbose java.lang.Object | grep "major version" | cut -d " " -f5)
 if [ "$JAVA_VER" -ge 52 ] ; then
   echo "Use custom.security for JDK >= 1.8"
   CUSTOM_SECURITY="-Djava.security.properties=custom.security"

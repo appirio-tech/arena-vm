@@ -27,6 +27,7 @@
 -->
         <dependency org="junit" name="junit" rev="4.11"/>
         
+        <dependency org="org.jboss.spec.javax.rmi" name="jboss-rmi-api_1.0_spec" rev="1.0.6.Final" transitive="false" />
         <dependency org="jboss" name="jbossall-client" rev="4.0.5" transitive="false" />
         
         <dependency org="com.topcoder.tcs" name="base_exception" rev="1.0.0" transitive="false" />

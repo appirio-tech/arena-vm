@@ -870,12 +870,16 @@
             ${filename.base_exception}"/>
     	<mkdir dir="${pkg.dir}/lib/jars"/>
     	<copy todir="${pkg.dir}/lib/jars">
-    		<fileset dir="${build.lib.dir}" includes="*.jar"/>
+    		<fileset dir="${build.lib.dir}" includes="*.jar" excludes="jboss-rmi-api*.jar"/>
     		<!-- 
     		<fileset dir="${build.lib.dir}" 
     			includes="jackson-*.jar,spring*.jar,commons-*.jar,aws-*.jar,httpc*.jar,joda-time*.jar,farm-*.jar,xstream*.jar,xpp*.jar,hibernate*.jar,mysql*.jar,c3p0*.jar,jbossall-client*.jar,log4j-*.jar,dom4j-*.jar,cglib-*.jar,asm-*.jar"/>
     			-->
             <fileset dir="${build.artifacts.dir}" includes="${app.proj.deps.cur}"/>
+    	</copy>
+    	<mkdir dir="${pkg.dir}/lib/corba"/>
+    	<copy todir="${pkg.dir}/lib/corba">
+    		<fileset dir="${basedir}/lib/jars/corba" includes="*.jar"/>
     	</copy>
     	
     	<!-- copy scripts -->

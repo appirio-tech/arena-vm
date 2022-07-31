@@ -1,9 +1,6 @@
-// 
-// File:   SecurityChecker.h
-// Author: rfairfax
-//
-// Created on July 11, 2006, 5:54 PM
-//
+/*
+ * Copyright (C) - 2022 TopCoder Inc., All Rights Reserved.
+ */
 
 #ifndef _SecurityChecker_H
 #define	_SecurityChecker_H
@@ -15,10 +12,23 @@
     #include "../syscall.h"
 #endif
 
-
+/**
+ * Security checker header file.
+ *
+ * <p>
+ * Changes in version 1.1 (Python3 Support):
+ * <ol>
+ *     <li> Added {@link #openForRead(struct pstate_t *ps, char *filename)} method to check whether file is open for read.</li>
+ * </ol>
+ * </p>
+ *
+ * @author rfairfax, liuliquan
+ * @version 1.1
+ */
 class SecurityChecker {
     protected:
         Configuration *config;
+        bool openForRead(struct pstate_t *ps, char *filename);
     public:
         SecurityChecker();
         

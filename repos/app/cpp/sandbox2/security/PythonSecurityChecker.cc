@@ -1,5 +1,5 @@
 /*
-* Copyright (C) - 2013 TopCoder Inc., All Rights Reserved.
+* Copyright (C) - 2022 TopCoder Inc., All Rights Reserved.
 */
 #include "SecurityChecker.h"
 
@@ -27,8 +27,16 @@ using namespace std;
  *    <li>Update {NR_open} to allow customization python install. </li>
  * </ol>
  * </p>
- * @author TCSASSEMBLER
- * @version 1.1
+ *
+ * <p>
+ * Changes in version 1.2 (Python3 Support):
+ * <ol>
+ *     <li> Updated {@link #SyscallCheck(struct pstate_t *ps, pid_t childpid)} method to enhance security for NR_open.</li>
+ * </ol>
+ * </p>
+ *
+ * @author TCSASSEMBLER, liuliquan
+ * @version 1.2
  */
 class PythonSecurityChecker : public SecurityChecker {
     private:
@@ -114,39 +122,35 @@ class PythonSecurityChecker : public SecurityChecker {
                     if(!filename) {
                       /* it was going to fault anyway */
                       SYS_FAIL(EFAULT);
+                      return true;
                     }
 
-                    if((strstr(filename, "../Wrapper.pyc") == filename)) {
-                        return true;
-                    }
-
-                    /**
-                     * allow customization python install to visit it's own site_packages and libs
-                     */
-                    vector<string> paths = config->getVector(APPROVED_PATH, ",");
-                    for(int i = 0; i < paths.size(); i++) {
-                        if(starts_with_dir(filename, paths[i].c_str())) {
-                            stringstream s;
-                            s << "Allowing " << filename << endl;
-                            config->log(s.str());
-                            return true;
-                        }
-                    }
                     string base = config->get(BASE_DIR);
                     if(starts_with_dir(filename, base.c_str())) {
+                        if(!openForRead(ps, filename)) {
+                            stringstream s;
+                            s << "PythonSecurityChecker disallowed open of " << filename << " for writing" << endl;
+                            config->log(s.str());
+                            SYS_FAIL(EACCES);
+                            return true;
+                        }
+
                         string f = filename;
                         f = f.substr(f.size()-4, f.size());
                         
                         if(f == ".pyc") {
                             stringstream s;
-                            s << "Allowing " << filename << endl;
+                            s << "PythonSecurityChecker Allowing " << filename << endl;
                             config->log(s.str());
-                            
+                            return true;
+                        } else {
+                            stringstream s;
+                            s << "PythonSecurityChecker disallowed open of " << filename << endl;
+                            config->log(s.str());
+                            SYS_FAIL(ENOENT);
                             return true;
                         }
                     }
-
-                    //DPRINT("permitted open of %s\n", filename);
                   }
 
                   /* arguments were ok, or returning from kernel */

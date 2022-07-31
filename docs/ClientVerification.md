@@ -51,8 +51,17 @@ Refer to https://youtu.be/Tdq16Pn8IsU for details.
 
 4. After about 10 minutes the Coding phase starts. Use arena client to enter room and compete, refer to https://youtu.be/4RoU7hYQO6o for details:
 
-   ![java](screenshots/java.png)
+   - Verify Java, notice the `str.lines()` is new in JDK 11, and `/etc/passwd` is disallowed to open:
 
-5. To verify Python3, choose "Python3" radio button:
+   ![java11](screenshots/java11.png)
+
+   - Verify C++, notice the `(args + ...)` is new in C++17, and `/etc/passwd` is disallowed to open:
+
+   ![c++17](screenshots/c++17.png)
+
+   - Verify Python3, notice the `super()` is new in Python3, and `/etc/passwd` is disallowed to open:
 
    ![python3](screenshots/python3.png)
+
+
+

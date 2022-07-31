@@ -1,3 +1,6 @@
+/*
+ * Copyright (C) - 2022 TopCoder Inc., All Rights Reserved.
+ */
 #include "SecurityChecker.h"
 
 #include <errno.h>
@@ -12,6 +15,19 @@ using namespace std;
 
 #define NR_invalid 0
 
+/**
+ * <p>The security checker for Intel.</p>
+ *
+ * <p>
+ * Changes in version 1.2 (Python3 Support):
+ * <ol>
+ *     <li> Updated {@link #write(struct pstate_t *ps, pid_t childpid)} avoid gcc11 compile warning.</li>
+ * </ol>
+ * </p>
+ *
+ * @author liuliquan
+ * @version 1.1
+ */
 class IntelSecurityChecker : public SecurityChecker {
     private:
         set<pid_t> threads;
@@ -26,9 +42,8 @@ class IntelSecurityChecker : public SecurityChecker {
                     //long io return fds, always ok
                     return true;
                 }
-              } else {
-                return false;
               }
+              return false;
         }
 
         bool kill(struct pstate_t *ps, pid_t childpid) {
