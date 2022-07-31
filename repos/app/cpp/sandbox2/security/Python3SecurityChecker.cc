@@ -129,42 +129,34 @@ public:
                 {
                     /* it was going to fault anyway */
                     SYS_FAIL(EFAULT);
-                }
-
-                if ((strstr(filename, "../Wrapper.pyc") == filename))
-                {
-                    stringstream s;
-                    s << "Allowing " << filename << endl;
-                    config->log(s.str());
                     return true;
                 }
 
-                /**
-                 * allow customization python install to visit it's own site_packages and libs
-                 */
-                vector<string> paths = config->getVector(APPROVED_PATH, ",");
-                for (int i = 0; i < paths.size(); i++)
-                {
-                    if (starts_with_dir(filename, paths[i].c_str()))
-                    {
-                        stringstream s;
-                        s << "Allowing " << filename << endl;
-                        config->log(s.str());
-                        return true;
-                    }
-                }
                 string base = config->get(BASE_DIR);
                 if (starts_with_dir(filename, base.c_str()))
                 {
+                    if(!openForRead(ps, filename)) {
+                        stringstream s;
+                        s << "Python3SecurityChecker disallowed open of " << filename << " for writing" << endl;
+                        config->log(s.str());
+                        SYS_FAIL(EACCES);
+                        return true;
+                    }
+
                     string f = filename;
                     f = f.substr(f.size() - 4, f.size());
 
                     if (f == ".pyc")
                     {
                         stringstream s;
-                        s << "Allowing " << filename << endl;
+                        s << "Python3SecurityChecker Allowing " << filename << endl;
                         config->log(s.str());
-
+                        return true;
+                    } else {
+                        stringstream s;
+                        s << "Python3SecurityChecker disallowed open of " << filename << endl;
+                        config->log(s.str());
+                        SYS_FAIL(ENOENT);
                         return true;
                     }
                 }
@@ -187,8 +179,16 @@ public:
             {
                 /* it was going to fault anyway */
                 SYS_FAIL(EFAULT);
-                config->log("NR_openat empty filename");
-                return false;
+                config->log("Python3SecurityChecker NR_openat empty filename");
+                return true;
+            }
+
+            if(!openForRead(ps, filename)) {
+                stringstream s;
+                s << "Python3SecurityChecker NR_openat disallowed open of " << filename << " for writing" << endl;
+                config->log(s.str());
+                SYS_FAIL(EACCES);
+                return true;
             }
 
             /**
@@ -200,7 +200,7 @@ public:
                 if (starts_with_dir(filename, paths[i].c_str()))
                 {
                     stringstream s;
-                    s << "NR_openat Allowing " << filename << endl;
+                    s << "Python3SecurityChecker NR_openat Allowing " << filename << endl;
                     config->log(s.str());
                     return true;
                 }
@@ -209,13 +209,13 @@ public:
             if (starts_with_dir(filename, base.c_str()))
             {
                 stringstream s;
-                s << "NR_openat Allowing " << filename << endl;
+                s << "Python3SecurityChecker NR_openat Allowing " << filename << endl;
                 config->log(s.str());
                 return true;
             }
 
             stringstream s;
-            s << "NR_openat disallow " << filename << endl;
+            s << "Python3SecurityChecker NR_openat disallow " << filename << endl;
             config->log(s.str());
             SYS_FAIL(ENOENT);
             return true;

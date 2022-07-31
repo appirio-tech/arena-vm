@@ -1,3 +1,6 @@
+/*
+ * Copyright (C) - 2022 TopCoder Inc., All Rights Reserved.
+ */
 #include "SecurityChecker.h"
 
 #include <errno.h>
@@ -23,6 +26,19 @@ using namespace std;
 /* arbitrary limit on fd numbers which can be written to */
 #define WR_FD_MAX 32
 
+/**
+ * Shared security checker.
+ *
+ * <p>
+ * Changes in version 1.1 (Python3 Support):
+ * <ol>
+ *     <li> Updated {@link #SyscallCheck(struct pstate_t *ps, pid_t childpid)} method to enhance security for NR_open.</li>
+ * </ol>
+ * </p>
+ *
+ * @author liuliquan
+ * @version 1.1
+ */
 class SharedSecurityChecker : public SecurityChecker {
     private:
         bool exec_done;
@@ -536,33 +552,24 @@ class SharedSecurityChecker : public SecurityChecker {
                     #endif
 
                     if(!filename) {
-                      /* it was going to fault anyway */
-                      SYS_FAIL(EFAULT);
-                    }
-                    #if __WORDSIZE == 64
-                        long _ecx = ps->rsv0[2];
-                    #else
-                        int _ecx = ps->arg[1];
-                    #endif               
-                      if(_ecx & ~(O_RDONLY|O_LARGEFILE)) {
-                      /* no other modes allowed */
-                      if(! (strstr(filename, "/dev/null") == filename)) {
+                        /* it was going to fault anyway */
+                        SYS_FAIL(EFAULT);
+                    } else if(!openForRead(ps, filename)) {
                         stringstream s;
-                        s << "disallowed open of " << filename << "for writing";
+                        s << "SharedSecurityChecker disallowed open of " << filename << " for writing" << endl;
                         config->log(s.str());
                         SYS_FAIL(EACCES);
-                      }
-                    }
-
-                    if(!approved_path(filename)) {
-                      /* not a file they should be opening */
+                    } else if(!approved_path(filename)) {
+                        /* not a file they should be opening */
                         stringstream s;
-                        s << "disallowed open of " << filename << endl;
+                        s << "SharedSecurityChecker disallowed open of " << filename << endl;
                         config->log(s.str());
                         SYS_FAIL(ENOENT);
+                    } else {
+                        stringstream s;
+                        s << "SharedSecurityChecker Allowing " << filename << endl;
+                        config->log(s.str());
                     }
-
-                    //DPRINT("permitted open of %s\n", filename);
                   }
 
                   /* arguments were ok, or returning from kernel */

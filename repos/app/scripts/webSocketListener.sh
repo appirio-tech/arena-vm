@@ -7,7 +7,7 @@ CMD=usage
 MAXMEM=1024m
 LOGFILE=webSocketServer-`date +%Y-%m-%d-%H-%M-%S`.log
 LIBS=$BASE/lib/jars
-CP=$CP:$BASE/resources
+CP=$CORBA_CLASSPATH:$BASE/resources
 CP=$CP:$LIBS/*
 CP=$CP:$CLASSPATH
 echo $CP

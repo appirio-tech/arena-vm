@@ -10,6 +10,14 @@ sleep 2
 export JAVA_OPTS="-Darena.sqs-endpoint=http://localhost:9324 -Darena.env-prefix=dev -Daws.accessKeyId=x -Daws.secretKey=x -DconfigurationProvider.class=com.topcoder.farm.controller.configuration.XMLConfigurationProvider -Dconfiguration.xml.url=file:///home/apps/app/controller/config.xml"
 export JBOSS_JAVA_OPTS="$JBOSS_JAVA_OPTS -Djavax.net.ssl.trustStore=TC.cloud.ldap.keystore"
 
+export JAVA_VER=$(javap -verbose java.lang.Object | grep "major version" | cut -d " " -f5)
+export CORBA_CLASSPATH=""
+
+if [ "$JAVA_VER" -ge 55 ] ; then
+  echo "Detected JDK >= 11, setup corba jars"
+  export CORBA_CLASSPATH=~/app/lib/corba/*
+fi
+
 cd ~/app/scripts
 
 # start jboss

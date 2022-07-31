@@ -17,7 +17,7 @@ MAXMEM=1024m
 LOGFILE=adminServer-`date +%Y-%m-%d-%H-%M-%S`.log
 
 LIBS=$BASE/lib/jars
-CP=$CP:$BASE/resources
+CP=$CORBA_CLASSPATH:$BASE/resources
 CP=$CP:$LIBS/*
 CP=$CP:$CLASSPATH
 
@@ -38,7 +38,6 @@ if [[ $1 != "" ]] ; then
 fi
 
 CUSTOM_SECURITY=""
-JAVA_VER=$(javap -verbose java.lang.Object | grep "major version" | cut -d " " -f5)
 if [ "$JAVA_VER" -ge 52 ] ; then
   echo "Use custom.security for JDK >= 1.8"
   CUSTOM_SECURITY="-Djava.security.properties=custom.security"

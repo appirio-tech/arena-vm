@@ -800,7 +800,7 @@
             
         <copy todir="${jboss.server-dir}/lib">
             <fileset dir="${build.lib.dir}" includes="${app.proj.deps.cur}"/>
-            <fileset dir="${build.lib.dir}" includes="jackson-*.jar,spring*.jar,commons-*.jar,aws-*.jar,httpc*.jar,joda-time*.jar,farm-*.jar,xstream*.jar,xpp*.jar,hibernate*.jar,mysql*.jar,c3p0*.jar"/>
+            <fileset dir="${build.lib.dir}" includes="jboss-rmi-api*.jar,jackson-*.jar,spring*.jar,commons-*.jar,aws-*.jar,httpc*.jar,joda-time*.jar,farm-*.jar,xstream*.jar,xpp*.jar,hibernate*.jar,mysql*.jar,c3p0*.jar"/>
             <fileset dir="${build.artifacts.dir}" includes="${app.proj.deps.cur}"/>
             <fileset dir="${basedir}/lib/jars/tcs" includes="tcsUtil.jar, ldap_sdk_interface.jar"/>
             <fileset dir="${basedir}/lib/jars/third_party" includes="ldap.jar, netscape_ldap_sdk.jar"/>
@@ -876,6 +876,10 @@
     			includes="jackson-*.jar,spring*.jar,commons-*.jar,aws-*.jar,httpc*.jar,joda-time*.jar,farm-*.jar,xstream*.jar,xpp*.jar,hibernate*.jar,mysql*.jar,c3p0*.jar,jbossall-client*.jar,log4j-*.jar,dom4j-*.jar,cglib-*.jar,asm-*.jar"/>
     			-->
             <fileset dir="${build.artifacts.dir}" includes="${app.proj.deps.cur}"/>
+    	</copy>
+    	<mkdir dir="${pkg.dir}/lib/corba"/>
+    	<copy todir="${pkg.dir}/lib/corba">
+    		<fileset dir="${basedir}/lib/jars/corba" includes="*.jar"/>
     	</copy>
     	
     	<!-- copy scripts -->
