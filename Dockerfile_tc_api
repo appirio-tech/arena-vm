@@ -1,0 +1,6 @@
+FROM node:14-alpine
+
+RUN mkdir -p /mock-tc-api
+COPY ./mock-tc-api/ /mock-tc-api/
+WORKDIR /mock-tc-api
+CMD npm start

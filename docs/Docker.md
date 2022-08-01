@@ -14,6 +14,7 @@ docker-compose up -d
 # arena-mysql       | 2022-07-23T12:25:07.651734Z 0 [Note] mysqld: ready for connections.
 # arena-ldap        | Starting slapd: [  OK  ]
 # arena-informix    | *** Startup of informixoltp_tcp SUCCESS ***
+# mock-tc-api       | Mock tc-api listen on port 8081
 docker-compose logs -f
 ```
 
@@ -40,7 +41,7 @@ Then run following sql:
 ALTER TABLE round_room_assignment ADD short_name varchar(100);
 DROP TRIGGER trig_systemtest_modified;
 
-UPDATE security_user SET password='7dGdrcJuCUm4M9JZLae12Q==';
+UPDATE security_user SET password='4EjPjy6o+/C+dqNPnxIy9A==';
 
 INSERT INTO informixoltp:informix.language (language_id, language_name, status, language_desc) VALUES(8, 'Python3', 'Y', '');
 
@@ -67,6 +68,8 @@ INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value,
 
 ### The server log files:
 
+Server logs for `arena-app` container (`docker exec -it arena-app bash`): 
+
 - JBOSS log: /home/apps/jboss-4.0.5.GA/server/default/log/server.log
 - MPSQAS server log: /home/apps/app/scripts/mpsqasserver-<time>.log
 - Admin server log: /home/apps/app/scripts/adminServer-<time>.log
@@ -79,9 +82,14 @@ INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value,
 
 ### Verify Clients
 
-At first add `127.0.0.1 tc.cloud.topcoder.com` to your hosts.
+At first add following to your hosts:
 
-Start mpsqas client:
+```
+127.0.0.1 tc.cloud.topcoder.com
+```
+
+- Start mpsqas client:
+
 
 ```bash
 # Copy built mpsqas client from docker
@@ -97,7 +105,8 @@ sh mpsqas.sh
 # Then login with lightspeed/password
 ```
 
-Start admin client:
+- Start admin client:
+
 
 ```bash
 # Copy built admin client from docker
@@ -113,7 +122,8 @@ sh admin.sh
 # Then login with heffan/password
 ```
 
-Start arena client:
+- Start arena client:
+
 
 ```bash
 # Copy built arena client from docker
