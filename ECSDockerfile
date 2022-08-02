@@ -1,5 +1,7 @@
 FROM centos:centos7
 
+ARG ARENA_BUILD_TARGET=dev
+
 RUN yum install -y which wget unzip git make gcc gcc-c++ net-tools.x86_64 java-1.8.0-openjdk-devel
 
 WORKDIR /
@@ -34,7 +36,7 @@ ENV ANT_HOME=/opt/apache-ant-1.7.0
 ENV ANT_OPTS=-Xmx1024m
 ENV PATH=$JAVA_HOME/bin:$ANT_HOME/bin:/opt/apache-maven-3.2.5/bin:$PATH
 ENV BUILD_COMPILE_SOURCE=1.6
-ENV ARENA_BUILD_TARGET=dev
+ENV ARENA_BUILD_TARGET=$ARENA_BUILD_TARGET
 
 COPY --chown=apps ./repos /home/apps/dev/
 
