@@ -19,6 +19,7 @@ install_deploysuite: &install_deploysuite
 build_steps: &build_steps
     # Initialization.
     - run: *install_deploy_dependency
+    - setup_remote_docker
     - checkout
     - run: *install_deploysuite
     - run:
