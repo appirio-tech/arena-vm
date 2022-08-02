@@ -9,10 +9,6 @@ services:
       LICENSE: accept
     ports:
       - "2021:2021"
-      - "2022:2022"
-      - "27017:27017"
-      - "27018:27018"
-      - "27883:27883"
     tty: true
   arena-mysql:
     image: mysql:5.7
@@ -36,21 +32,26 @@ services:
       dockerfile: Dockerfile_ldap
     ports:
       - "389:389"
+  mock-tc-api:
+    image: "mock-tc-api:latest"
+    container_name: mock-tc-api
+    build:
+      context: ./
+      dockerfile: Dockerfile_tc_api
+    ports:
+      - "8081:8081"
   arena-app:
     image: "arena-app:latest"
     depends_on:
       - arena-informix
       - arena-mysql
       - arena-ldap
+      - mock-tc-api
     container_name: "arena-app"
     build:
       context: ./
     ports:
-      - "5016:5016"
-      - "9324:9324"
-      - "5037:5037"
-      - "5006:5006"
-      - "5003:5003"
-      - "5002:5002"
       - "5001:5001"
-      - "8081:8081"
+      - "5003:5003"
+      - "5016:5016"
+      - "5037:5037"
