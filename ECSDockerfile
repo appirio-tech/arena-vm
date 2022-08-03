@@ -1,5 +1,7 @@
 FROM centos:centos7
 
+ARG ARENA_BUILD_TARGET=dev
+
 RUN yum install -y which wget unzip git make net-tools python3 java-11-openjdk-devel
 RUN yum install -y centos-release-scl-rh
 RUN yum install -y devtoolset-11-gcc devtoolset-11-gcc-c++ 
@@ -40,7 +42,7 @@ ENV ANT_HOME=/opt/apache-ant-1.7.0
 ENV ANT_OPTS=-Xmx1024m
 ENV PATH=$PCP_DIR/usr/bin:$JAVA_HOME/bin:$ANT_HOME/bin:/opt/apache-maven-3.2.5/bin:$PATH
 ENV BUILD_COMPILE_SOURCE=1.6
-ENV ARENA_BUILD_TARGET=dev
+ENV ARENA_BUILD_TARGET=$ARENA_BUILD_TARGET
 
 COPY --chown=apps ./repos /home/apps/dev/
 
@@ -66,7 +68,7 @@ RUN cd ~ \
   && tar -xzvf ~/dev/farm-server/build/artifacts/linux-osfiles.tgz
 RUN cp -r /home/apps/app/jboss-4.0.5.GA /home/apps/
 
-COPY --chown=apps ./env/dev /home/apps/env/
+COPY --chown=apps ./env/$ARENA_BUILD_TARGET /home/apps/env/
 COPY --chown=apps ./start-services.sh /home/apps/
 
 CMD ["/home/apps/start-services.sh"]
