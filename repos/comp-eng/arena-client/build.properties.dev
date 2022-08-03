@@ -1,13 +1,10 @@
-#applet.codebase=http://www.topcoder.com/contest/arena/
-applet.codebase=http://tc.cloud.topcoder.com
-applet.href=/contest/arena/ContestAppletProd.jnlp
-applet.homepage=http://tc.cloud.topcoder.com
-applet.lib-url=http://tc.cloud.topcoder.com/contest/classes/7.0
-applet.arg-hostname=tc.cloud.topcoder.com
+applet.codebase=http://arena.topcoder-dev.com
+applet.href=/applets/ContestApplet.jnlp
+applet.homepage=http://arena.topcoder-dev.com
+applet.lib-url=https://arena.topcoder-dev.com/applets/lib
+applet.arg-hostname=arena.topcoder-dev.com
 applet.arg-port=5001
-applet.arg-tunnel=http://tunnel1.topcoder.com/tunnel?dummy
-applet.arg-company=TopCoder
-# TODO: need prod keystore
+applet.arg-tunnel=http://tunnel1.topcoder-dev.com/tunnel?dummy
 applet.keystore-alias=qa
 applet.storepass=applets-qa
 applet.keystore=applets-qa.jks

@@ -1,0 +1,9 @@
+FROM openjdk:8-alpine
+
+RUN mkdir -p /sqs
+
+COPY ./sqs /sqs
+
+WORKDIR /sqs
+
+CMD ["sh", "-c", "/sqs/start-sqs-service.sh"]
