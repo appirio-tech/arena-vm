@@ -25,15 +25,20 @@ services:
     ports:
       - "3306:3306"
   arena-ldap:
-    image: "arena-ldap:latest"
     container_name: arena-ldap
     build:
       context: ./
       dockerfile: Dockerfile_ldap
     ports:
       - "389:389"
+  arena-sqs:
+    container_name: arena-sqs
+    build:
+      context: ./
+      dockerfile: Dockerfile_sqs
+    ports:
+      - "9324:9324"
   mock-tc-api:
-    image: "mock-tc-api:latest"
     container_name: mock-tc-api
     build:
       context: ./
@@ -41,11 +46,11 @@ services:
     ports:
       - "8081:8081"
   arena-app:
-    image: "arena-app:latest"
     depends_on:
       - arena-informix
       - arena-mysql
       - arena-ldap
+      - arena-sqs
       - mock-tc-api
     container_name: "arena-app"
     build:

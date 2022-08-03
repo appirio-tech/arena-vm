@@ -1,6 +1,6 @@
-applet.host=tc.cloud.topcoder.com
+applet.host=arena.topcoder-dev.com
 applet.port=5037
-applet.code_base=http://tc.cloud.topcoder.com/contest/arena/
+applet.code_base=http://arena.topcoder-dev.com
 applet.href=MPSQASProd.jnlp
-applet.homepage=http://tc.cloud.topcoder.com
-applet.lib-url=http://tc.cloud.topcoder.com/contest/classes/mpsqas7
+applet.homepage=http://arena.topcoder-dev.com
+applet.lib-url=http://arena.topcoder-dev.com/applets/lib

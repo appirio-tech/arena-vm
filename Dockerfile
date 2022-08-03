@@ -65,10 +65,8 @@ RUN cd ~ \
   && tar -xzvf ~/dev/app/build/artifacts/osfiles.tgz \
   && tar -xzvf ~/dev/farm-server/build/artifacts/linux-osfiles.tgz
 RUN cp -r /home/apps/app/jboss-4.0.5.GA /home/apps/
-RUN cp ~/dev/arena-vm/security.keystore.cloud ~/app/scripts/
 
-COPY --chown=apps ./TC.cloud.ldap.keystore /home/apps/app/scripts/
-RUN sed -i 's/sqs.topcoder.com/localhost/' ~/dev/arena-vm/elasticmq-server.conf
-RUN sed -i 's/sqs.topcoder.com/localhost/' ~/dev/arena-vm/start-farm-processor.sh
+COPY --chown=apps ./env/local /home/apps/env/
+COPY --chown=apps ./start-services.sh /home/apps/
 
-CMD ["/home/apps/dev/arena-vm/start-services.sh"]
+CMD ["/home/apps/start-services.sh"]

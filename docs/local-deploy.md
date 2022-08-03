@@ -1,8 +1,14 @@
 ## Local Docker Deployment
 
+This is to deploy in docker locally.
+
 ### Prerequisites
 
   - Docker
+
+### Docker compose
+
+[arena-vm/docker-compose.yml](../docker-compose.yml) is used to deploy in docker locally.
 
 ### Start Docker Containers
 
@@ -14,6 +20,7 @@ docker-compose up -d
 # arena-mysql       | 2022-07-23T12:25:07.651734Z 0 [Note] mysqld: ready for connections.
 # arena-ldap        | Starting slapd: [  OK  ]
 # arena-informix    | *** Startup of informixoltp_tcp SUCCESS ***
+# arena-sqs         | 13:18:47.674 [main] INFO  org.elasticmq.server.Main$ - === ElasticMQ server (0.8.5) started in 1415 ms ===
 # mock-tc-api       | Mock tc-api listen on port 8081
 docker-compose logs -f
 ```
@@ -174,14 +181,3 @@ Refer to [ClientVerification.md](./ClientVerification.md) for verification detai
   - use `nohup` to run `elasticmq-server`
 - `arena-vm/TC.cloud.ldap.keystore`:
   - created using `TC_PROD_CA.pem` from `appiriodevops/ldap` docker image
-
-### Start Dev Docker Containers
-
-```bash
-# Start docker containers
-docker-compose -f docker-compose-dev.yml up -d
-```
-
-Note: 
-  - `docker-compose-dev.yml` using ECSDockerfile which set `ENV ARENA_BUILD_TARGET=dev`, that means arena-app container use `token.properties.dev`, `build.properties.dev` and `applet.properties.dev` to build.
-  - `ECSDockerfile` doesn't replace `sqs.topcoder.com` to `localhost` which is different from `Dockerfile`.
