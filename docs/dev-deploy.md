@@ -35,7 +35,7 @@ Following files in [arena-vm/env/dev/](../env/dev/) folder need be changed accor
 
 ### Tokens need to change
 
-Following tokens in  `arena-vm/repos/app/token.properties.dev`  need be taken care of according to dev environment:
+Following tokens in  [arena-vm/repos/app/token.properties.dev](../repos/app/token.properties.dev)  need be taken care of according to dev environment:
 
 #### Informix tokens
 
