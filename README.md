@@ -7,6 +7,6 @@ Initialization scripts for the Arena VM
 
 Deploy in docker locally. Refer to [local-deploy.md](docs/local-deploy.md) for details.
 
-## Dev Docker Deployment
+## TC Docker Deployment
 
-Deploy in docker in dev environment. Refer to [dev-deploy.md](docs/dev-deploy.md) for details.
+Deploy in docker in TC environment. Refer to [tc-deploy.md](docs/tc-deploy.md) for details.

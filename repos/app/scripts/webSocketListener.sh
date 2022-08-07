@@ -4,13 +4,12 @@ BASE=..
 MAIN=com.topcoder.server.listener.wss.WebSocketServer
 PORT=5016
 CMD=usage
-MAXMEM=1024m
 LOGFILE=webSocketServer-`date +%Y-%m-%d-%H-%M-%S`.log
 LIBS=$BASE/lib/jars
 CP=$CP:$BASE/resources
 CP=$CP:$LIBS/*
 CP=$CP:$CLASSPATH
-echo $CP
+
 if [[ $1 != "" ]] ; then
     CMD=$1
     shift
@@ -24,14 +23,14 @@ fi
 
 LOGGING_ID=WebSocketListener.$PORT
 LOGGING_PROPERTY=com.topcoder.logging.id
-echo $JAVACMD -version
 if [ "$CMD" = "run" ] ; then
-    echo "maxmem=$MAXMEM"
-    $JAVACMD -verbose:gc -cp $CP -Xmx$MAXMEM -D$LOGGING_PROPERTY=$LOGGING_ID $MAIN $PORT $@
+    echo "WEBSOCKET_LISTENER_JAVA_OPTS=$WEBSOCKET_LISTENER_JAVA_OPTS"
+    $JAVACMD -verbose:gc -cp $CP $WEBSOCKET_LISTENER_JAVA_OPTS -D$LOGGING_PROPERTY=$LOGGING_ID $MAIN $PORT $@
 elif [ "$CMD" = "start" ] ; then
-    nohup $JAVACMD -Dcontestconstants.ACCEPT_MULTIPLE_SUBMISSIONS=true -DVM_INSTANCE_ID=Listener -verbose:gc -cp $CP -Xmx$MAXMEM -Dclientsocket.buffersize.25000=524288 -D$LOGGING_PROPERTY=$LOGGING_ID $MAIN $PORT $@ >$LOGFILE 2>&1 &
+    echo "nohup $JAVACMD -Dcontestconstants.ACCEPT_MULTIPLE_SUBMISSIONS=true -DVM_INSTANCE_ID=Listener -verbose:gc -cp $CP $WEBSOCKET_LISTENER_JAVA_OPTS -Dclientsocket.buffersize.25000=524288 -D$LOGGING_PROPERTY=$LOGGING_ID $MAIN $PORT $@ >$LOGFILE 2>&1 &"
+    nohup $JAVACMD -Dcontestconstants.ACCEPT_MULTIPLE_SUBMISSIONS=true -DVM_INSTANCE_ID=Listener -verbose:gc -cp $CP $WEBSOCKET_LISTENER_JAVA_OPTS -Dclientsocket.buffersize.25000=524288 -D$LOGGING_PROPERTY=$LOGGING_ID $MAIN $PORT $@ >$LOGFILE 2>&1 &
     echo $! > $PID_FILE
-    echo "start, port=$PORT, maxmem=$MAXMEM"
+    echo "start, port=$PORT, WEBSOCKET_LISTENER_JAVA_OPTS=$WEBSOCKET_LISTENER_JAVA_OPTS"
 elif [ "$CMD" = "stop" ] ; then
     kill `cat $PID_FILE`
     rm -f $PID_FILE

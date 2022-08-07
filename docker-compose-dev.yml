@@ -1,13 +1,21 @@
 version: '3'
 services:
   arena-app-dev:
-    image: "arena-app:dev"
+    image: "tc-arena-app:latest"
     container_name: "arena-app-dev"
-    build:
-      context: ./
-      dockerfile: ECSDockerfile
+    volumes:
+      - ./env/dev:/home/apps/env
+    command: ["/home/apps/start-services.sh", "app"]
     ports:
       - "5001:5001"
       - "5003:5003"
       - "5016:5016"
       - "5037:5037"
+  arena-processor-dev:
+    image: "tc-arena-app:latest"
+    container_name: "arena-processor-dev"
+    volumes:
+      - ./env/dev:/home/apps/env
+    command: ["/home/apps/start-services.sh", "processor"]
+    environment:
+      - PROCESSOR_OPTS=-Darena.processor-queues=practice,compile,srm-test,admin-test,mm-test -Darena.processor-default-timeout=5
