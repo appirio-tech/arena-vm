@@ -75,9 +75,9 @@ These are SSO related tokens. Change theses according to TC environment:
 
 
 
-### Mount Volume /home/apps/env
+### Setup env
 
-You must mount a volume to `/home/apps/env` container directory.
+When build image, the `./env/$ARENA_BUILD_TARGET` directory is copied into docker image at path `/home/apps/env`. E.g. for dev env `./env/dev` directory is copied, for prod env `./env/prod` directory is copied.
 
 This directory must contain a file `arena-env.sh` , when container starts, it will be invoked to prepare any necessary env setup.
 
@@ -137,24 +137,15 @@ cp ~/env/TC.cloud.ldap.keystore ~/app/scripts/
 
 
 
-By using the volume strategy, it provides flexibility to adjust the docker image without rebuild it. 
-
-Theoretically, we only need rebuild docker image if there is some substantial change (like some java/cpp source code changes). If we just want to change some env or config files, it's possible to just use the mount volume to change them.
-
-
-
 ### Start Docker Containers
 
-The JBoss/Listeners and Farm Processor are started separately. Since you only need one container for JBoss&Listeners, while you may need multiple Farm Processors.
+The JBoss/Listeners and Farm Processor are started separately. Since you only need one container for JBoss/Listeners, while you may need multiple Farm Processors.
 
 - To start container for JBoss & Listeners:
 
   ````yaml
     arena-app-dev:
-      image: "tc-arena-app:latest"
-      # The volume mount to setup dev env
-      volumes:
-        - ./env/dev:/home/apps/env
+      image: "arena-app:dev"
       # The command to start JBoss & Listeners
       command: ["/home/apps/start-services.sh", "app"]
       # The ports to expose to external
@@ -173,10 +164,7 @@ The JBoss/Listeners and Farm Processor are started separately. Since you only ne
 
   ```yaml
     arena-processor-dev:
-      image: "tc-arena-app:latest"
-      # The volume mount to setup dev env
-      volumes:
-        - ./env/dev:/home/apps/env
+      image: "arena-app:dev"
       # The command to start Farm Processor
       command: ["/home/apps/start-services.sh", "processor"]
       # Notice the PROCESSOR_OPTS environment:
@@ -197,9 +185,7 @@ Suggestion 1, for `practice` queue which handles compile/test of pratice room, y
 ```yaml
   # Dedicated processor for 'practice' queue
   arena-processor-practice:
-    image: "tc-arena-app:latest"
-    volumes:
-      - ./env/prod:/home/apps/env
+    image: "arena-app:prod"
     command: ["/home/apps/start-services.sh", "processor"]
     environment:
       - PROCESSOR_OPTS=-Darena.processor-queues=practice -Darena.processor-default-timeout=5
@@ -212,9 +198,7 @@ Suggestion 2, you want to seprately process the `compile` queue from test queues
 ```yaml
   # Dedicated processor for 'compile' queue
   arena-processor-compile:
-    image: "tc-arena-app:latest"
-    volumes:
-      - ./env/prod:/home/apps/env
+    image: "arena-app:prod"
     command: ["/home/apps/start-services.sh", "processor"]
     environment:
       - PROCESSOR_OPTS=-Darena.processor-queues=compile -Darena.processor-default-timeout=5
@@ -227,9 +211,7 @@ Suggestion 3, you have decided the `srm-test` and `admin-test` queues can be pro
 ```yaml
   # Processor for 'srm-test' and 'admin-test' queues
   arena-processor-srm-admin-test:
-    image: "tc-arena-app:latest"
-    volumes:
-      - ./env/prod:/home/apps/env
+    image: "arena-app:prod"
     command: ["/home/apps/start-services.sh", "processor"]
     environment:
       - PROCESSOR_OPTS=-Darena.processor-queues=srm-test,admin-test -Darena.processor-default-timeout=5
@@ -242,9 +224,7 @@ Suggestion 4, for `mm-test` queue which handles test of MM matches, the MM test 
 ```yaml
   # Dedicated processor for 'mm-test' queue
   arena-processor-mm-test:
-    image: "tc-arena-app:latest"
-    volumes:
-      - ./env/prod:/home/apps/env
+    image: "arena-app:prod"
     command: ["/home/apps/start-services.sh", "processor"]
     environment:
       - PROCESSOR_OPTS=-Darena.processor-queues=mm-test -Darena.processor-default-timeout=15
@@ -264,9 +244,7 @@ Then you can start multiple processors for the `some-mm-queue`, either by using 
 ```yaml
   # Dedicated processor for 'some-mm-queue'
   arena-processor-some-mm:
-    image: "tc-arena-app:latest"
-    volumes:
-      - ./env/prod:/home/apps/env
+    image: "arena-app:prod"
     command: ["/home/apps/start-services.sh", "processor"]
     environment:
       - PROCESSOR_OPTS=-Darena.processor-queues=some-mm-queue -Darena.processor-default-timeout=15

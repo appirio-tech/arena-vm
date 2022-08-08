@@ -2,8 +2,6 @@ version: '3'
 services:
   arena-app-dev:
     image: "arena-app:dev"
-    volumes:
-      - ./env/dev:/home/apps/env
     command: ["/home/apps/start-services.sh", "app"]
     ports:
       - "5001:5001"
@@ -12,8 +10,6 @@ services:
       - "5037:5037"
   arena-processor-dev:
     image: "arena-app:dev"
-    volumes:
-      - ./env/dev:/home/apps/env
     command: ["/home/apps/start-services.sh", "processor"]
     environment:
       - PROCESSOR_OPTS=-Darena.processor-queues=practice,compile,srm-test,admin-test,mm-test -Darena.processor-default-timeout=5

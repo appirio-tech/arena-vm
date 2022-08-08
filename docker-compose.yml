@@ -49,8 +49,6 @@ services:
       - mock-tc-api
     build:
       context: ./
-    volumes:
-      - ./env/local:/home/apps/env
     command: ["/home/apps/start-services.sh", "app"]
     ports:
       - "5001:5001"
@@ -62,8 +60,6 @@ services:
       - arena-sqs
     build:
       context: ./
-    volumes:
-      - ./env/local:/home/apps/env
     command: ["/home/apps/start-services.sh", "processor"]
     environment:
       - PROCESSOR_OPTS=-Darena.processor-queues=practice,compile -Darena.processor-default-timeout=5
@@ -72,8 +68,6 @@ services:
       - arena-sqs
     build:
       context: ./
-    volumes:
-      - ./env/local:/home/apps/env
     command: ["/home/apps/start-services.sh", "processor"]
     environment:
       - PROCESSOR_OPTS=-Darena.processor-queues=srm-test,admin-test,mm-test -Darena.processor-default-timeout=15
