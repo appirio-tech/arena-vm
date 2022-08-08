@@ -15,7 +15,7 @@
 @database.username@=informix
 @database.password@=1nf0rm1x
 @database.INFORMIXSERVER@=informixoltp_tcp
-@database.DWSERVER@=datawarehouse_tcp
+@database.DWSERVER@=informixoltp_tcp
 
 # Tokens used in farm-config.properties
 @farmHost@=127.0.0.1

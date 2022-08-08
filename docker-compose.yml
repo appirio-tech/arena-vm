@@ -55,8 +55,33 @@ services:
     container_name: "arena-app"
     build:
       context: ./
+    volumes:
+      - ./env/local:/home/apps/env
+    command: ["/home/apps/start-services.sh", "app"]
     ports:
       - "5001:5001"
       - "5003:5003"
       - "5016:5016"
       - "5037:5037"
+  arena-processor-compile:
+    depends_on:
+      - arena-sqs
+    container_name: "arena-processor-compile"
+    build:
+      context: ./
+    volumes:
+      - ./env/local:/home/apps/env
+    command: ["/home/apps/start-services.sh", "processor"]
+    environment:
+      - PROCESSOR_OPTS=-Darena.processor-queues=practice,compile -Darena.processor-default-timeout=5
+  arena-processor-test:
+    depends_on:
+      - arena-sqs
+    container_name: "arena-processor-test"
+    build:
+      context: ./
+    volumes:
+      - ./env/local:/home/apps/env
+    command: ["/home/apps/start-services.sh", "processor"]
+    environment:
+      - PROCESSOR_OPTS=-Darena.processor-queues=srm-test,admin-test,mm-test -Darena.processor-default-timeout=15

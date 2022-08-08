@@ -17,11 +17,14 @@ This is to deploy in docker locally.
 docker-compose up -d
 
 # View docker logs, when you see below logs then containers are started succcessfully
-# arena-mysql       | 2022-07-23T12:25:07.651734Z 0 [Note] mysqld: ready for connections.
-# arena-ldap        | Starting slapd: [  OK  ]
-# arena-informix    | *** Startup of informixoltp_tcp SUCCESS ***
-# arena-sqs         | 13:18:47.674 [main] INFO  org.elasticmq.server.Main$ - === ElasticMQ server (0.8.5) started in 1415 ms ===
-# mock-tc-api       | Mock tc-api listen on port 8081
+# arena-mysql             | 2022-07-23T12:25:07.651734Z 0 [Note] mysqld: ready for connections.
+# arena-ldap              | Starting slapd: [  OK  ]
+# arena-informix          | *** Startup of informixoltp_tcp SUCCESS ***
+# arena-sqs               | SQS queues created
+# mock-tc-api             | Mock tc-api listen on port 8081
+# arena-app               | Arena app startup complete
+# arena-processor-compile | Arena processor startup complete
+# arena-processor-test    | Arena processor startup complete
 docker-compose logs -f
 ```
 
@@ -73,17 +76,26 @@ INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value,
 
 
 
-### The server log files:
+### The Container Logs:
 
-Server logs for `arena-app` container (`docker exec -it arena-app bash`): 
+Logs for `arena-app` container (`docker exec -it arena-app bash`): 
 
 - JBOSS log: /home/apps/jboss-4.0.5.GA/server/default/log/server.log
-- MPSQAS server log: /home/apps/app/scripts/mpsqasserver-<time>.log
-- Admin server log: /home/apps/app/scripts/adminServer-<time>.log
-- Arena server log: /home/apps/app/scripts/server-<time>.log
-- WebSocket server log: /home/apps/app/scripts/webSocketServer-<time>.log
+- MPSQAS Listener log: /home/apps/app/scripts/mpsqasserver-<time>.log
+- Admin Listener log: /home/apps/app/scripts/adminServer-<time>.log
+- Main Listener log: /home/apps/app/scripts/server-<time>.log
+- WebSocket Listener log: /home/apps/app/scripts/webSocketServer-<time>.log
+- Sysout log: `docker-compose logs -f arena-app`
+
+Logs for `arena-processor-compile` container (`docker exec -it arena-processor-compile bash`): 
+
 - Processor log: /home/apps/processor/deploy/bin/logs/processor.log
-- nohup output: use `docker-compose logs -f arena-app`
+- Sysout log: `docker-compose logs -f arena-processor-compile`
+
+Logs for `arena-processor-test` container (`docker exec -it arena-processor-test bash`): 
+
+- Processor log: /home/apps/processor/deploy/bin/logs/processor.log
+- Sysout log: `docker-compose logs -f arena-processor-test`
 
 
 

@@ -2,8 +2,16 @@ FROM openjdk:8-alpine
 
 RUN mkdir -p /sqs
 
-COPY ./sqs /sqs
-
 WORKDIR /sqs
+
+RUN wget -O aws-java-sdk-1.8.6.jar https://repo1.maven.org/maven2/com/amazonaws/aws-java-sdk/1.8.6/aws-java-sdk-1.8.6.jar
+RUN wget -O commons-logging-1.1.3.jar https://repo1.maven.org/maven2/commons-logging/commons-logging/1.1.3/commons-logging-1.1.3.jar
+RUN wget -O httpclient-4.3.6.jar https://repo1.maven.org/maven2/org/apache/httpcomponents/httpclient/4.3.6/httpclient-4.3.6.jar
+RUN wget -O httpcore-4.3.3.jar https://repo1.maven.org/maven2/org/apache/httpcomponents/httpcore/4.3.3/httpcore-4.3.3.jar
+RUN wget -O jackson-annotations-2.4.2.jar https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-annotations/2.4.2/jackson-annotations-2.4.2.jar
+RUN wget -O jackson-core-2.4.2.jar https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-core/2.4.2/jackson-core-2.4.2.jar
+RUN wget -O jackson-databind-2.4.2.jar https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-databind/2.4.2/jackson-databind-2.4.2.jar
+
+COPY ./sqs /sqs
 
 CMD ["sh", "-c", "/sqs/start-sqs-service.sh"]

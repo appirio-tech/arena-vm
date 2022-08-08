@@ -66,7 +66,6 @@ RUN cd ~ \
   && tar -xzvf ~/dev/farm-server/build/artifacts/linux-osfiles.tgz
 RUN cp -r /home/apps/app/jboss-4.0.5.GA /home/apps/
 
-COPY --chown=apps ./env/local /home/apps/env/
 COPY --chown=apps ./start-services.sh /home/apps/
 
 CMD ["/home/apps/start-services.sh"]

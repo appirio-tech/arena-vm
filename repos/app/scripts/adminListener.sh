@@ -13,7 +13,6 @@ BASE=..
 MAIN=com.topcoder.server.AdminListener.AdminListenerMain
 PORT=6000
 CMD=usage
-MAXMEM=1024m
 LOGFILE=adminServer-`date +%Y-%m-%d-%H-%M-%S`.log
 
 LIBS=$BASE/lib/jars
@@ -47,11 +46,12 @@ LOGGING_ID=AdminListener.$PORT
 LOGGING_PROPERTY=com.topcoder.logging.id
 
 if [ "$CMD" = "run" ] ; then
-    $JAVACMD -cp $CP -Xmx$MAXMEM $CUSTOM_SECURITY -D$LOGGING_PROPERTY=$LOGGING_ID $MAIN $PORT $CONTEST $@
+    $JAVACMD -cp $CP $ADMIN_LISTENER_JAVA_OPTS $CUSTOM_SECURITY -D$LOGGING_PROPERTY=$LOGGING_ID $MAIN $PORT $CONTEST $@
 elif [ "$CMD" = "start" ] ; then
-    nohup $JAVACMD -cp $CP -Xmx$MAXMEM $CUSTOM_SECURITY -D$LOGGING_PROPERTY=$LOGGING_ID $MAIN $PORT $CONTEST $@ >$LOGFILE 2>&1 &
+    echo "nohup $JAVACMD -cp $CP $ADMIN_LISTENER_JAVA_OPTS $CUSTOM_SECURITY -D$LOGGING_PROPERTY=$LOGGING_ID $MAIN $PORT $CONTEST $@ >$LOGFILE 2>&1 &"
+    nohup $JAVACMD -cp $CP $ADMIN_LISTENER_JAVA_OPTS $CUSTOM_SECURITY -D$LOGGING_PROPERTY=$LOGGING_ID $MAIN $PORT $CONTEST $@ >$LOGFILE 2>&1 &
     echo $! > $PID_FILE
-	echo "start, port=$PORT, contest=$CONTEST, maxmem=$MAXMEM"
+	echo "start, port=$PORT, contest=$CONTEST, ADMIN_LISTENER_JAVA_OPTS=$ADMIN_LISTENER_JAVA_OPTS"
 elif [ "$CMD" = "stop" ] ; then
     kill `cat $PID_FILE`
     rm -f $PID_FILE

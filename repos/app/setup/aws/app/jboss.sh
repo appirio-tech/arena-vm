@@ -8,7 +8,7 @@ if [ "$JAVA_VER" -ge 55 ] ; then
   ENDORSED_DIR=""
 fi
 
-echo nohup java ${JAVA_OPTS} ${JBOSS_JAVA_OPTS} $ENDORSED_DIR -classpath $JBOSS_HOME/bin/run.jar:$JBOSS_HOME/lib/tools.jar:$CP org.jboss.Main 
+echo "nohup java ${JAVA_OPTS} ${JBOSS_JAVA_OPTS} $ENDORSED_DIR -classpath $JBOSS_HOME/bin/run.jar:$JBOSS_HOME/lib/tools.jar:$CP org.jboss.Main &"
 nohup java ${JAVA_OPTS} ${JBOSS_JAVA_OPTS} $ENDORSED_DIR -classpath $JBOSS_HOME/bin/run.jar:$JBOSS_HOME/lib/tools.jar:$CP org.jboss.Main &
 
 exit

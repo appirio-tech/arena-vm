@@ -4,7 +4,6 @@ BASE=../
 MAIN=com.topcoder.server.mpsqas.listener.MPSQASListener
 PORT=$2
 PROCESSOR=DefaultProcessor
-MAXMEM=1024m
 LOGFILE=mpsqasserver-`date +%Y-%m-%d-%H-%M-%S`.log
 CMD=usage
 PID_FILE=mpsqasListener$PORT.pid
@@ -20,11 +19,12 @@ if [[ $1 != "" ]] ; then
 fi
 
 if [ "$CMD" = "run" ] ; then
-  $JAVACMD -cp $CP -Xmx$MAXMEM  $MAIN $PORT
+  $JAVACMD -cp $CP $MPSQAS_LISTENER_JAVA_OPTS  $MAIN $PORT
 elif [ "$CMD" = "start" ] ; then
-  nohup $JAVACMD -cp $CP -Xmx$MAXMEM  $MAIN $PORT > ./$LOGFILE 2>&1 &
+  echo "nohup $JAVACMD -cp $CP $MPSQAS_LISTENER_JAVA_OPTS  $MAIN $PORT > ./$LOGFILE 2>&1 &"
+  nohup $JAVACMD -cp $CP $MPSQAS_LISTENER_JAVA_OPTS  $MAIN $PORT > ./$LOGFILE 2>&1 &
   echo $! > $PID_FILE
-	echo "start port=$PORT"
+  echo "start, port=$PORT, MPSQAS_LISTENER_JAVA_OPTS=$MPSQAS_LISTENER_JAVA_OPTS"
 elif [ "$CMD" = "stop" ] ; then
   kill `cat $PID_FILE`
   rm -f $PID_FILE
