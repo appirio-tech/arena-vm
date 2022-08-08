@@ -1,7 +1,7 @@
 version: '3'
 services:
   arena-app-dev:
-    image: "tc-arena-app:latest"
+    image: "arena-app:dev"
     volumes:
       - ./env/dev:/home/apps/env
     command: ["/home/apps/start-services.sh", "app"]
@@ -11,7 +11,7 @@ services:
       - "5016:5016"
       - "5037:5037"
   arena-processor-dev:
-    image: "tc-arena-app:latest"
+    image: "arena-app:dev"
     volumes:
       - ./env/dev:/home/apps/env
     command: ["/home/apps/start-services.sh", "processor"]
