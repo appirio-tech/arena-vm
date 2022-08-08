@@ -4,7 +4,6 @@ services:
     image: "appiriodevops/tc-database-scripts:latest"
     platform: linux/amd64
     hostname: informix.cloud.topcoder.com
-    container_name: arena-informix
     environment:
       LICENSE: accept
     ports:
@@ -16,7 +15,6 @@ services:
       - SYS_NICE
     volumes:
       - ./mysql-files:/docker-entrypoint-initdb.d
-    container_name: arena-mysql
     environment:
       MYSQL_ROOT_PASSWORD: my-secret-pw
       MYSQL_USER: farm
@@ -25,21 +23,18 @@ services:
     ports:
       - "3306:3306"
   arena-ldap:
-    container_name: arena-ldap
     build:
       context: ./
       dockerfile: Dockerfile_ldap
     ports:
       - "389:389"
   arena-sqs:
-    container_name: arena-sqs
     build:
       context: ./
       dockerfile: Dockerfile_sqs
     ports:
       - "9324:9324"
   mock-tc-api:
-    container_name: mock-tc-api
     build:
       context: ./
       dockerfile: Dockerfile_tc_api
@@ -52,7 +47,6 @@ services:
       - arena-ldap
       - arena-sqs
       - mock-tc-api
-    container_name: "arena-app"
     build:
       context: ./
     volumes:
@@ -66,7 +60,6 @@ services:
   arena-processor-compile:
     depends_on:
       - arena-sqs
-    container_name: "arena-processor-compile"
     build:
       context: ./
     volumes:
@@ -77,7 +70,6 @@ services:
   arena-processor-test:
     depends_on:
       - arena-sqs
-    container_name: "arena-processor-test"
     build:
       context: ./
     volumes:

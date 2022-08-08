@@ -78,7 +78,7 @@ INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value,
 
 ### The Container Logs:
 
-Logs for `arena-app` container (`docker exec -it arena-app bash`): 
+Logs for `arena-app` container (`docker-compose exec arena-app bash`): 
 
 - JBOSS log: /home/apps/jboss-4.0.5.GA/server/default/log/server.log
 - MPSQAS Listener log: /home/apps/app/scripts/mpsqasserver-<time>.log
@@ -87,12 +87,12 @@ Logs for `arena-app` container (`docker exec -it arena-app bash`):
 - WebSocket Listener log: /home/apps/app/scripts/webSocketServer-<time>.log
 - Sysout log: `docker-compose logs -f arena-app`
 
-Logs for `arena-processor-compile` container (`docker exec -it arena-processor-compile bash`): 
+Logs for `arena-processor-compile` container (`docker-compose exec arena-processor-compile bash`): 
 
 - Processor log: /home/apps/processor/deploy/bin/logs/processor.log
 - Sysout log: `docker-compose logs -f arena-processor-compile`
 
-Logs for `arena-processor-test` container (`docker exec -it arena-processor-test bash`): 
+Logs for `arena-processor-test` container (`docker-compose exec arena-processor-test bash`): 
 
 - Processor log: /home/apps/processor/deploy/bin/logs/processor.log
 - Sysout log: `docker-compose logs -f arena-processor-test`

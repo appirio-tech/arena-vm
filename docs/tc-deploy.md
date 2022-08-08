@@ -152,7 +152,6 @@ The JBoss/Listeners and Farm Processor are started separately. Since you only ne
   ````yaml
     arena-app-dev:
       image: "tc-arena-app:latest"
-      container_name: "arena-app-dev"
       # The volume mount to setup dev env
       volumes:
         - ./env/dev:/home/apps/env
@@ -175,7 +174,6 @@ The JBoss/Listeners and Farm Processor are started separately. Since you only ne
   ```yaml
     arena-processor-dev:
       image: "tc-arena-app:latest"
-      container_name: "arena-processor-dev"
       # The volume mount to setup dev env
       volumes:
         - ./env/dev:/home/apps/env
@@ -200,7 +198,6 @@ Suggestion 1, for `practice` queue which handles compile/test of pratice room, y
   # Dedicated processor for 'practice' queue
   arena-processor-practice:
     image: "tc-arena-app:latest"
-    container_name: "arena-processor-practice"
     volumes:
       - ./env/prod:/home/apps/env
     command: ["/home/apps/start-services.sh", "processor"]
@@ -216,7 +213,6 @@ Suggestion 2, you want to seprately process the `compile` queue from test queues
   # Dedicated processor for 'compile' queue
   arena-processor-compile:
     image: "tc-arena-app:latest"
-    container_name: "arena-processor-compile"
     volumes:
       - ./env/prod:/home/apps/env
     command: ["/home/apps/start-services.sh", "processor"]
@@ -226,29 +222,12 @@ Suggestion 2, you want to seprately process the `compile` queue from test queues
 
 
 
-Suggestion 3, for `mm-test` queue which handles test of MM matches, the MM test will likely take a long time up to 15 minutes, then you can start a dedicated processor for it:
-
-```yaml
-  # Dedicated processor for 'mm-test' queue
-  arena-processor-mm-test:
-    image: "tc-arena-app:latest"
-    container_name: "arena-processor-mm-test"
-    volumes:
-      - ./env/prod:/home/apps/env
-    command: ["/home/apps/start-services.sh", "processor"]
-    environment:
-      - PROCESSOR_OPTS=-Darena.processor-queues=mm-test -Darena.processor-default-timeout=15
-```
-
-
-
-Suggestion 4, you have decided the `srm-test` and `admin-test` queues can be processed together, since you found that there isn't much messages in `admin-test` queues so there is no need to waste resource to start a dedicated processor for it, then you can start a processor for both queues:
+Suggestion 3, you have decided the `srm-test` and `admin-test` queues can be processed together, since you found that there isn't much messages in `admin-test` queues so there is no need to waste resource to start a dedicated processor for it, then you can start a processor for both queues:
 
 ```yaml
   # Processor for 'srm-test' and 'admin-test' queues
   arena-processor-srm-admin-test:
     image: "tc-arena-app:latest"
-    container_name: "arena-processor-srm-admin-test"
     volumes:
       - ./env/prod:/home/apps/env
     command: ["/home/apps/start-services.sh", "processor"]
@@ -258,4 +237,45 @@ Suggestion 4, you have decided the `srm-test` and `admin-test` queues can be pro
 
 
 
-**Note: You can even start multiple Farm Processors for the same queue, e.g. since the MM test will likely take long time, you can start multiple Farm Processors for the same `mm-test` queue.**
+Suggestion 4, for `mm-test` queue which handles test of MM matches, the MM test will likely take a long time up to 15 minutes, then you can start a dedicated processor for it:
+
+```yaml
+  # Dedicated processor for 'mm-test' queue
+  arena-processor-mm-test:
+    image: "tc-arena-app:latest"
+    volumes:
+      - ./env/prod:/home/apps/env
+    command: ["/home/apps/start-services.sh", "processor"]
+    environment:
+      - PROCESSOR_OPTS=-Darena.processor-queues=mm-test -Darena.processor-default-timeout=15
+```
+
+
+
+Suggestion 5, assuming we have a real MM contest, it’s expected to have large amount of registrants and long time to execute, then we can create a dedicated AWS SQS queue for that specific MM contest round (assuming the created queue name is `some-mm-queue`), then insert it into Mysql table `FARM_QUEUE_CONFIG`:
+
+```sql
+INSERT INTO FARM_QUEUE_CONFIG (ROUND, APP, `ACTION`, PLATFORM, PRACTICE, QUEUE_NAME)
+VALUES('<mm-round-id>', 'marathon', 'test', 'nix', 0, 'some-mm-queue');
+```
+
+Then you can start multiple processors for the `some-mm-queue`, either by using Docker Swarm or Kubernate to scale, or you may simply using docker-compose, e.g:
+
+```yaml
+  # Dedicated processor for 'some-mm-queue'
+  arena-processor-some-mm:
+    image: "tc-arena-app:latest"
+    volumes:
+      - ./env/prod:/home/apps/env
+    command: ["/home/apps/start-services.sh", "processor"]
+    environment:
+      - PROCESSOR_OPTS=-Darena.processor-queues=some-mm-queue -Darena.processor-default-timeout=15
+```
+
+```bash
+# Start 10 processors for 'some-mm-queue' queue
+docker-compose up -d --scale arena-processor-some-mm=10
+```
+
+One thing to note about the `OneQueue<->MultiProcessors` relationship, AWS SQS has a concept of [visibility timeout](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-visibility-timeout.html), within the visibility time range, one message will be visible to only one processor. When multiple processors exist for same queue, the visibility timeout of the queue should be set to a higher value to avoid duplicate processing of a given message. E.g. in the above case, if it’s expected 15 minutes at most to process a given message, then set visibility timeout of `some-mm-queue` to 15 minutes.
+
