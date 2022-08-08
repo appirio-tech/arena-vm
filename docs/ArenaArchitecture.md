@@ -44,5 +44,5 @@ There are 4 listeners:
 
 ### Deploy Suggestion
 
-- JBoss and these 4 Listeners could be deployed togher within same host/container to avoid network latency.
-- Multiple Farm Processors can be deployed. For example, for each distinct queue name in `FARM_QUEUE_CONFIG` table, deploy a dedicated Farm Processor for it (using  `-Darena.processor-queues=<queueName>`).
+- JBoss and those 4 Listeners could be deployed togher within same host/container to avoid network latency.
+- Multiple Farm Processors can be deployed. For example, for each distinct queue name in `FARM_QUEUE_CONFIG` table, deploy a dedicated Farm Processor for it (using  `-Darena.processor-queues=<queueName>`). Refer to [tc-deploy.md](./tc-deploy.md) for details.
