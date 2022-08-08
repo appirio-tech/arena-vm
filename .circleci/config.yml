@@ -33,6 +33,7 @@ build_steps: &build_steps
         command: |
           source awsenvconf
           ./buildproperties.sh -e $BUILD_ENV -k arena-app
+          cp -rf *.properties.$LOGICAL_ENV repos/app/
     - run: 
        name: Build image
        command: |  
