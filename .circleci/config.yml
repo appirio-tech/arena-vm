@@ -33,7 +33,7 @@ build_steps: &build_steps
         command: |
           source awsenvconf
           ./buildproperties.sh -e $BUILD_ENV -k arena-app
-          cp -rf *.properties.$LOGICAL_ENV repos/app/
+
     - run: 
        name: Build image
        command: |  
@@ -48,6 +48,11 @@ build_steps: &build_steps
           source buildenvvar
           ./master_deploy.sh -d ECS -e $DEPLOY_ENV -t latest -s ${LOGICAL_ENV}-${APPNAME}-appvar -i ${APPNAME}
 
+          echo "======= Running Masterscript - deploy tc-connect2sf-salesforce-consumers ==========="
+          ./buildenv.sh -e $DEPLOY_ENV -b ${LOGICAL_ENV}-${APPPROCESSOR}-deployvar
+          source buildenvvar
+          ./master_deploy.sh -d ECS -e $DEPLOY_ENV -t latest -s ${LOGICAL_ENV}-${APPPROCESSOR}-appvar -i ${APPNAME}
+
 jobs:
   # Build & Deploy against development backend
   "build-dev":
@@ -58,6 +63,7 @@ jobs:
       COMPONENT_BRANCH: "dev"
       DEPLOY_ENV: "DEV"
       APPNAME: "tc-arena-app"
+      APPPROCESSOR: "tc-arena-app-processor"
     steps: *build_steps
 
   "build-prod":
@@ -67,7 +73,8 @@ jobs:
       LOGICAL_ENV: "prod" 
       DEPLOY_ENV: "PROD"      
       COMPONENT_BRANCH: "master"      
-      APPNAME: "tc-arena-app"                 
+      APPNAME: "tc-arena-app"
+      APPPROCESSOR: "tc-arena-app-processor"                       
     steps: *build_steps   
 
 workflows:
