@@ -1,0 +1,8 @@
+<ivysettings>
+    <resolvers>
+        <url name="tcs-artifacts">
+            <ivy pattern="https://coder.topcoder.com/tcs/internal/tcs/trunk/lib/tcs/[module]/[revision]/[module].xml" />
+            <artifact pattern="https://coder.topcoder.com/tcs/internal/tcs/trunk/lib/tcs/[module]/[revision]/[artifact].[ext]" />
+        </url>
+    </resolvers>
+</ivysettings>

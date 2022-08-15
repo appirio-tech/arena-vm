@@ -1,0 +1,98 @@
+{
+    "data": [
+        {
+            "challengeType": "Code",
+            "challengeName": "[Do not register] Sample challenge for Automation KGuTnJmJ",
+            "challengeId": 30106190,
+            "forumId": 82117,
+            "reviewType": "COMMUNITY",
+            "numSubmissions": 24,
+            "numRegistrants": 111,
+            "numberOfCheckpointsPrizes": 0,
+            "firstPlacePrize": 10,
+            "totalPrize": 15,
+            "totalCheckpointPrize": null,
+            "registrationEndDate": "2021-11-18T23:13:00.000-05:00",
+            "registrationStartDate": "2019-11-11T06:13:00.000-05:00",
+            "checkpointSubmissionEndDate": "",
+            "submissionEndDate": "2021-11-18T23:19:00.000-05:00",
+            "currentPhaseEndDate": "2021-11-18T23:19:00.000-05:00",
+            "currentPhaseRemainingTime": -22049666,
+            "status": "Active",
+            "currentPhaseName": "Submission",
+            "digitalRunPoints": null,
+            "eventId": 3452,
+            "eventName": "tco20",
+            "technologies": [
+                "Protractor",
+                "QA",
+                "TypeScript"
+            ],
+            "platforms": [
+                "NodeJS",
+                "Other"
+            ],
+            "registrationOpen": "Yes",
+            "isPrivate": false,
+            "reliabilityBonus": 2,
+            "challengeCommunity": "develop"
+        },
+        {
+            "challengeType": "Code",
+            "challengeName": "48 Hours - Topcoder Reskin -  Accounts Tab Code Challenge",
+            "challengeId": 30292280,
+            "forumId": 0,
+            "reviewType": "INTERNAL",
+            "numSubmissions": 4,
+            "numRegistrants": 16,
+            "numberOfCheckpointsPrizes": 0,
+            "firstPlacePrize": 300,
+            "totalPrize": 600,
+            "totalCheckpointPrize": null,
+            "registrationEndDate": "2022-08-01T07:01:00.000-04:00",
+            "registrationStartDate": "2022-07-30T07:01:00.000-04:00",
+            "checkpointSubmissionEndDate": "",
+            "submissionEndDate": "2022-08-01T07:51:00.000-04:00",
+            "currentPhaseEndDate": "2022-08-01T07:51:00.000-04:00",
+            "currentPhaseRemainingTime": 13054,
+            "status": "Active",
+            "currentPhaseName": "Submission",
+            "digitalRunPoints": null,
+            "eventId": 3455,
+            "eventName": "tco23",
+            "technologies": [
+                "CSS",
+                "HTML",
+                "JavaScript",
+                "ReactJS"
+            ],
+            "platforms": [
+                "HTML"
+            ],
+            "registrationOpen": "Yes",
+            "isPrivate": false,
+            "reliabilityBonus": 60,
+            "challengeCommunity": "develop"
+        }
+    ],
+    "total": 2,
+    "pageIndex": 1,
+    "pageSize": 100,
+    "serverInformation": {
+        "serverName": "TopCoder API",
+        "apiVersion": "0.0.1",
+        "requestDuration": 5,
+        "currentTime": 1659342183724
+    },
+    "requesterInformation": {
+        "id": "45165165e8d922c42c587a916996a729212a5930-s8ykBJV13SfW4Dgc",
+        "remoteIP": "3.93.74.228",
+        "receivedParams": {
+            "pageIndex": "-1",
+            "sortColumn": "registrationEndDate",
+            "sortOrder": "asc",
+            "apiVersion": "v2",
+            "action": "getOpenChallenges"
+        }
+    }
+}

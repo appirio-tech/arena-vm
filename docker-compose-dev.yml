@@ -1,0 +1,37 @@
+version: '3'
+services:
+  arena-controller-dev:
+    image: "arena-app:dev"
+    command: ["/home/apps/start-services.sh", "controller"]
+    ports:
+      - "25000:25000"
+      - "25001:25001"
+    environment:
+      - CONTROLLER_JAVA_OPTS="-Xms256m -Xmx1538m"
+  arena-processor-dev:
+    image: "arena-app:dev"
+    depends_on:
+      - arena-controller-dev
+    command: ["/home/apps/start-services.sh", "processor"]
+    environment:
+      - PROCESSOR_JAVA_OPTS="-Xms256m -Xmx1538m"
+      - PROCESSOR_GROUP_ID=PR-LX
+      - PROCESSOR_MAX_TASK_TIME=850000
+  arena-app-dev:
+    image: "arena-app:dev"
+    depends_on:
+      - arena-controller-dev
+    command: ["/home/apps/start-services.sh", "app"]
+    ports:
+      - "5001:5001"
+      - "5003:5003"
+      - "5016:5016"
+      - "5037:5037"
+    environment:
+      - JBOSS_JAVA_OPTS="-Xms512m -Xmx2048m"
+      - MAIN_LISTENER_JAVA_OPTS="-Xms256m -Xmx1024m"
+      - ADMIN_LISTENER_JAVA_OPTS="-Xms256m -Xmx1024m"
+      - MPSQAS_LISTENER_JAVA_OPTS="-Xms256m -Xmx1024m"
+      - WEBSOCKET_LISTENER_JAVA_OPTS="-Xms256m -Xmx1024m"
+      - JBOSS_STARTUP_WAIT_TIME=60
+      - MAIN_LISTENRER_STARTUP_WAIT_TIME=60

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<!DOCTYPE load-definition SYSTEM "dwload.dtd">
+
+<!-- 
+    This file should be placed on client's file system and should be used
+    to specify the warehouse load processes (by their IDs) and their
+    configuration parameters and prompts of menu items providing access
+    to them.
+
+    This file is used by WarehouseLoadSubmenu to create menu items based
+    on definitions of existing warehouse load processes.
+
+    NOTE : This is an example file. Any desired types of warehouse load
+    processes may be added to this file if needed.
+-->
+
+<load-definition>
+	<global>
+		<parameter-list>
+			<parameter name="fullload" value="false"/>
+		</parameter-list>
+	</global>
+	<load name="Load round">
+		<request id="21655"/>
+		<parameter-list>
+			<parameter name="fullload" value="false"/>
+		</parameter-list>
+	</load>
+	<load name="Load aggregate">
+		<request id="21650"/>
+		<parameter-list>
+			<parameter name="fullload" value="false"/>
+		</parameter-list>
+	</load>
+
+	<load name="Load coders">
+		<request id="21651"/>
+		<parameter-list>
+			<parameter name="fullload" value="false"/>
+		</parameter-list>
+	</load>
+<!--	<load name="Load empty">
+		<request id="21652"/>
+		<parameter-list>
+			<parameter name="fullload" value="false"/>
+		</parameter-list>
+	</load>-->
+	<load name="Load rank">
+		<request id="21653"/>
+		<parameter-list>
+			<parameter name="fullload" value="false"/>
+		</parameter-list>
+	</load>
+<!--	<load name="Load requests">
+		<request id="21654"/>
+		<parameter-list>
+			<parameter name="fullload" value="true"/>
+		</parameter-list>
+	</load>-->
+</load-definition>

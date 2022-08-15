@@ -1,0 +1,84 @@
+version: '3'
+services:
+  arena-informix:
+    image: "appiriodevops/tc-database-scripts:latest"
+    container_name: arena-informix
+    platform: linux/amd64
+    hostname: informix.cloud.topcoder.com
+    environment:
+      LICENSE: accept
+    ports:
+      - "2021:2021"
+    tty: true
+  arena-mysql:
+    image: mysql:5.7
+    container_name: arena-mysql
+    cap_add:
+      - SYS_NICE
+    volumes:
+      - ./mysql-files:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: my-secret-pw
+      MYSQL_USER: farm
+      MYSQL_PASSWORD: farmpass
+      MYSQL_DATABASE: farm
+    ports:
+      - "3306:3306"
+  arena-ldap:
+    container_name: arena-ldap
+    build:
+      context: ./
+      dockerfile: Dockerfile_ldap
+    ports:
+      - "389:389"
+  mock-tc-api:
+    container_name: mock-tc-api
+    build:
+      context: ./
+      dockerfile: Dockerfile_tc_api
+    ports:
+      - "8081:8081"
+  arena-controller:
+    container_name: arena-controller
+    depends_on:
+      - arena-mysql
+    build:
+      context: ./
+    command: ["/home/apps/start-services.sh", "controller"]
+    ports:
+      - "25000:25000"
+      - "25001:25001"
+    environment:
+      - CONTROLLER_JAVA_OPTS="-Xms256m -Xmx1538m"
+  arena-processor:
+    depends_on:
+      - arena-controller
+    build:
+      context: ./
+    command: ["/home/apps/start-services.sh", "processor"]
+    environment:
+      - PROCESSOR_JAVA_OPTS="-Xms256m -Xmx1538m"
+      - PROCESSOR_GROUP_ID=PR-LX
+      - PROCESSOR_MAX_TASK_TIME=850000
+  arena-app:
+    container_name: arena-app
+    depends_on:
+      - arena-informix
+      - arena-ldap
+      - arena-controller
+    build:
+      context: ./
+    command: ["/home/apps/start-services.sh", "app"]
+    ports:
+      - "5001:5001"
+      - "5003:5003"
+      - "5016:5016"
+      - "5037:5037"
+    environment:
+      - JBOSS_JAVA_OPTS="-Xms512m -Xmx2048m"
+      - MAIN_LISTENER_JAVA_OPTS="-Xms256m -Xmx1024m"
+      - ADMIN_LISTENER_JAVA_OPTS="-Xms256m -Xmx1024m"
+      - MPSQAS_LISTENER_JAVA_OPTS="-Xms256m -Xmx1024m"
+      - WEBSOCKET_LISTENER_JAVA_OPTS="-Xms256m -Xmx1024m"
+      - JBOSS_STARTUP_WAIT_TIME=30
+      - MAIN_LISTENRER_STARTUP_WAIT_TIME=30

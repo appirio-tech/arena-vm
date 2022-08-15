@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ===================================================================== -->
+<!--                                                                       -->
+<!--  JBoss Server Configuration                                           -->
+<!--                                                                       -->
+<!-- ===================================================================== -->
+
+<!-- $Id: informix-ds.xml,v 1.3 2004/09/15 14:37:40 loubyansky Exp $ -->
+
+
+<datasources>
+  <no-tx-datasource>
+    <jndi-name>DW</jndi-name>
+    <connection-url>jdbc:informix-sqli://@database.server@:@database.port@/topcoder_dw:INFORMIXSERVER=@database.INFORMIXSERVER@</connection-url>
+    <driver-class>com.informix.jdbc.IfxDriver</driver-class>
+    <user-name>@database.username@</user-name>
+    <password>@database.password@</password>
+        <!-- sql to call when connection is created
+        <new-connection-sql>some arbitrary sql</new-connection-sql>
+        -->
+
+        <!-- sql to call on an existing pooled connection when it is obtained from pool -->
+        <check-valid-connection-sql>select '1' from dual</check-valid-connection-sql>
+
+      <!-- corresponding type-mapping in the standardjbosscmp-jdbc.xml (optional) -->
+      <metadata>
+         <type-mapping>InformixDB</type-mapping>
+      </metadata>
+  </no-tx-datasource>
+
+
+</datasources>

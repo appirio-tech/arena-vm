@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="http-tunnel-client" basedir="." default="publish-workspace">
+    <property name="root.dir" location="${basedir}/../../../" />
+    <property name="glue.dir" location="${root.dir}/glue" />
+
+    <property environment="env" />
+
+    <condition property="compile.source" value="${env.BUILD_COMPILE_SOURCE}" else="1.4">
+        <isset property="env.BUILD_COMPILE_SOURCE"/>
+    </condition>
+
+	<import file="${glue.dir}/glue-jar.xml" />
+	
+</project>

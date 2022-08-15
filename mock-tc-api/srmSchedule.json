@@ -1,0 +1,26 @@
+{
+    "total": 0,
+    "pageIndex": 1,
+    "pageSize": 0,
+    "data": [],
+    "serverInformation": {
+        "serverName": "TopCoder API",
+        "apiVersion": "0.0.1",
+        "requestDuration": 2,
+        "currentTime": 1659342238001
+    },
+    "requesterInformation": {
+        "id": "5568c76d66ef0a4b0e4b7f4dea94ee6ca713885d-b6TdpGIl4cf4AFy1",
+        "remoteIP": "104.255.64.8",
+        "receivedParams": {
+            "pageIndex": "-1",
+            "sortColumn": "registrationstarttime",
+            "sortOrder": "asc",
+            "registrationStartTimeAfter": "2022-08-01T00:00:00.000+0800",
+            "registrationStartTimeBefore": "2022-11-01T00:00:00.000+0800",
+            "statuses": "F,A,P",
+            "apiVersion": "v2",
+            "action": "getSRMSchedule"
+        }
+    }
+}

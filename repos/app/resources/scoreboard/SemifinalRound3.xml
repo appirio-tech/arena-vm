@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.4.2_01" class="java.beans.XMLDecoder"> 
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.ConnectionEvent">
+   <void property="hostName"><string>172.16.1.69</string></void>
+   <void property="portNo"><int>5006</int></void>
+ </object>
+ <object class="com.topcoder.client.spectatorApp.announcer.events.ConnectionEvent">
+   <void property="hostName"><string>172.16.1.24</string></void>
+   <void property="portNo"><int>5006</int></void>
+ </object>
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.ShowInitialEvent">
+   <void property="title"><string>Show Initial Flash Screen</string></void>
+ </object>
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.DefineContestEvent"> 
+  <void property="title"><string>Define Contest - 2003 TCO </string></void> 
+  <void property="contestID"><int>4700</int></void>
+  <void property="contestName"><string></string></void>
+  <void property="logoLargeFileName"><string>C:\java\code\main\app\images\com\topcoder\client\spectatorApp\tco_logo_black.gif</string></void>
+  <void property="logoSmallFileName"><string></string></void>
+  <void property="sponsorFileName"><string></string></void>
+ </object> 
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.DefineRoundEvent"> 
+  <void property="title"><string>Define Round - 2003 TCO</string></void> 
+  <void property="contestID"><int>4700</int></void>
+  <void property="roundID"><int>4708</int></void>
+  <void property="roundName"><string>Semifinal Round 3</string></void>
+  <void property="roundType"><int>1</int></void> 
+ </object> 
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.ShowRoundEvent">
+  <void property="title"><string>Show Round 1</string></void> 
+  <void property="roundID"><int>4708</int></void>
+ </object>
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.AnnounceCoderEvent">
+  <void property="title"><string>Announce Coder - reid</string></void>
+  <void property="roundID"><int>4708</int></void>
+  <void property="coderName"><string>Reid Barton</string></void>
+  <void property="imageFileName"><string>C:\java\code\main\app\images\com\topcoder\client\spectatorApp\finalist\reid.jpg</string></void>
+  <void property="college"><string>Student</string></void>
+  <void property="handle"><string>reid</string></void>
+  <void property="rating"><int>3169</int></void>
+  <void property="ranking"><int>4</int></void>
+  <void property="seed"><int>3</int></void>
+  <void property="invitationalNumberCompetitions"><int>4</int></void>
+  <void property="invitationalNumberSubmissions"><int>11</int></void>
+  <void property="invitationalSubmissionPercent"><double>81.82</double></void>
+  <void property="invitationalNumberChallenges"><int>2</int></void> 
+  <void property="invitationalChallengePercent"><double>50.00</double></void>
+  <void property="srmNumberCompetitions"><int>37</int></void>
+  <void property="srmNumberSubmissions"><int>107</int></void>
+  <void property="srmSubmissionPercent"><double>80.37</double></void>
+  <void property="srmNumberChallenges"><int>27</int></void>
+  <void property="srmChallengePercent"><double>77.78</double></void>
+ </object>
+ <object class="com.topcoder.client.spectatorApp.announcer.events.AnnounceCoderEvent">
+  <void property="title"><string>Announce Coder - Yarin</string></void>
+  <void property="roundID"><int>4708</int></void>
+  <void property="coderName"><string>Jimmy Mardell</string></void>
+  <void property="imageFileName"><string>C:\java\code\main\app\images\com\topcoder\client\spectatorApp\finalist\yarin.jpg</string></void>
+  <void property="college"><string>Professional</string></void>
+  <void property="handle"><string>Yarin</string></void>
+  <void property="rating"><int>3058</int></void>
+  <void property="ranking"><int>6</int></void>
+  <void property="seed"><int>6</int></void>
+  <void property="invitationalNumberCompetitions"><int>4</int></void>
+  <void property="invitationalNumberSubmissions"><int>10</int></void>
+  <void property="invitationalSubmissionPercent"><double>100.00</double></void>
+  <void property="invitationalNumberChallenges"><int>4</int></void>
+  <void property="invitationalChallengePercent"><double>100.00</double></void> 
+  <void property="srmNumberCompetitions"><int>73</int></void>
+  <void property="srmNumberSubmissions"><int>206</int></void>
+  <void property="srmSubmissionPercent"><double>86.41</double></void>
+  <void property="srmNumberChallenges"><int>69</int></void>
+  <void property="srmChallengePercent"><double>79.71</double></void>
+ </object>
+ <object class="com.topcoder.client.spectatorApp.announcer.events.AnnounceCoderEvent">
+  <void property="title"><string>Announce Coder - DjinnKahn</string></void>
+  <void property="roundID"><int>4708</int></void>
+  <void property="coderName"><string>Tom Sirgedas</string></void>
+  <void property="imageFileName"><string>C:\java\code\main\app\images\com\topcoder\client\spectatorApp\finalist\djinnkahn.jpg</string></void>
+  <void property="college"><string>Student</string></void>
+  <void property="handle"><string>DjinnKahn</string></void>
+  <void property="rating"><int>2583</int></void>
+  <void property="ranking"><int>20</int></void>
+  <void property="seed"><int>17</int></void>
+  <void property="invitationalNumberCompetitions"><int>4</int></void>
+  <void property="invitationalNumberSubmissions"><int>9</int></void>
+  <void property="invitationalSubmissionPercent"><double>88.89</double></void>
+  <void property="invitationalNumberChallenges"><int>1</int></void>
+  <void property="invitationalChallengePercent"><double>00.00</double></void>
+  <void property="srmNumberCompetitions"><int>120</int></void>
+  <void property="srmNumberSubmissions"><int>315</int></void>
+  <void property="srmSubmissionPercent"><double>76.19</double></void>
+  <void property="srmNumberChallenges"><int>33</int></void>
+  <void property="srmChallengePercent"><double>78.79</double></void>
+ </object>
+ <object class="com.topcoder.client.spectatorApp.announcer.events.AnnounceCoderEvent">
+  <void property="title"><string>Announce Coder - mathijs</string></void>
+  <void property="roundID"><int>4708</int></void>
+  <void property="coderName"><string>Mathijs Vogelzang</string></void>
+  <void property="imageFileName"><string>C:\java\code\main\app\images\com\topcoder\client\spectatorApp\finalist\mathijs.jpg</string></void>
+  <void property="college"><string>Student</string></void> 
+  <void property="handle"><string>mathijs</string></void>
+  <void property="rating"><int>2527</int></void>
+  <void property="ranking"><int>24</int></void>
+  <void property="seed"><int>68</int></void>
+  <void property="invitationalNumberCompetitions"><int>5</int></void> 
+  <void property="invitationalNumberSubmissions"><int>12</int></void>
+  <void property="invitationalSubmissionPercent"><double>91.67</double></void>
+  <void property="invitationalNumberChallenges"><int>6</int></void>
+  <void property="invitationalChallengePercent"><double>50.00</double></void>
+  <void property="srmNumberCompetitions"><int>8</int></void>
+  <void property="srmNumberSubmissions"><int>21</int></void>
+  <void property="srmSubmissionPercent"><double>80.95</double></void>
+  <void property="srmNumberChallenges"><int>8</int></void>
+  <void property="srmChallengePercent"><double>50.00</double></void>
+ </object>
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.ShowPhaseChangeEvent">
+  <void property="title"><string>Phase Change - Start Contest</string></void> 
+  <void property="phaseID"><int>1</int></void>
+ </object>
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.ShowPhaseChangeEvent">
+  <void property="title"><string>Phase Change - Registration</string></void> 
+  <void property="phaseID"><int>2</int></void>
+ </object>
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.ShowPhaseChangeEvent">
+  <void property="title"><string>Phase Change - Coding</string></void> 
+  <void property="phaseID"><int>3</int></void>
+ </object>
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.ShowPhaseChangeEvent">
+  <void property="title"><string>Phase Change - Intermission</string></void> 
+  <void property="phaseID"><int>4</int></void>
+ </object>
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.ShowPhaseChangeEvent">
+  <void property="title"><string>Phase Change - Challenge</string></void> 
+  <void property="phaseID"><int>5</int></void>
+ </object>
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.ShowPhaseChangeEvent">
+  <void property="title"><string>Phase Change - Voting</string></void> 
+  <void property="phaseID"><int>6</int></void>
+ </object>
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.ShowPhaseChangeEvent">
+  <void property="title"><string>Phase Change - Tie Break Voting</string></void> 
+  <void property="phaseID"><int>7</int></void>
+ </object>
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.ShowPhaseChangeEvent">
+  <void property="title"><string>Phase Change - System Test</string></void> 
+  <void property="phaseID"><int>8</int></void>
+ </object>
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.ShowPhaseChangeEvent">
+  <void property="title"><string>Phase Change - End Contest</string></void> 
+  <void property="phaseID"><int>9</int></void>
+ </object>
+
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.SetRoomWinnerEvent">
+  <void property="title"><string>Force Room Winner - Room 1, Handle gt494</string></void> 
+  <void property="roomID"><int>1</int></void>
+  <void property="handle"><string>gt494</string></void>
+ </object>
+
+</java> 

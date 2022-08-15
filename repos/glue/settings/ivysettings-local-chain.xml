@@ -1,0 +1,9 @@
+<ivysettings>
+    <resolvers>
+        <chain name="local-chain" returnFirst="true" dual="true">
+            <resolver ref="local-workspace" />
+            <resolver ref="local-user" />
+            <resolver ref="local-shared" />
+        </chain>
+    </resolvers>
+</ivysettings>

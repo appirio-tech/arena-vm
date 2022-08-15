@@ -1,0 +1,8 @@
+1) To start the Spectator App:
+java -cp <..> com.topcoder.client.spectatorApp.SpectatorApp <configfile>
+
+configfile   - the configuration file
+
+
+2) To shutdown the spectator app:
+<CTRL-C> it!

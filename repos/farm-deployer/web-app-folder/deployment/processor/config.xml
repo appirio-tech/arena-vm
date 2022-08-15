@@ -1,0 +1,11 @@
+<com.topcoder.farm.processor.configuration.ProcessorConfiguration>
+  <rootFolder>/tmp/processor/deploy</rootFolder>
+  <workFolder>/tmp/processor/deploy/work</workFolder>
+  <addresses>
+      <java.net.InetSocketAddress>192.168.3.13:25001</java.net.InetSocketAddress>
+  </addresses>
+  <registrationTimeout>15000</registrationTimeout>
+  <ackTimeout>3000</ackTimeout>
+  <inactivityTimeout>35000</inactivityTimeout>
+  <keepAliveTimeout>15000</keepAliveTimeout>
+</com.topcoder.farm.processor.configuration.ProcessorConfiguration>

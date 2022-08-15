@@ -1,0 +1,45 @@
+grant codeBase "file:${user.dir}/app/build/classes.jar" {
+  permission java.security.AllPermission;
+};
+
+grant {
+  //not the best to have here, but we need it
+  permission java.util.PropertyPermission "user.dir", "read";
+
+  permission java.net.NetPermission "specifyStreamHandler";
+  permission java.lang.RuntimePermission "loadLibrary.management";
+  permission java.util.PropertyPermission "sun.boot.class.path", "read";
+  permission java.util.PropertyPermission "pid", "read";
+  permission java.util.PropertyPermission "ALLOW_THREADING", "read";
+  permission java.util.PropertyPermission "MAX_THREADS", "read";
+  permission java.lang.RuntimePermission "setIO";
+  permission java.io.SerializablePermission "enableSubstitution";
+  permission java.lang.RuntimePermission "setSecurityManager";
+  permission java.lang.RuntimePermission "accessClassInPackage.sun.util.calendar";
+  permission java.lang.RuntimePermission "accessClassInPackage.sun.text.resources";
+  permission java.lang.RuntimePermission "accessClassInPackage.sun.text.resources.LocaleElements";
+  permission java.lang.RuntimePermission "accessClassInPackage.sun.text.resources.DateFormatZoneData";
+  permission java.lang.RuntimePermission "accessClassInPackage.sun.text.resources.DateFormatZoneData_en";
+  permission java.lang.RuntimePermission "getenv.DISPLAY";
+  permission java.lang.RuntimePermission "loadLibrary.awt";
+  permission java.lang.RuntimePermission "loadLibrary.net";
+  permission java.util.PropertyPermission "com.sun.xml.*", "read";
+  permission java.util.PropertyPermission "sun.text.*", "read";
+  permission java.util.PropertyPermission "sun.text.resources.*", "read";
+  permission java.util.PropertyPermission "sun.awt.*", "read";
+  //permission java.net.SocketPermission "192.168.10.56:9090", "connect,resolve";
+  permission java.util.PropertyPermission "sun.text.resources.DateFormatZoneData_en.*", "read";
+  permission java.util.PropertyPermission "sun.text.resources.LocaleElements.*", "read";
+  permission java.lang.RuntimePermission "writeFileDescriptor";
+  permission java.lang.RuntimePermission "readFileDescriptor";
+  permission java.lang.RuntimePermission "modifyThreadGroup";
+  permission java.lang.RuntimePermission "modifyThread";
+  permission java.io.FilePermission "${java.home}/lib/-", "read";
+  permission java.io.FilePermission "${user.dir}/app/resources/Tester.properties", "read";
+  //permission java.io.FilePermission "${user.dir}/app/submissions/-", "read";
+  //permission java.io.FilePermission "${user.dir}/app/solutions/-", "read";
+  permission java.lang.RuntimePermission "accessDeclaredMembers";
+  permission java.io.FilePermission "/dev/random", "read";
+  permission java.io.FilePermission "/dev/urandom", "read";
+};
+

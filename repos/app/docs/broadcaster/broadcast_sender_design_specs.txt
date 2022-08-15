@@ -1,0 +1,36 @@
+The purpose of the Broadcast Sender component is to provide the ability to deliver objects from one computer
+to another.
+
+There will be four major subcomponents: MIT Connector, MIT Sender, Exodus Receiver, Exodus Connector.
+It's expected that messages will go in one direction: 
+-> MIT Connector -> MIT Sender -> Exodus Receiver -> Exodus Connector ->
+but if needed (e.g. requests for update or something similar) the support for it could be added.
+
+1. MIT Connector. It will reside in the same JVM as the MIT server/listener. At the startup, it will connect 
+(as a client socket)
+to the MIT Sender locally. It will have a public method sendObject(Object object). This method will put
+the object on the queue. The MIT Connector will have its own thread sending objects to the MIT Sender.
+It is expected that this component could be rebooted (with the server) during the event.
+
+2. MIT Sender. It will reside in its own JVM but in the same computer as the MIT server/listener. 
+It is expected that this component won't be rebooted.
+At the startup it will create a local server socket and will wait for the MIT Connector to connect to it.
+The component will be receiving messages from the MIT Connector and putting them on the queue.
+At the startup the component will create a server socket (for the connection with the Exodus server).
+The component will be sending all messages received from the MIT Connector to the Exodus Receiver.
+The MIT Sender will wrap all messages and will number them (messageID). The MIT Sender will expect that the Exodus
+Receiver upon receiving messages will send a confirmation (a small object with the messageID in it) back.
+We could need it in case of losing and then restoring the connection (after reconnecting) so that to resend
+needed objects. Both the MIT Sender and the Exodus Receiver will be sending each other heartbeat messages
+(each HEARTBEAT_PERIOD[say, =2 sec] seconds). There will be a special thread (both at the MIT Sender and
+the Exodus Receiver) checking heartbeat messages. If there's no heartbeat for, say, 3*HEARTBEAT_PERIOD seconds,
+then the connection will be closed and the Exodus Receiver will try to reconnect.
+
+3. Exodus Receiver. It will reside in its own JVM but in the same computer as the Exodus server/listener.
+It is expected that this component won't be rebooted. At the startup it will connect to the MIT Sender.
+At the startup it will create a local server socket and will wait for the Exodus Connector to connect to it.
+
+4. Exodus Connector. It will be started at some point during the Exodus server/listener startup. At the startup
+it will connect to the Exodus Receiver. The Exodus Receiver will be sending all messages it receives to the
+Exodus Connector. The Exodus Connector will put them in the queue. This component will have a public method
+Object receiveObject(). It will be blocking, i.e. it will block till there's a message in the queue.
