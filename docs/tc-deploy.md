@@ -130,7 +130,7 @@ Environment variables for JBoss & Listeners:
         - "25000:25000"
         - "25001:25001"
       environment:
-        - CONTROLLER_JAVA_OPTS="-Xms256m -Xmx1538m"
+        - CONTROLLER_JAVA_OPTS=-Xms256m -Xmx1538m
   ```
 
   
@@ -144,7 +144,7 @@ Environment variables for JBoss & Listeners:
         - arena-controller-dev
       command: ["/home/apps/start-services.sh", "processor"]
       environment:
-        - PROCESSOR_JAVA_OPTS="-Xms256m -Xmx1538m"
+        - PROCESSOR_JAVA_OPTS=-Xms256m -Xmx1538m
         - PROCESSOR_GROUP_ID=PR-LX
         - PROCESSOR_MAX_TASK_TIME=850000
   ```
@@ -165,11 +165,11 @@ Environment variables for JBoss & Listeners:
         - "5016:5016"
         - "5037:5037"
       environment:
-        - JBOSS_JAVA_OPTS="-Xms512m -Xmx2048m"
-        - MAIN_LISTENER_JAVA_OPTS="-Xms256m -Xmx1024m"
-        - ADMIN_LISTENER_JAVA_OPTS="-Xms256m -Xmx1024m"
-        - MPSQAS_LISTENER_JAVA_OPTS="-Xms256m -Xmx1024m"
-        - WEBSOCKET_LISTENER_JAVA_OPTS="-Xms256m -Xmx1024m"
+        - JBOSS_JAVA_OPTS=-Xms512m -Xmx2048m
+        - MAIN_LISTENER_JAVA_OPTS=-Xms256m -Xmx1024m
+        - ADMIN_LISTENER_JAVA_OPTS=-Xms256m -Xmx1024m
+        - MPSQAS_LISTENER_JAVA_OPTS=-Xms256m -Xmx1024m
+        - WEBSOCKET_LISTENER_JAVA_OPTS=-Xms256m -Xmx1024m
         - JBOSS_STARTUP_WAIT_TIME=60
         - MAIN_LISTENRER_STARTUP_WAIT_TIME=60
   ````
@@ -188,14 +188,14 @@ Assume you have 2 groups defined: `Group-One` and `Group-Two`, then you can star
     image: "arena-app:dev"
     command: ["/home/apps/start-services.sh", "processor"]
     environment:
-      - PROCESSOR_JAVA_OPTS="-Xms256m -Xmx1538m"
+      - PROCESSOR_JAVA_OPTS=-Xms256m -Xmx1538m
       - PROCESSOR_GROUP_ID=Group-One
       - PROCESSOR_MAX_TASK_TIME=850000
   arena-processor-group-two:
     image: "arena-app:dev"
     command: ["/home/apps/start-services.sh", "processor"]
     environment:
-      - PROCESSOR_JAVA_OPTS="-Xms256m -Xmx1538m"
+      - PROCESSOR_JAVA_OPTS=-Xms256m -Xmx1538m
       - PROCESSOR_GROUP_ID=Group-Two
       - PROCESSOR_MAX_TASK_TIME=850000
 ```
