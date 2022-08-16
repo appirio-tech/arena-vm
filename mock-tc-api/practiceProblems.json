@@ -1,0 +1,38 @@
+{
+    "pageIndex": 1,
+    "pageSize": 1,
+    "total": 1,
+    "data": [
+      {
+        "problemId": 10195,
+        "componentId": 2021,
+        "roomId": 299156,
+        "roundId": 13674,
+        "divisionId": 2,
+        "problemName": "TestProblem",
+        "problemType": "Single",
+        "difficulty": "Easy",
+        "points": 250,
+        "status": "New",
+        "myPoints": 0
+      }
+    ],
+    "serverInformation": {
+      "serverName": "TopCoder API",
+      "apiVersion": "0.0.1",
+      "requestDuration": 477,
+      "currentTime": 1659342240473
+    },
+    "requesterInformation": {
+      "id": "a98e36f2834072bdd1e0a9dfec0da3b8abb33a03-H5azhafyPWiG7SXk",
+      "remoteIP": "18.206.85.155",
+      "receivedParams": {
+        "pageIndex": "1",
+        "pageSize": "10",
+        "sortColumn": "problemName",
+        "sortOrder": "asc",
+        "apiVersion": "v2",
+        "action": "getPracticeProblems"
+      }
+    }
+  }

@@ -1,0 +1,13 @@
+<handle>,
+Your test for the problem <className> has completed.
+
+Overall score: <overallScore>
+
+Standings
+http://www.topcoder.com/longcontest/?module=ViewStandings&rd=<roundId>
+
+View This Solution
+http://www.topcoder.com/longcontest/?module=ViewProblemSolution&pm=<problemId>&rd=<roundId>&cr=<coderId>&subnum=<submissionNumber>
+
+Submission History
+http://www.topcoder.com/longcontest/?module=ViewSubmissionHistory&cr=<coderId>&rd=<roundId>&compid=<componentId>

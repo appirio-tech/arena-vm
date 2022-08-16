@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main"/>
+	<classpathentry kind="src" path="src/testcases"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="var" path="EXTERNAL_ARTIFACTS/junit-3.8.2.jar"/>
+	<classpathentry kind="con" path="org.apache.ivyde.eclipse.cpcontainer.IVYDE_CONTAINER/?project=http-tunnel-client&amp;ivyXmlPath=ivy.xml&amp;confs=*"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

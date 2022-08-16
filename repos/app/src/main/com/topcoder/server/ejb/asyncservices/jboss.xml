@@ -1,0 +1,14 @@
+<jboss>   
+	<enterprise-beans>   
+		<message-driven>   
+			<ejb-name>AsyncServiceMDB</ejb-name>   
+			<configuration-name>Standard Message Driven Bean</configuration-name>
+			<destination-jndi-name>queue/asyncServiceRequests</destination-jndi-name>
+			<resource-ref>
+            	<res-ref-name>jms/QueueConnectionFactory</res-ref-name>
+	    	    <res-type>javax.jms.QueueConnectionFactory</res-type>
+    	        <jndi-name>QueueConnectionFactory</jndi-name>
+			</resource-ref>
+      </message-driven>   
+   </enterprise-beans>        
+</jboss> 

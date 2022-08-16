@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.4.2_01" class="java.beans.XMLDecoder"> 
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.ConnectionEvent">
+   <!--<void property="hostName"><string>172.16.1.69</string></void>-->
+   <void property="hostName"><string>localhost</string></void>
+   <void property="portNo"><int>5006</int></void>
+ </object>
+ <!--<object class="com.topcoder.client.spectatorApp.announcer.events.ConnectionEvent">
+   <void property="hostName"><string>172.16.1.24</string></void>
+   <void property="portNo"><int>5006</int></void>
+ </object>-->
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.ShowInitialEvent">
+   <void property="title"><string>Show Initial Flash Screen</string></void>
+ </object>
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.ShowDesignEvent">
+   <void property="title"><string>Show Design Screen</string></void>
+   <void property="computerNames">
+     <array class="java.lang.String" length="12">
+       <void index="0">
+         <string>1</string>
+       </void>
+       <void index="1">
+         <string>2</string>
+       </void>
+       <void index="2">
+         <string>3</string>
+       </void>
+       <void index="3">
+         <string>4</string>
+       </void>
+       <void index="4">
+         <string>5</string>
+       </void>
+       <void index="5">
+         <string>6</string>
+       </void>
+       <void index="6">
+         <string>7</string>
+       </void>
+       <void index="7">
+         <string>8</string>
+       </void>
+       <void index="8">
+         <string>9</string>
+       </void>
+       <void index="9">
+         <string>10</string>
+       </void>
+       <void index="10">
+         <string>11</string>
+       </void>
+       <void index="11">
+         <string>12</string>
+       </void>
+     </array>
+   </void>
+   <void property="path"><string>C:\TopCoder\Work\TestImages</string></void>
+   <void property="time"><string>6:00 PM</string></void>
+   <void property="handles">
+     <array class="java.lang.String" length="12">
+       <void index="0">
+         <string>1</string>
+       </void>
+       <void index="1">
+         <string>2</string>
+       </void>
+       <void index="2">
+         <string>3</string>
+       </void>
+       <void index="3">
+         <string>4</string>
+       </void>
+       <void index="4">
+         <string>5</string>
+       </void>
+       <void index="5">
+         <string>6</string>
+       </void>
+       <void index="6">
+         <string>7</string>
+       </void>
+       <void index="7">
+         <string>8</string>
+       </void>
+       <void index="8">
+         <string>9</string>
+       </void>
+       <void index="9">
+         <string>10</string>
+       </void>
+       <void index="10">
+         <string>11</string>
+       </void>
+       <void index="11">
+         <string>12</string>
+       </void>
+     </array>
+   </void>  
+ </object>
+ 
+ <object class="com.topcoder.client.spectatorApp.announcer.events.ShowScreenEvent">
+   <void property="title"><string>Show Design Screen 0-1</string></void>
+   <void property="screens">
+     <array class="int" length="2">
+       <void index="0">
+         <int>0</int>
+       </void>
+       <void index="1">
+         <int>1</int>
+       </void>
+     </array>
+   </void>
+ </object>
+ 
+ <object class="com.topcoder.client.spectatorApp.announcer.events.ShowScreenEvent">
+   <void property="title"><string>Show Design Screen 2-3</string></void>
+   <void property="screens">
+     <array class="int" length="2">
+       <void index="0">
+         <int>2</int>
+       </void>
+       <void index="1">
+         <int>3</int>
+       </void>
+     </array>
+   </void>
+ </object>
+ 
+ <object class="com.topcoder.client.spectatorApp.announcer.events.ShowScreenEvent">
+   <void property="title"><string>Show Design Screen 4-5</string></void>
+   <void property="screens">
+     <array class="int" length="2">
+       <void index="0">
+         <int>4</int>
+       </void>
+       <void index="1">
+         <int>5</int>
+       </void>
+     </array>
+   </void>
+ </object>
+ 
+ <object class="com.topcoder.client.spectatorApp.announcer.events.ShowScreenEvent">
+   <void property="title"><string>Show Design Screen 6-7</string></void>
+   <void property="screens">
+     <array class="int" length="2">
+       <void index="0">
+         <int>6</int>
+       </void>
+       <void index="1">
+         <int>7</int>
+       </void>
+     </array>
+   </void>
+ </object>
+ 
+ <object class="com.topcoder.client.spectatorApp.announcer.events.ShowScreenEvent">
+   <void property="title"><string>Show Design Screen 8-9</string></void>
+   <void property="screens">
+     <array class="int" length="2">
+       <void index="0">
+         <int>8</int>
+       </void>
+       <void index="1">
+         <int>9</int>
+       </void>
+     </array>
+   </void>
+ </object>
+ 
+ <object class="com.topcoder.client.spectatorApp.announcer.events.ShowScreenEvent">
+   <void property="title"><string>Show Design Screen 10-11</string></void>
+   <void property="screens">
+     <array class="int" length="2">
+       <void index="0">
+         <int>10</int>
+       </void>
+       <void index="1">
+         <int>11</int>
+       </void>
+     </array>
+   </void>
+ </object>
+</java> 

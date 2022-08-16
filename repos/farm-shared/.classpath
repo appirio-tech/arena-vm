@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main"/>
+	<classpathentry kind="src" path="src/test"/>
+	<classpathentry kind="var" path="EXTERNAL_ARTIFACTS/commons-logging-1.1.3.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/client-socket"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/compeng-common"/>
+	<classpathentry kind="var" path="EXTERNAL_ARTIFACTS/log4j-1.2.17.jar"/>
+	<classpathentry kind="var" path="EXTERNAL_ARTIFACTS/xstream-1.2.2.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/custom-serialization"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/concurrent"/>
+	<classpathentry kind="var" path="EXTERNAL_ARTIFACTS/basic_type_serialization-1.0.1.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

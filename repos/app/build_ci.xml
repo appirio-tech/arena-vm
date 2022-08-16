@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="classes" basedir="." default="publish-workspace">
+    <import file="build.xml"/>
+
+    <target name="update-farm-deployer-in-linux" if="isLinux">
+        <mkdir dir="${deployer.dir}" />
+        <delete>
+            <fileset dir="${deployer.dir}" includes="deployment/controller/"/>
+            <fileset dir="${deployer.dir}" includes="deployment/processor/"/>
+            <fileset dir="${deployer.dir}" includes="deployment/processor-64bit/"/>
+            <fileset dir="${deployer.dir}" includes="deployment/processor-windows-def/"/>
+            <fileset dir="${deployer.dir}" includes="deployment/processor-windows-def-64bit/"/>
+        </delete>
+
+        <copy todir="${deployer.dir}" overwrite="true">
+            <fileset dir="${tmp.deployer.dist.dir}" includes="**"/>
+        </copy>
+        <exec command="chmod +x ${deployer.dir}/signall.sh"/>
+        <exec command="chmod +x ${deployer.dir}/signfile.sh"/>
+        <exec command="${deployer.dir}/signall.sh jars"/>
+        <delete>
+            <fileset dir="${deployer.dir}" includes="jars/farm-deployment-*.jar"/>
+        </delete>
+
+        <!-- We need to clean processor and controller folders. There is no easy way to force an update without changing version numbers.
+           Controller and processor will need a restart in order to get updated.
+        -->
+        <exec command="rm -rf ${controller.dir}/deploy ${controller.dir}/launcher/cache"/>
+        <exec command="rm -rf ${processor.dir}/deploy ${processor.dir}/launcher/cache"/>
+        <echo>Restarting controller and processor in order to force jars refreshing</echo>
+        <exec command="bash ${controller.dir}/launcher/restart.sh" dir="${controller.dir}/launcher" />
+    </target>
+
+    <target name="setup-processor" description="setup the farm processor">
+        <copy todir="${processor.dir}">
+            <fileset dir="${setup.dir}/processor" includes="**/*" />
+        </copy>
+        <chmod dir="${processor.dir}/launcher" perm="ugo+rx" includes="**/*.sh"/>
+    </target>
+
+</project>

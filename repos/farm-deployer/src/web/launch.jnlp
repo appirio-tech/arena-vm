@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<%@ page import="com.topcoder.farm.deployer.web.DeploymentHelper" %>
+<%
+	response.setContentType("application/x-java-jnlp-file");
+	String typeApp = request.getParameter("type");
+	String idApp = request.getParameter("id");
+	String osType = request.getParameter("os_type");
+    if(osType==null||osType.trim().length()==0)
+        osType="linux";
+	String osVersion = request.getParameter("os_version");
+    if(osVersion==null||osVersion.trim().length()==0)
+        osVersion="32bit";
+	boolean isTemplate = "true".equals(request.getParameter("template")); 
+	String fullContext = "http://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath();
+	boolean versionSupported = request.getParameter("versioned") != null;
+%>
+
+
+<jnlp  spec="1.0+"  codebase="<%=fullContext%>" href="launch.jnlp?type=<%=typeApp%>&amp;id=<%=idApp%>&amp;template=<%=isTemplate%>&amp;os_type=<%=osType%>&amp;os_version=<%=osVersion%>">
+  <information>
+    <title>Farm application Launcher</title>
+    <vendor>TopCoder</vendor>
+    <homepage href="help.html"/>
+    <description>Farm application Launcher</description>
+  </information>
+  <security>
+      <all-permissions/>
+  </security>
+  <resources>
+    <j2se version="1.5"/>
+    
+    <%
+	    String resourceString = null;
+	    try {
+		    resourceString = DeploymentHelper.getResourcesXML(typeApp,idApp,osType,osVersion,versionSupported);
+		} catch (Exception e) {
+			throw new ServletException("Error generating resources.", e);
+		}
+	%>
+	<%=resourceString%>
+    
+    <%
+	    String propertiesString = null;
+	    try {
+		    propertiesString = DeploymentHelper.getPropertiesXML(typeApp,idApp,osType,osVersion);
+		} catch (Exception e) {
+			throw new ServletException("Error generating properties.", e);
+		}
+	%>
+	
+	<%=propertiesString%>
+	
+	<property name="configurationProvider.class" value="com.topcoder.farm.<%=typeApp%>.configuration.XMLConfigurationProvider"/>
+	<property name="configuration.xml.url" value="<%=fullContext%>/config?type=<%=typeApp%>&amp;id=<%=idApp%>&amp;os_type=<%=osType%>&amp;os_version=<%=osVersion%>"/>
+	<property name="com.topcoder.farm.type" value="<%=typeApp%>"/>
+	<%
+	if (isTemplate) {
+		int randomId = new java.security.SecureRandom().nextInt(Integer.MAX_VALUE);
+		idApp = "@" + idApp + "-" + randomId;
+ 	}
+     %>
+	<property name="com.topcoder.farm.id" value="<%=idApp%>"/>
+  </resources>
+  
+  <application-desc main-class="com.topcoder.farm.<%=typeApp%>.<%=typeApp.substring(0,1).toUpperCase()+typeApp.substring(1)%>Main">
+	  <argument><%=idApp%></argument> 
+  </application-desc>
+</jnlp> 

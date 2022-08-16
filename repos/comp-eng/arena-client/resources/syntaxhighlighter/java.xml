@@ -1,0 +1,95 @@
+<language name="Java">
+    <styles>
+        <style name="KEYWORD_STYLE">
+            <color>
+                <red>0</red>
+                <green>0</green>
+                <blue>255</blue>
+            </color>
+            <bgcolor>
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
+            </bgcolor>
+            <font>
+                <family>Courier New</family>
+                <style>BOLD</style>
+                <size>14</size>
+            </font>
+        </style>
+        <style name="BLOCK_STYLE">
+            <color>
+                <red>0</red>
+                <green>128</green>
+                <blue>0</blue>
+            </color>
+            <bgcolor>
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
+            </bgcolor>
+            <font>
+                <family>Courier New</family>
+                <size>14</size>
+            </font>
+        </style>
+        <style name="LITERAL_STYLE">
+            <color>
+                <red>128</red>
+                <green>0</green>
+                <blue>128</blue>
+            </color>
+            <bgcolor>
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
+            </bgcolor>
+            <font>
+                <family>Courier New</family>
+                <size>14</size>
+            </font>
+        </style>
+        <style name="DEFAULT_STYLE">
+            <color>
+                <red>200</red>
+                <green>95</green>
+                <blue>22</blue>
+            </color>
+            <bgcolor>
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
+            </bgcolor>
+            <font>
+                <family>Courier New</family>
+                <size>14</size>
+            </font>
+        </style>
+    </styles>
+    <categories>
+
+        <category name="blockComment" precedence="0" style="BLOCK_STYLE">
+            <blockMatchRule>
+                <startDelimiter>/*</startDelimiter>
+                <endDelimiter>*/</endDelimiter>
+            </blockMatchRule>
+            <patternMatchRule>
+                <pattern>//[^\n]*</pattern>
+            </patternMatchRule>
+        </category>
+        <category name="literal" precedence="0" style="LITERAL_STYLE">
+            <patternMatchRule>
+                <pattern>"([^"\\\n]|\\[^\n])*("|\n)?|'([^'\\\n]|\\[^\n])*('|\n)?</pattern>
+            </patternMatchRule>
+        </category>
+        <category name="keywords" precedence="0" style="KEYWORD_STYLE">
+            <wordMatchRule> <wordlist>abstract,boolean,break,byte,case,catch,char,class,const,continue,default,do,double,else,extends,false,final,finally,float,for,goto,if,implements,import,instanceof,int,interface,long,native,new,null,package,private,protected,public,return,short,static,strictfp,super,switch,synchronized,String,this,throw,throws,transient,true,try,void,volatile,while</wordlist>
+            </wordMatchRule>
+        </category>
+        <category name="default" precedence="2" style="DEFAULT_STYLE">
+            <patternMatchRule>
+                <pattern>.+</pattern>
+            </patternMatchRule>
+        </category>
+    </categories>
+</language>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.4.2_01" class="java.beans.XMLDecoder"> 
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.ConnectionEvent">
+   <!--<void property="hostName"><string>172.16.1.69</string></void>-->
+   <void property="hostName"><string>localhost</string></void>
+   <void property="portNo"><int>5006</int></void>
+ </object>
+ <!--<object class="com.topcoder.client.spectatorApp.announcer.events.ConnectionEvent">
+   <void property="hostName"><string>172.16.1.24</string></void>
+   <void property="portNo"><int>5006</int></void>
+ </object>-->
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.ShowInitialEvent">
+   <void property="title"><string>Show Initial Flash Screen</string></void>
+ </object>
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.DefineContestEvent"> 
+  <void property="title"><string>Define Contest - 2008 TCO </string></void> 
+  <void property="contestID"><int>10369</int></void>
+  <void property="contestName"><string>TopCoder Open 2008</string></void>
+  <void property="logoLargeFileName"><string>\TopCoder\Work\LocalSource\app\images\com\topcoder\client\spectatorApp\tco_logo_black.gif</string></void>
+  <void property="logoSmallFileName"><string></string></void>
+  <void property="sponsorFileName"><string></string></void>
+ </object> 
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.DefineRoundEvent"> 
+  <void property="title"><string>Define Round - 2008 TCO</string></void> 
+  <void property="contestID"><int>10369</int></void>
+  <void property="roundID"><int>11130</int></void>
+  <void property="roundName"><string>Marathon Final Round</string></void> 
+  <void property="roundType"><int>1</int></void> 
+ </object> 
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.ShowRoundEvent">
+  <void property="title"><string>Show Final Round</string></void> 
+  <void property="roundID"><int>11130</int></void>
+ </object>
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.ShowPlacementEvent">
+  <void property="title"><string>Show Placements 1-6</string></void> 
+  <void property="placements">
+    <array class="int" length="6">
+      <void index="0">
+        <int>1</int>
+      </void>
+      <void index="1">
+        <int>2</int>
+      </void>
+      <void index="2">
+        <int>3</int>
+      </void>
+      <void index="3">
+        <int>4</int>
+      </void>
+      <void index="4">
+        <int>5</int>
+      </void>
+      <void index="5">
+        <int>6</int>
+      </void>
+    </array>
+  </void>
+ </object>
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.ShowPlacementEvent">
+  <void property="title"><string>Show Placements 7-12</string></void> 
+  <void property="placements">
+    <array class="int" length="6">
+      <void index="0">
+        <int>7</int>
+      </void>
+      <void index="1">
+        <int>8</int>
+      </void>
+      <void index="2">
+        <int>9</int>
+      </void>
+      <void index="3">
+        <int>10</int>
+      </void>
+      <void index="4">
+        <int>11</int>
+      </void>
+      <void index="5">
+        <int>12</int>
+      </void>
+    </array>
+  </void>
+ </object>
+
+</java> 

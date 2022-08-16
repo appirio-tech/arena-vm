@@ -1,0 +1,5 @@
+<ivy-module version="2.0">
+    <info organisation="com.topcoder.internal" module="encoder"/>
+    <dependencies>
+    </dependencies>
+</ivy-module>
