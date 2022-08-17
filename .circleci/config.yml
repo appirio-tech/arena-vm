@@ -1,0 +1,102 @@
+version: 2
+defaults: &defaults
+    docker:
+      - image: cimg/python:3.10.2
+
+install_deploy_dependency: &install_deploy_dependency
+    name: Installation of build and deployment dependencies.
+    command: |
+      pip3 install awscli --upgrade    
+  
+install_deploysuite: &install_deploysuite
+    name: Installation of install_deploysuite.
+    command: |
+      git clone --branch v1.4.10 https://github.com/topcoder-platform/tc-deploy-scripts ../buildscript
+      cp ./../buildscript/master_deploy.sh .
+      cp ./../buildscript/buildenv.sh .
+      cp ./../buildscript/awsconfiguration.sh .
+      cp ./../buildscript/buildproperties.sh .      
+
+build_steps: &build_steps
+    # Initialization.
+    - run: *install_deploy_dependency
+    - setup_remote_docker
+    - checkout
+    - run: *install_deploysuite
+    - run:
+        name: "AWS Configuration"
+        command: |
+          ./awsconfiguration.sh $BUILD_ENV
+          source awsenvconf               
+    - run:
+        name: "Fetching properties"
+        command: |
+          source awsenvconf
+          ./buildproperties.sh -e $BUILD_ENV -k arena-app
+          ./update-buildenv-files.sh
+
+    - run: 
+       name: Build image
+       command: |  
+         echo "Building Image" 
+         ./buildimage.sh ${APPNAME}
+    - deploy:
+        name: Running MasterScript.
+        command: |
+          ./awsconfiguration.sh $DEPLOY_ENV
+          source awsenvconf
+          ./buildenv.sh -e $DEPLOY_ENV -b ${LOGICAL_ENV}-${APPNAME}-deployvar
+          source buildenvvar
+          ./master_deploy.sh -d ECS -e $DEPLOY_ENV -t latest -s ${LOGICAL_ENV}-${APPNAME}-appvar -i ${APPNAME}
+
+          echo "======= Running Masterscript - deploy arean processor ==========="
+          ./buildenv.sh -e $DEPLOY_ENV -b ${LOGICAL_ENV}-${APPPROCESSOR}-deployvar
+          source buildenvvar
+          ./master_deploy.sh -d ECS -e $DEPLOY_ENV -t latest -s ${LOGICAL_ENV}-${APPPROCESSOR}-appvar -i ${APPNAME}
+
+          echo "======= Running Masterscript - deploy arena controller ==========="
+          ./buildenv.sh -e $DEPLOY_ENV -b ${LOGICAL_ENV}-${APPCONTROLLER}-deployvar
+          source buildenvvar
+          ./master_deploy.sh -d ECS -e $DEPLOY_ENV -t latest -s ${LOGICAL_ENV}-${APPCONTROLLER}-appvar -i ${APPNAME}         
+
+jobs:
+  # Build & Deploy against development backend
+  "build-dev":
+    <<: *defaults
+    environment:
+      BUILD_ENV: "DEV"
+      LOGICAL_ENV: "dev"
+      COMPONENT_BRANCH: "dev"
+      DEPLOY_ENV: "DEV"
+      APPNAME: "tc-arena-app"
+      APPPROCESSOR: "tc-arena-app-processor"
+      APPCONTROLLER: "tc-arena-app-controller"      
+    steps: *build_steps
+
+  "build-prod":
+    <<: *defaults
+    environment:
+      BUILD_ENV: "PROD"
+      LOGICAL_ENV: "prod" 
+      DEPLOY_ENV: "PROD"      
+      COMPONENT_BRANCH: "master"      
+      APPNAME: "tc-arena-app"
+      APPPROCESSOR: "tc-arena-app-processor"  
+      APPCONTROLLER: "tc-arena-app-controller"                             
+    steps: *build_steps   
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build-dev:
+          context : org-global      
+          filters:
+            branches:
+              only: [ dev-master ]   
+
+      - build-prod:
+          context : org-global      
+          filters:
+            branches:
+              only: [ master-maven ]    
