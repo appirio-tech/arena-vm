@@ -52,9 +52,9 @@ build_steps: &build_steps
           # ./master_deploy.sh -d ECS -e $DEPLOY_ENV -t latest -s ${LOGICAL_ENV}-${APPNAME}-appvar -i ${APPNAME}
 
           echo "======= Running Masterscript - deploy arean processor ==========="
-          ./buildenv.sh -e $DEPLOY_ENV -b ${LOGICAL_ENV}-${APPPROCESSOR}-deployvar
-          source buildenvvar
-          ./master_deploy.sh -d ECS -e $DEPLOY_ENV -t latest -s ${LOGICAL_ENV}-${APPPROCESSOR}-appvar -i ${APPNAME}
+          # ./buildenv.sh -e $DEPLOY_ENV -b ${LOGICAL_ENV}-${APPPROCESSOR}-deployvar
+          # source buildenvvar
+          # ./master_deploy.sh -d ECS -e $DEPLOY_ENV -t latest -s ${LOGICAL_ENV}-${APPPROCESSOR}-appvar -i ${APPNAME}
 
           echo "======= Running Masterscript - deploy arena controller ==========="
           ./buildenv.sh -e $DEPLOY_ENV -b ${LOGICAL_ENV}-${APPCONTROLLER}-deployvar
