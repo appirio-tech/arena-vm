@@ -1,5 +1,5 @@
 #!/bin/bash
-mv -rf *.properties.$LOGICAL_ENV repos/app/
+mv -f token.properties.$LOGICAL_ENV repos/app/
 
 mv -f TC.cloud.ldap.keystore repos/app/scripts/
 mv -f LDAP.properties repos/app/resources/
