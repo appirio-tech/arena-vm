@@ -8,9 +8,14 @@ if [ "$JAVA_VER" -ge 55 ] ; then
 fi
 
 CMD=usage
-if [[ $1 != "" ]] ; then
-	CMD=$1
-	shift
+if [ -z $APPLICATIONTYPE ];
+then
+	if [[ $1 != "" ]] ; then
+		CMD=$1
+		shift
+	fi
+else
+	CMD=$APPLICATIONTYPE
 fi
 
 if [ "$CMD" = "app" ] ; then
