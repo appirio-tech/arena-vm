@@ -5,6 +5,47 @@ This is about how to deploy in docker in Topcoder environments.
 ### Prerequisites
 
   - Docker
+  - Cygwin and .NET Framework for Windows processor
+
+### Setup Mysql
+
+Run following sql to add Python3 lanuage to linux processors:
+
+```sql
+update FARM_PROC_PROPERTIES_MAP as p, 
+(select PRO_ID from FARM_PROC_PROPERTIES_MAP where PROPERTY_VALUE = '<string>linux</string>') as linux_id
+set p.PROPERTY_VALUE = '<set><int>1</int><int>3</int><int>6</int><int>8</int></set>' 
+where p.PROPERTY_NAME LIKE '%languages'
+and p.PRO_ID = linux_id.PRO_ID;
+```
+
+### Setup Informix
+
+Run following sql to add Python3 language:
+
+```sql
+INSERT INTO informixoltp:informix.language (language_id, language_name, status, language_desc) VALUES(8, 'Python3', 'Y', '');
+
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'integer', 1);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'float', 4);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'string (char)', 6);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'integer (byte)', 7);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'integer (short)', 13);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'long integer', 14);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'float', 15);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'string', 18);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'bool', 19);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'tuple (integer)', 20);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'tuple (float)', 21);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'tuple (string)', 22);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'tuple (long integer)', 24);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'tuple (tuple (integer))', 26);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'tuple (tuple (long integer))', 27);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'tuple (tuple (string))', 23);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'Matrix2D', 8);
+```
+
+
 
 ### Build Docker Image
 
@@ -103,6 +144,13 @@ Environment variables for Farm Processor:
 | PROCESSOR_JAVA_OPTS     | The opts to start processor Java process | -Xms1024m -Xmx2048m |
 | PROCESSOR_GROUP_ID      | The group name the processor belongs to  | PR-LX               |
 | PROCESSOR_MAX_TASK_TIME | Max task execution time in milliseconds  | 850000              |
+
+And for Windows processor to handle C#/VB languages, there are addition env variables supported:
+
+| Environment Variable | Description                 | Default Value                                                |
+| -------------------- | --------------------------- | ------------------------------------------------------------ |
+| ILDASM               | The path to ildasm.exe      | C:\\Program Files\\Microsoft SDKs\\Windows\\v7.1\\Bin\\x64\\ildasm.exe |
+| REF_DLLS             | The assembly reference dlls | System.Numerics.dll                                          |
 
 Environment variables for JBoss & Listeners:
 
@@ -208,4 +256,44 @@ E.g. start 5 processors for `Group-One`, and start 10 processors for `Group-Two`
 docker-compose up -d --scale arena-processor-group-one=5
 docker-compose up -d --scale arena-processor-group-two=10
 ```
+
+
+
+### Start Farm Processor on Windows
+
+- Install Cygwin on Windows: https://www.cygwin.com/install.html. Assuming it's installed on `C:\cygwin64`.
+
+- Install .NET Framework on Windows: https://dotnet.microsoft.com/en-us/download/dotnet-framework/thank-you/net48-developer-pack-offline-installer.
+
+- Find the folder path of `csc` and `vbc` commands and add it to `Path` environment variable.
+
+  Find the path of `ildasm.exe` and set it to `ILDASM` environment variable.
+
+  For example, after install .NET Framwork 4.8 on Windows 10:
+
+  ```
+  set Path=C:\Windows\Microsoft.NET\Framework64\v4.0.30319;%Path%
+  set ILDASM=C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\ildasm.exe
+  ```
+
+- Download the `processor-windows.tgz` from docker container:
+
+  ```bash
+  # Create a temp container without start it
+  docker create --name temp-arena-container arena-app:dev
+  # Copy processor-windows.tgz from temp container
+  docker cp temp-arena-container:/home/apps/dev/app/dist/processor-windows.tgz .
+  # Remove the temp container
+  docker rm temp-arena-container
+  ```
+
+  Then copy `processor-windows.tgz` to Windows and extract it to`C:` drive.
+
+  The extracted path should be `C:\processor\deploy`.
+
+- Start Windows processor:
+
+  ```
+  C:\cygwin64\bin\bash.exe --login -c "cd /cygdrive/c/processor/deploy && ./processor.sh"
+  ```
 

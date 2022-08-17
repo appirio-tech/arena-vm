@@ -51,7 +51,7 @@ public class ProcessorInitializerFinalizer {
                 new RemoteProxyControllerProvider(
                         config, runner,
                         ProcessorControllerProxy.class.getName(), 
-                        5, 
+                        Integer.MAX_VALUE, 
                         config.getRegistrationTimeout(), 
                         config.getAckTimeout()));
     }

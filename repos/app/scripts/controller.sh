@@ -16,3 +16,5 @@ nohup java -cp ./conf:./lib/*:$CP $CONTROLLER_JAVA_OPTS \
   -DconfigurationProvider.class=com.topcoder.farm.controller.configuration.XMLConfigurationProvider \
   -Dcom.topcoder.farm.controller.queue.comparator_class=com.topcoder.farm.controller.queue.DefaultQueueComparator \
   com.topcoder.farm.controller.ControllerMain $CONTROLLER_NODE_ID &
+
+echo "$!" > controller.pid
