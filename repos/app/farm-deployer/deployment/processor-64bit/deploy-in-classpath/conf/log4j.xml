@@ -37,8 +37,8 @@
       
    	<root> 
     	<level value ="warn" /> 
-    	<!--appender-ref ref="console" /--> 
-    	<appender-ref ref="file" /> 
+    	<appender-ref ref="console" /> 
+		<!--appender-ref ref="file" /-->
     	<!--appender-ref ref="socket" /--> 
    	</root>
 </log4j:configuration>

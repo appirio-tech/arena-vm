@@ -13,7 +13,6 @@ BASE=..
 MAIN=com.topcoder.server.AdminListener.AdminListenerMain
 PORT=6000
 CMD=usage
-LOGFILE=adminServer-`date +%Y-%m-%d-%H-%M-%S`.log
 
 LIBS=$BASE/lib/jars
 CP=$CP:$BASE/resources
@@ -56,7 +55,7 @@ fi
 
 if [[ $1 != "" ]] ; then
 	PORT=$1
-	PID_FILE=adminListener$PORT.pid
+	PID_FILE=AdminListener.$PORT.pid
 	shift
 fi
 
@@ -81,8 +80,8 @@ LOGGING_PROPERTY=com.topcoder.logging.id
 if [ "$CMD" = "run" ] ; then
     $JAVACMD -cp $CP $ADMIN_LISTENER_JAVA_OPTS $CUSTOM_SECURITY -D$LOGGING_PROPERTY=$LOGGING_ID $MAIN $PORT $CONTEST $@
 elif [ "$CMD" = "start" ] ; then
-    echo "nohup $JAVACMD -cp $CP $ADMIN_LISTENER_JAVA_OPTS $CUSTOM_SECURITY -D$LOGGING_PROPERTY=$LOGGING_ID $MAIN $PORT $CONTEST $@ >$LOGFILE 2>&1 &"
-    nohup $JAVACMD -cp $CP $ADMIN_LISTENER_JAVA_OPTS $CUSTOM_SECURITY -D$LOGGING_PROPERTY=$LOGGING_ID $MAIN $PORT $CONTEST $@ >$LOGFILE 2>&1 &
+    echo "nohup $JAVACMD -cp $CP $ADMIN_LISTENER_JAVA_OPTS $CUSTOM_SECURITY -D$LOGGING_PROPERTY=$LOGGING_ID $MAIN $PORT $CONTEST $@ 2>&1 &"
+    nohup $JAVACMD -cp $CP $ADMIN_LISTENER_JAVA_OPTS $CUSTOM_SECURITY -D$LOGGING_PROPERTY=$LOGGING_ID $MAIN $PORT $CONTEST $@ 2>&1 &
     echo $! > $PID_FILE
 	echo "start, port=$PORT, contest=$CONTEST, ADMIN_LISTENER_JAVA_OPTS=$ADMIN_LISTENER_JAVA_OPTS"
 elif [ "$CMD" = "stop" ] ; then
