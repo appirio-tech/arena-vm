@@ -51,7 +51,7 @@ build_steps: &build_steps
           source buildenvvar
           ./master_deploy.sh -d ECS -e $DEPLOY_ENV -t latest -s ${LOGICAL_ENV}-${APPNAME}-appvar -i ${APPNAME}
 
-          echo "======= Running Masterscript - deploy arean processor ==========="
+          echo "======= Running Masterscript - deploy arena processor ==========="
           ./buildenv.sh -e $DEPLOY_ENV -b ${LOGICAL_ENV}-${APPPROCESSOR}-deployvar
           source buildenvvar
           ./master_deploy.sh -d ECS -e $DEPLOY_ENV -t latest -s ${LOGICAL_ENV}-${APPPROCESSOR}-appvar -i ${APPNAME}
