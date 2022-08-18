@@ -4,9 +4,8 @@ BASE=../
 MAIN=com.topcoder.server.mpsqas.listener.MPSQASListener
 PORT=$2
 PROCESSOR=DefaultProcessor
-LOGFILE=mpsqasserver-`date +%Y-%m-%d-%H-%M-%S`.log
 CMD=usage
-PID_FILE=mpsqasListener$PORT.pid
+PID_FILE=MPSQASListener.$PORT.pid
 
 LIBS=$BASE/lib/jars
 CP=$CP:$BASE/resources
@@ -43,6 +42,8 @@ CP=$CP:$LIBS/@filename.basic_type_serialization@
 CP=$CP:$CLASSPATH
 
 
+LOGGING_ID=MPSQASListener.$PORT
+LOGGING_PROPERTY=com.topcoder.logging.id
 
 if [[ $1 != "" ]] ; then
     CMD=$1
@@ -56,8 +57,8 @@ fi
 if [ "$CMD" = "run" ] ; then
   $JAVACMD -cp $CP $MPSQAS_LISTENER_JAVA_OPTS  $MAIN $PORT
 elif [ "$CMD" = "start" ] ; then
-  echo "nohup $JAVACMD -cp $CP $MPSQAS_LISTENER_JAVA_OPTS  $MAIN $PORT > ./$LOGFILE 2>&1 &"
-  nohup $JAVACMD -cp $CP $MPSQAS_LISTENER_JAVA_OPTS  $MAIN $PORT > ./$LOGFILE 2>&1 &
+  echo "nohup $JAVACMD -cp $CP $MPSQAS_LISTENER_JAVA_OPTS -D$LOGGING_PROPERTY=$LOGGING_ID $MAIN $PORT 2>&1 &"
+  nohup $JAVACMD -cp $CP $MPSQAS_LISTENER_JAVA_OPTS -D$LOGGING_PROPERTY=$LOGGING_ID $MAIN $PORT 2>&1 &
   echo $! > $PID_FILE
   echo "start, port=$PORT, MPSQAS_LISTENER_JAVA_OPTS=$MPSQAS_LISTENER_JAVA_OPTS"
 elif [ "$CMD" = "stop" ] ; then

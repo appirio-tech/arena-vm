@@ -142,10 +142,10 @@ INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value,
 Logs for `arena-app` container (`docker-compose exec arena-app bash`): 
 
 - JBOSS log: /home/apps/jboss-4.0.5.GA/server/default/log/server.log
-- MPSQAS Listener log: /home/apps/app/scripts/mpsqasserver-<time>.log
-- Admin Listener log: /home/apps/app/scripts/adminServer-<time>.log
-- Main Listener log: /home/apps/app/scripts/server-<time>.log
-- WebSocket Listener log: /home/apps/app/scripts/webSocketServer-<time>.log
+- Main Listener log: /home/apps/app/scripts/MainListener.5001.log
+- Admin Listener log: /home/apps/app/scripts/AdminListener.5003.log
+- MPSQAS Listener log: /home/apps/app/scripts/MPSQASListener.5037.log
+- WebSocket Listener log: /home/apps/app/scripts/WebSocketListener.5016.log
 - Sysout log: `docker-compose logs -f arena-app`
 
 Logs for `arena-controller` container (`docker-compose exec arena-controller bash`): 
