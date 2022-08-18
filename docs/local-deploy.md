@@ -5,6 +5,7 @@ This is to deploy in docker locally.
 ### Prerequisites
 
   - Docker
+  - Cygwin and .NET Framework for Windows processor
 
 ### Docker compose
 
@@ -25,6 +26,67 @@ docker-compose up -d
 # arena-controller        | Arena Farm Controller startup complete
 # arena-processor         | Arena Farm Processor startup complete
 docker-compose logs -f
+```
+
+
+
+### Start Farm Processor on Windows
+
+- Install Cygwin on Windows: https://www.cygwin.com/install.html. Assuming it's installed on `C:\cygwin64`.
+
+- Install .NET Framework on Windows: https://dotnet.microsoft.com/en-us/download/dotnet-framework/thank-you/net48-developer-pack-offline-installer.
+
+- Find the folder path of `csc` and `vbc` commands and add it to `Path` environment variable.
+
+  Find the path of `ildasm.exe` and set it to `ILDASM` environment variable.
+
+  For example, after install .NET Framwork 4.8 on Windows 10:
+
+  ```
+  set Path=C:\Windows\Microsoft.NET\Framework64\v4.0.30319;%Path%
+  set ILDASM=C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\ildasm.exe
+  ```
+
+- Download the `processor-windows.tgz` from docker container:
+
+  ```bash
+  docker cp arena-app:/home/apps/dev/app/dist/processor-windows.tgz .
+  ```
+
+  Then copy `processor-windows.tgz` to Windows and extract it to`C:` drive.
+
+  The extracted path should be `C:\processor\deploy`.
+
+- Start Windows processor:
+
+  ```
+  C:\cygwin64\bin\bash.exe --login -c "cd /cygdrive/c/processor/deploy && ./processor.sh"
+  ```
+
+
+
+### Setup Mysql
+
+Use your favorite db tool (for example [DBeaver](https://dbeaver.io/)) to connect to Mysql docker:
+
+JDBC url is: `jdbc:mysql://localhost:3306/farm`
+
+```properties
+Host=localhost
+Port=3306
+Database=farm
+Username=farm
+Password=farmpass
+```
+
+Then run following sql:
+
+```sql
+update FARM_PROC_PROPERTIES_MAP as p, 
+(select PRO_ID from FARM_PROC_PROPERTIES_MAP where PROPERTY_VALUE = '<string>linux</string>') as linux_id
+set p.PROPERTY_VALUE = '<set><int>1</int><int>3</int><int>6</int><int>8</int></set>' 
+where p.PROPERTY_NAME LIKE '%languages'
+and p.PRO_ID = linux_id.PRO_ID;
 ```
 
 
@@ -88,7 +150,7 @@ Logs for `arena-app` container (`docker-compose exec arena-app bash`):
 
 Logs for `arena-controller` container (`docker-compose exec arena-controller bash`): 
 
-- Processor log: /home/apps/controller/deploy/logs/controller-CT-MAIN.log
+- Controller log: /home/apps/controller/deploy/logs/controller-CT-MAIN.log
 - Sysout log: `docker-compose logs -f arena-controller`
 
 Logs for `arena-processor` container (`docker-compose exec arena-processor bash`): 
@@ -96,7 +158,9 @@ Logs for `arena-processor` container (`docker-compose exec arena-processor bash`
 - Processor log: /home/apps/processor/deploy/logs/processor-<group>.log
 - Sysout log: `docker-compose logs -f arena-processor`
 
+Logs for Windows processor:
 
+- C:\processor\deploy\logs\processor-<group>.log
 
 ### Verify Clients
 
