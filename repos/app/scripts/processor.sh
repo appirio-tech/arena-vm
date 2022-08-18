@@ -3,10 +3,6 @@ OS=`uname -o`
 
 CONFIG_URL=""
 
-ILDASM_OPT=""
-DOTNET_PLATFORM_OPT=""
-REF_DLLS_OPT=""
-
 if [ "$OS" == "Cygwin" ]
 then
     CP=".\conf;.\lib\*"
@@ -20,20 +16,21 @@ then
 
 	OSM=`uname -m`
 	if [ "$OSM" == "x86_64" ] ; then
-	    DOTNET_PLATFORM_OPT="-Dcom.topcoder.services.compiler.util.dotnet.DotNetCompilerExecutor.platform=x64"
+	    DOTNET_PLATFORM="x64"
+	else
+	    DOTNET_PLATFORM="x86"
 	fi
+	echo "DOTNET_PLATFORM=$DOTNET_PLATFORM"
 
 	if [[ -z "${ILDASM}" ]] ; then
 		ILDASM="C:\\Program Files\\Microsoft SDKs\\Windows\\v7.1\\Bin\\x64\\ildasm.exe"
 	fi
 	echo "ILDASM=$ILDASM"
-	ILDASM_OPT="-Dcom.topcoder.services.compiler.util.dotnet.DotNetSecurtyChecker.ildasm=$ILDASM"
 
 	if [[ -z "${REF_DLLS}" ]] ; then
 		REF_DLLS="System.Numerics.dll"
 	fi
 	echo "REF_DLLS=$REF_DLLS"
-	REF_DLLS_OPT="-Dcom.topcoder.services.compiler.util.dotnet.DotNetCompilerExecutor.refdll=$REF_DLLS"
 else
     CP="./conf:./lib/*"
 
@@ -43,6 +40,9 @@ else
 		echo "Use default linux group id: PR-LX"
 		PROCESSOR_GROUP_ID="PR-LX"
 	fi
+	ILDASM=""
+	REF_DLLS=""
+	DOTNET_PLATFORM=""
 fi
 
 if [[ -z "${PROCESSOR_MAX_TASK_TIME}" ]] ; then
@@ -58,7 +58,7 @@ echo "PROCESSOR_GROUP_ID=$PROCESSOR_GROUP_ID"
 echo "PROCESSOR_MAX_TASK_TIME=$PROCESSOR_MAX_TASK_TIME"
 echo "PROCESSOR_JAVA_OPTS=$PROCESSOR_JAVA_OPTS"
 
-nohup java -cp $CP $PROCESSOR_JAVA_OPTS $DOTNET_PLATFORM_OPT "$ILDASM_OPT" "$REF_DLLS_OPT" \
+nohup java -cp $CP $PROCESSOR_JAVA_OPTS \
   -Dcom.topcoder.farm.type=processor \
   -Dcom.topcoder.farm.id=$PROCESSOR_GROUP_ID \
   -Dcom.topcoder.commandline.io=socket \
@@ -71,6 +71,9 @@ nohup java -cp $CP $PROCESSOR_JAVA_OPTS $DOTNET_PLATFORM_OPT "$ILDASM_OPT" "$REF
   -Dcom.topcoder.services.compiler.invoke.CPPCodeCompiler.srmCCNoThreadingOptions="g++ -std=c++17 -W -Wall -Wno-sign-compare -O2" \
   -Dcom.topcoder.services.compiler.invoke.CPPCodeCompiler.mmCCNoThreadingOptions="g++ -std=c++17 -W -Wall -Wno-sign-compare -O2" \
   -Dcom.topcoder.farm.processor.ProcessorInvocationRunner.maxTaskTime=$PROCESSOR_MAX_TASK_TIME \
+  -Dcom.topcoder.services.compiler.util.dotnet.DotNetCompilerExecutor.platform=$DOTNET_PLATFORM \
+  -Dcom.topcoder.services.compiler.util.dotnet.DotNetCompilerExecutor.refdll="$REF_DLLS" \
+  -Dcom.topcoder.services.compiler.util.dotnet.DotNetSecurtyChecker.ildasm="$ILDASM" \
   com.topcoder.farm.processor.ProcessorMain $PROCESSOR_GROUP_ID &
 
 echo "$!" > processor.pid
