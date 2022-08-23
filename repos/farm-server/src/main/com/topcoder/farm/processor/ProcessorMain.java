@@ -25,6 +25,7 @@ import com.topcoder.farm.processor.configuration.ProcessorConfigurationProvider;
 import com.topcoder.farm.processor.configuration.ProcessorInitializerFinalizer;
 import com.topcoder.farm.processor.node.ProcessorNodeBuilder;
 import com.topcoder.farm.shared.commandline.CommandLineInterpreter;
+import com.topcoder.farm.shared.net.connection.remoting.RemotingException;
 
 /**
  * 
@@ -50,7 +51,13 @@ import com.topcoder.farm.shared.commandline.CommandLineInterpreter;
  */
 public class ProcessorMain {
 private static Log log  = LogFactory.getLog(ProcessorMain.class);
-    
+
+    /**
+     * Time in ms to wait before trying to start again
+     * after an attempt to get a connection failed
+     */
+    private static final int START_RETRY_INTERVAL = 10000;
+
     /**
      * The id of this processor group.
      * @since HandShake Change v1.0
@@ -87,7 +94,20 @@ private static Log log  = LogFactory.getLog(ProcessorMain.class);
      */
     public void run() {
         try {
-            start();
+        	while (true) {
+            	try {
+            		start();
+            		break;
+            	} catch (RemotingException e) {
+            		log.error("Remoting exception to controller, will retry after " + START_RETRY_INTERVAL, e);
+            		try {
+            	        ProcessorInitializerFinalizer.finalize(groupId);
+            		} catch (Exception ignore) {
+            			// ignore
+            		}
+            	    Thread.sleep(START_RETRY_INTERVAL);	
+            	}
+        	}
             try {
                 processorNode.waitForShutdown();
             } catch (InterruptedException e) {
