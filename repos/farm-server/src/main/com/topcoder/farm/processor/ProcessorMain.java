@@ -11,7 +11,6 @@ package com.topcoder.farm.processor;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.ConnectException;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
