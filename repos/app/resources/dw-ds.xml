@@ -12,10 +12,10 @@
 <datasources>
   <no-tx-datasource>
     <jndi-name>DW</jndi-name>
-    <connection-url>jdbc:informix-sqli://@database.server@:@database.port@/topcoder_dw:INFORMIXSERVER=@database.INFORMIXSERVER@</connection-url>
+    <connection-url>jdbc:informix-sqli://@dataware.server@:@dataware.port@/topcoder_dw:INFORMIXSERVER=@dataware.INFORMIXSERVER@</connection-url>
     <driver-class>com.informix.jdbc.IfxDriver</driver-class>
-    <user-name>@database.username@</user-name>
-    <password>@database.password@</password>
+    <user-name>@dataware.username@</user-name>
+    <password>@dataware.password@</password>
         <!-- sql to call when connection is created
         <new-connection-sql>some arbitrary sql</new-connection-sql>
         -->

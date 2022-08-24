@@ -14,6 +14,12 @@
 @database.password@=1nf0rm1x
 @database.INFORMIXSERVER@=informixoltp_tcp
 
+@dataware.server@=127.0.0.1
+@dataware.port@=2021
+@dataware.username@=informix
+@dataware.password@=1nf0rm1x
+@dataware.INFORMIXSERVER@=informixoltp_tcp
+
 # Tokens used in farm-config.properties
 @farmHost@=127.0.0.1
 
