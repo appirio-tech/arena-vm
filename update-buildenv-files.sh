@@ -6,3 +6,4 @@ mv -f LDAP.properties repos/app/resources/
 
 mv -f security.keystore.cloud repos/app/scripts/
 mv -f Util.properties repos/app/resources/com/topcoder/security/
+mv -f webSocketServer.keystore repos/app/resources/ 
