@@ -51,13 +51,17 @@ if [ "$CMD" = "app" ] ; then
 	echo Waiting for MPSQAS Listener startup...
 	sleep 5
 
-	echo Starting WebSocket Listener...
+	echo "Arena JBoss & Listeners startup complete"
+elif [ "$CMD" = "websocket" ] ; then
+	echo Starting WebSocket Server...
+
+	cd ~/app/scripts
 	./runWebSocketListener.sh
 
-	echo Waiting for WebSocket Listener startup...
+	echo Waiting for WebSocket Server startup...
 	sleep 5
 
-	echo "Arena JBoss & Listeners startup complete"
+	echo WebSocket Server startup complete
 elif [ "$CMD" = "controller" ] ; then
     echo Starting Farm Controller...
 

@@ -70,10 +70,12 @@ services:
       context: ./
     command: ["/home/apps/start-services.sh", "app"]
     ports:
+      - "1299:1299"
       - "5001:5001"
       - "5003:5003"
-      - "5016:5016"
+      - "5008:5008"
       - "5037:5037"
+      - "5555:5555"
     environment:
       - JBOSS_JAVA_OPTS=-Xms512m -Xmx2048m
       - MAIN_LISTENER_JAVA_OPTS=-Xms256m -Xmx1024m
@@ -82,3 +84,13 @@ services:
       - WEBSOCKET_LISTENER_JAVA_OPTS=-Xms256m -Xmx1024m
       - JBOSS_STARTUP_WAIT_TIME=30
       - MAIN_LISTENRER_STARTUP_WAIT_TIME=30
+  arena-websocket:
+    depends_on:
+      - arena-app
+    build:
+      context: ./
+    command: ["/home/apps/start-services.sh", "websocket"]
+    ports:
+      - "7443:7443"
+    environment:
+      - WEBSOCKET_LISTENER_JAVA_OPTS=-Xms256m -Xmx1024m

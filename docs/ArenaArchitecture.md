@@ -13,12 +13,12 @@ JBoss hosts EJBs which access Ldap/Informix. It uses 1299 port to handle EJB inv
 There are 4 listeners:
 
 - Main Listener handles arena client requests at 5001 port. **The 5001 port is exposed to external.**
+- MPSQAS Listener handles MPSQAS client requests at 5037 port.**The 5037 port is exposed to external.**
 - Admin Listener handles admin client requests at 5003 port.**The 5003 port is exposed to external.**
   - It will pass some of these admin requests to 5002 port of Main Listener . For example, assuming admin wants to ban the IP of an arena client, this admin request is first sent to Admin Listener on 5003 port, then passed to Main Listener on 5002 port, then Main Listener will configure itself to ban this IP from arena client.
-- WebSocket Listener handles arena web client requests at 5016 port.**The 5016 port is exposed to external.**
+- WebSocket Listener handles arena web client requests at 7443 port.**The 7443 port is exposed to external.**
   - It will pass all theses WebSocket requests to 5555 port of Main Listener, since it's a wrapper using WebSocket protocol.
   - Besides using WebSocket requests, the arena web client also sends some request to tc-api, like to get SRM schedule.
-- MPSQAS Listener handles MPSQAS client requests at 5037 port.**The 5037 port is exposed to external.**
 
 ### Farm Controller
 
