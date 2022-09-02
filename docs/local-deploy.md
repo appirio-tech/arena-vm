@@ -22,9 +22,10 @@ docker-compose up -d
 # arena-ldap              | Starting slapd: [  OK  ]
 # arena-informix          | *** Startup of informixoltp_tcp SUCCESS ***
 # mock-tc-api             | Mock tc-api listen on port 8081
-# arena-app               | Arena app startup complete
 # arena-controller        | Arena Farm Controller startup complete
 # arena-processor         | Arena Farm Processor startup complete
+# arena-app               | Arena app startup complete
+# arena-websocket         | WebSocket Server startup complete
 docker-compose logs -f
 ```
 
@@ -140,6 +141,8 @@ INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value,
 ### The Container Logs:
 
 Logs for `arena-app` container: `docker-compose logs -f arena-app`
+
+Logs for `arena-websocket` container:  `docker-compose logs -f arena-websocket`
 
 Logs for `arena-controller` container:  `docker-compose logs -f arena-controller`
 

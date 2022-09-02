@@ -1,11 +1,11 @@
 # Tokens used in ApplicationServer.properties and ApplicationServer_Jboss.properties
-@contestHostUrl@=127.0.0.1:1299
-@jmsHostUrl@=127.0.0.1:1299
-@hostUrl@=127.0.0.1:1299
+@contestHostUrl@=arena-app:1299
+@jmsHostUrl@=arena-app:1299
+@hostUrl@=arena-app:1299
 @pactsHostUrl@=192.168.12.777:1099
-@ejbServerUrl@=127.0.0.1:1299
-@jmsServerUrl@=127.0.0.1:1299
-@jbossEJBServerUrl@=127.0.0.1:1299
+@ejbServerUrl@=arena-app:1299
+@jmsServerUrl@=arena-app:1299
+@jbossEJBServerUrl@=arena-app:1299
 
 # The database related configurations
 @database.server@=arena-informix
