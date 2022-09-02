@@ -100,6 +100,7 @@ import com.topcoder.netCommon.contestantMessages.request.VoteRequest;
 import com.topcoder.netCommon.contestantMessages.request.WLMyTeamInfoRequest;
 import com.topcoder.netCommon.contestantMessages.request.WLTeamsInfoRequest;
 import com.topcoder.netCommon.contestantMessages.request.WatchRequest;
+import com.topcoder.netCommon.contestantMessages.response.ForcedLogoutResponse;
 import com.topcoder.netCommon.testerMessages.PingRequest;
 import com.topcoder.server.TopicListener.EventTopicListener;
 import com.topcoder.server.common.BaseCodingRoom;
@@ -115,6 +116,7 @@ import com.topcoder.server.common.User;
 import com.topcoder.server.common.WeakestLinkRound;
 import com.topcoder.server.contest.ImportantMessageData;
 import com.topcoder.server.listener.ForwardingThread;
+import com.topcoder.server.listener.ListenerMain;
 import com.topcoder.server.listener.monitor.ArenaMonitor;
 import com.topcoder.server.services.AsyncRoomLoader.RoomLoadedListener;
 import com.topcoder.server.services.CoreServices;
@@ -1430,6 +1432,9 @@ public final class RequestProcessor {
     private static void logout(Integer connectionID, LogoutRequest request) {
         if (trace.isDebugEnabled()) {
             trace.debug("logout on connectionID: " + connectionID);
+        }
+        if (ListenerMain.getSocketConnector().isConnected(connectionID)) {
+            ListenerMain.getSocketConnector().remove(connectionID);
         }
         int userID = getUserID(connectionID);
         User user = CoreServices.getUser(userID, false);

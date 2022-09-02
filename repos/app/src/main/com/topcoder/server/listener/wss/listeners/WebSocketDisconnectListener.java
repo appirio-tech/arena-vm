@@ -59,10 +59,12 @@ public class WebSocketDisconnectListener implements DisconnectListener {
      */
     public void onDisconnect(SocketIOClient client) {
         try {
-            //send the logout request
-            MainListenerConnector mlc = server.getMainListenerConnector();
-            Object request = new com.topcoder.netCommon.contestantMessages.request.LogoutRequest();
-            mlc.write(client.getSessionId(), request);
+            if (WebSocketServerHelper.checkLogin(client, server.getSessionToConnectionMap())) {
+                //send the logout request
+                MainListenerConnector mlc = server.getMainListenerConnector();
+                Object request = new com.topcoder.netCommon.contestantMessages.request.LogoutRequest();
+                mlc.write(client.getSessionId(), request);
+            }
             server.getSessionToConnectionMap().remove(client.getSessionId());
             server.getSessionToUserHandleMap().remove(client.getSessionId());
         } catch (Exception e) {

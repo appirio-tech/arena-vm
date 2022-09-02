@@ -12,7 +12,7 @@ JBoss hosts EJBs which access Ldap/Informix. It uses 1299 port to handle EJB inv
 
 There are 4 listeners:
 
-- Main Listener handles arena client requests at 5001 port. **The 5001 port is exposed to external.**
+- Main Listener handles arena client requests at 5001 and 5008 port. **The 5001 and 5008 ports are exposed to external.**
 - MPSQAS Listener handles MPSQAS client requests at 5037 port.**The 5037 port is exposed to external.**
 - Admin Listener handles admin client requests at 5003 port.**The 5003 port is exposed to external.**
   - It will pass some of these admin requests to 5002 port of Main Listener . For example, assuming admin wants to ban the IP of an arena client, this admin request is first sent to Admin Listener on 5003 port, then passed to Main Listener on 5002 port, then Main Listener will configure itself to ban this IP from arena client.
