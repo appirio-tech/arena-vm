@@ -24,7 +24,8 @@ docker-compose up -d
 # mock-tc-api             | Mock tc-api listen on port 8081
 # arena-controller        | Arena Farm Controller startup complete
 # arena-processor         | Arena Farm Processor startup complete
-# arena-app               | Arena app startup complete
+# arena-jboss             | Arena JBoss startup complete
+# arena-listeners         | Arena Listeners startup complete
 # arena-websocket         | WebSocket Server startup complete
 docker-compose logs -f
 ```
@@ -140,7 +141,9 @@ INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value,
 
 ### The Container Logs:
 
-Logs for `arena-app` container: `docker-compose logs -f arena-app`
+Logs for `arena-jboss` container: `docker-compose logs -f arena-jboss`
+
+Logs for `arena-listeners` container: `docker-compose logs -f arena-listeners`
 
 Logs for `arena-websocket` container:  `docker-compose logs -f arena-websocket`
 
@@ -163,7 +166,7 @@ At first add following to your hosts:
 
 ```bash
 # Copy built mpsqas client from docker
-docker cp arena-app:/home/apps/dev/comp-eng/mpsqas-client/build/mpsqas-client-7.1.2.zip .
+docker cp arena-listeners:/home/apps/dev/comp-eng/mpsqas-client/build/mpsqas-client-7.1.2.zip .
 
 # Unzip
 unzip mpsqas-client-7.1.2.zip -d mpsqas-client
@@ -180,7 +183,7 @@ sh mpsqas.sh
 
 ```bash
 # Copy built admin client from docker
-docker cp arena-app:/home/apps/dev/app/dist/admin-client-7.1.6.zip .
+docker cp arena-listeners:/home/apps/dev/app/dist/admin-client-7.1.6.zip .
 
 # Unzip
 unzip admin-client-7.1.6.zip -d admin-client
@@ -197,7 +200,7 @@ sh admin.sh
 
 ```bash
 # Copy built arena client from docker
-docker cp arena-app:/home/apps/dev/comp-eng/arena-client/build/arena-client-7.1.4.zip .
+docker cp arena-listeners:/home/apps/dev/comp-eng/arena-client/build/arena-client-7.1.4.zip .
 
 # Unzip
 unzip arena-client-7.1.4.zip -d arena-client

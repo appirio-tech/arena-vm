@@ -60,33 +60,45 @@ services:
       - PROCESSOR_JAVA_OPTS=-Xms256m -Xmx1538m
       - PROCESSOR_GROUP_ID=PR-LX
       - PROCESSOR_MAX_TASK_TIME=850000
-  arena-app:
-    container_name: arena-app
+  arena-jboss:
+    container_name: arena-jboss
     depends_on:
       - arena-informix
       - arena-ldap
       - arena-controller
     build:
       context: ./
-    command: ["/home/apps/start-services.sh", "app"]
+    command: ["/home/apps/start-services.sh", "jboss"]
     ports:
       - "1299:1299"
+      - "8293:8293"
+    environment:
+      - JBOSS_JAVA_OPTS=-Xms512m -Xmx2048m
+      - JBOSS_STARTUP_WAIT_TIME=30
+  arena-listeners:
+    container_name: arena-listeners
+    depends_on:
+      - arena-jboss
+      - arena-controller
+    build:
+      context: ./
+    command: ["/home/apps/start-services.sh", "listeners"]
+    ports:
       - "5001:5001"
       - "5003:5003"
       - "5008:5008"
       - "5037:5037"
       - "5555:5555"
     environment:
-      - JBOSS_JAVA_OPTS=-Xms512m -Xmx2048m
       - MAIN_LISTENER_JAVA_OPTS=-Xms256m -Xmx1024m
       - ADMIN_LISTENER_JAVA_OPTS=-Xms256m -Xmx1024m
       - MPSQAS_LISTENER_JAVA_OPTS=-Xms256m -Xmx1024m
-      - WEBSOCKET_LISTENER_JAVA_OPTS=-Xms256m -Xmx1024m
-      - JBOSS_STARTUP_WAIT_TIME=30
       - MAIN_LISTENRER_STARTUP_WAIT_TIME=30
   arena-websocket:
+    container_name: arena-websocket
     depends_on:
-      - arena-app
+      - arena-jboss
+      - arena-listeners
     build:
       context: ./
     command: ["/home/apps/start-services.sh", "websocket"]

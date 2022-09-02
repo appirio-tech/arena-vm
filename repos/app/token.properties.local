@@ -1,11 +1,11 @@
 # Tokens used in ApplicationServer.properties and ApplicationServer_Jboss.properties
-@contestHostUrl@=arena-app:1299
-@jmsHostUrl@=arena-app:1299
-@hostUrl@=arena-app:1299
+@contestHostUrl@=arena-jboss:1299
+@jmsHostUrl@=arena-jboss:1299
+@hostUrl@=arena-jboss:1299
 @pactsHostUrl@=192.168.12.777:1099
-@ejbServerUrl@=arena-app:1299
-@jmsServerUrl@=arena-app:1299
-@jbossEJBServerUrl@=arena-app:1299
+@ejbServerUrl@=arena-jboss:1299
+@jmsServerUrl@=arena-jboss:1299
+@jbossEJBServerUrl@=arena-jboss:1299
 
 # The database related configurations
 @database.server@=arena-informix
@@ -37,11 +37,11 @@
 
 ### Tokens which defines the services hosts ###
 # The arena listener host
-@arenaListernerAppHost@=arena-app
+@arenaListernerAppHost@=arena-listeners
 # The arena listener port
 @arenaListernerAppPort@=5002
 # The topic JMS service connection string (arena app JMS port)
-@topicJMSConnString@=tcp://127.0.0.1:8293
+@topicJMSConnString@=tcp://arena-jboss:8293
 
 ## Tokens used in LDAP.properties
 @ldapHost@=arena-ldap
