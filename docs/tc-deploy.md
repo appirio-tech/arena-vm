@@ -92,12 +92,22 @@ These are LDAP related tokens. Change theses according to TC environment:
 These are arena host related tokens. Change theses according to TC environment:
 
 ```properties
-# @farmHost@ and @farmControllerAppHost@ should be the host whether Farm Controller is deployed
+# The arena-jboss should be the host where JBoss deployed
+@contestHostUrl@=arena-jboss:1299
+@jmsHostUrl@=arena-jboss:1299
+@hostUrl@=arena-jboss:1299
+@pactsHostUrl@=192.168.12.777:1099
+@ejbServerUrl@=arena-jboss:1299
+@jmsServerUrl@=arena-jboss:1299
+@jbossEJBServerUrl@=arena-jboss:1299
+@topicJMSConnString@=tcp://arena-jboss:8293
+
+# The arena-controller should be the host whether Farm Controller deployed
 @farmHost@=arena-controller
 @farmControllerAppHost@=arena-controller
 
-# @arenaListernerAppHost@ should be the host whether Listener is deployed
-@arenaListernerAppHost@=arena-app
+# The arena-listeners should be the host whether Listeners deployed
+@arenaListernerAppHost@=arena-listeners
 ```
 
 #### SSO tokens
@@ -152,19 +162,22 @@ And for Windows processor to handle C#/VB languages, there are addition env vari
 | ILDASM               | The path to ildasm.exe      | C:\\Program Files\\Microsoft SDKs\\Windows\\v7.1\\Bin\\x64\\ildasm.exe |
 | REF_DLLS             | The assembly reference dlls | System.Numerics.dll                                          |
 
-Environment variables for JBoss & Listeners:
+Environment variables for JBoss:
+
+| Environment Variable    | Description                                   | Default Value       |
+| ----------------------- | --------------------------------------------- | ------------------- |
+| JBOSS_JAVA_OPTS         | The opts to start JBoss Java process          | -Xms2048m -Xmx8192m |
+| JBOSS_STARTUP_WAIT_TIME | The time to wait for JBoss startup in seconds | 120                 |
+
+Environment variables for Listeners:
 
 | Environment Variable             | Description                                           | Default Value       |
 | -------------------------------- | ----------------------------------------------------- | ------------------- |
-| JBOSS_JAVA_OPTS                  | The opts to start JBoss Java process                  | -Xms2048m -Xmx8192m |
 | MAIN_LISTENER_JAVA_OPTS          | The opts to start Main Listener Java process          | -Xms1024m -Xmx2048m |
 | ADMIN_LISTENER_JAVA_OPTS         | The opts to start Admin Listener Java process         | -Xms1024m -Xmx2048m |
 | MPSQAS_LISTENER_JAVA_OPTS        | The opts to start MPSQAS Listener Java process        | -Xms1024m -Xmx2048m |
 | WEBSOCKET_LISTENER_JAVA_OPTS     | The opts to start WebSocket Listener Java process     | -Xms1024m -Xmx2048m |
-| JBOSS_STARTUP_WAIT_TIME          | The time to wait for JBoss startup in seconds         | 120                 |
 | MAIN_LISTENRER_STARTUP_WAIT_TIME | The time to wait for Main Listener startup in seconds | 120                 |
-
-
 
 ### Start Docker Containers
 
@@ -199,31 +212,65 @@ Environment variables for JBoss & Listeners:
 
   
 
-- Start container for JBoss & Listeners:
+- Start container for JBoss:
 
-  ````yaml
-    arena-app-dev:
+  ```yaml
+    arena-jboss-dev:
       image: "arena-app:dev"
       depends_on:
         - arena-controller-dev
-      command: ["/home/apps/start-services.sh", "app"]
+      command: ["/home/apps/start-services.sh", "jboss"]
+      ports:
+        - "1299:1299"
+        - "8293:8293"
+      environment:
+        - JBOSS_JAVA_OPTS=-Xms512m -Xmx2048m
+        - JBOSS_STARTUP_WAIT_TIME=30
+  ```
+
+  
+
+- Start container for Listeners:
+
+  ````yaml
+    arena-listeners-dev:
+      image: "arena-app:dev"
+      depends_on:
+        - arena-jboss-dev
+        - arena-controller-dev
+      command: ["/home/apps/start-services.sh", "listeners"]
       ports:
         - "5001:5001"
         - "5003:5003"
-        - "5016:5016"
+        - "5008:5008"
         - "5037:5037"
+        - "5555:5555"
       environment:
-        - JBOSS_JAVA_OPTS=-Xms512m -Xmx2048m
         - MAIN_LISTENER_JAVA_OPTS=-Xms256m -Xmx1024m
         - ADMIN_LISTENER_JAVA_OPTS=-Xms256m -Xmx1024m
         - MPSQAS_LISTENER_JAVA_OPTS=-Xms256m -Xmx1024m
         - WEBSOCKET_LISTENER_JAVA_OPTS=-Xms256m -Xmx1024m
-        - JBOSS_STARTUP_WAIT_TIME=60
         - MAIN_LISTENRER_STARTUP_WAIT_TIME=60
   ````
 
   
 
+- Start container for Websocket:
+
+  ```yaml
+    arena-websocket-dev:
+      image: "arena-app:dev"
+      depends_on:
+        - arena-jboss-dev
+        - arena-controller-dev
+      command: ["/home/apps/start-services.sh", "websocket"]
+      ports:
+        - "7443:7443"
+      environment:
+        - WEBSOCKET_LISTENER_JAVA_OPTS=-Xms256m -Xmx1024m
+  ```
+
+  
 
 ### Start Multiple Processors
 

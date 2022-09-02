@@ -18,7 +18,7 @@ else
 	CMD=$APPLICATIONTYPE
 fi
 
-if [ "$CMD" = "app" ] ; then
+if [ "$CMD" = "jboss" ] ; then
 	cd ~/app/scripts
 
 	echo Starting JBoss...
@@ -29,6 +29,10 @@ if [ "$CMD" = "app" ] ; then
 	fi
 	echo Waiting $JBOSS_STARTUP_WAIT_TIME seconds for JBoss startup...
 	sleep $JBOSS_STARTUP_WAIT_TIME
+
+	echo Arena JBoss startup complete
+elif [ "$CMD" = "listeners" ] ; then
+	cd ~/app/scripts
 
 	echo Starting Main Listener...
 	./runMainListener.sh
@@ -51,7 +55,7 @@ if [ "$CMD" = "app" ] ; then
 	echo Waiting for MPSQAS Listener startup...
 	sleep 5
 
-	echo "Arena JBoss & Listeners startup complete"
+	echo Arena Listeners startup complete
 elif [ "$CMD" = "websocket" ] ; then
 	echo Starting WebSocket Server...
 
