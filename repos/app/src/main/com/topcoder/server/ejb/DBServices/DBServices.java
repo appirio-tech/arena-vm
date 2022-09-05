@@ -120,6 +120,7 @@ public interface DBServices extends EJBObject {
     boolean clearPracticeProblem(int coderId, int roundId,Long componentID, boolean teamClear) throws RemoteException, DBServicesException;
 
     Room getRoom(int roomID) throws RemoteException, DBServicesException;
+    Coder getRoomCoder(Round round, int roomId, int coderId, int teamId) throws RemoteException, DBServicesException;
 
     long coderOpenComponent(int coderId, int contestId, int roundId, int roomId, int componentId) throws RemoteException, DBServicesException;
     
@@ -260,8 +261,6 @@ public interface DBServices extends EJBObject {
     boolean isHighSchoolRound(long roundID) throws RemoteException, DBServicesException;
     
     int createNewQualRoom(int roundId) throws RemoteException, DBServicesException;
-
-    Language[] getCustomAllowedLanguagesForRound(int roundID) throws DBServicesException, RemoteException;
     
     Language[] getAllowedLanguagesForRound(int roundID) throws DBServicesException, RemoteException;
 

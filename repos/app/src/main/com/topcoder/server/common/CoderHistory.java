@@ -13,7 +13,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 
 import com.topcoder.server.processor.Processor;
 import com.topcoder.shared.netCommon.CSReader;
@@ -75,24 +78,47 @@ public class CoderHistory implements Serializable {
         }
     }
 
+    public static class ChallengeCoder implements Serializable {
+    	private final int id;
+    	private final String name;
+    	private final int rating;
+		public ChallengeCoder(int id) {
+			this(id, null, -1);
+		}
+		public ChallengeCoder(int id, String name, int rating) {
+			this.id = id;
+			this.name = name;
+			this.rating = rating;
+		}
+		public int getId() {
+			return id;
+		}
+		public String getName() {
+			return name;
+		}
+		public int getRating() {
+			return rating;
+		}
+    }
+
     public static class ChallengeData implements Serializable {
 
         protected final String i_msg;
         protected final Date i_date;
         protected final int i_pts;
         protected final boolean i_challenger;    // vs. defender
-        protected final int i_otherUserID;
+        protected final ChallengeCoder i_otherUser;
         protected final int i_componentID;
         protected final Object[] i_args;
 
-        protected ChallengeData(String msg, Date d, int pts, boolean chal, int otherUserID, int componentID, Object[] args) {
+        public ChallengeData(String msg, Date d, int pts, boolean chal, ChallengeCoder otherUser, int componentID, Object[] args) {
             //We add stuff to the end of the sentance, so remove the period.
             if (msg.trim().endsWith(".")) msg = msg.substring(0, msg.lastIndexOf("."));
             i_msg = msg;
             i_date = d;
             i_pts = pts;
             i_challenger = chal;
-            i_otherUserID = otherUserID;
+            i_otherUser = otherUser;
             i_componentID = componentID;
             i_args = args;
         }
@@ -101,8 +127,11 @@ public class CoderHistory implements Serializable {
             return i_componentID;
         }
 
+        public ChallengeCoder getOtherUser() {
+            return i_otherUser;
+        }
         public int getOtherUserID() {
-            return i_otherUserID;
+            return i_otherUser.getId();
         }
 
         public boolean isChallenger() {
@@ -319,8 +348,16 @@ public class CoderHistory implements Serializable {
 
     protected ArrayList m_challenges = new ArrayList();
 
-    public void addChallenge(String msg, Date date, int points, int componentID, int otherUserID, boolean chal, Object[] args) {
-        m_challenges.add(new ChallengeData(msg, date, points, chal, otherUserID, componentID, args));
+    public void addChallenge(String msg, Date date, int points, int componentID, ChallengeCoder otherUser, boolean chal, Object[] args) {
+        m_challenges.add(new ChallengeData(msg, date, points, chal, otherUser, componentID, args));
+    }
+    public void addChallenges(List<ChallengeData> challenges) {
+    	Collections.sort(challenges, new Comparator<ChallengeData>() {
+			public int compare(ChallengeData o1, ChallengeData o2) {
+				return o1.getDate().compareTo(o2.getDate());
+			}
+		});
+    	m_challenges.addAll(challenges);
     }
 
     public final Collection getChallenges() {
@@ -335,7 +372,7 @@ public class CoderHistory implements Serializable {
             ChallengeData currentChallange = (ChallengeData) allChallenges.get(i);
             if (currentChallange.i_challenger && currentChallange.i_pts == -25.0 ) {
                ChallengeAttributes ca = new ChallengeAttributes();
-                ca.setChallengerId(currentChallange.i_otherUserID);
+                ca.setChallengerId(currentChallange.getOtherUserID());
                 ca.setPointValue(currentChallange.i_pts);
                 ca.setComponentId(currentChallange.i_componentID);
                 ca.setSubmitTime(currentChallange.i_date.getTime());
@@ -349,7 +386,7 @@ public class CoderHistory implements Serializable {
         int challengeCount = m_challenges.size();
         for (int i = 0; i < challengeCount; i++) {
             ChallengeData challenge = (ChallengeData) m_challenges.get(i);
-            if (challenge.i_challenger && challenge.i_componentID == problemID && challenge.i_otherUserID == userID)
+            if (challenge.i_challenger && challenge.i_componentID == problemID && challenge.getOtherUserID() == userID)
                 return true;
         }
         return false;
@@ -360,7 +397,7 @@ public class CoderHistory implements Serializable {
         for (int i = 0; i < challengeCount; i++) {
             ChallengeData challenge = (ChallengeData) m_challenges.get(i);
             if (challenge.i_challenger && challenge.i_componentID == problemID &&
-                    challenge.i_otherUserID == userID && Processor.argsEqual(args,challenge.i_args)) {
+                    challenge.getOtherUserID() == userID && Processor.argsEqual(args,challenge.i_args)) {
                 return true;
             }
         }
@@ -380,10 +417,6 @@ public class CoderHistory implements Serializable {
     
     public Collection getSystemTests() {
         return m_sysTests;
-    }
-
-    public final Collection getTests() {
-        return m_challenges;
     }
 
 

@@ -28,7 +28,7 @@
         <dependency org="jta" name="jta" rev="1.0.1B"/>
         <dependency org="mysql" name="mysql-connector-java" rev="5.0.8" transitive="false"/>
         <dependency org="hsqldb" name="hsqldb" rev="1.8.0.4" transitive="false"/>
-        <dependency org="informix" name="ifxjdbc" rev="3.00.JC3" transitive="false"/>
+        <dependency org="informix" name="ifxjdbc" rev="4.10.14" transitive="false"/>
         <dependency org="xstream" name="xstream" rev="1.2.2" transitive="false"/>
 
         <dependency org="com.topcoder.internal" name="farm-deployer" rev="latest.integration"/>
