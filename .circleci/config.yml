@@ -69,7 +69,7 @@ build_steps: &build_steps
           source buildenvvar
           ./master_deploy.sh -d ECS -e $DEPLOY_ENV -t latest -s ${LOGICAL_ENV}-${APPLISTENER}-appvar -i ${APPNAME}
 
-          echo "======= Running Masterscript - deploy arena wesocket app ==========="
+          echo "======= Running Masterscript - deploy arena websocket app ==========="
           if [ -e buildenvvar ]; then rm -vf buildenvvar; fi          
           ./buildenv.sh -e $DEPLOY_ENV -b ${LOGICAL_ENV}-${APPWEBSOCKET}-deployvar
           source buildenvvar
