@@ -45,36 +45,36 @@ build_steps: &build_steps
         command: |
           ./awsconfiguration.sh $DEPLOY_ENV
           source awsenvconf
-          echo "======= Running Masterscript - deploy arena controller ==========="
-          if [ -e buildenvvar ]; then rm -vf buildenvvar; fi
-          ./buildenv.sh -e $DEPLOY_ENV -b ${LOGICAL_ENV}-${APPCONTROLLER}-deployvar
-          source buildenvvar
-          ./master_deploy.sh -d ECS -e $DEPLOY_ENV -t latest -s ${LOGICAL_ENV}-${APPCONTROLLER}-appvar -i ${APPNAME}         
+          # echo "======= Running Masterscript - deploy arena controller ==========="
+          # if [ -e buildenvvar ]; then rm -vf buildenvvar; fi
+          # ./buildenv.sh -e $DEPLOY_ENV -b ${LOGICAL_ENV}-${APPCONTROLLER}-deployvar
+          # source buildenvvar
+          # ./master_deploy.sh -d ECS -e $DEPLOY_ENV -t latest -s ${LOGICAL_ENV}-${APPCONTROLLER}-appvar -i ${APPNAME}         
 
-          echo "======= Running Masterscript - deploy arena processor ==========="
-          if [ -e buildenvvar ]; then rm -vf buildenvvar; fi          
-          ./buildenv.sh -e $DEPLOY_ENV -b ${LOGICAL_ENV}-${APPPROCESSOR}-deployvar
-          source buildenvvar
-          ./master_deploy.sh -d ECS -e $DEPLOY_ENV -t latest -s ${LOGICAL_ENV}-${APPPROCESSOR}-appvar -i ${APPNAME}
+          # echo "======= Running Masterscript - deploy arena processor ==========="
+          # if [ -e buildenvvar ]; then rm -vf buildenvvar; fi          
+          # ./buildenv.sh -e $DEPLOY_ENV -b ${LOGICAL_ENV}-${APPPROCESSOR}-deployvar
+          # source buildenvvar
+          # ./master_deploy.sh -d ECS -e $DEPLOY_ENV -t latest -s ${LOGICAL_ENV}-${APPPROCESSOR}-appvar -i ${APPNAME}
 
-          echo "======= Running Masterscript - deploy arena jboss app ==========="
-          if [ -e buildenvvar ]; then rm -vf buildenvvar; fi          
-          ./buildenv.sh -e $DEPLOY_ENV -b ${LOGICAL_ENV}-${APPJBOSS}-deployvar
-          source buildenvvar
-          ./master_deploy.sh -d ECS -e $DEPLOY_ENV -t latest -s ${LOGICAL_ENV}-${APPJBOSS}-appvar -i ${APPNAME}
+          # echo "======= Running Masterscript - deploy arena jboss app ==========="
+          # if [ -e buildenvvar ]; then rm -vf buildenvvar; fi          
+          # ./buildenv.sh -e $DEPLOY_ENV -b ${LOGICAL_ENV}-${APPJBOSS}-deployvar
+          # source buildenvvar
+          # ./master_deploy.sh -d ECS -e $DEPLOY_ENV -t latest -s ${LOGICAL_ENV}-${APPJBOSS}-appvar -i ${APPNAME}
 
-          echo "======= Running Masterscript - deploy arena jboss app ==========="
-          if [ -e buildenvvar ]; then rm -vf buildenvvar; fi          
-          ./buildenv.sh -e $DEPLOY_ENV -b ${LOGICAL_ENV}-${APPLISTENER}-deployvar
-          source buildenvvar
-          ./master_deploy.sh -d ECS -e $DEPLOY_ENV -t latest -s ${LOGICAL_ENV}-${APPLISTENER}-appvar -i ${APPNAME}
+          # echo "======= Running Masterscript - deploy arena Listener app ==========="
+          # if [ -e buildenvvar ]; then rm -vf buildenvvar; fi          
+          # ./buildenv.sh -e $DEPLOY_ENV -b ${LOGICAL_ENV}-${APPLISTENER}-deployvar
+          # source buildenvvar
+          # ./master_deploy.sh -d ECS -e $DEPLOY_ENV -t latest -s ${LOGICAL_ENV}-${APPLISTENER}-appvar -i ${APPNAME}
 
-          echo "======= Running Masterscript - deploy arena jboss app ==========="
+          echo "======= Running Masterscript - deploy arena wesocket app ==========="
           if [ -e buildenvvar ]; then rm -vf buildenvvar; fi          
           ./buildenv.sh -e $DEPLOY_ENV -b ${LOGICAL_ENV}-${APPWEBSOCKET}-deployvar
           source buildenvvar
           ./master_deploy.sh -d ECS -e $DEPLOY_ENV -t latest -s ${LOGICAL_ENV}-${APPWEBSOCKET}-appvar -i ${APPNAME}
-          
+
 jobs:
   # Build & Deploy against development backend
   "build-dev":
