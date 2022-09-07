@@ -57,6 +57,7 @@ import com.topcoder.server.common.Coder;
 import com.topcoder.server.common.CoderComponent;
 import com.topcoder.server.common.CoderFactory;
 import com.topcoder.server.common.CoderHistory;
+import com.topcoder.server.common.CoderHistory.ChallengeCoder;
 import com.topcoder.server.common.CompileEvent;
 import com.topcoder.server.common.ContestEvent;
 import com.topcoder.server.common.ContestRoom;
@@ -3210,7 +3211,7 @@ public final class Processor {
                 for (Iterator iter = history.getChallenges().iterator(); iter.hasNext();) {
                     CoderHistory.ChallengeData challenge = (CoderHistory.ChallengeData) iter.next();
                     Coder otherCoder = room.getCoder(challenge.getOtherUserID());
-                    UserListItem item = new UserListItem(otherCoder.getName(), otherCoder.getRating());
+                    UserListItem item = otherCoder != null ? new UserListItem(otherCoder.getName(), otherCoder.getRating()) : new UserListItem(challenge.getOtherUser().getName(), challenge.getOtherUser().getRating());
                     data.add(new CoderHistoryData(challenge.getDate(), item, coder.getComponent(challenge.getComponentID()).getPointValue(), challenge.isChallenger() ? CoderHistoryData.ACTION_CHALLENGE : CoderHistoryData.ACTION_DEFEND, challenge.getPoints() / 100.0, challenge.getDetail()));
                 }
                 // Add all system tests
@@ -5033,7 +5034,9 @@ public final class Processor {
             }
             if (trace.isDebugEnabled()) trace.debug("points = " + points);
             coderHistory.addChallenge(challenge.getChallengeHistoryMessage(), new java.sql.Date(challenge.getSubmitTime()),
-                                      points, challengedComponent.getComponentID(), defendantCoder.getID(), true, challenge.getArgs());
+                                      points, challengedComponent.getComponentID(),
+                                      new ChallengeCoder(defendantCoder.getID(), defendantCoder.getName(), defendantCoder.getRating()),
+                                      true, challenge.getArgs());
             if (challengeSucceeded) {
                 points = -1 * challenge.getPointValue();
             } else {
@@ -5041,7 +5044,9 @@ public final class Processor {
             }
             if (trace.isDebugEnabled()) trace.debug("points = " + points);
             defendantHistory.addChallenge(challenge.getChallengeHistoryMessage(), new java.sql.Date(challenge.getSubmitTime()),
-                    points, challengedComponent.getComponentID(), challengerCoder.getID(), false, challenge.getArgs());
+                    points, challengedComponent.getComponentID(),
+                    new ChallengeCoder(challengerCoder.getID(), challengerCoder.getName(), challengerCoder.getRating()),
+                    false, challenge.getArgs());
             //notify the room coders of a new challenge
             if (!ContestConstants.isPracticeRoomType(room.getType())) {
                 trace.debug("sending challenges response to room: "+room.getRoomID());

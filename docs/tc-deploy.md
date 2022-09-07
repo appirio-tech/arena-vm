@@ -102,11 +102,11 @@ These are arena host related tokens. Change theses according to TC environment:
 @jbossEJBServerUrl@=arena-jboss:1299
 @topicJMSConnString@=tcp://arena-jboss:8293
 
-# The arena-controller should be the host whether Farm Controller deployed
+# The arena-controller should be the host where Farm Controller deployed
 @farmHost@=arena-controller
 @farmControllerAppHost@=arena-controller
 
-# The arena-listeners should be the host whether Listeners deployed
+# The arena-listeners should be the host where Listeners deployed
 @arenaListernerAppHost@=arena-listeners
 ```
 
@@ -167,7 +167,7 @@ Environment variables for JBoss:
 | Environment Variable    | Description                                   | Default Value       |
 | ----------------------- | --------------------------------------------- | ------------------- |
 | JBOSS_JAVA_OPTS         | The opts to start JBoss Java process          | -Xms2048m -Xmx8192m |
-| JBOSS_STARTUP_WAIT_TIME | The time to wait for JBoss startup in seconds | 120                 |
+| JBOSS_STARTUP_WAIT_TIME | The time to wait for JBoss startup in seconds | 30                  |
 
 Environment variables for Listeners:
 
@@ -177,7 +177,7 @@ Environment variables for Listeners:
 | ADMIN_LISTENER_JAVA_OPTS         | The opts to start Admin Listener Java process         | -Xms1024m -Xmx2048m |
 | MPSQAS_LISTENER_JAVA_OPTS        | The opts to start MPSQAS Listener Java process        | -Xms1024m -Xmx2048m |
 | WEBSOCKET_LISTENER_JAVA_OPTS     | The opts to start WebSocket Listener Java process     | -Xms1024m -Xmx2048m |
-| MAIN_LISTENRER_STARTUP_WAIT_TIME | The time to wait for Main Listener startup in seconds | 120                 |
+| MAIN_LISTENRER_STARTUP_WAIT_TIME | The time to wait for Main Listener startup in seconds | 300                 |
 
 ### Start Docker Containers
 

@@ -31,7 +31,9 @@ import com.topcoder.netCommon.contest.round.text.ComponentNameBuilder;
 import com.topcoder.netCommon.contestantMessages.AdminBroadcast;
 import com.topcoder.netCommon.contestantMessages.ComponentBroadcast;
 import com.topcoder.netCommon.contestantMessages.RoundBroadcast;
+import com.topcoder.netCommon.contestantMessages.response.CreateRoundListResponse;
 import com.topcoder.netCommon.contestantMessages.response.data.CategoryData;
+import com.topcoder.netCommon.contestantMessages.response.data.RoundData;
 import com.topcoder.server.AdminListener.response.CommandFailedResponse;
 import com.topcoder.server.AdminListener.response.CommandResponse;
 import com.topcoder.server.AdminListener.response.CommandSucceededResponse;
@@ -1495,14 +1497,17 @@ public final class CoreServices {
         return message;
     }
 
-    public static void clearPracticeRooms(int type) {
+    public static String clearPracticeRooms(int type) {
         try {
-            int limit = Processor.getPracticeRoundLimit();
-            Round practiceRounds[] = loadPracticeRounds(limit);
+            CreateRoundListResponse practiceResponse = ResponseProcessor.getPracticeContests();
+            if (practiceResponse == null) {
+            	return "Please wait until Practice Rooms loaded";
+            }
 
+            RoundData[] practiceRounds = practiceResponse.getRoundData();
             for(int i = 0; i < practiceRounds.length; i++) {
                 //call dbservices to clear and move data
-                int roomID = ((Integer)practiceRounds[i].getAllRoomIDsList().get(0)).intValue();
+                int roomID = practiceRounds[i].getPracticeRoomID();
                 s_trace.info("Clearing Room " + roomID);
 
                 s_dbServices.backupPracticeRoom(practiceRounds[i].getRoundID());
@@ -1520,7 +1525,7 @@ public final class CoreServices {
                     for(Iterator it = r.getAllCoders(); it.hasNext();) {
                         Coder c = (Coder)it.next();
 
-                        if(!names.contains(c.getName()) && s_dbServices.isDeleteCoderFromPracticeRoom(practiceRounds[i].getRoundID(), c.getID(), type)) {
+                        if(!names.contains(c.getName()) && (type == ContestConstants.CLEAR_PRACTICE_ALL || s_dbServices.isDeleteCoderFromPracticeRoom(practiceRounds[i].getRoundID(), c.getID(), type))) {
                             //remove user
                             s_dbServices.deleteCoderFromPracticeRoom(practiceRounds[i].getRoundID(), c.getID());
                         }
@@ -1529,6 +1534,7 @@ public final class CoreServices {
                     refreshRoom(roomID);
                 }
             }
+            return "Practice Rooms Cleared";
         } catch (Exception e) {
             s_trace.error("Exception in clearPracticeRooms", e);
             throw new RuntimeException(e);
@@ -1833,34 +1839,39 @@ public final class CoreServices {
                     BaseCodingRoom cr = (BaseCodingRoom) room;
                     if (!cr.isUserAssigned(userID)) {
                         BaseRound contest = (BaseRound) getContestRound(cr.getRoundID(), false);
-                        Coder coder = null;
-                        if (!contest.getRoundType().isTeamRound()) {
-                            s_trace.debug("Adding Individual Coder to room assignments.");
-                            coder = CoderFactory.createCoder(userID, user.getName(), cr.getDivisionID(),
-                                    contest, roomID, user.getRating(room.getRatingType()).getRating(), user.getLanguage());
+                        Coder coder = s_dbServices.getRoomCoder(contest, roomID, userID, user.getTeamID());
+                        if (coder != null) {
+                            cr.addCoder(coder);
+                            cr.updateLeader();
                         } else {
-                            s_trace.debug("Adding Team Coder to room assignments.");
-                            if (!user.isOnTeam()) {
-                                s_trace.error("User: " + user + " has tried to enter a team practice room but is not on a team.");
-                                return;
-                            }
-                            Team team = getTeam(user.getTeamID(), false);
-                            coder = new TeamCoder(team, contest, cr.getDivisionID(),
-                                                  roomID, team.getRating(), team.getLanguage());
+                            if (!contest.getRoundType().isTeamRound()) {
+                                s_trace.debug("Adding Individual Coder to room assignments.");
+                                coder = CoderFactory.createCoder(userID, user.getName(), cr.getDivisionID(),
+                                        contest, roomID, user.getRating(room.getRatingType()).getRating(), user.getLanguage());
+                            } else {
+                                s_trace.debug("Adding Team Coder to room assignments.");
+                                if (!user.isOnTeam()) {
+                                    s_trace.error("User: " + user + " has tried to enter a team practice room but is not on a team.");
+                                    return;
+                                }
+                                Team team = getTeam(user.getTeamID(), false);
+                                coder = new TeamCoder(team, contest, cr.getDivisionID(),
+                                                      roomID, team.getRating(), team.getLanguage());
 
-                            for (Iterator it = team.getMembers().iterator(); it.hasNext();) {
-                                User iuser = getUser(((Integer) it.next()).intValue(), false);
+                                for (Iterator it = team.getMembers().iterator(); it.hasNext();) {
+                                    User iuser = getUser(((Integer) it.next()).intValue(), false);
 
-                                Coder icoder =  CoderFactory.createCoder(iuser.getID(), iuser.getName(), cr.getDivisionID(), contest, roomID,
-                                        iuser.getRating(room.getRatingType()).getRating(), iuser.getLanguage());
-                                ((TeamCoder) coder).addMemberCoder(icoder);
+                                    Coder icoder =  CoderFactory.createCoder(iuser.getID(), iuser.getName(), cr.getDivisionID(), contest, roomID,
+                                            iuser.getRating(room.getRatingType()).getRating(), iuser.getLanguage());
+                                    ((TeamCoder) coder).addMemberCoder(icoder);
+                                }
+                                ((TeamCoder) coder).setComponentAssignmentData(s_dbServices.getComponentAssignmentData(team.getID(), contest.getRoundID()));
                             }
-                            ((TeamCoder) coder).setComponentAssignmentData(s_dbServices.getComponentAssignmentData(team.getID(), contest.getRoundID()));
+                            if (!contest.getRoundType().isLongRound()) {
+                                s_dbServices.addPracticeCoder(coder);
+                            }
+                            cr.addCoder(coder);
                         }
-                        if (!contest.getRoundType().isLongRound()) {
-                            s_dbServices.addPracticeCoder(coder);
-                        }
-                        cr.addCoder(coder);
                         Iterator connectionsIterator = Processor.getConnectionIDs(TCEvent.ROOM_TARGET, cr.getRoomID());
                         Set connections = new HashSet();
                         while (connectionsIterator.hasNext()) {

@@ -25,7 +25,7 @@ if [ "$CMD" = "jboss" ] ; then
 	./jboss.sh
 
 	if [[ -z "${JBOSS_STARTUP_WAIT_TIME}" ]] ; then
-		JBOSS_STARTUP_WAIT_TIME=120
+		JBOSS_STARTUP_WAIT_TIME=30
 	fi
 	echo Waiting $JBOSS_STARTUP_WAIT_TIME seconds for JBoss startup...
 	sleep $JBOSS_STARTUP_WAIT_TIME
@@ -38,7 +38,7 @@ elif [ "$CMD" = "listeners" ] ; then
 	./runMainListener.sh
 
 	if [[ -z "${MAIN_LISTENRER_STARTUP_WAIT_TIME}" ]] ; then
-		MAIN_LISTENRER_STARTUP_WAIT_TIME=120
+		MAIN_LISTENRER_STARTUP_WAIT_TIME=300
 	fi
 	echo Waiting $MAIN_LISTENRER_STARTUP_WAIT_TIME seconds for Main Listener startup...
 	sleep $MAIN_LISTENRER_STARTUP_WAIT_TIME

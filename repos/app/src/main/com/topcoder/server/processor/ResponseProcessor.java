@@ -720,6 +720,10 @@ public final class ResponseProcessor {
         s_practiceContests = new CreateRoundListResponse(CreateRoundListResponse.PRACTICE, practiceRoundsData);
     }
 
+    public static CreateRoundListResponse getPracticeContests() {
+    	return s_practiceContests;
+    }
+
     public static String hashForUser(Integer connectionID, User user) throws Exception {
 
         MessageDigest md = MessageDigest.getInstance("MD5");

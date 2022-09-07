@@ -70,10 +70,12 @@ services:
       context: ./
     command: ["/home/apps/start-services.sh", "jboss"]
     ports:
+      - "1298:1298"
       - "1299:1299"
+      - "4644:4644"
       - "8293:8293"
     environment:
-      - JBOSS_JAVA_OPTS=-Xms512m -Xmx2048m
+      - JBOSS_JAVA_OPTS=-Xms512m -Xmx2048m -Djava.rmi.server.hostname=arena-jboss
       - JBOSS_STARTUP_WAIT_TIME=30
   arena-listeners:
     container_name: arena-listeners

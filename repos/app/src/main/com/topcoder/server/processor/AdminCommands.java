@@ -166,9 +166,9 @@ public final class AdminCommands {
         CoreServices.refreshRoundProblems(round);
     }
 
-    public static void clearPracticeRooms(int type) {
+    public static String clearPracticeRooms(int type) {
         trace.info("Clearing Practice Rooms, type:" + type );
-        CoreServices.clearPracticeRooms(type);
+        return CoreServices.clearPracticeRooms(type);
     }
 
     public static void refreshRoom(int roomID) {

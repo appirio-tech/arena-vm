@@ -14,20 +14,44 @@ This is to deploy in docker locally.
 ### Start Docker Containers
 
 ```bash
-# Start docker containers
-docker-compose up -d
-
-# View docker logs, when you see below logs then containers are started succcessfully
+# Start informix/mysql/ldap/mock-tc-api
+docker-compose up -d arena-informix arena-mysql arena-ldap mock-tc-api
+docker-compose logs -f
+# Wait following docker logs then containers are started succcessfully
 # arena-mysql             | 2022-07-23T12:25:07.651734Z 0 [Note] mysqld: ready for connections.
 # arena-ldap              | Starting slapd: [  OK  ]
 # arena-informix          | *** Startup of informixoltp_tcp SUCCESS ***
 # mock-tc-api             | Mock tc-api listen on port 8081
+
+# Start arena-controller
+docker-compose up -d arena-controller
+docker-compose logs -f arena-controller
+# Wait following log then arena-controller is started succcessfully
 # arena-controller        | Arena Farm Controller startup complete
+
+# Start arena-processor
+docker-compose up -d arena-processor
+docker-compose logs -f arena-processor
+# Wait following log then arena-processor is started succcessfully
 # arena-processor         | Arena Farm Processor startup complete
+
+# Start arena-jboss
+docker-compose up -d arena-jboss
+docker-compose logs -f arena-jboss
+# Wait following log then arena-jboss is started succcessfully
 # arena-jboss             | Arena JBoss startup complete
+
+# Start arena-listeners
+docker-compose up -d arena-listeners
+docker-compose logs -f arena-listeners
+# Wait following log then arena-listeners is started succcessfully
 # arena-listeners         | Arena Listeners startup complete
+
+# Start arena-websocket
+docker-compose up -d arena-websocket
+docker-compose logs -f arena-websocket
+# Wait following log then arena-websocket is started succcessfully
 # arena-websocket         | WebSocket Server startup complete
-docker-compose logs -f
 ```
 
 

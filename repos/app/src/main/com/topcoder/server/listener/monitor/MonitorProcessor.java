@@ -357,8 +357,8 @@ public final class MonitorProcessor implements ProcessorInterface, StoppableThre
 //
 //                send(csr("Recalculate score request processed"), connectionID, recipientID);
             } else if (request instanceof ClearPracticeRoomsCommand) {
-                AdminCommands.clearPracticeRooms(((ClearPracticeRoomsCommand)request).getType());
-                send(csr("Practice Rooms Cleared"), connectionID, recipientID);
+                String result = AdminCommands.clearPracticeRooms(((ClearPracticeRoomsCommand)request).getType());
+                send(csr(result), connectionID, recipientID);
             } else if (request instanceof EnableRoundCommand) {
                 EnableRoundCommand enableRoundCommand = (EnableRoundCommand) request;
                 int roundID = enableRoundCommand.getRoundID();

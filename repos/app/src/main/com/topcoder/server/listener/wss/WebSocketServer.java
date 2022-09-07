@@ -457,7 +457,7 @@ public class WebSocketServer {
 
         // start
         WebSocketServerHelper.info("Starting the WebSocketServer...");
-        CoreServices.start();
+        CoreServices.loadCategories();
         server.start();
         WebSocketServerHelper.info("Done starting the WebSocketServer");
 
@@ -474,7 +474,6 @@ public class WebSocketServer {
     public void stop() {
         WebSocketServerHelper.info("Stopping the WebSocketServer...");
         server.stop();
-        CoreServices.stop();
         WebSocketServerHelper.info("Done stopping the WebSocketServer");
     }
 

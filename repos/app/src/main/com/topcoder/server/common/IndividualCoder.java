@@ -29,9 +29,9 @@ public class IndividualCoder extends BaseCoder {
         m_componentIDs = new ArrayList();
         m_components = new HashMap();
 
-        if (log.isDebugEnabled()) {
-            log.debug("addDivisionComponents: DivID = " + divisionID + " Components = " + components);
-        }
+//        if (log.isDebugEnabled()) {
+//            log.debug("addDivisionComponents: DivID = " + divisionID + " Components = " + components);
+//        }
 
         if (components != null) {
             m_components = new HashMap();
@@ -134,9 +134,9 @@ public class IndividualCoder extends BaseCoder {
     public BaseCoderComponent getComponent(long id) {
         Long key = new Long(id);
         if (m_components.containsKey(key)) {
-            if (log.isDebugEnabled()) {
-                log.debug("Returning component id: " + id);
-            }
+//            if (log.isDebugEnabled()) {
+//                log.debug("Returning component id: " + id);
+//            }
             return (BaseCoderComponent) m_components.get(key);
         } else {
             throw new IllegalArgumentException("Invalid component ID: " + id);

@@ -10,6 +10,7 @@ package com.topcoder.server.common;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.topcoder.server.common.CoderHistory.ChallengeCoder;
 import com.topcoder.shared.util.Formatters;
 
 public class TeamCoderHistory extends CoderHistory implements Serializable {
@@ -47,10 +48,10 @@ public class TeamCoderHistory extends CoderHistory implements Serializable {
         }
     }
 
-    protected static final class TeamChallengeData extends ChallengeData implements Serializable {
+    public static final class TeamChallengeData extends ChallengeData implements Serializable {
 
-        protected TeamChallengeData(String msg, Date d, int pts, boolean chal, int otherUserID, int componentID, Object[] args) {
-            super(msg, d, pts, chal, otherUserID, componentID, args);
+        public TeamChallengeData(String msg, Date d, int pts, boolean chal, ChallengeCoder otherUser, int componentID, Object[] args) {
+            super(msg, d, pts, chal, otherUser, componentID, args);
         }
 
         public String toString() {
@@ -131,8 +132,8 @@ public class TeamCoderHistory extends CoderHistory implements Serializable {
         m_submissions.add(new TeamSubmissionData(probVal, date, points, submitterName));
     }
 
-    public final void addChallenge(String msg, Date date, int points, int componentID, int otherUserID, boolean chal, Object[] args) {
-        m_challenges.add(new TeamChallengeData(msg, date, points, chal, otherUserID, componentID, args));
+    public final void addChallenge(String msg, Date date, int points, int componentID, ChallengeCoder otherUser, boolean chal, Object[] args) {
+        m_challenges.add(new TeamChallengeData(msg, date, points, chal, otherUser, componentID, args));
     }
 
     public final void addTest(int problemId, Date timestamp, int deductAmt, String problemVal,

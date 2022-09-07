@@ -25,6 +25,7 @@ import com.topcoder.server.common.Coder;
 import com.topcoder.server.common.CoderComponent;
 import com.topcoder.server.common.CoderFactory;
 import com.topcoder.server.common.CoderHistory;
+import com.topcoder.server.common.CoderHistory.ChallengeCoder;
 import com.topcoder.server.common.ContestEvent;
 import com.topcoder.server.common.ContestRoom;
 import com.topcoder.server.common.ForwarderContestRoom;
@@ -367,10 +368,10 @@ public final class RoundForwarderProcessor {
                 CoderHistory defendantHistory = defendantCoder.getHistory();
                 
                 coderHistory.addChallenge(message.toString(), new java.sql.Date(System.currentTimeMillis()),
-                    coderPointChange, challengedComponent.getComponentID(), defendantCoder.getID(), true, new Object[0]);
+                    coderPointChange, challengedComponent.getComponentID(), new ChallengeCoder(defendantCoder.getID(), defendantCoder.getName(), defendantCoder.getRating()), true, new Object[0]);
 
                 defendantHistory.addChallenge(message.toString(), new java.sql.Date(System.currentTimeMillis()),
-                    -1 * defendantPointChange, challengedComponent.getComponentID(), challengerCoder.getID(), false, new Object[0]);
+                    -1 * defendantPointChange, challengedComponent.getComponentID(), new ChallengeCoder(challengerCoder.getID(), challengerCoder.getName(), challengerCoder.getRating()), false, new Object[0]);
                 
                 ContestEvent evt = new ContestEvent(room.getRoomID(), ContestEvent.CHALLENGE_COMPONENT, "System> " + message.toString(),
                     defendantCoder.getID(), -1, challengedComponent.getComponentID(),

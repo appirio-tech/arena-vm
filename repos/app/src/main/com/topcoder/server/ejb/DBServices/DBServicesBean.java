@@ -53,6 +53,8 @@ import com.topcoder.server.common.Coder;
 import com.topcoder.server.common.CoderComponent;
 import com.topcoder.server.common.CoderFactory;
 import com.topcoder.server.common.CoderHistory;
+import com.topcoder.server.common.CoderHistory.ChallengeCoder;
+import com.topcoder.server.common.CoderHistory.ChallengeData;
 import com.topcoder.server.common.ContestRoom;
 import com.topcoder.server.common.ContestRound;
 import com.topcoder.server.common.EventRegistration;
@@ -75,6 +77,7 @@ import com.topcoder.server.common.TCEvent;
 import com.topcoder.server.common.Team;
 import com.topcoder.server.common.TeamCoder;
 import com.topcoder.server.common.TeamCoderHistory;
+import com.topcoder.server.common.TeamCoderHistory.TeamChallengeData;
 import com.topcoder.server.common.TeamContestRoom;
 import com.topcoder.server.common.User;
 import com.topcoder.server.common.WeakestLinkCoder;
@@ -241,20 +244,20 @@ public class DBServicesBean extends BaseEJB {
 
     // TODO: we might not be getting the right ratings, adding the rating will lose coders
     // create the coder objects
-    private static final String GET_ROOM_CODERS_QUERY = "SELECT DISTINCT rs.coder_id, u.handle, cr.rating, c.language_id, r.division_id, rs.attended, rs.old_rating "
-        + "FROM OUTER(algo_rating cr), room_result rs, room r, round rd, user u, coder c WHERE r.room_id = ? AND "
-        + "rs.room_id = r.room_id AND rd.round_id = r.round_id "
+    private static final String GET_ROOM_CODERS_QUERY = "SELECT DISTINCT rs.coder_id, u.handle, cr.rating, c.language_id, r.division_id, rs.attended, rs.old_rating, rr.eligible "
+        + "FROM OUTER(algo_rating cr), OUTER(round_registration rr), room_result rs, room r, round rd, user u, coder c WHERE r.room_id = ? AND "
+        + "rs.room_id = r.room_id AND rd.round_id = r.round_id AND rr.round_id = r.round_id AND rr.coder_id = c.coder_id "
         + "AND u.user_id = rs.coder_id AND u.user_id = cr.coder_id AND u.user_id = c.coder_id AND cr.algo_rating_type_id = ?";
-    private static final String GET_ROOM_CODERS_LONG_QUERY = "SELECT rs.coder_id, u.handle, cr.rating, c.language_id, r.division_id, rs.attended, rs.old_rating, rs.system_point_total "
-        + "FROM OUTER(algo_rating cr), long_comp_result rs, room r, round rd, user u, coder c"
-        + " WHERE r.room_id = ? AND rs.round_id = r.round_id AND rd.round_id = r.round_id"
+    private static final String GET_ROOM_CODERS_LONG_QUERY = "SELECT rs.coder_id, u.handle, cr.rating, c.language_id, r.division_id, rs.attended, rs.old_rating, rr.eligible, rs.system_point_total "
+        + "FROM OUTER(algo_rating cr), OUTER(round_registration rr), long_comp_result rs, room r, round rd, user u, coder c"
+        + " WHERE r.room_id = ? AND rs.round_id = r.round_id AND rd.round_id = r.round_id AND rr.round_id = r.round_id AND rr.coder_id = c.coder_id "
         + "  AND u.user_id = rs.coder_id AND cr.coder_id = u.user_id AND c.coder_id = u.user_id AND cr.algo_rating_type_id = ? "
         + "  AND (" + "       rd.round_type_id IN (" + ContestConstants.LONG_PROBLEM_PRACTICE_ROUND_TYPE_ID + ", "
         + ContestConstants.AMD_LONG_PROBLEM_PRACTICE_ROUND_TYPE_ID + ") OR "
         + "       EXISTS (SELECT rr.round_id FROM round_registration rr WHERE rr.round_id = r.round_id AND rr.coder_id = rs.coder_id))";
-    private static final String GET_ADMIN_ROOM_CODERS_LONG_QUERY = "SELECT rs.coder_id, u.handle, cr.rating, c.language_id, r.division_id, rs.attended, rs.old_rating, rs.system_point_total "
-        + "FROM OUTER(algo_rating cr), long_comp_result rs, room r, round rd, user u, coder c "
-        + " WHERE r.room_id = ? AND rs.round_id = r.round_id AND rd.round_id = r.round_id"
+    private static final String GET_ADMIN_ROOM_CODERS_LONG_QUERY = "SELECT rs.coder_id, u.handle, cr.rating, c.language_id, r.division_id, rs.attended, rs.old_rating, rr.eligible, rs.system_point_total "
+        + "FROM OUTER(algo_rating cr), OUTER(round_registration rr), long_comp_result rs, room r, round rd, user u, coder c "
+        + " WHERE r.room_id = ? AND rs.round_id = r.round_id AND rd.round_id = r.round_id AND rr.round_id = r.round_id AND rr.coder_id = c.coder_id "
         + "  AND u.user_id = rs.coder_id AND cr.coder_id = u.user_id AND c.coder_id = u.user_id AND cr.algo_rating_type_id = ? "
         + "  AND NOT EXISTS (SELECT rr.round_id FROM round_registration rr WHERE rr.round_id = r.round_id AND rr.coder_id = rs.coder_id)";
     private static final String GET_ROOM_TEAMS_QUERY = "SELECT DISTINCT t.team_id, r.division_id, rr.coder_id, u.handle, cr.rating, c.language_id "
@@ -448,7 +451,7 @@ public class DBServicesBean extends BaseEJB {
             conn = DBMS.getConnection();
             conn.setAutoCommit(false);
 
-            Round contest = getContestRound(conn, roundID);
+            Round contest = getContestRound(conn, roundID, false);
             Collection r = null;
 
             if (contest.isTeamRound()) {
@@ -574,7 +577,7 @@ public class DBServicesBean extends BaseEJB {
             historyMap.put(Integer.valueOf(coder.getID()), new CoderHistory());
         }
 
-        StringBuilder sqlStr = new StringBuilder(300 + (coders.size() * 20));
+        StringBuilder sqlStr = new StringBuilder();
         loadSubmissionHistoryBatch(conn, sqlStr, roundId, divisionId, roomId, historyMap);
         loadTotalSubmissionPointsBatch(conn, sqlStr, roundId, roomId, historyMap);
         loadChallengeHistoryBatch(conn, sqlStr, roundId, roomId, historyMap);
@@ -590,8 +593,10 @@ public class DBServicesBean extends BaseEJB {
     /**
      * Used to get the CoderHistory for a given contest for a Coder
      */
-    private CoderHistory getCoderHistory(Connection conn, int coderId, int divId, int contestId, int roundId)
+    private CoderHistory getCoderHistory(Connection conn, int coderId, int divId, Round contestRound)
         throws SQLException {
+        int contestId = contestRound.getContestID();
+        int roundId = contestRound.getRoundID();
         if (s_trace.isDebugEnabled()) {
             debug("DBServices.getCoderHistory()....coderId:" + coderId + "      contestId:" + contestId
                 + "           roundId:" + roundId);
@@ -609,7 +614,7 @@ public class DBServicesBean extends BaseEJB {
         }
 
         ch.setTotalSubmissionPoints(totalSubmissionPoints);
-        loadChallengeHistory(conn, sqlStr, roundId, coderId, ch);
+        loadChallengeHistory(conn, sqlStr, contestRound, coderId, ch);
         loadSystemTestHistory(conn, sqlStr, coderId, roundId, divId, ch);
 
         return ch;
@@ -631,6 +636,7 @@ public class DBServicesBean extends BaseEJB {
             "AND str.viewable = 'Y' AND rc.round_id = str.round_id AND rc.component_id = str.component_id AND ");
         sqlStr.append("rc.division_id = ? AND stc.test_case_id = str.test_case_id ORDER BY str.timestamp");
 
+        s_trace.info("start loadSystemTestHistoryBatch, roundId=" + roundId + ", roomId=" + roomId);
         //sqlStr.append("str.coder_id IN (");
         //buildBatchParameters(sqlStr, historyMap.size());
         //sqlStr.append(")");
@@ -644,7 +650,6 @@ public class DBServicesBean extends BaseEJB {
             //    ps.setInt(index, ((Integer) iter.next()).intValue());
             //}
             rs = ps.executeQuery();
-            s_trace.debug("Loading system test history for " + historyMap.size() + " coder(s): ");
 
             while (rs.next()) {
                 Integer coderId = Integer.valueOf(rs.getInt(9));
@@ -667,7 +672,7 @@ public class DBServicesBean extends BaseEJB {
                     args, results, succeeded);
             }
 
-            s_trace.debug("Done with system test history for " + historyMap.size() + " coder(s)");
+            s_trace.info("finished loadSystemTestHistoryBatch, roundId=" + roundId + ", roomId=" + roomId);
         } finally {
             DBMS.close(ps, rs);
         }
@@ -688,13 +693,13 @@ public class DBServicesBean extends BaseEJB {
         sqlStr.append(
             "AND str.viewable = 'Y' AND rc.round_id = str.round_id AND rc.component_id = c.component_id AND rc.division_id = ? ORDER BY str.timestamp");
 
+        s_trace.info("start loadSystemTestHistory, roundId=" + roundId + ", coderId=" + coderId);
         try {
             ps = conn.prepareStatement(sqlStr.toString());
             ps.setInt(1, coderId);
             ps.setInt(2, roundId);
             ps.setInt(3, divId);
             rs = ps.executeQuery();
-            s_trace.debug("Loading system test history for coder: " + coderId);
 
             while (rs.next()) {
                 Timestamp timestamp = rs.getTimestamp(1);
@@ -714,7 +719,7 @@ public class DBServicesBean extends BaseEJB {
                 ch.addTest(problemId, timestamp, deductAmt, problemVal + "", args, results, succeeded);
             }
 
-            s_trace.debug("Done with system test history for coder: " + coderId);
+            s_trace.info("finished loadSystemTestHistory, roundId=" + roundId + ", coderId=" + coderId);
         } finally {
             DBMS.close(rs);
             DBMS.close(ps);
@@ -733,6 +738,7 @@ public class DBServicesBean extends BaseEJB {
         sqlStr.append("defendant_id IN (SELECT rs1.coder_id FROM room_result rs1 WHERE rs1.room_id = ?)) ");
         sqlStr.append("ORDER BY submit_time");
 
+        s_trace.info("start loadChallengeHistoryBatch, roundId=" + roundId + ", roomId=" + roomId);
         //sqlStr.append("(challenger_id IN (");
         //buildBatchParameters(sqlStr, historyMap.size());
         //sqlStr.append(") OR defendant_id IN (");
@@ -776,64 +782,82 @@ public class DBServicesBean extends BaseEJB {
 
                 if (historyMap.containsKey(challengerId)) {
                     ((CoderHistory) historyMap.get(challengerId)).addChallenge(msg, submitTime, challengerPoints,
-                        componentID, defendantId.intValue(), true, args);
+                        componentID, new ChallengeCoder(defendantId.intValue()), true, args);
                 }
 
                 if (historyMap.containsKey(defendantId)) {
                     ((CoderHistory) historyMap.get(defendantId)).addChallenge(msg, submitTime, defendantPoints,
-                        componentID, challengerId.intValue(), false, args);
+                        componentID, new ChallengeCoder(challengerId.intValue()), false, args);
                 }
             }
+            s_trace.info("finished loadChallengeHistoryBatch, roundId=" + roundId + ", roomId=" + roomId);
         } finally {
             DBMS.close(rs);
             DBMS.close(ps);
         }
     }
 
-    private void loadChallengeHistory(Connection conn, StringBuilder sqlStr, int roundId, int coderId, CoderHistory ch)
+    private void loadChallengeHistory(Connection conn, StringBuilder sqlStr, Round contestRound, int coderId, CoderHistory ch)
         throws SQLException {
         // Next get the challenge history
+    	int roundId = contestRound.getRoundID();
         PreparedStatement ps = null;
         ResultSet rs = null;
-        sqlStr.replace(0, sqlStr.length(),
-            "SELECT submit_time, message, challenger_points, defendant_points, challenger_id, defendant_id, component_id, args ");
-        sqlStr.append("FROM challenge WHERE (challenger_id = ? OR defendant_id = ?) AND ");
-        sqlStr.append("round_id = ? AND status_id != ? ORDER BY submit_time");
 
+        s_trace.info("start loadChallengeHistory, roundId=" + roundId + ", coderId=" + coderId);
         try {
-            ps = conn.prepareStatement(sqlStr.toString());
-            ps.setInt(1, coderId);
-            ps.setInt(2, coderId);
-            ps.setInt(3, roundId);
-            ps.setInt(4, ContestConstants.NULLIFIED_CHALLENGE);
+            List<ChallengeData> challenges = new ArrayList();
+
+            ps = conn.prepareStatement("SELECT c.submit_time, c.message, c.component_id, c.args, c.challenger_points, c.defendant_id, u.handle, ar.rating "
+            		+ "FROM challenge c, user u, OUTER(algo_rating ar) WHERE c.round_id = ? AND c.status_id != ? AND "
+            		+ "c.challenger_id = ? AND u.user_id = c.defendant_id AND ar.coder_id = u.user_id AND ar.algo_rating_type_id =? ");
+            ps.setInt(1, roundId);
+            ps.setInt(2, ContestConstants.NULLIFIED_CHALLENGE);
+            ps.setInt(3, coderId);
+            ps.setInt(4, contestRound.getRoundType().getRatingType());
             rs = ps.executeQuery();
 
             // next, get challenge history
             while (rs.next()) {
+            	Date date = new Date(rs.getLong(1));
                 String msg = rs.getString(2);
-                boolean challenger = (rs.getInt(5) == coderId);
-                int points;
-                int otherUserID;
+                int componentID = rs.getInt(3);
+                Object args = DBMS.getBlobObject(rs, 4);
 
-                if (challenger) {
-                    points = (int) Math.round(rs.getDouble(3) * 100);
-                    otherUserID = rs.getInt(6);
-                } else {
-                    points = (int) Math.round(rs.getDouble(4) * 100);
-                    otherUserID = rs.getInt(5);
-                }
+                int points = (int) Math.round(rs.getDouble(5) * 100);
 
-                int componentID = rs.getInt(7);
-                Object args = DBMS.getBlobObject(rs, 8);
+                ChallengeCoder otherUser = new ChallengeCoder(rs.getInt(6), rs.getString(7), rs.getInt(8));
 
-                if (args instanceof List) {
-                    ch.addChallenge(msg, new Date(rs.getLong(1)), points, componentID, otherUserID, challenger,
-                        ((List) args).toArray());
-                } else {
-                    s_trace.error("Challenge args not instanceof List");
-                    ch.addChallenge(msg, new Date(rs.getLong(1)), points, componentID, otherUserID, challenger, null);
-                }
+                challenges.add(new ChallengeData(msg, date, points, true, otherUser, componentID, 
+                		args instanceof List ? ((List) args).toArray() : null));
             }
+            DBMS.close(ps, rs);
+
+            // next, get defendant history
+            ps = conn.prepareStatement("SELECT c.submit_time, c.message, c.component_id, c.args, c.defendant_points, c.challenger_id, u.handle, ar.rating "
+            		+ "FROM challenge c, user u, OUTER(algo_rating ar) WHERE c.round_id = ? AND c.status_id != ? AND "
+            		+ "c.defendant_id = ? AND u.user_id = c.challenger_id AND ar.coder_id = u.user_id AND ar.algo_rating_type_id =? ");
+            ps.setInt(1, roundId);
+            ps.setInt(2, ContestConstants.NULLIFIED_CHALLENGE);
+            ps.setInt(3, coderId);
+            ps.setInt(4, contestRound.getRoundType().getRatingType());
+            rs = ps.executeQuery();
+            while (rs.next()) {
+            	Date date = new Date(rs.getLong(1));
+                String msg = rs.getString(2);
+                int componentID = rs.getInt(3);
+                Object args = DBMS.getBlobObject(rs, 4);
+
+                int points = (int) Math.round(rs.getDouble(5) * 100);
+
+                ChallengeCoder otherUser = new ChallengeCoder(rs.getInt(6), rs.getString(7), rs.getInt(8));
+
+                challenges.add(new ChallengeData(msg, date, points, false, otherUser, componentID, 
+                		args instanceof List ? ((List) args).toArray() : null));
+            }
+
+            ch.addChallenges(challenges);
+            s_trace.info("finished loadChallengeHistory, roundId=" + roundId + ", coderId=" + coderId);
         } finally {
             DBMS.close(rs);
             DBMS.close(ps);
@@ -855,6 +879,7 @@ public class DBServicesBean extends BaseEJB {
         sqlStr.append("AND rc.round_id = cs.round_id AND rc.component_id = c.component_id AND rc.division_id = ? ");
         sqlStr.append("AND cs.coder_id = rs.coder_id AND rs.room_id = ? ORDER BY s.submit_time");
 
+        s_trace.info("start loadSubmissionHistoryBatch, roundId=" + roundId + ", roomId=" + roomId);
         //sqlStr.append("AND cs.coder_id IN (");
         //buildBatchParameters(sqlStr, historyMap.size());
         //sqlStr.append(")");
@@ -877,6 +902,7 @@ public class DBServicesBean extends BaseEJB {
                 int submitPoints = (int) Math.round(rs.getDouble(3) * 100);
                 ((CoderHistory) historyMap.get(coderId)).addSubmission("" + points, submitTime, submitPoints);
             }
+            s_trace.info("finished loadSubmissionHistoryBatch, roundId=" + roundId + ", roomId=" + roomId);
         } finally {
             close(null, ps, rs);
         }
@@ -889,13 +915,14 @@ public class DBServicesBean extends BaseEJB {
 
         // First get the submission history
         sqlStr.setLength(0);
-        sqlStr.append("SELECT s.submit_time, rc.points, s.submission_points, s.submit_time ");
+        sqlStr.append("SELECT s.submit_time, rc.points, s.submission_points ");
         sqlStr.append("FROM component_state cs, component c, round_component rc, submission s ");
         sqlStr.append("WHERE cs.round_id = ? AND cs.coder_id = ? AND s.submission_points > 0 ");
         sqlStr.append("  AND cs.component_id = c.component_id AND cs.component_state_id = s.component_state_id ");
         sqlStr.append(
             "AND rc.round_id = cs.round_id AND rc.component_id = c.component_id AND rc.division_id = ? ORDER BY s.submit_time");
 
+        s_trace.info("start loadSubmissionHistory, roundId=" + roundId + ", coderId=" + coderId);
         try {
             ps = conn.prepareStatement(sqlStr.toString());
             ps.setInt(1, roundId);
@@ -908,6 +935,7 @@ public class DBServicesBean extends BaseEJB {
                 int points = (int) Math.round(rs.getDouble(2));
                 ch.addSubmission("" + points, new Date(rs.getLong(1)), (int) Math.round(rs.getDouble(3) * 100));
             }
+            s_trace.info("finished loadSubmissionHistory, roundId=" + roundId + ", coderId=" + coderId);
         } finally {
             close(null, ps, rs);
         }
@@ -928,6 +956,7 @@ public class DBServicesBean extends BaseEJB {
         sqlStr.append("AND s.submission_number = cs.submission_number ");
         sqlStr.append("AND cs.coder_id = rs.coder_id AND rs.room_id = ? GROUP BY cs.coder_id");
 
+        s_trace.info("start loadTotalSubmissionPointsBatch, roundId=" + roundId + ", roomId=" + roomId);
         //sqlStr.append("AND cs.coder_id IN (");
         //buildBatchParameters(sqlStr, historyMap.size());
         //sqlStr.append(")");
@@ -946,6 +975,7 @@ public class DBServicesBean extends BaseEJB {
                 ((CoderHistory) historyMap.get(coderId)).setTotalSubmissionPoints((int) Math.round(
                         rs.getDouble(1) * 100));
             }
+            s_trace.info("finished loadTotalSubmissionPointsBatch, roundId=" + roundId + ", roomId=" + roomId);
         } finally {
             close(null, ps, rs);
         }
@@ -965,6 +995,7 @@ public class DBServicesBean extends BaseEJB {
         sqlStr.append("AND cs.component_state_id = s.component_state_id ");
         sqlStr.append("AND s.submission_number = cs.submission_number ");
 
+        s_trace.info("start getTotalSubmissionPoints, roundId=" + roundId + ", coderId=" + coderId);
         try {
             ps = conn.prepareStatement(sqlStr.toString());
             ps.setInt(1, roundId);
@@ -972,6 +1003,7 @@ public class DBServicesBean extends BaseEJB {
             rs = ps.executeQuery();
             rs.next();
 
+            s_trace.info("finished getTotalSubmissionPoints, roundId=" + roundId + ", coderId=" + coderId);
             return (int) Math.round(rs.getDouble(1) * 100);
         } finally {
             close(null, ps, rs);
@@ -981,8 +1013,9 @@ public class DBServicesBean extends BaseEJB {
     /**
      * Used to get the CoderHistory for a given contest for a Coder
      */
-    private CoderHistory getTeamHistory(Connection conn, TeamCoder teamCoder, int divId, int contestId, int roundId)
+    private CoderHistory getTeamHistory(Connection conn, TeamCoder teamCoder, int divId, int contestId, Round round)
         throws SQLException {
+    	int roundId = round.getRoundID();
         int teamId = teamCoder.getID();
 
         if (s_trace.isDebugEnabled()) {
@@ -1003,7 +1036,7 @@ public class DBServicesBean extends BaseEJB {
         }
 
         ch.setTotalSubmissionPoints(totalSubmissionPoints);
-        loadTeamChallengeHistory(conn, sqlStr, roundId, teamCoder, ch);
+        loadTeamChallengeHistory(conn, sqlStr, round, teamCoder, ch);
         loadTeamSystemTestHistory(conn, sqlStr, teamId, roundId, divId, ch);
 
         return ch;
@@ -1064,49 +1097,65 @@ public class DBServicesBean extends BaseEJB {
         }
     }
 
-    private void loadTeamChallengeHistory(Connection conn, StringBuilder sqlStr, int roundId, TeamCoder teamCoder,
+    private void loadTeamChallengeHistory(Connection conn, StringBuilder sqlStr, Round contestRound, TeamCoder teamCoder,
         TeamCoderHistory ch) throws SQLException {
         // Next get the challenge history
         PreparedStatement ps = null;
         ResultSet rs = null;
-        sqlStr.replace(0, sqlStr.length(),
-            "SELECT ch.submit_time, ch.message, ch.challenger_points, ch.defendant_points, ch.challenger_id, ch.defendant_id, ch.component_id ");
-        sqlStr.append(
-            "FROM challenge ch, team_coder_xref tc WHERE tc.team_id=? AND (ch.challenger_id = tc.coder_id OR ch.defendant_id = tc.coder_id) ");
-        sqlStr.append("AND ch.round_id = ? AND ch.status_id != ? ORDER BY ch.submit_time");
 
         try {
-            ps = conn.prepareStatement(sqlStr.toString());
-            ps.setInt(1, teamCoder.getID());
-            ps.setInt(2, roundId);
-            ps.setInt(3, ContestConstants.NULLIFIED_CHALLENGE);
+            List<ChallengeData> challenges = new ArrayList();
+            ps = conn.prepareStatement("SELECT ch.submit_time, ch.message, ch.component_id, ch.args, ch.challenger_points, ch.defendant_id, u.handle, ar.rating "
+            		+ "FROM challenge ch, user u, OUTER(algo_rating ar) "
+            		+ "WHERE ch.round_id = ? AND ch.status_id != ? "
+            		+ "AND ch.challenger_id IN (SELECT tc.coder_id FROM team_coder_xref tc WHERE tc.team_id=?) "
+            		+ "AND u.user_id = ch.defendant_id AND ar.coder_id = u.user_id AND ar.algo_rating_type_id =?");
+            ps.setInt(1, contestRound.getRoundID());
+            ps.setInt(2, ContestConstants.NULLIFIED_CHALLENGE);
+            ps.setInt(3, teamCoder.getID());
+            ps.setInt(4, contestRound.getRoundType().getRatingType());
             rs = ps.executeQuery();
 
             while (rs.next()) {
+            	Date date = new Date(rs.getLong(1));
                 String msg = rs.getString(2);
-                int points;
-                int otherUserID;
-                boolean challenger = teamCoder.isMemberCoder(rs.getInt(5));
+                int componentID = rs.getInt(3);
+                Object args = DBMS.getBlobObject(rs, 4);
 
-                if (challenger) {
-                    points = (int) Math.round(rs.getDouble(3) * 100);
-                    otherUserID = rs.getInt(6);
-                } else {
-                    points = (int) Math.round(rs.getDouble(4) * 100);
-                    otherUserID = rs.getInt(5);
-                }
+                int points = (int) Math.round(rs.getDouble(5) * 100);
 
-                int componentID = rs.getInt(7);
-                Object args = DBMS.getBlobObject(rs, 8);
+                ChallengeCoder otherUser = new ChallengeCoder(rs.getInt(6), rs.getString(7), rs.getInt(8));
 
-                if (args instanceof List) {
-                    ch.addChallenge(msg, new Date(rs.getLong(1)), points, componentID, otherUserID, challenger,
-                        ((List) args).toArray());
-                } else {
-                    s_trace.error("Challenge args not instanceof List");
-                    ch.addChallenge(msg, new Date(rs.getLong(1)), points, componentID, otherUserID, challenger, null);
-                }
+                challenges.add(new TeamChallengeData(msg, date, points, true, otherUser, componentID, 
+                		args instanceof List ? ((List) args).toArray() : null));
             }
+            DBMS.close(ps, rs);
+
+            ps = conn.prepareStatement("SELECT ch.submit_time, ch.message, ch.component_id, ch.args, ch.defendant_points, ch.challenger_id, u.handle, ar.rating "
+            		+ "FROM challenge ch, user u, OUTER(algo_rating ar) "
+            		+ "WHERE ch.round_id = ? AND ch.status_id != ? "
+            		+ "AND ch.defendant_id IN (SELECT tc.coder_id FROM team_coder_xref tc WHERE tc.team_id=?) "
+            		+ "AND u.user_id = ch.challenger_id AND ar.coder_id = u.user_id AND ar.algo_rating_type_id =?");
+            ps.setInt(1, contestRound.getRoundID());
+            ps.setInt(2, ContestConstants.NULLIFIED_CHALLENGE);
+            ps.setInt(3, teamCoder.getID());
+            ps.setInt(4, contestRound.getRoundType().getRatingType());
+            rs = ps.executeQuery();
+            while (rs.next()) {
+            	Date date = new Date(rs.getLong(1));
+                String msg = rs.getString(2);
+                int componentID = rs.getInt(3);
+                Object args = DBMS.getBlobObject(rs, 4);
+
+                int points = (int) Math.round(rs.getDouble(5) * 100);
+
+                ChallengeCoder otherUser = new ChallengeCoder(rs.getInt(6), rs.getString(7), rs.getInt(8));
+
+                challenges.add(new TeamChallengeData(msg, date, points, false, otherUser, componentID, 
+                		args instanceof List ? ((List) args).toArray() : null));
+            }
+
+            ch.addChallenges(challenges);
         } finally {
             DBMS.close(rs);
             DBMS.close(ps);
@@ -2240,7 +2289,7 @@ public class DBServicesBean extends BaseEJB {
 
         PreparedStatement ps = null;
         ResultSet rs = null;
-        StringBuilder sqlStr = new StringBuilder(200 + (coders.size() * 20));
+        StringBuilder sqlStr = new StringBuilder();
 
         try {
             int contestId = contestRound.getContestID();
@@ -2248,7 +2297,7 @@ public class DBServicesBean extends BaseEJB {
             loadCoderHistoryBatch(conn, coders, contestId, roundId, roomId);
 
             if (DBMS.DB == DBMS.INFORMIX) {
-                sqlStr.replace(0, sqlStr.length(), "SELECT cs.component_id, cs.status_id, cs.points, ");
+                sqlStr.append("SELECT cs.component_id, cs.status_id, cs.points, ");
                 sqlStr.append(
                     "c.compilation_text, c.language_id, s.submission_text, s.language_id, cs.coder_id, c.open_time  ");
                 sqlStr.append("FROM component_state cs, OUTER submission s, compilation c ");
@@ -2264,7 +2313,7 @@ public class DBServicesBean extends BaseEJB {
                 //buildBatchParameters(sqlStr, coders.size());
                 //sqlStr.append(")");
             } else {
-                sqlStr.replace(0, sqlStr.length(), "SELECT cs.component_id, cs.status_id, cs.points, ");
+                sqlStr.append("SELECT cs.component_id, cs.status_id, cs.points, ");
                 sqlStr.append(
                     "c.compilation_text, cs.language_id, s.submission_text, s.language_id, cs.coder_id, c.open_time ");
                 sqlStr.append("FROM component_state cs, submission s, compilation c ");
@@ -2290,7 +2339,7 @@ public class DBServicesBean extends BaseEJB {
     /**
      * this puppy loads in the coder history/runtime stuff that's needed from the DB
      */
-    private void loadCoderInfo(Connection conn, Round contestRound, IndividualCoder coder, boolean mustLoadPassedTests)
+    private void loadCoderInfo(Connection conn, Round contestRound, Coder coder, boolean mustLoadPassedTests)
         throws SQLException, DBServicesException {
         debug("Loading coder info for: " + coder.getName());
 
@@ -2303,7 +2352,7 @@ public class DBServicesBean extends BaseEJB {
             int contestId = contestRound.getContestID();
             int roundId = contestRound.getRoundID();
 
-            CoderHistory hist = getCoderHistory(conn, coder.getID(), coder.getDivisionID(), contestId, roundId);
+            CoderHistory hist = getCoderHistory(conn, coder.getID(), coder.getDivisionID(), contestRound);
             coder.setHistory(hist);
 
             if (DBMS.DB == DBMS.INFORMIX) {
@@ -2393,7 +2442,6 @@ public class DBServicesBean extends BaseEJB {
                 int coderID = rs.getInt(8);
                 long openedTime = rs.getLong(9);
                 Coder coder = (Coder) coderMap.get(Integer.valueOf(coderID));
-                debug("Setting status: " + status + " componentID = " + componentID + " coder = " + coder);
 
                 CoderComponent coderComponent = (CoderComponent) coder.getComponent(componentID);
                 coderComponent.setStatus(status);
@@ -2452,6 +2500,7 @@ public class DBServicesBean extends BaseEJB {
         boolean mustLoadPassedTests) throws SQLException, DBServicesException {
         PreparedStatement ps = null;
         ResultSet rs = null;
+        s_trace.info("start loadCoderComponents, roundId=" + roundId + ", coderId=" + coder.getID());
 
         try {
             ps = conn.prepareStatement(sqlStr.toString());
@@ -2475,8 +2524,6 @@ public class DBServicesBean extends BaseEJB {
                 int langID = rs.getInt(5);
                 int subLangID = rs.getInt(7);
                 long openedTime = rs.getLong(8);
-
-                debug("Setting status: " + status + " componentID = " + componentID + " coder = " + coder);
 
                 CoderComponent coderComponent = (CoderComponent) coder.getComponent(componentID);
                 coderComponent.setStatus(status);
@@ -2522,6 +2569,7 @@ public class DBServicesBean extends BaseEJB {
                     s_trace.debug("filling out component: " + coderComponent + " to " + coder);
                 }
             }
+            s_trace.info("finished loadCoderComponents, roundId=" + roundId + ", coderId=" + coder.getID());
         } finally {
             close(null, ps, rs);
         }
@@ -2643,7 +2691,7 @@ public class DBServicesBean extends BaseEJB {
         ResultSet rs = null;
 
         try {
-            StringBuilder sqlStr = new StringBuilder(200 + (components.size() * 50));
+            StringBuilder sqlStr = new StringBuilder();
 
             sqlStr.append("SELECT handle, c.component_id, c.defendant_id  FROM user u, challenge c ");
             sqlStr.append("WHERE u.user_id = c.challenger_id AND ");
@@ -2701,10 +2749,10 @@ public class DBServicesBean extends BaseEJB {
         try {
             StringBuilder sqlStr = new StringBuilder();
 
-            sqlStr.append("SELECT handle FROM user u, challenge c ");
+            sqlStr.append("SELECT FIRST 1 handle FROM user u, challenge c ");
             sqlStr.append("WHERE u.user_id = c.challenger_id AND ");
             sqlStr.append("c.component_id = ? AND c.defendant_id = ? ");
-            sqlStr.append("AND c.succeeded = 1");
+            sqlStr.append("AND c.succeeded = 1 ORDER BY c.challenge_id desc");
 
             ps = conn.prepareStatement(sqlStr.toString());
             ps.setInt(1, component.getComponentID());
@@ -2740,7 +2788,7 @@ public class DBServicesBean extends BaseEJB {
             int contestId = contestRound.getContestID();
             int roundId = contestRound.getRoundID();
 
-            CoderHistory hist = getTeamHistory(conn, teamCoder, teamCoder.getDivisionID(), contestId, roundId);
+            CoderHistory hist = getTeamHistory(conn, teamCoder, teamCoder.getDivisionID(), contestId, contestRound);
             teamCoder.setHistory(hist);
             sqlStr.replace(0, sqlStr.length(), "SELECT cs.component_id, cs.status_id, cs.points, ");
             sqlStr.append("c.compilation_text, c.language_id, s.submission_text, s.language_id, c.open_time ");
@@ -3818,23 +3866,19 @@ public class DBServicesBean extends BaseEJB {
 
         try {
             conn = DBMS.getConnection();
-            ps = conn.prepareStatement("select count(*) from practice_group");
-            rs = ps.executeQuery();
-            rs.next();
 
-            int rows = rs.getInt(1);
-            CategoryData[] categories = new CategoryData[rows];
+            List<CategoryData> categories = new ArrayList();
 
             ps = conn.prepareStatement("SELECT group_id, group_name FROM practice_group");
             rs = ps.executeQuery();
 
-            for (int i = 0; rs.next(); i++) {
+            while (rs.next()) {
                 int categoryID = rs.getInt("group_id");
                 String categoryName = rs.getString("group_name");
-                categories[i] = new CategoryData(categoryID, categoryName);
+                categories.add(new CategoryData(categoryID, categoryName));
             }
 
-            return categories;
+            return categories.toArray(new CategoryData[categories.size()]);
         } catch (Exception e) {
             s_trace.error("Error in getCategories()", e);
             throw new DBServicesException(e.getMessage());
@@ -3900,7 +3944,7 @@ public class DBServicesBean extends BaseEJB {
         try {
             conn = DBMS.getConnection();
 
-            return getContestRound(conn, roundID);
+            return getContestRound(conn, roundID, true);
         } catch (Exception e) {
             printException(e);
             throw new DBServicesException("" + e);
@@ -3913,7 +3957,7 @@ public class DBServicesBean extends BaseEJB {
      * This method returns the ContestRound from the database
      * note: this does not initalize the contest rooms for the round
      */
-    private Round getContestRound(Connection conn, int roundID)
+    private Round getContestRound(Connection conn, int roundID, boolean loadAssignedRooms)
         throws DBServicesException, SQLException {
         if (s_trace.isDebugEnabled()) {
             s_trace.debug("Getting contest round " + roundID);
@@ -3935,7 +3979,8 @@ public class DBServicesBean extends BaseEJB {
         loadRoundComponents(conn, roundID, contest);
         loadRoundEventData(conn, roundID, contest);
 
-        if (!contest.isLongContestRound()) {
+        // We don't really need assigned map for practice round
+        if (loadAssignedRooms && !contest.getRoundType().isPracticeRound() && !contest.isLongContestRound()) {
             ((ContestRound) contest).setAssignedRoomMap(getAssignedRoomMap(conn, contest));
         }
 
@@ -4063,7 +4108,7 @@ public class DBServicesBean extends BaseEJB {
         }
 
         RoundCustomPropertiesImpl props = roundDao.getRoundDynamicProperties(contest.getRoundID(), conn);
-        Language[] allowedLanguages = getCustomAllowedLanguagesForRound(contest.getRoundID());
+        Language[] allowedLanguages = getCustomAllowedLanguagesForRound(contest.getRoundID(), conn);
 
         if (allowedLanguages != null) {
             props = ensureProps(props);
@@ -4085,36 +4130,34 @@ public class DBServicesBean extends BaseEJB {
 
     private void loadRoundComponents(Connection conn, int roundID, Round contest)
         throws SQLException {
+        ArrayList d1Points = new ArrayList();
+        ArrayList d2Points = new ArrayList();
+        ArrayList d1Components = new ArrayList();
+        ArrayList d2Components = new ArrayList();
+
+        List<RoundComponent> rcomponents = getRoundComponents(conn, roundID);
+
+        for (RoundComponent rc : rcomponents) {
+        	if (rc.divisionId == ContestConstants.DIVISION_ONE) {
+        		d1Points.add(rc.points);
+        		d1Components.add(rc.componentId);
+        	} else if (rc.divisionId == ContestConstants.DIVISION_TWO) {
+        		d2Points.add(rc.points);
+        		d2Components.add(rc.componentId);
+        	}
+        }
+
         ArrayList adminPoints = new ArrayList();
         ArrayList adminComponents = new ArrayList();
+        adminPoints.addAll(d1Points);
+        adminPoints.addAll(d2Points);
+        adminComponents.addAll(d1Components);
+        adminComponents.addAll(d2Components);
 
-        ArrayList points = new ArrayList();
-        ArrayList components = getRoundComponents(conn, ContestConstants.DIVISION_ONE, roundID, points);
-
-        if (s_trace.isDebugEnabled()) {
-            s_trace.debug("Adding Division One components = " + components + " Points = " + points);
-        }
-
-        adminComponents.addAll(components);
-        adminPoints.addAll(points);
-        contest.setDivisionComponents(ContestConstants.DIVISION_ONE, components, points);
-        points.clear();
-
-        components = getRoundComponents(conn, ContestConstants.DIVISION_TWO, roundID, points);
-
-        if (s_trace.isDebugEnabled()) {
-            s_trace.debug("Adding Division Two components = " + components + " Points = " + points);
-        }
-
-        adminComponents.addAll(components);
-        adminPoints.addAll(points);
-        contest.setDivisionComponents(ContestConstants.DIVISION_TWO, components, points);
-
-        if (s_trace.isDebugEnabled()) {
-            s_trace.debug("Adding Admin Division components = " + adminComponents + " Points = " + adminPoints);
-        }
-
+        contest.setDivisionComponents(ContestConstants.DIVISION_ONE, d1Components, d1Points);
+        contest.setDivisionComponents(ContestConstants.DIVISION_TWO, d2Components, d2Points);
         contest.setDivisionComponents(ContestConstants.DIVISION_ADMIN, adminComponents, adminPoints);
+
     }
 
     private void loadRoomMenu(Connection conn, int roundID, Round contest)
@@ -4332,8 +4375,8 @@ public class DBServicesBean extends BaseEJB {
         ResultSet rs = null;
 
         try {
-            String sql = "SELECT c.name, c.status, r.division_id, ro.round_type_id, c.contest_id, r.name FROM contest c, round ro, room r "
-                + "WHERE ro.round_id = ? AND ro.round_id=r.round_id AND ro.contest_id = c.contest_id ";
+            String sql = "SELECT c.name, c.status, r.division_id, ro.round_type_id, c.contest_id, r.name, rgx.group_id FROM contest c, round ro, room r, OUTER(round_group_xref rgx) "
+                + "WHERE ro.round_id = ? AND ro.round_id=r.round_id AND ro.round_id=rgx.round_id AND ro.contest_id = c.contest_id ";
             ps = conn.prepareStatement(sql);
             ps.setInt(1, roundID); // contestID=roundID for practice always it seems
             rs = ps.executeQuery();
@@ -4346,6 +4389,7 @@ public class DBServicesBean extends BaseEJB {
                 int roundType = rs.getInt(4);
                 int contestID = rs.getInt(5);
                 String roundName = rs.getString(6);
+                int groupId = rs.getInt(7);
 
                 if (!ContestConstants.isLongRoundType(Integer.valueOf(roundType)) || (roundName == null)) {
                     roundName = "";
@@ -4355,21 +4399,12 @@ public class DBServicesBean extends BaseEJB {
                 // TODO is this the right place to update the PracticeRound phase?
                 contest.beginCodingPhase();
                 contest.setPracticeDivisionID(division);
+
+                contest.setCategory(groupId > 0 ? groupId : -1);
             } else {
                 throw new DBServicesException("Couldn't find practice round " + roundID);
             }
 
-            sql = "SELECT group_id FROM round_group_xref WHERE round_id = ?";
-            ps = conn.prepareStatement(sql);
-            ps.setInt(1, roundID);
-            rs = ps.executeQuery();
-
-            if (rs.next()) {
-                contest.setCategory(rs.getInt(1));
-            } else {
-                // Set group to default value
-                contest.setCategory(-1);
-            }
         } finally {
             close(null, ps, rs);
         }
@@ -4377,10 +4412,9 @@ public class DBServicesBean extends BaseEJB {
         return contest;
     }
 
-    public Language[] getCustomAllowedLanguagesForRound(int roundID)
+    private Language[] getCustomAllowedLanguagesForRound(int roundID, Connection cnn)
         throws DBServicesException {
         try {
-            Connection cnn = DBUtils.initDBBlock();
             List languageIdsOfRound = roundDao.getLanguageIdsOfRound(roundID, cnn);
 
             if ((languageIdsOfRound == null) || (languageIdsOfRound.size() == 0)) {
@@ -4399,8 +4433,6 @@ public class DBServicesBean extends BaseEJB {
         } catch (Exception e) {
             s_trace.error("Could not obtain allowed languages for round: " + roundID, e);
             throw new DBServicesException("Could not obtain languages for rounds");
-        } finally {
-            DBUtils.endDBBlock();
         }
     }
 
@@ -4408,7 +4440,7 @@ public class DBServicesBean extends BaseEJB {
         throws DBServicesException {
         try {
             Connection conn = DBUtils.initDBBlock();
-            Language[] languages = getCustomAllowedLanguagesForRound(roundID);
+            Language[] languages = getCustomAllowedLanguagesForRound(roundID, conn);
 
             if (languages == null) {
                 RoundType roundType = RoundType.get(roundDao.getRoundTypeId(roundID, conn));
@@ -4422,6 +4454,79 @@ public class DBServicesBean extends BaseEJB {
             throw new DBServicesException("Could not obtain languages for rounds");
         } finally {
             DBUtils.endDBBlock();
+        }
+    }
+
+    private void cleanPracticeRoom(int roundID)
+        throws DBServicesException {
+        java.sql.Connection conn = null;
+        PreparedStatement ps = null;
+
+        try {
+            conn = DBMS.getConnection();
+
+            s_trace.info("Clean practice room (" + roundID + ")");
+
+            String strSQL = "delete from submission_class_file where component_state_id in (select component_state_id from component_state where round_id = ?);\n";
+
+            ps = conn.prepareStatement(strSQL);
+            ps.setInt(1, roundID);
+
+            ps.executeUpdate();
+            ps.close();
+
+            strSQL = "delete from submission where component_state_id in (select component_state_id from component_state where round_id = ?); \n";
+
+            ps = conn.prepareStatement(strSQL);
+            ps.setInt(1, roundID);
+
+            ps.executeUpdate();
+            ps.close();
+
+            strSQL = "delete from compilation_class_file where component_state_id in (select component_state_id from component_state where round_id = ?);\n";
+
+            ps = conn.prepareStatement(strSQL);
+            ps.setInt(1, roundID);
+
+            ps.executeUpdate();
+            ps.close();
+
+            strSQL = "delete from compilation where component_state_id in (select component_state_id from component_state where round_id = ?); \n";
+
+            ps = conn.prepareStatement(strSQL);
+            ps.setInt(1, roundID);
+
+            ps.executeUpdate();
+            ps.close();
+
+            strSQL = "delete from challenge where round_id = ?;\n";
+
+            ps = conn.prepareStatement(strSQL);
+            ps.setInt(1, roundID);
+
+            ps.executeUpdate();
+            ps.close();
+
+            strSQL = "delete from component_state where round_id = ?;\n";
+
+            ps = conn.prepareStatement(strSQL);
+            ps.setInt(1, roundID);
+
+            ps.executeUpdate();
+            ps.close();
+
+            strSQL = "delete from room_result where round_id = ?;";
+
+            ps = conn.prepareStatement(strSQL);
+            ps.setInt(1, roundID);
+
+            ps.executeUpdate();
+            ps.close();
+        } catch (Exception e) {
+            printException(e);
+            throw new DBServicesException(e.toString());
+        } finally {
+            close(conn, null, null);
         }
     }
 
@@ -4563,16 +4668,19 @@ public class DBServicesBean extends BaseEJB {
         try {
             conn = DBMS.getConnection();
 
-            // insert backup values first
-            ps = conn.prepareStatement(GET_ROOM_RESULT_QUERY);
-            ps.setInt(1, roundID);
-            rs = ps.executeQuery();
+            if (type == ContestConstants.CLEAR_PRACTICE_ALL) {
+            	cleanPracticeRoom(roundID);
+            } else {
+                ps = conn.prepareStatement(GET_ROOM_RESULT_QUERY);
+                ps.setInt(1, roundID);
+                rs = ps.executeQuery();
 
-            while (rs.next()) {
-                int coderID = rs.getInt("coder_id");
+                while (rs.next()) {
+                    int coderID = rs.getInt("coder_id");
 
-                if (isDeleteCoderFromPracticeRoom(roundID, coderID, type)) {
-                    deleteCoderFromPracticeRoom(roundID, coderID);
+                    if (isDeleteCoderFromPracticeRoom(roundID, coderID, type)) {
+                        deleteCoderFromPracticeRoom(roundID, coderID);
+                    }
                 }
             }
         } catch (Exception e) {
@@ -4660,7 +4768,6 @@ public class DBServicesBean extends BaseEJB {
 
                 DBMS.close(ps, rs);
 
-                Round contest = getContestRound(conn, roundId);
                 int roomType = ContestConstants.INVALID_ROOM;
 
                 switch (type) {
@@ -4722,6 +4829,7 @@ public class DBServicesBean extends BaseEJB {
                     room.setCapacity(capacity);
                     room.setAdminRoom(isAdminRoom);
                 } else {
+                    Round contest = getContestRound(conn, roundId, false);
                     int ratingType = contest.getRoundType().getRatingType();
 
                     if (s_trace.isDebugEnabled()) {
@@ -4743,13 +4851,22 @@ public class DBServicesBean extends BaseEJB {
                     room.setCapacity(capacity);
                     room.setAdminRoom(isAdminRoom);
 
-                    if (isTeamRoom) {
-                        populateTeamContestRoom(conn, roomId, contest, contestRoom);
-                    } else {
-                        populateContestRoom(conn, roomId, contest, contestRoom);
-                    }
+                    // Don't load coders for practice round since there could be many coders
+                    // For practice round, the coder will be lazily loaded after user enter room
+                    if (!contest.getRoundType().isPracticeRound()) {
+                    	List<Coder> coders;
+                        if (isTeamRoom) {
+                        	coders = populateTeamContestRoom(conn, roomId, contest, null);
+                        } else {
+                            coders = populateContestRoom(conn, roomId, contest, isAdminRoom, null);
+                        }
 
-                    contestRoom.updateLeader();
+                        for (Iterator iter = coders.iterator(); iter.hasNext();) {
+                        	contestRoom.addCoder((Coder) iter.next());
+                        }
+
+                        contestRoom.updateLeader();
+                    }
                 }
 
                 s_trace.info("Loaded room for ID = " + roomId);
@@ -4763,9 +4880,9 @@ public class DBServicesBean extends BaseEJB {
         }
     }
 
-    private void populateContestRoom(Connection conn, int roomId, Round contest, BaseCodingRoom room)
+    private List<Coder> populateContestRoom(Connection conn, int roomId, Round contest, boolean adminRoom, Integer coderToLoad)
         throws SQLException, DBServicesException {
-        s_trace.info("Populating coders for room " + roomId);
+        s_trace.info("Populating coders for room " + roomId + " coder: " + coderToLoad);
 
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -4775,10 +4892,10 @@ public class DBServicesBean extends BaseEJB {
 
             if (contest.isLongContestRound()) {
                 if (s_trace.isDebugEnabled()) {
-                    s_trace.debug("Loading long contest room =" + roomId + " admin=" + room.isAdminRoom());
+                    s_trace.debug("Loading long contest room =" + roomId + " admin=" + adminRoom);
                 }
 
-                if (room.isAdminRoom()) {
+                if (adminRoom) {
                     sql = GET_ADMIN_ROOM_CODERS_LONG_QUERY;
                 } else {
                     sql = GET_ROOM_CODERS_LONG_QUERY;
@@ -4787,15 +4904,19 @@ public class DBServicesBean extends BaseEJB {
                 sql = GET_ROOM_CODERS_QUERY;
             }
 
+            if (coderToLoad != null) {
+                sql = sql + " AND rs.coder_id=" + coderToLoad;	
+            }
+
             ps = conn.prepareStatement(sql);
             ps.setInt(1, roomId);
 
-            int ratingType = room.getRatingType();
+            int ratingType = contest.getRoundType().getRatingType();
             ps.setInt(2, ratingType);
 
             rs = ps.executeQuery();
 
-            List coders = new ArrayList();
+            List<Coder> coders = new ArrayList();
 
             while (rs.next()) {
                 int idx = 1;
@@ -4813,7 +4934,7 @@ public class DBServicesBean extends BaseEJB {
                     coder.setAttended(true);
                 }
 
-                coder.setEligible(isCoderEligible(conn, contest.getRoundID(), coder.getID()));
+                coder.setEligible(rs.getInt(idx++) == 1);
                 coders.add(coder);
 
                 if (contest.isLongContestRound()) {
@@ -4825,17 +4946,57 @@ public class DBServicesBean extends BaseEJB {
             // Load in a batch instead of individual ones
             if (!contest.isLongContestRound()) {
                 // load the coders info from the DB
-                loadCoderInfoBatch(conn, contest, coders, roomId,
-                    contest.getRoundProperties().allowsScoreType(ResultDisplayType.PASSED_TESTS));
+            	boolean loadPassedTests = contest.getRoundProperties().allowsScoreType(ResultDisplayType.PASSED_TESTS);
+            	if (coders.size() > 1) {
+                    loadCoderInfoBatch(conn, contest, coders, roomId, loadPassedTests);	
+            	} else if (coders.size() == 1) {
+                    loadCoderInfo(conn, contest, coders.get(0), loadPassedTests);            		
+            	}
             }
 
-            for (Iterator iter = coders.iterator(); iter.hasNext();) {
-                room.addCoder((Coder) iter.next());
-            }
+            s_trace.info("Populated coders for room " + roomId + " coder: " + coderToLoad);
+            return coders;
         } finally {
             close(null, ps, rs);
         }
     }
+
+    public Coder getRoomCoder(Round contest, int roomId, int coderId, int teamId) throws DBServicesException {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = DBMS.getConnection();
+
+            ps = conn.prepareStatement("select room.room_type_id from room where room.room_id=?");
+            ps.setInt(1, roomId);
+            rs = ps.executeQuery();
+
+            List<Coder> coders = null;
+            if (rs.next()) {
+            	int roomTypeId = rs.getInt(1);
+            	boolean isTeamRoom = roomTypeId == ContestConstants.TEAM_ADMIN_ROOM_TYPE_ID
+            			|| roomTypeId == ContestConstants.TEAM_CONTEST_ROOM_TYPE_ID
+            			|| roomTypeId == ContestConstants.TEAM_PRACTICE_ROOM_TYPE_ID;
+            	boolean isAdminRoom = roomTypeId == ContestConstants.ADMIN_ROOM_TYPE_ID
+            			|| roomTypeId == ContestConstants.TEAM_ADMIN_ROOM_TYPE_ID;
+
+                if (isTeamRoom) {
+                	coders = populateTeamContestRoom(conn, roomId, contest, teamId);
+                } else {
+                	coders = populateContestRoom(conn, roomId, contest, isAdminRoom, coderId);
+                }
+            }
+
+            return coders == null || coders.isEmpty() ? null : coders.get(0);
+        } catch (Exception e) {
+            printException(e);
+            throw new DBServicesException(e.toString());
+        } finally {
+            close(conn, ps, rs);
+        }
+    }
+
     /**
      * Gets the user image info.
      * @param coderId the coder id.
@@ -4862,19 +5023,23 @@ public class DBServicesBean extends BaseEJB {
         return "";
     }
     
-    private void populateTeamContestRoom(Connection conn, int roomId, Round contestRound, BaseCodingRoom room)
+    private List<Coder> populateTeamContestRoom(Connection conn, int roomId, Round contestRound, Integer teamToLoad)
         throws SQLException, DBServicesException {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
         try {
-            ps = conn.prepareStatement(GET_ROOM_TEAMS_QUERY);
+        	String sql = GET_ROOM_TEAMS_QUERY;
+        	if (teamToLoad != null) {
+        		sql = sql.replace("ORDER BY t.team_id", " AND t.team_id=" + teamToLoad);
+        	}
+            ps = conn.prepareStatement(sql);
             ps.setInt(1, roomId);
             rs = ps.executeQuery();
 
             int lastTeamID = -1;
             TeamCoder teamCoder = null;
-            Vector teamCoders = new Vector();
+            List<Coder> teamCoders = new ArrayList();
 
             while (rs.next()) {
                 int idx = 1;
@@ -4882,7 +5047,7 @@ public class DBServicesBean extends BaseEJB {
                 int divId = rs.getInt(idx++);
 
                 if (teamID != lastTeamID) {
-                    Team team = getTeam(conn, teamID, room.getRoundID());
+                    Team team = getTeam(conn, teamID, contestRound.getRoundID());
                     teamCoder = new TeamCoder(team, contestRound, divId, roomId, team.getRating(), team.getLanguage());
                     teamCoder.setComponentAssignmentData(getComponentAssignmentData(conn, teamID,
                             contestRound.getRoundID()));
@@ -4902,8 +5067,8 @@ public class DBServicesBean extends BaseEJB {
                 teamCoder = (TeamCoder) it.next();
                 // must do this after all members are loaded
                 loadTeamInfo(contestRound, teamCoder, conn);
-                room.addCoder(teamCoder);
             }
+            return teamCoders;
         } finally {
             close(null, ps, rs);
         }
@@ -5537,9 +5702,7 @@ public class DBServicesBean extends BaseEJB {
         try {
             conn = DBMS.getConnection();
 
-            Round round = getContestRound(conn, roundId);
-
-            int ratingType = round.getRoundType().getRatingType();
+            int ratingType = RoundType.get(getRoundTypeId(conn, roundId)).getRatingType();
 
             // int contestID = roundId;
             Registration reg = new Registration(roundId, ratingType);
@@ -5679,37 +5842,44 @@ public class DBServicesBean extends BaseEJB {
         }
     }
 
-    private ArrayList getRoundComponents(Connection conn, int divisionId, int roundId, ArrayList points)
+    private static class RoundComponent {
+    	private int componentId;
+    	private int divisionId;
+    	private int points;
+    }
+
+    private List<RoundComponent> getRoundComponents(Connection conn, int roundId)
         throws SQLException {
         if (s_trace.isDebugEnabled()) {
-            s_trace.debug("DBServices:getRoundComponents called with args: div-" + divisionId + ", round-" + roundId);
+            s_trace.debug("DBServices:getRoundComponents called with args: round-" + roundId);
         }
 
-        ArrayList retVal = new ArrayList(10);
+        List<RoundComponent> retVal = new ArrayList();
         PreparedStatement ps = null;
         ResultSet rs = null;
-        StringBuilder sqlStr = new StringBuilder(200);
+        StringBuilder sqlStr = new StringBuilder();
 
         try {
-            sqlStr.append("SELECT DISTINCT rc.component_id, rc.points ");
+            sqlStr.append("SELECT DISTINCT rc.component_id, rc.division_id, rc.points ");
             sqlStr.append("FROM round_component rc ");
-            sqlStr.append("WHERE rc.round_id=? AND rc.division_id=?");
+            sqlStr.append("WHERE rc.round_id=?");
             ps = conn.prepareStatement(sqlStr.toString());
             ps.setInt(1, roundId);
-            ps.setInt(2, divisionId);
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                int componentID = rs.getInt(1);
-                double pointsDouble = rs.getDouble(2);
+                RoundComponent rc = new RoundComponent();
+
+                rc.componentId = rs.getInt(1);
+                rc.divisionId = rs.getInt(2);
+                rc.points = Integer.valueOf((int) rs.getDouble(3));
 
                 if (s_trace.isDebugEnabled()) {
-                    s_trace.debug("Loaded ComponentID = " + componentID + " RoundID " + roundId + " DivisionID "
-                        + divisionId + " Points " + pointsDouble);
+                    s_trace.debug("Loaded ComponentID = " + rc.componentId + " RoundID " + roundId + " DivisionID "
+                        + rc.divisionId + " Points " + rc.points);
                 }
 
-                points.add(Integer.valueOf((int) pointsDouble));
-                retVal.add(Integer.valueOf(componentID));
+                retVal.add(rc);
             }
 
             return retVal;
@@ -5724,16 +5894,32 @@ public class DBServicesBean extends BaseEJB {
      */
     public long coderOpenComponent(int coderId, int contestId, int roundId, int roomId, int componentId) {
         java.sql.Connection conn = null;
-        long currentTime = System.currentTimeMillis();
-
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
         try {
-            long seqId = IdGeneratorClient.getSeqIdAsInt(DBMS.COMPONENT_STATE_SEQ);
             conn = DBMS.getConnection();
             conn.setAutoCommit(false);
+
+            ps = conn.prepareStatement("select c.open_time from compilation c, component_state cs "
+            		+ "where c.component_state_id = cs.component_state_id and cs.round_id = ? and cs.coder_id = ? and cs.component_id = ?");
+            ps.setInt(1, roundId);
+            ps.setInt(2, coderId);
+            ps.setInt(3, componentId);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+            	long openTime = rs.getLong(1);
+            	s_trace.info("Coder " + coderId + " has already opened component " + componentId + " at " + openTime);
+            	return openTime;
+            }
+
+            long seqId = IdGeneratorClient.getSeqIdAsInt(DBMS.COMPONENT_STATE_SEQ);
 
             if (s_trace.isDebugEnabled()) {
                 s_trace.debug("SeqID: " + seqId);
             }
+
+            long currentTime = System.currentTimeMillis();
 
             insertComponentState(conn, seqId, roundId, coderId, componentId);
             insertCompilation(conn, seqId, currentTime);
@@ -5745,7 +5931,7 @@ public class DBServicesBean extends BaseEJB {
             printException(e);
             throw new EJBException("" + e);
         } finally {
-            DBMS.close(conn);
+            DBMS.close(conn, ps, rs);
         }
     }
 
@@ -6258,8 +6444,6 @@ public class DBServicesBean extends BaseEJB {
         try {
             c = DBMS.getConnection();
 
-            Round r = getContestRound(c, roundId);
-
             ps = c.prepareStatement("UPDATE contest SET status = 'P' WHERE contest_id = ?");
             ps.setInt(1, contestId);
             ps.executeUpdate();
@@ -6283,10 +6467,11 @@ public class DBServicesBean extends BaseEJB {
 
             s_trace.info("End Contest - Contest and round statuses updated");
 
-            if (!r.isLongContestRound()) {
-                endAlgoRound(c, r);
+            RoundType roundType = RoundType.get(getRoundTypeId(c, roundId));
+            if (!roundType.isLongRound()) {
+                endAlgoRound(c, roundId, roundType);
             } else {
-                endLongRound(c, r);
+                endLongRound(c, roundId);
             }
 
             s_trace.info("END CONTEST - FINISHED");
@@ -6298,17 +6483,15 @@ public class DBServicesBean extends BaseEJB {
         }
     }
 
-    private void endLongRound(Connection c, Round r) {
+    private void endLongRound(Connection c, int roundId) {
         //Nothing to do right now
     }
 
-    private void endAlgoRound(Connection c, Round r) throws Exception {
+    private void endAlgoRound(Connection c, int roundId, RoundType roundType) throws Exception {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
         try {
-            int roundId = r.getRoundID();
-
             //      make system test viewable
             StringBuilder sqlStr = new StringBuilder();
             sqlStr.append("UPDATE system_test_result SET viewable = 'Y' ");
@@ -6322,7 +6505,7 @@ public class DBServicesBean extends BaseEJB {
             debug("Set systests viewable");
 
             updateAttendedCoders(c, roundId);
-            updateAlgoPlaceImpl(c, r);
+            updateAlgoPlaceImpl(c, roundId, roundType);
         } finally {
             DBMS.close(ps, rs);
         }
@@ -6337,13 +6520,12 @@ public class DBServicesBean extends BaseEJB {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        Round r = getContestRound(roundId);
-
         try {
             c = DBMS.getConnection();
             c.setAutoCommit(false);
 
-            updateAlgoPlaceImpl(c, r);
+            RoundType roundType = RoundType.get(getRoundTypeId(c, roundId));
+            updateAlgoPlaceImpl(c, roundId, roundType);
 
             c.commit();
             debug("Coder place updated.");
@@ -6356,14 +6538,13 @@ public class DBServicesBean extends BaseEJB {
         }
     }
 
-    private void updateAlgoPlaceImpl(Connection c, Round r)
+    private void updateAlgoPlaceImpl(Connection c, int roundId, RoundType roundType)
         throws Exception {
         PreparedStatement ps = null;
         ResultSet rs = null;
-        int ratingType = r.getRoundType().getRatingType();
+        int ratingType = roundType.getRatingType();
 
         try {
-            int roundId = r.getRoundID();
 
             // update ROOM_RESULT.room_placed
             StringBuilder sqlStr = new StringBuilder();
@@ -8330,18 +8511,49 @@ public class DBServicesBean extends BaseEJB {
     }
 
     public Round[] getPracticeRounds(int limit) throws DBServicesException {
-        List roundIDs = getPracticeRoundIDs();
-        limit = Math.min(limit, roundIDs.size());
+        Connection connection = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
 
-        Round[] rounds = new Round[limit];
-        Iterator idIterator = roundIDs.iterator();
+        try {
+            connection = DBMS.getConnection();
+            ps = connection.prepareStatement("select group_id from practice_group");
+            rs = ps.executeQuery();
+            List<Integer> groupIds = new ArrayList();
+            while (rs.next()) {
+            	groupIds.add(rs.getInt(1));
+            }
+            DBMS.close(ps, rs);
 
-        for (int i = 0; (i < limit) && idIterator.hasNext(); i++) {
-            Integer roundID = (Integer) idIterator.next();
-            rounds[i] = getContestRound(roundID.intValue());
+            List<Round> rounds = new ArrayList();
+            for (Integer groupId : groupIds) {
+                String sqlCmd = "SELECT FIRST " + limit + " r.round_id FROM round r, round_group_xref rgx WHERE r.status = 'A' "
+                		+ "AND r.round_id = rgx.round_id AND rgx.group_id = ? "
+                		+ "AND r.round_type_id IN ("
+                        + ContestConstants.PRACTICE_ROUND_TYPE_ID + "," + ContestConstants.TEAM_PRACTICE_ROUND_TYPE_ID + ","
+                        + ContestConstants.LONG_PROBLEM_PRACTICE_ROUND_TYPE_ID + ","
+                        + ContestConstants.AMD_LONG_PROBLEM_PRACTICE_ROUND_TYPE_ID + ") "
+                        + "ORDER BY r.contest_id, r.round_id";
+                ps = connection.prepareStatement(sqlCmd);
+                ps.setInt(1, groupId);
+                rs = ps.executeQuery();
+                List<Integer> roundIds = new ArrayList();
+                while (rs.next()) {
+                	roundIds.add(rs.getInt(1));
+                }
+                DBMS.close(ps, rs);
+
+                for (Integer roundId : roundIds) {
+                	rounds.add(getContestRound(connection, roundId, false));
+                }
+            }
+            return rounds.toArray(new Round[rounds.size()]);
+        } catch (SQLException e) {
+            printException(e);
+            throw new DBServicesException(e.getMessage());
+        } finally {
+            DBMS.close(connection);
         }
-
-        return rounds;
     }
 
     private static Connection getConnection() throws SQLException {
