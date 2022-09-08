@@ -62,6 +62,7 @@ build_steps: &build_steps
           ./buildenv.sh -e $DEPLOY_ENV -b ${LOGICAL_ENV}-${APPJBOSS}-deployvar
           source buildenvvar
           ./master_deploy.sh -d ECS -e $DEPLOY_ENV -t latest -s ${LOGICAL_ENV}-${APPJBOSS}-appvar -i ${APPNAME}
+          unset AWS_ECS_EXTRA_HOSTENTRY
 
           echo "======= Running Masterscript - deploy arena Listener app ==========="
           if [ -e buildenvvar ]; then rm -vf buildenvvar; fi          
