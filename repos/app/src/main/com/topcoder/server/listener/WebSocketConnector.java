@@ -19,7 +19,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import com.topcoder.netCommon.contest.ContestConstants;
+import com.topcoder.netCommon.contestantMessages.request.KeepAliveRequest;
 import com.topcoder.netCommon.contestantMessages.request.LoginRequest;
+import com.topcoder.netCommon.contestantMessages.response.KeepAliveResponse;
 import com.topcoder.netCommon.contestantMessages.response.PopUpGenericResponse;
 import com.topcoder.netCommon.io.ClientSocket;
 import com.topcoder.server.AdminListener.request.BackEndChangeRoundRequest;
@@ -51,9 +53,10 @@ import com.topcoder.shared.netCommon.CSHandler;
  */
 public class WebSocketConnector {
     /**
-     * The mapping of the client connection id to uuid.
+     * The mapping of the client connection id to connection data.
      */
-    private static Map<Integer, UUID> connections = new ConcurrentHashMap<Integer, UUID>();
+    private static Map<Integer, WebsocketConnectionData> connections = new ConcurrentHashMap<Integer, WebsocketConnectionData>();
+
 
     /**
      * The port to connect to.
@@ -64,11 +67,6 @@ public class WebSocketConnector {
      * The socket to send and receive messages.
      */
     private ServerSocket serverSocket;
-
-    /**
-     * The queue of messages to send.
-     */
-    private final Queue<SocketMessage> queue = new ConcurrentLinkedQueue<SocketMessage>();
 
     /**
      * The arena processor.
@@ -130,13 +128,14 @@ public class WebSocketConnector {
      * @param message    the message to send
      */
     public void write(int connectionID, Object message) {
+    	WebsocketConnectionData connectionData = connections.get(connectionID);
         if (message instanceof MultiMessage) {
             List messages = ((MultiMessage) message).getMessages();
             for (int i = 0; i < messages.size(); i++) {
-                queue.add(new SocketMessage(connections.get(connectionID), messages.get(i)));
+            	connectionData.queue.add(new SocketMessage(connectionData.uuid, messages.get(i)));
             }
         } else {
-            queue.add(new SocketMessage(connections.get(connectionID), message));
+        	connectionData.queue.add(new SocketMessage(connectionData.uuid, message));
         }
     }
 
@@ -146,6 +145,7 @@ public class WebSocketConnector {
      * @param connectionID    the id of the client connection
      */
     public void remove(int connectionID) {
+    	ListenerMain.info("WebSocketConnector remove websocket connection: " + connectionID);
         connections.remove(connectionID);
     }
     /**
@@ -153,33 +153,31 @@ public class WebSocketConnector {
      *
      * @param o    the message to process
      */
-    private void processMessage(Object o) {
+    private void processMessage(Object o, Queue<Object> queue) {
         if (!(o instanceof SocketMessage)) {
             // invalid message
-            ListenerMain.info("invalid message received: ");
+            ListenerMain.info("WebSocketConnector invalid message received: ");
             return;
         }
-        ListenerMain.info("handling received message: ");
         SocketMessage sm = (SocketMessage) o;
         int cid = sm.getUuid().hashCode();
         Object msg = sm.getMessage();
         if (!connections.containsKey(cid)) {
-            ListenerMain.info("adding new connection from websocket");
+            ListenerMain.info("WebSocketConnector adding new connection from websocket");
             processor.newConnection(cid, "127.0.0.1");
             monitorProcessor.newConnection(cid, "127.0.0.1");
-            connections.put(new Integer(cid), sm.getUuid());
+            connections.put(new Integer(cid), new WebsocketConnectionData(sm.getUuid(), queue));
         }
         if (msg instanceof LoginRequest) {
             LoginRequest lr = (LoginRequest) msg;
-            ListenerMain.info("handling login request: " + lr.getUserID() + " " + lr.getPassword());
+            ListenerMain.info("WebSocketConnector handling LoginRequest: " + lr.getUserID() + " " + lr.getPassword());
 
-            ListenerMain.info("processing new websocket messages");
             RequestProcessor.processNoLimit(cid, lr);
         } else if (msg instanceof RoundAccessRequest) {
+            ListenerMain.info("WebSocketConnector handling RoundAccessRequest ");
             try {
                 RoundAccessResponse response = adminServices.
                         processRoundAccessRequest(new BackEndRoundAccessRequest(cid, RequestProcessor.getUserID(cid)));
-                ListenerMain.info(response.toString());
                 this.write(cid, response);
             } catch (Exception e) {
                 this.write(cid, new PopUpGenericResponse("Round Access Error",
@@ -188,11 +186,11 @@ public class WebSocketConnector {
                 ListenerMain.error(e);
             }
         } else if (msg instanceof ChangeRoundRequest) {
+            ListenerMain.info("WebSocketConnector handling ChangeRoundRequest ");
             try {
                 ChangeRoundResponse response = adminServices.
                         processChangeRoundRequest(new BackEndChangeRoundRequest(cid, RequestProcessor.getUserID(cid),
                                 ((ChangeRoundRequest) msg).getRoundId()));
-                ListenerMain.info(response.toString());
                 this.write(cid, response);
             } catch (Exception e) {
                 this.write(cid, new PopUpGenericResponse("Change round Error",
@@ -202,10 +200,10 @@ public class WebSocketConnector {
             }
 
         } else if (msg instanceof LoadRoundRequest) {
-            ListenerMain.info("Handling LoadRoundRequest ");
+            ListenerMain.info("WebSocketConnector handling LoadRoundRequest ");
             monitorProcessor.receive(cid, msg);
         } else if (msg != null) {
-            ListenerMain.info("message received: " + msg.getClass());
+            ListenerMain.info("WebSocketConnector handling " + msg.getClass().getSimpleName());
             RequestProcessor.processNoLimit(cid, msg);
         }
     }
@@ -236,11 +234,20 @@ public class WebSocketConnector {
                 }
             }).start();
         } catch (Exception ex) {
-            ListenerMain.info("Could not listen on port:" + port);
+            ListenerMain.info("WebSocketConnector could not listen on port:" + port);
             return false;
         }
 
         return true;
+    }
+
+    private static class WebsocketConnectionData {
+    	private final UUID uuid;
+    	private final Queue<Object> queue;
+    	public WebsocketConnectionData(UUID uuid, Queue<Object> queue) {
+    		this.uuid = uuid;
+    		this.queue = queue;
+    	}
     }
 
     /**
@@ -283,6 +290,11 @@ public class WebSocketConnector {
         private Thread writeThread;
 
         /**
+         * The queue of messages to send.
+         */
+        private final Queue<Object> queue = new ConcurrentLinkedQueue<Object>();
+
+        /**
          * Creates a new instance of this class.
          *
          * @param socket    The socket used to send and receive messages
@@ -293,8 +305,10 @@ public class WebSocketConnector {
             CSHandler csHandler = new WSSCommonCSHandler(encryptKey);
             try {
                 csClient = new ClientSocket(socket, csHandler);
+
+                ListenerMain.info("WebSocketConnector accepted socket from " + csClient.getRemoteEndpoint());
             } catch (IOException e) {
-                ListenerMain.info("Couldn't get I/O for the connection.");
+                ListenerMain.info("WebSocketConnector couldn't get I/O for the connection.");
                 e.printStackTrace();
             }
             connector = cn;
@@ -351,36 +365,46 @@ public class WebSocketConnector {
                 while (true) {
                     Object o;
                     try {
-                        ListenerMain.info("ListenerMain reading object from reader...");
                         o = csClient.readObject();
                         if (o != null) {
-                            processMessage(o);
+                        	if (o instanceof KeepAliveRequest) {
+                                ListenerMain.info("WebSocketConnector received keep alive request");
+                                queue.add(new KeepAliveResponse(((KeepAliveRequest) o).getRequestType()));
+                        	} else {
+                                processMessage(o);
+                        	}
                         }
                     } catch (SocketTimeoutException e) {
-                        ListenerMain.info("Reading timeout... trying again...");
+                        ListenerMain.info("WebSocketConnector Reading timeout... trying again...");
                         continue;
                     } catch (SocketException e) {
-                        ListenerMain.info("Lost connection.");
+                        ListenerMain.info("WebSocketConnector Lost connection.");
                         break;
                     } catch (StreamCorruptedException e) {
                         e.printStackTrace();
                         continue;
                     } catch (EOFException e) {
-                        ListenerMain.info("Lost connection.");
+                        ListenerMain.info("WebSocketConnector Lost connection.");
                         break;
                     } catch (IOException e) {
                         if (e.getMessage() != null
                                 && (e.getMessage().toLowerCase().indexOf("stream closed") > -1
                                         || e.getMessage().toLowerCase().indexOf("stream is closed") > -1
                                         || e.getMessage().toLowerCase().indexOf("premature eof") > -1)) {
-                            ListenerMain.info("Lost connection.");
+                            ListenerMain.info("WebSocketConnector Lost connection.");
                             break;
                         }
                     } catch (Exception e) {
-                        ListenerMain.info("Error processing received message.");
+                        ListenerMain.info("WebSocketConnector Error processing received message.");
                         continue;
                     }
                 }
+                try {
+					csClient.close();
+	                ListenerMain.info("WebSocketConnector closed socket from " + csClient.getRemoteEndpoint());
+				} catch (IOException e) {
+					// ignore
+				}
             }
 
             /**
@@ -389,8 +413,7 @@ public class WebSocketConnector {
              * @param o     The received message object
              */
             private void processMessage(Object o) {
-                ListenerMain.info("Received message: " + o.toString());
-                connector.processMessage(o);
+                connector.processMessage(o, queue);
             }
 
         }
@@ -433,18 +456,18 @@ public class WebSocketConnector {
             public void run() {
                 while (true) {
                     try {
-                        SocketMessage message = null;
-                        message = connector.queue.poll();
+                    	Object message = queue.poll();
                         if (message != null) {
-                            ListenerMain.info("ListenerMain writing object " + message.getClass()
-                                    + " to writer...");
+                        	if (message instanceof SocketMessage && ((SocketMessage) message).getMessage() != null) {
+                                ListenerMain.info("WebSocketConnector sending message " + ((SocketMessage) message).getMessage().getClass().getSimpleName());
+                        	}
 
                             csClient.writeObject(message);
                         } else {
                             Thread.sleep(10);
                         }
                     } catch (Exception e) {
-                        ListenerMain.info("Error while sending message.");
+                        ListenerMain.info("WebSocketConnector Error while sending message.");
                         return;
                     }
                 }
@@ -463,7 +486,7 @@ public class WebSocketConnector {
     public static void main(String args[]) {
         WebSocketConnector wsc = new WebSocketConnector(5555);
         boolean started = wsc.start();
-        ListenerMain.info("started: " + started);
+        ListenerMain.info("WebSocketConnector started: " + started);
 
     }
 }

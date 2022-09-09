@@ -92,9 +92,9 @@ services:
       - "5037:5037"
       - "5555:5555"
     environment:
-      - MAIN_LISTENER_JAVA_OPTS=-Xms256m -Xmx1024m
-      - ADMIN_LISTENER_JAVA_OPTS=-Xms256m -Xmx1024m
-      - MPSQAS_LISTENER_JAVA_OPTS=-Xms256m -Xmx1024m
+      - MAIN_LISTENER_JAVA_OPTS=-Xms256m -Xmx1024m -Dorg.jboss.mq.il.uil2.serverAddr=arena-jboss
+      - ADMIN_LISTENER_JAVA_OPTS=-Xms256m -Xmx1024m -Dorg.jboss.mq.il.uil2.serverAddr=arena-jboss
+      - MPSQAS_LISTENER_JAVA_OPTS=-Xms256m -Xmx1024m -Dorg.jboss.mq.il.uil2.serverAddr=arena-jboss
       - MAIN_LISTENRER_STARTUP_WAIT_TIME=30
   arena-websocket:
     container_name: arena-websocket
@@ -107,4 +107,4 @@ services:
     ports:
       - "7443:7443"
     environment:
-      - WEBSOCKET_LISTENER_JAVA_OPTS=-Xms256m -Xmx1024m
+      - WEBSOCKET_LISTENER_JAVA_OPTS=-Xms256m -Xmx1024m -Dorg.jboss.mq.il.uil2.serverAddr=arena-jboss
