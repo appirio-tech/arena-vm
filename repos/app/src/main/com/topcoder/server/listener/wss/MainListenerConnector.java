@@ -22,6 +22,7 @@ import com.corundumstudio.socketio.SocketIOClient;
 import com.topcoder.netCommon.contestantMessages.request.*;
 import com.topcoder.netCommon.contestantMessages.response.BaseResponse;
 import com.topcoder.netCommon.contestantMessages.response.ForcedLogoutResponse;
+import com.topcoder.netCommon.contestantMessages.response.KeepAliveResponse;
 import com.topcoder.netCommon.io.ClientSocket;
 import com.topcoder.server.AdminListener.response.ChangeRoundResponse;
 import com.topcoder.server.AdminListener.response.CommandResponse;
@@ -157,6 +158,7 @@ public class MainListenerConnector {
             ConnectionManager cm = new ConnectionManager(socket, MainListenerConnector.this);
             new Thread(cm).start();
 
+            WebSocketServerHelper.info("successfully connect to " + ip + " with port: " + port);
         } catch (Exception ex) {
             WebSocketServerHelper.info("Could not connect on port:" + port);
             return false;
@@ -192,7 +194,6 @@ public class MainListenerConnector {
                 WebSocketServerHelper.error("error occur when try to reconnect", e);
             }
         }
-        WebSocketServerHelper.info("successfully connect to " + ip + " with port: " + port);
     }
     /**
      * Getter of the web socket server instance.
@@ -281,7 +282,6 @@ public class MainListenerConnector {
             writeThread.start();
         }
 
-
         /**
          * Private class to read incoming messages.
          *
@@ -361,24 +361,27 @@ public class MainListenerConnector {
                 while (true) {
                     Object o;
                     try {
-                        WebSocketServerHelper.info("reading object from reader");
                         o = csClient.readObject();
 
                         if (o != null) {
-                            processMessage(o);
+                        	if (o instanceof KeepAliveResponse) {
+                                WebSocketServerHelper.info("Received keep alive response");
+                        	} else {
+                                processMessage(o);                        		
+                        	}
                         }
                     } catch (SocketTimeoutException e) {
                         WebSocketServerHelper.info("Reading timeout... trying again...");
                         continue;
                     } catch (SocketException e) {
-                        WebSocketServerHelper.info("Lost connection.");
+                        WebSocketServerHelper.error("Lost connection.", e);
                         connector.reConnectMainListener();
                         break;
                     } catch (StreamCorruptedException e) {
                         e.printStackTrace();
                         continue;
                     } catch (EOFException e) {
-                        WebSocketServerHelper.info("Lost connection.");
+                        WebSocketServerHelper.error("Lost connection.", e);
                         connector.reConnectMainListener();
                         break;
                     } catch (IOException e) {
@@ -386,7 +389,7 @@ public class MainListenerConnector {
                                 && (e.getMessage().toLowerCase().indexOf("stream closed") > -1
                                         || e.getMessage().toLowerCase().indexOf("stream is closed") > -1
                                         || e.getMessage().toLowerCase().indexOf("premature eof") > -1)) {
-                            WebSocketServerHelper.info("Lost connection.");
+                            WebSocketServerHelper.error("Lost connection.", e);
                             connector.reConnectMainListener();
                             break;
                         }
@@ -403,7 +406,6 @@ public class MainListenerConnector {
              * @param o the incoming message
              */
             private void processMessage(Object o) {
-                WebSocketServerHelper.info("Received message: " + o.toString());
                 if (!(o instanceof SocketMessage)) {
                     WebSocketServerHelper.info("message is not a SocketMessage instance: " + o.toString());
                     return;
@@ -501,18 +503,28 @@ public class MainListenerConnector {
              */
             @Override
             public void run() {
+            	long lastSendTime = -1;
                 while (true) {
                     try {
                         SocketMessage message = null;
                         message = connector.queue.poll();
                         if (message != null) {
-                            WebSocketServerHelper.info("sending message: " + message.toString());
+                        	if (message.getMessage() != null) {
+                                WebSocketServerHelper.info("sending message: " + message.getMessage().getClass().getSimpleName());                        		
+                        	}
                             csClient.writeObject(message);
+                            lastSendTime = System.currentTimeMillis();
                         } else {
+                            long currentTime = System.currentTimeMillis();
+                            if (currentTime - lastSendTime >= 60000) {
+                            	WebSocketServerHelper.info("sending keep alive message");
+                            	csClient.writeObject(new KeepAliveRequest());
+                            	lastSendTime = currentTime;
+                            }
                             Thread.sleep(10);
                         }
                     } catch (Exception e) {
-                        WebSocketServerHelper.info("Error processing single message.");
+                        WebSocketServerHelper.error("Error processing single message.", e);
                         return;
                     }
                 }
