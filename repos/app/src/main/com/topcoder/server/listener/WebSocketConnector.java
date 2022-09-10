@@ -294,6 +294,8 @@ public class WebSocketConnector {
          */
         private final Queue<Object> queue = new ConcurrentLinkedQueue<Object>();
 
+        private boolean closed = false;
+
         /**
          * Creates a new instance of this class.
          *
@@ -405,6 +407,7 @@ public class WebSocketConnector {
 				} catch (IOException e) {
 					// ignore
 				}
+            	closed = true;
             }
 
             /**
@@ -454,7 +457,7 @@ public class WebSocketConnector {
              */
             @Override
             public void run() {
-                while (true) {
+                while (!closed) {
                     try {
                     	Object message = queue.poll();
                         if (message != null) {

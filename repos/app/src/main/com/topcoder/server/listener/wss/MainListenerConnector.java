@@ -252,6 +252,8 @@ public class MainListenerConnector {
          */
         private Thread writeThread;
 
+        private boolean closed = false;
+
         /**
          * Creates a new instance of this class.
          *
@@ -398,6 +400,7 @@ public class MainListenerConnector {
                         continue;
                     }
                 }
+                closed = true;
             }
 
             /**
@@ -504,7 +507,7 @@ public class MainListenerConnector {
             @Override
             public void run() {
             	long lastSendTime = -1;
-                while (true) {
+                while (!closed) {
                     try {
                         SocketMessage message = null;
                         message = connector.queue.poll();
