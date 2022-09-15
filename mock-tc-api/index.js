@@ -3,9 +3,9 @@ const fs = require("fs");
 const { URL } = require('url');
 
 const routes = {
-    "/v2/challenges/open": "/openChallenges.json",
-    "/v2/data/srm/schedule": "/srmSchedule.json",
-    "/v2/data/srm/practice/problems": "/practiceProblems.json",
+    "/v5/challenges": "/openChallenges.json",
+    "/v4/srms/schedule": "/srmSchedule.json",
+    "/v4/srms/practice/problems": "/practiceProblems.json",
     "/v2/data/srm/problems/10195/rounds": "/problemRounds.json"
 }
 
@@ -45,7 +45,13 @@ const requestListener = function (req, res) {
     }
 
     const result = JSON.parse(fs.readFileSync(__dirname + routes[pathname]));
-    modifyResult(url, req, result);
+    if (pathname.startsWith('/v2')) {
+        modifyResult(url, req, result);
+    } else if (pathname === '/v5/challenges') {
+        result.forEach(item => {
+            item.registrationEndDate = new Date(new Date().getTime() + 86400000).toISOString();
+        });
+    }
 
     res.writeHead(200, {
         "Access-Control-Allow-Credentials": true,
