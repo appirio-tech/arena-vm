@@ -170,16 +170,18 @@ public class RatingQubits {
                     stringnamesplusprov.add(handle);
 
                     if (rs2.getInt(4) > 0) {
-                        volatilitiesplusprov.add(new Double(rs2.getInt(3)));
                         ratingsplusprov.add(new Double(rs2.getInt(2)));
                         names.add("" + rs2.getInt(1));
                         ratings.add(new Double(rs2.getInt(2)));
-                        volatilities.add(new Double(rs2.getInt(3)));
+                        int vol = rs2.getInt(3);
+                        vol = vol == 0 ? initialVolatility : vol;
+                        volatilities.add(new Double(vol));
+                        volatilitiesplusprov.add(new Double(vol));
                         timesplayed.add(new Integer(rs2.getInt(4)));
                         scores.add(new Double(rs2.getDouble(5)));
                         stringnames.add(handle);
                     } else {
-                        volatilitiesplusprov.add(new Double(515));
+                        volatilitiesplusprov.add(new Double(initialVolatility));
                         ratingsplusprov.add(new Double(1200.0));
                     }
 
@@ -377,16 +379,18 @@ public class RatingQubits {
                     stringnamesplusprov.add(handle);
 
                     if (rs2.getInt(4) > 0) {
-                        volatilitiesplusprov.add(new Double(rs2.getInt(3)));
                         ratingsplusprov.add(new Double(rs2.getInt(2)));
                         names.add("" + rs2.getInt(1));
                         ratings.add(new Double(rs2.getInt(2)));
-                        volatilities.add(new Double(rs2.getInt(3)));
+                        int vol = rs2.getInt(3);
+                        vol = vol == 0 ? initialVolatility : vol;
+                        volatilities.add(new Double(vol));
+                        volatilitiesplusprov.add(new Double(vol));
                         timesplayed.add(new Integer(rs2.getInt(4)));
                         scores.add(new Double(rs2.getDouble(5)));
                         stringnames.add(handle);
                     } else {
-                        volatilitiesplusprov.add(new Double(515));
+                        volatilitiesplusprov.add(new Double(initialVolatility));
                         ratingsplusprov.add(new Double(1200.0));
                     }
 
@@ -514,7 +518,7 @@ public class RatingQubits {
     int STEPS = 100;
     double initialScore = 1200.0;
     double oneStdDevEquals = 1200.0; /* rating points */
-    double initialVolatility = 515;
+    int initialVolatility = 515;
     double firstVolatility = 385;
     double initialWeight = 0.60;
     double finalWeight = 0.18;

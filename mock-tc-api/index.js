@@ -49,7 +49,10 @@ const requestListener = function (req, res) {
         modifyResult(url, req, result);
     } else if (pathname === '/v5/challenges') {
         result.forEach(item => {
-            item.registrationEndDate = new Date(new Date().getTime() + 86400000).toISOString();
+            var regPhase = item.phases.find(phase => phase.name === 'Registration');
+            if (regPhase) {
+                regPhase.scheduledEndDate = new Date(new Date().getTime() + (Math.floor(Math.random() * 720) + 1) * 3600000).toISOString();
+            }
         });
     }
 

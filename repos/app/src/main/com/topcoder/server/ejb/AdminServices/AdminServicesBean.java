@@ -1943,7 +1943,7 @@ public class AdminServicesBean extends BaseEJB {
         "  r.status," +
         "  r.registration_limit," +
         "  r.invitational," +
-        "  ra.short_name," +
+        "  r.short_name," +
         "  r.region_id," +
         "  reg.region_name," +
         "  ra.coders_per_room," +
