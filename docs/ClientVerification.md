@@ -21,10 +21,25 @@ Refer to https://youtu.be/Tdq16Pn8IsU for details.
      ```properties
       Registration Start = {current_time} + 5 minutes
       Registration Length = 5
-      Coding Start = {current_time} + 10 minutes
+      Coding Start = {current_time} + 15 minutes
      ```
 
+     **Ensure [Coding Start] time to be later (several minutes) than [Registration Start] + [Registration Length]**
+
      ![round-segments](screenshots/round-segments.png)
+
+   - Then click "Room assignment algorithm" button:
+
+     ```properties
+     Coders Per Room = 20
+     Type = Random Seeding
+     Is By Division = true
+     Is Final = true
+     Is By Region = false
+     p = 2.0
+     ```
+
+     ![assign-rooms](screenshots/assign-rooms.png)
 
    - Then click menu **File -> Load Round Access** and select the round you just created:
 
@@ -36,20 +51,7 @@ Refer to https://youtu.be/Tdq16Pn8IsU for details.
 
 2. After about 5 minutes the Registration phase starts. Login to arena client and register to contest, refer to https://youtu.be/k0nfujuWQtI for details
 
-3. After coder registered, use admin client to assign rooms, refer to https://youtu.be/wSBfo1nuLek for details:
-
-   ```properties
-   Coders Per Room = 20
-   Type = Random Seeding
-   Is By Division = false
-   Is Final = true
-   Is By Region = false
-   p = 2.0
-   ```
-
-   ![assign-rooms](screenshots/assign-rooms.png)
-
-4. After about 10 minutes the Coding phase starts. Use arena client to enter room and compete, refer to https://youtu.be/4RoU7hYQO6o for details:
+4. After about 15 minutes the Coding phase starts. Use arena client to enter room and compete, refer to https://youtu.be/4RoU7hYQO6o for details:
 
    - Verify Java, notice the `str.lines()` is new in JDK 11, and `/etc/passwd` is disallowed to open:
 
@@ -63,5 +65,18 @@ Refer to https://youtu.be/Tdq16Pn8IsU for details.
 
    ![python3](screenshots/python3.png)
 
+4. Use admin client to **End contest**, **Run ratings** and **Insert practice room**:
 
+   ![end-contest](screenshots/end-contest.png)
 
+   ![run-ratings](screenshots/run-ratings.png)
+
+   ![insert-practice](screenshots/insert-practice.png)
+
+   
+
+5. After **Insert Practice Room**, then click “**Refresh Room Lists…**” to refresh practice rooms:
+
+   ![refresh-room-lists](screenshots/refresh-room-lists.png)
+
+![refresh-practice-rooms](screenshots/refresh-practice-rooms.png)
