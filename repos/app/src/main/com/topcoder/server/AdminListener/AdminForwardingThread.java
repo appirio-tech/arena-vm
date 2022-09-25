@@ -55,7 +55,7 @@ public class AdminForwardingThread {
             queue = new TCLinkedQueue();
             sslFact = (SSLSocketFactory) SSLSocketFactory.getDefault();
             socket = (SSLSocket) sslFact.createSocket(host, port);
-            socket.setEnabledCipherSuites(new String[]{AdminConstants.SSL_CIPHER});
+            socket.setEnabledCipherSuites(socket.getSupportedCipherSuites());
             System.out.println("socket created");
             socketOutputStream = new ObjectOutputStream(socket.getOutputStream());
             socketInputStream = new ObjectInputStream(socket.getInputStream());

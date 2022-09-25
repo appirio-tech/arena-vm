@@ -1,11 +1,9 @@
 package com.topcoder.server.AdminListener;
 
+import java.net.ServerSocket;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-
-import javax.net.ssl.SSLServerSocket;
-import javax.net.ssl.SSLServerSocketFactory;
 
 import org.apache.log4j.Category;
 
@@ -14,7 +12,7 @@ import com.topcoder.shared.util.SerialIntGenerator;
 public class ClientConnectionSet {
 
     private AdminProcessor processor;
-    private SSLServerSocket acceptorSocket;
+    private ServerSocket acceptorSocket;
     private SerialIntGenerator generator;
     private Map activeConnections = new ConcurrentHashMap();
 //    private int listenPort;
@@ -26,15 +24,7 @@ public class ClientConnectionSet {
 //        this.listenPort = listenPort;
         generator = new SerialIntGenerator(AdminConstants.FIRST_CLIENT_CONNECTION_ID);
 
-        // Create the socket.  Factory creation can take some time (about 35 seconds
-        // on my home PC).  This time is taken to initialize the SecureRandom it uses.
-        SSLServerSocketFactory sslSrvFact = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
-        acceptorSocket = (SSLServerSocket) sslSrvFact.createServerSocket(listenPort);
-
-        // Force to use anonymous SSL (no certificates)
-        String cipherStrings[] = new String[1];
-        cipherStrings[0] = AdminConstants.SSL_CIPHER;
-        acceptorSocket.setEnabledCipherSuites(cipherStrings);
+        acceptorSocket = new ServerSocket(listenPort);
     }
 
     void start() {

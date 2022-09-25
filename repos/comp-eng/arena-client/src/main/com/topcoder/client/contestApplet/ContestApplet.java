@@ -90,7 +90,7 @@ public final class ContestApplet extends JApplet implements ContestantView {
     private boolean disableAutoEnhancedChat = false;
     private boolean disableChatHistory = false;
     private boolean disableChatFindTabs = false;
-    private boolean allowSSL = false;
+    private boolean allowSSL = true;
     
     public static final String DISABLEENTEREXITMSGSPROPERTY = "com.topcoder.jmaContestApplet.ContestApplet.disableEnterExitMsgs";
     public static final String DISABLEAUTOENHANCEDCHAT = "com.topcoder.jmaContestApplet.ContestApplet.disableAutoEnhancedChat";
@@ -158,7 +158,7 @@ public final class ContestApplet extends JApplet implements ContestantView {
         // POPS - 11/27/2001 - changed to set a security manager
         try {
             System.setSecurityManager(new TCSecurityManager());
-        } catch (java.security.AccessControlException e) {
+        } catch (Exception e) {
             System.out.println("Cannot create the security manager - plugins will not work");
         }
 

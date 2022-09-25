@@ -331,7 +331,6 @@
         <mkdir dir="${build.dir}/tmp-admin-client"/>
         <copy todir="${build.dir}/tmp-admin-client" overwrite="true">
             <fileset dir="${admin.deployment.dir}" includes="**/*.bat, **/*.sh, **/*.jnlp"/>
-            <fileset file="${basedir}/scripts/custom.security"/>
             <filterset>
                 <filter token="filename.basic_type_serialization" value="${filename.basic_type_serialization}"/>
                 <filter token="filename.security" value="${filename.security}"/>

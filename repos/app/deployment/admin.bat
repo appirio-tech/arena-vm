@@ -15,4 +15,4 @@ SET PORT=@applet.arg-port@
 SET CLASSPATH=!CLASSPATH!
 ECHO !CLASSPATH!
 
-%JAVACMD% -Djava.security.properties=custom.security -cp %CLASSPATH% %MAIN% %IP%:%PORT%
+%JAVACMD% -cp %CLASSPATH% %MAIN% %IP%:%PORT%

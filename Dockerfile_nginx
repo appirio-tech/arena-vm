@@ -1,0 +1,6 @@
+FROM nginx
+
+RUN mkdir -p /nginx-ssl
+COPY ./nginx-ssl/ /nginx-ssl/
+
+CMD ["/bin/bash", "-c", "nginx -c /nginx-ssl/nginx.conf && sleep infinity"]

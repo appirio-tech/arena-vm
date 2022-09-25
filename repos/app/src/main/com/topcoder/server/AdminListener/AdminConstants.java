@@ -27,10 +27,6 @@ public class AdminConstants {
     public static final int RESTART_TESTERS_NORMAL = 2;
     public static final int RESTART_TESTERS_REFERENCE = 3;
 
-    // Anonymous (no certificates) using Diffie-Hellman key exchange to
-    // negotiate a shared secret key, RC4 for data encryption, and MD5
-    // for the hash function
-    public static final String SSL_CIPHER = "SSL_DH_anon_WITH_RC4_128_MD5";
     public static final int BACK_END_CONNECTION_ID = 3;
     public static final int CONTEST_LISTENER_CONNECTION_ID = 5;
     public static final int FIRST_CLIENT_CONNECTION_ID = 10;

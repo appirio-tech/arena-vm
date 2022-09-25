@@ -13,4 +13,4 @@ SET PORT=5001
 SET CLASSPATH=!CLASSPATH!
 ECHO !CLASSPATH!
 
-java -Dcom.topcoder.message.LoggingInterceptor=true -cp %CLASSPATH% com.topcoder.client.contestApplet.runner.generic %IP% %PORT% http://%IP%\:5008/dummy\?t\=true TopCoder TopCoder
+java -Dcom.topcoder.message.LoggingInterceptor=true -cp %CLASSPATH% com.topcoder.client.contestApplet.runner.generic %IP% %PORT% https://%IP%\:5008/dummy\?t\=true TopCoder TopCoder

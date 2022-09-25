@@ -7,7 +7,6 @@ import com.topcoder.client.connectiontype.ConnectionType;
 import com.topcoder.netCommon.io.ClientConnector;
 import com.topcoder.netCommon.io.ClientConnectorFactory;
 import com.topcoder.netCommon.io.ClientSocket;
-import com.topcoder.netCommon.mpsqas.ApplicationConstants;
 import com.topcoder.netCommon.mpsqas.communication.MPSQASMessageHandler;
 
 public class MPSQASClientSocketFactory {
@@ -23,9 +22,9 @@ public class MPSQASClientSocketFactory {
         }
         ClientConnector connector;
         if (type.isTunneled()) {
-            connector = ClientConnectorFactory.createTunneledConnector(tunnel, useSSL, ApplicationConstants.APPLET_SSL_PORT_OFFSET);
+            connector = ClientConnectorFactory.createTunneledConnector(tunnel, useSSL);
         } else  {
-            connector = ClientConnectorFactory.createSocketConnector(address, port, useSSL, ApplicationConstants.APPLET_SSL_PORT_OFFSET);
+            connector = ClientConnectorFactory.createSocketConnector(address, port, useSSL);
         }
         return new ClientSocket(connector, new MPSQASMessageHandler(key));
     }

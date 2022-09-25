@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.Random;
 
 import com.topcoder.client.connectiontype.ConnectionType;
-import com.topcoder.netCommon.contest.ContestConstants;
 import com.topcoder.netCommon.io.ClientConnector;
 import com.topcoder.netCommon.io.ClientConnectorFactory;
 import com.topcoder.netCommon.io.ClientSocket;
@@ -19,9 +18,9 @@ public class Tester {
     public Tester(String host, int port, String tunnel, ConnectionType type, boolean useSSL) throws IOException {
         ClientConnector connector;
         if (type.isTunneled()) {
-            connector = ClientConnectorFactory.createTunneledConnector(tunnel, useSSL, ContestConstants.APPLET_SSL_PORT_OFFSET);
+            connector = ClientConnectorFactory.createTunneledConnector(tunnel, useSSL);
         } else {
-            connector = ClientConnectorFactory.createSocketConnector(host, port, useSSL, ContestConstants.APPLET_SSL_PORT_OFFSET);
+            connector = ClientConnectorFactory.createSocketConnector(host, port, useSSL);
         }
         socket = new ClientSocket(connector, new TesterCSHandler());
     }

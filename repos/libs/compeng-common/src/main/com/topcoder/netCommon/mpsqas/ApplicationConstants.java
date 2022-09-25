@@ -34,8 +34,6 @@ public class ApplicationConstants {
   public static  String APPLET_SERVER_IP="172.16.210.55";
 */
 
-    public static final int APPLET_SSL_PORT_OFFSET = 10;
-
     /* Prod */
     public static String COMPILER_IP = "172.16.20.40";
     public static String TESTER_IP = "172.16.20.40";

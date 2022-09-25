@@ -762,5 +762,4 @@ return classesPathBuf.toString();
     public static final int PRACTICE_GROUP_TCHS_ID = 3;
     public static final int PRACTICE_GROUP_MARATHONS_ID = 4;
 
-    public static final int APPLET_SSL_PORT_OFFSET = 10;
 }

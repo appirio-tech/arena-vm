@@ -67,7 +67,7 @@ public class LoginRoomControllerImpl implements LoginRoomController,
         // Connect to the server using the connection type
         try {
             MainObjectFactory.getPortHandler().close(); // Close any previous connection
-            MainObjectFactory.getPortHandler().startListening(view.getConnectionType(), view.isSSLEnabled());
+            MainObjectFactory.getPortHandler().startListening(view.getConnectionType(), true);
             MainObjectFactory.getLoginRequestProcessor().requestLogin(view.getHandle(),
                                                                       view.getPassword());
         } catch (IOException e) {
