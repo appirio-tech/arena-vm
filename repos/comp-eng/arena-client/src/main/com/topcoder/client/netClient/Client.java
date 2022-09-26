@@ -39,11 +39,6 @@ public class Client {
      */
     private static final int INACTIVITY_TIMEOUT = getInactivityTimeout();
 
-    private static final String SSL_PORT_OFFSET_KEY = "com.topcoder.ssl.port.offset";
-
-    private static final int SSL_PORT_OFFSET = resolveValue(SSL_PORT_OFFSET_KEY,
-        ContestConstants.APPLET_SSL_PORT_OFFSET);
-
     private ContestResponseHandler responseHandler;
 
     /**
@@ -106,7 +101,7 @@ public class Client {
      */
     public Client(String hostName, int portNum, boolean useSSL) throws IOException {
         try {
-            init(ClientConnectorFactory.createSocketConnector(hostName, portNum, useSSL, SSL_PORT_OFFSET));
+            init(ClientConnectorFactory.createSocketConnector(hostName, portNum, useSSL));
         } catch (IOException e) {
             throw e;
         }
@@ -142,8 +137,7 @@ public class Client {
     public Client(String tunnelLocation, boolean useSSL) throws IOException {
         try {
             httpTunnel = true;
-            init(ClientConnectorFactory.createTunneledConnector(tunnelLocation, useSSL,
-                ContestConstants.APPLET_SSL_PORT_OFFSET));
+            init(ClientConnectorFactory.createTunneledConnector(tunnelLocation, useSSL));
         } catch (IOException e) {
             throw e;
         }

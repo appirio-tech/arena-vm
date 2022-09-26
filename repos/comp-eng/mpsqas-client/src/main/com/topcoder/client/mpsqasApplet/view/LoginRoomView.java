@@ -14,5 +14,4 @@ public interface LoginRoomView extends View {
 
     public abstract String getPassword();
 
-    public abstract boolean isSSLEnabled();
 }

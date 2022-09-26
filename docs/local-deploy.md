@@ -52,6 +52,12 @@ docker-compose up -d arena-websocket
 docker-compose logs -f arena-websocket
 # Wait following log then arena-websocket is started succcessfully
 # arena-websocket         | WebSocket Server startup complete
+
+# Start arena-nginx
+docker-compose up -d arena-nginx
+docker-compose logs -f arena-nginx
+# Wait following log then arena-nginx is started succcessfully
+# arena-nginx             | [notice] 8#8: start worker processes
 ```
 
 
@@ -135,7 +141,6 @@ Password=1nf0rm1x
 Then run following sql:
 
 ```sql
-ALTER TABLE round_room_assignment ADD short_name varchar(100);
 DROP TRIGGER trig_systemtest_modified;
 
 UPDATE security_user SET password='4EjPjy6o+/C+dqNPnxIy9A==';
@@ -184,6 +189,18 @@ At first add following to your hosts:
 ```
 127.0.0.1 tc.cloud.topcoder.com
 ```
+
+The cert [../nginx-ssl/server.crt](../nginx-ssl/server.crt) is self signed, need import it to JDK cacerts:
+
+```bash
+# To import the self signed cert to JDK cacerts
+keytool -importcert -noprompt -storepass changeit -alias arena-local-crt -file ./nginx-ssl/server.crt -cacerts
+
+# To delete the self signed cert from JDK cacerts
+keytool -delete -noprompt -storepass changeit -alias arena-local-crt -cacerts
+```
+
+
 
 - Start mpsqas client:
 

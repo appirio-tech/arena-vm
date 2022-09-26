@@ -58,9 +58,7 @@ final class MonitorServerConnection implements StoppableThread.Client {
 
             // Create and test the socket.
             sslSocket = (SSLSocket) sslFact.createSocket(address, port);
-            String cipherStrings[] = new String[1];
-            cipherStrings[0] = AdminConstants.SSL_CIPHER;
-            sslSocket.setEnabledCipherSuites(cipherStrings);
+            sslSocket.setEnabledCipherSuites(sslSocket.getSupportedCipherSuites());
             // Send a piece of data to ensure the connection is operating properly.
             clientSocket = new ClientSocket(sslSocket, new MonitorCSHandler());
             clientSocket.writeObject(new TestConnection());

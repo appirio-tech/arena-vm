@@ -4,4 +4,4 @@ for i in `ls -1 ./*.jar`; do
 done;
 
 IP=@applet.arg-hostname@
-java -Dcom.topcoder.message.LoggingInterceptor=true -cp $CLASSPATH com.topcoder.client.contestApplet.runner.generic $IP @applet.arg-port@ http://$IP\:5008/dummy\?t\=true TopCoder TopCoder
+java -Dcom.topcoder.message.LoggingInterceptor=true -cp $CLASSPATH com.topcoder.client.contestApplet.runner.generic $IP @applet.arg-port@ https://$IP\:5008/dummy\?t\=true TopCoder TopCoder

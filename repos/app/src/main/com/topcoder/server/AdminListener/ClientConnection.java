@@ -2,16 +2,16 @@ package com.topcoder.server.AdminListener;
 import com.topcoder.netCommon.io.ClientSocket;
 import com.topcoder.server.listener.monitor.MonitorCSHandler;
 import java.io.EOFException;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.net.SocketException;
-import javax.net.ssl.SSLSocket;
-import javax.net.ssl.SSLServerSocket;
 
 import org.apache.log4j.Category;
 
 public class ClientConnection implements Runnable {
 
-    private SSLSocket acceptedSocket = null;
-    private SSLServerSocket acceptorSocket = null;
+    private Socket acceptedSocket = null;
+    private ServerSocket acceptorSocket = null;
     
     private int connectionId;
     private ClientConnectionSet parentSet = null;
@@ -21,7 +21,7 @@ public class ClientConnection implements Runnable {
     
     private ClientSocket clientSocket = null;
 
-    ClientConnection(SSLServerSocket acceptorSocket, int connectionId, ClientConnectionSet parentSet) {
+    ClientConnection(ServerSocket acceptorSocket, int connectionId, ClientConnectionSet parentSet) {
         this.acceptorSocket = acceptorSocket;
         this.connectionId = connectionId;
         this.parentSet = parentSet;
@@ -34,7 +34,7 @@ public class ClientConnection implements Runnable {
 
         try {
             // This line blocks until an incoming connection is detected
-            acceptedSocket = (SSLSocket) acceptorSocket.accept();
+            acceptedSocket = acceptorSocket.accept();
             log.info("Got socket connection for client " + connectionId);
 
             // Get the streams

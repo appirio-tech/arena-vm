@@ -37,7 +37,6 @@ public class LoginRoomViewImpl extends JPanelView implements LoginRoomView {
     private JLabel statusLabel;
     private JComboBox connectionSelector;
     private JLabel connectionSelectorLabel;
-    private JCheckBox useSSL;
 
     private LoginRoomController controller;
     private LoginRoomModel model;
@@ -69,8 +68,6 @@ public class LoginRoomViewImpl extends JPanelView implements LoginRoomView {
         passwordField = new JPasswordField();
 
         loginButton = new JButton("Login");
-
-        useSSL = new JCheckBox("Use SSL", false);
 
         gbc.insets = new Insets(5, 5, 5, 5);
 
@@ -104,12 +101,6 @@ public class LoginRoomViewImpl extends JPanelView implements LoginRoomView {
         GUIConstants.buildConstraints(gbc, 2, 4, 1, 1, 0, 18);
         loginLayout.setConstraints(connectionSelector, gbc);
         loginPanel.add(connectionSelector);
-
-        GUIConstants.buildConstraints(gbc, 1, 5, 2, 1, 0, 18);
-        gbc.fill = GridBagConstraints.NONE;
-        gbc.anchor = GridBagConstraints.CENTER;
-        loginLayout.setConstraints(useSSL, gbc);
-        loginPanel.add(useSSL);
 
         GUIConstants.buildConstraints(gbc, 1, 6, 2, 1, 0, 18);
         gbc.fill = GridBagConstraints.NONE;
@@ -162,7 +153,4 @@ public class LoginRoomViewImpl extends JPanelView implements LoginRoomView {
         return (ConnectionType) connectionSelector.getSelectedItem();
     }
 
-    public boolean isSSLEnabled() {
-        return useSSL.isSelected();
-    }
 }
