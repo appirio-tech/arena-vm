@@ -569,7 +569,10 @@ public class RatingQubits {
             vtemp += sqr(((Double) volatilities.elementAt(i)).doubleValue());
             rtemp += sqr(((Double) ratings.elementAt(i)).doubleValue() - rave);
         }
-        matchStdDevEquals = Math.sqrt(vtemp / ratings.size() + rtemp / (ratings.size() - 1));
+        if (ratings.size() > 1)
+            matchStdDevEquals = Math.sqrt(vtemp / ratings.size() + rtemp / (ratings.size() - 1));
+        else
+            matchStdDevEquals = 0;
         //System.out.println("CF IS:" + matchStdDevEquals);
 
         /* COMPUTE EXPECTED RANKS */
