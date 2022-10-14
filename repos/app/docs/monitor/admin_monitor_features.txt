@@ -1,0 +1,54 @@
+1) resources/monitor.properties
+
+a) lookAndFeel. You can choose the look and feel of the GUI admin monitor.
+Possible values: system, java, windows (not supported on Linux), motif,
+metal (same as java).
+
+b) x,y,width,height. The GUI admin monitor stores its location and size when
+exiting and loads the values when starting up.
+
+c) cachedObjectsPanelGuiOutput. Set it to false if you don't want to have
+output to the GUI panel (maybe because it's too big and you just want it
+in the log file).
+
+d) roundId. If roundId>=0, it will be set after the load. 
+If round<0, you'll have to set it manually. 
+
+2) resources/monitor_server.properties
+
+a) allowedIPs. Comma,space,tab-separated list of IPs in the form "X.X.X.X".
+When accepting a new connection the listener first checks whether
+you run the admin monitor from the same computer. Then it checks whether
+the remoteIP is in the allowedIPs list.
+
+b) tabooWords. Comma,space,tab-separated list of taboo words. If a user
+uses one of these words in a chat, the admin monitor will get the message.
+We check all chat messages. 
+
+3) sorting
+
+You can sort by clicking on table headers. It's also possible to click holding
+Shift, in this case you get an opposite sorting (for example, if you click on 
+"ID" you get an ascending sorting [default] - 0,1,2, if you click holding Shift 
+you get a descending sorting - 2,1,0). The default sort order for columns:
+a) ServerID - ascending: 0,1,2
+b) ID - ascending: 0,1,2
+c) IP Address - ascending: 0.0.0.0, 1.1.1.1
+d) Username - ascending: Alice, Bob
+e) 1sec, .. , total - descending: 2,1,0
+
+Also, if you click on "Total", and then "Username", the sort order should be
+by Username then by Total. The default sort order is by ServerID, then by ID.
+
+4) chat panel
+
+You can edit it.
+
+5) Ban IP Command ("Admin Commands -> Ban IP..."). 
+
+Admins can use this command to ban a particular IP address in case of a denial-of-service
+attack (in this case only the accept handler will be stressed). There's also another way
+of preventing the user to enter the system. You can set the user status to inactive (see admin
+commands). This command has an effect only for the life of the server. If you want to
+ban permanently certain IPs, you have to add these IPs to the bannedIPs property in the
+listener.properties file (see listener_properties.txt).

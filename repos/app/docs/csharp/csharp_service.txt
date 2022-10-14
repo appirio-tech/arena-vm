@@ -1,0 +1,30 @@
+Before used CSharpService must be installed on the machine.
+To install you have to have to be Administrator. To start
+and stop the service you could be anyone.
+
+1) Installation.
+
+Run "InstallUtil CSharpService.exe" under the Administrator account.
+It should say that it's installed.
+
+To uninstall run "InstallUtil /u CSharpService.exe".
+
+2) Start service.
+
+Run "ant start-csharp".
+
+2a) app/resources/CSharpService.exe.config
+
+You can change the address key and the numWorkerThreads key.
+
+- address: It should be <host>:<port> of the TopCoder server that you want to connect to.
+- numWorkerThreads: The numer of worker threads. It's recommended that it should be equal to 
+the number of CPUs.
+
+3) Stop service.
+
+Run "ant stop-csharp".
+
+4) Logs.
+
+There are should be logs (out.log and err.log) in the same directory as CSharpService.exe.

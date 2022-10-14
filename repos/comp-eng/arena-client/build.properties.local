@@ -1,0 +1,7 @@
+applet.codebase=http://tc.cloud.topcoder.com/contest/arena/
+applet.href=ContestAppletProd.jnlp
+applet.homepage=http://tc.cloud.topcoder.com
+applet.lib-url=http://tc.cloud.topcoder.com/contest/classes/7.0
+applet.arg-hostname=tc.cloud.topcoder.com
+applet.arg-port=5001
+applet.arg-tunnel=http://tunnel1.topcoder.com/tunnel?dummy

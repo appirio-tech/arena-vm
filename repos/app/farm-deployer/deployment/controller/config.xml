@@ -1,0 +1,51 @@
+<com.topcoder.farm.controller.configuration.ControllerConfiguration>
+  <rootFolder>@farmControllerRootFolder@</rootFolder>
+  <clientConnectionConfiguration>
+    <connectionListenerConfiguration class="com.topcoder.farm.controller.remoting.net.NBIOListenerConfiguration">
+      <port>25000</port>
+      <numAcceptThreads>3</numAcceptThreads>
+      <numReadThreads>5</numReadThreads>
+      <numWriteThreads>5</numWriteThreads>
+      <monitorClassName>com.topcoder.server.listener.monitor.EmptyMonitor</monitorClassName>
+      <csHandlerFactoryClassName>com.topcoder.farm.shared.serialization.FarmCSHandlerFactory</csHandlerFactoryClassName>
+      <ipsStringList></ipsStringList>
+      <isAllowedSet>false</isAllowedSet>
+      <scanInterval>999999999999</scanInterval>
+      <keepAliveTimeout>15000</keepAliveTimeout>
+      <listenerType>
+        <id>1</id>
+      </listenerType>
+    </connectionListenerConfiguration>
+    <runnerMinThreads>15</runnerMinThreads>
+    <runnerMaxThreads>15</runnerMaxThreads>
+	<timeoutForAck>120000</timeoutForAck>
+  </clientConnectionConfiguration>
+  <processorConnectionConfiguration>
+    <connectionListenerConfiguration class="com.topcoder.farm.controller.remoting.net.NBIOListenerConfiguration">
+      <port>25001</port>
+      <numAcceptThreads>3</numAcceptThreads>
+      <numReadThreads>5</numReadThreads>
+      <numWriteThreads>5</numWriteThreads>
+      <monitorClassName>com.topcoder.server.listener.monitor.EmptyMonitor</monitorClassName>
+      <csHandlerFactoryClassName>com.topcoder.farm.shared.serialization.FarmCSHandlerFactory</csHandlerFactoryClassName>
+      <ipsStringList></ipsStringList>
+      <isAllowedSet>false</isAllowedSet>
+      <scanInterval>310000</scanInterval>
+      <keepAliveTimeout>300000</keepAliveTimeout>
+      <listenerType>
+        <id>1</id>
+      </listenerType>
+    </connectionListenerConfiguration>
+    <runnerMinThreads>20</runnerMinThreads>
+    <runnerMaxThreads>20</runnerMaxThreads>
+    <timeoutForAck>120000</timeoutForAck>
+  </processorConnectionConfiguration>
+  <databaseConfigurationFile>/conf/hibernate.cfg.xml</databaseConfigurationFile>
+  <nodeConfiguration>
+    <maintenanceRemovalInterval>60000</maintenanceRemovalInterval>
+    <maintenanceReassignInterval>10000</maintenanceReassignInterval>
+    <timeBeforeShutdown>30000</timeBeforeShutdown>
+    <maxBulkSize>100</maxBulkSize>
+    <sharedObjectStorageTime>1800000</sharedObjectStorageTime>
+  </nodeConfiguration>
+</com.topcoder.farm.controller.configuration.ControllerConfiguration>

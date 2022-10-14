@@ -1,0 +1,8 @@
+<ivy-module version="2.0">
+    <info organisation="com.topcoder.internal" module="compeng-common"/>
+    <dependencies>
+        <dependency org="com.topcoder.tcs" name="basic_type_serialization" rev="1.0.1" />
+        <dependency org="com.topcoder.internal" name="arena-shared" rev="latest.integration" />
+	<dependency org="junit" name="junit" rev="4.11"/>
+    </dependencies>
+</ivy-module>

@@ -1,0 +1,632 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.4.2_01" class="java.beans.XMLDecoder"> 
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.ConnectionEvent">
+   <void property="hostName"><string>172.16.1.61</string></void>
+   <void property="portNo"><int>5006</int></void>
+ </object>
+  
+ <object class="com.topcoder.client.spectatorApp.announcer.events.ShowInitialEvent">
+   <void property="title"><string>Show Initial Flash Screen</string></void>
+ </object>
+ 
+ <object class="com.topcoder.client.spectatorApp.announcer.events.DefineContestEvent"> 
+  <void property="title"><string>Define Contest - 2004 TCO </string></void> 
+  <void property="contestID"><int>5851</int></void> 
+  <void property="contestName"><string>2004 TCO</string></void> 
+  <void property="logoLargeFileName"><string>/home/rfairfax/devel/app/images/com/topcoder/client/spectatorApp/tco04_logo.gif</string></void> 
+  <void property="logoSmallFileName"><string>/home/rfairfax/devel/app/images/com/topcoder/client/spectatorApp/lefttrailer.jpg</string></void> 
+  <void property="sponsorFileName"><string>/home/rfairfax/devel/app/images/com/topcoder/client/spectatorApp/righttrailer.jpg</string></void> 
+ </object>
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.DefineRoundEvent"> 
+  <void property="title"><string>Define Round - Design Competition</string></void> 
+  <void property="contestID"><int>5851</int></void> 
+  <void property="roundID"><int>5080</int></void> 
+  <void property="roundName"><string>Design</string></void> 
+  <void property="roundType"><int>1</int></void> 
+ </object> 
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.ShowRoundEvent">
+  <void property="title"><string>Show Round - Design</string></void> 
+  <void property="roundID"><int>5080</int></void>
+ </object>
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.AnnounceTCSCoderEvent">
+  <void property="title"><string>Announce TCS Coder - adic</string></void> 
+  <void property="roundID"><int>5080</int></void> 
+  <void property="coderName"><string>Adrian Nicolae Carcu</string></void> 
+  <void property="school"><string>Student</string></void> 
+  <void property="coderType"><string>Student</string></void>
+  <void property="imageFileName"><string>/home/rfairfax/devel/app/images/com/topcoder/client/spectatorApp/finalist/adic.jpg</string></void> 
+  <void property="handle"><string>adic</string></void> 
+  <void property="tcRating"><int>2232</int></void> 
+  <void property="tcsRating"><int>1762</int></void> 
+  <void property="seed"><int>2</int></void> 
+  <void property="earnings"><double>21380.60</double></void>
+  <void property="tournamentNumberSubmissions"><int>4</int></void> 
+  <void property="tournamentLevel1Average"><double>0.0</double></void> 
+  <void property="tournamentLevel2Average"><double>90.73</double></void> 
+  <void property="tournamentWins"><int>3</int></void> 
+  <void property="lifetimeNumberSubmissions"><int>28</int></void> 
+  <void property="lifetimeLevel1Average"><double>98.15</double></void> 
+  <void property="lifetimeLevel2Average"><double>95.81</double></void> 
+  <void property="lifetimeWins"><int>24</int></void> 
+ </object>
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.AnnounceTCSCoderEvent">
+  <void property="title"><string>Announce TCS Coder - aksonov</string></void> 
+  <void property="roundID"><int>5080</int></void> 
+  <void property="coderName"><string>Pavlo Aksonov</string></void> 
+  <void property="school"><string>Student</string></void> 
+  <void property="coderType"><string>Student</string></void>
+  <void property="imageFileName"><string>/home/rfairfax/devel/app/images/com/topcoder/client/spectatorApp/finalist/aksonov.jpg</string></void> 
+  <void property="handle"><string>aksonov</string></void> 
+  <void property="tcRating"><int>1693</int></void> 
+  <void property="tcsRating"><int>1962</int></void> 
+  <void property="seed"><int>1</int></void> 
+  <void property="earnings"><double>43978.55</double></void>
+  <void property="tournamentNumberSubmissions"><int>7</int></void> 
+  <void property="tournamentLevel1Average"><double>96.92</double></void> 
+  <void property="tournamentLevel2Average"><double>97.23</double></void> 
+  <void property="tournamentWins"><int>5</int></void> 
+  <void property="lifetimeNumberSubmissions"><int>32</int></void> 
+  <void property="lifetimeLevel1Average"><double>96.92</double></void> 
+  <void property="lifetimeLevel2Average"><double>97.23</double></void> 
+  <void property="lifetimeWins"><int>18</int></void> 
+ </object>
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.AnnounceTCSCoderEvent">
+  <void property="title"><string>Announce TCS Coder - kyky</string></void> 
+  <void property="roundID"><int>5080</int></void> 
+  <void property="coderName"><string>Sergey Kalinichenko</string></void> 
+  <void property="school"><string>Professional</string></void> 
+  <void property="coderType"><string>Professional</string></void>
+  <void property="imageFileName"><string>/home/rfairfax/devel/app/images/com/topcoder/client/spectatorApp/finalist/kyky.jpg</string></void> 
+  <void property="handle"><string>kyky</string></void> 
+  <void property="tcRating"><int>1716</int></void> 
+  <void property="tcsRating"><int>1640</int></void> 
+  <void property="seed"><int>3</int></void> 
+  <void property="earnings"><double>9260.00</double></void>
+  <void property="tournamentNumberSubmissions"><int>4</int></void> 
+  <void property="tournamentLevel1Average"><double>0.0</double></void> 
+  <void property="tournamentLevel2Average"><double>97.88</double></void> 
+  <void property="tournamentWins"><int>2</int></void> 
+  <void property="lifetimeNumberSubmissions"><int>11</int></void> 
+  <void property="lifetimeLevel1Average"><double>89.58</double></void> 
+  <void property="lifetimeLevel2Average"><double>97.88</double></void> 
+  <void property="lifetimeWins"><int>5</int></void> 
+ </object>
+ 
+ <object class="com.topcoder.client.spectatorApp.announcer.events.AnnounceTCSCoderEvent">
+  <void property="title"><string>Announce TCS Coder - MPhk</string></void> 
+  <void property="roundID"><int>5080</int></void> 
+  <void property="coderName"><string>Mihai Pasca</string></void> 
+  <void property="school"><string>Student</string></void> 
+  <void property="coderType"><string>Student</string></void>
+  <void property="imageFileName"><string>/home/rfairfax/devel/app/images/com/topcoder/client/spectatorApp/finalist/MPhk.jpg</string></void> 
+  <void property="handle"><string>MPhk</string></void> 
+  <void property="tcRating"><int>1251</int></void> 
+  <void property="tcsRating"><int>1634</int></void> 
+  <void property="seed"><int>3</int></void> 
+  <void property="earnings"><double>9795.00</double></void>
+  <void property="tournamentNumberSubmissions"><int>3</int></void> 
+  <void property="tournamentLevel1Average"><double>96.79</double></void> 
+  <void property="tournamentLevel2Average"><double>87.46</double></void> 
+  <void property="tournamentWins"><int>3</int></void> 
+  <void property="lifetimeNumberSubmissions"><int>12</int></void> 
+  <void property="lifetimeLevel1Average"><double>96.79</double></void> 
+  <void property="lifetimeLevel2Average"><double>87.46</double></void> 
+  <void property="lifetimeWins"><int>6</int></void> 
+ </object>
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.AnnounceDesignReviewBoardEvent">
+  <void property="title"><string>Announce TCS Design Review Board</string></void> 
+  <void property="roundID"><int>5080</int></void> 
+  <void property="reviewerHandles"><array class="java.lang.String" length="3">
+     <void index="0"><string>WishingBone</string></void>
+     <void index="1"><string>TheCois</string></void>
+     <void index="2"><string>Tomson</string></void>
+  </array></void>
+  <void property="reviewerTCRating"><array class="int" length="3">
+     <void index="0"><int>2629</int></void>
+     <void index="1"><int>1354</int></void>
+     <void index="2"><int>1422</int></void>
+  </array></void>
+  <void property="reviewerTCSRating"><array class="int" length="3">
+     <void index="0"><int>1384</int></void>
+     <void index="1"><int>1200</int></void>
+     <void index="2"><int>1537</int></void>
+  </array></void>
+  <void property="reviewerImageFileName"><array class="java.lang.String" length="3">
+     <void index="0"><string>/home/rfairfax/devel/app/images/com/topcoder/client/spectatorApp/finalist/wishingbone.jpg</string></void>
+     <void index="1"><string>/home/rfairfax/devel/app/images/com/topcoder/client/spectatorApp/finalist/theCois.jpg</string></void>
+     <void index="2"><string>/home/rfairfax/devel/app/images/com/topcoder/client/spectatorApp/finalist/Tomson.jpg</string></void>
+  </array></void>
+
+ </object>
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.AnnounceDesignReviewBoardResultsEvent"> 
+  <void property="title"><string>Announce Review Board Result - Design Set up</string></void> 
+  <void property="roundID"><int>5080</int></void> 
+  <void property="coders"> 
+   <array class="com.topcoder.client.spectatorApp.messages.TCSCoderInfo" length="4"> 
+    <void index="0"> 
+     <object class="com.topcoder.client.spectatorApp.messages.TCSCoderInfo"> 
+      <void property="handle"><string>adic</string></void> 
+      <void property="seed"><int>1</int></void> 
+      <void property="tcRating"><int>1762</int></void> 
+     </object> 
+    </void> 
+    <void index="1"> 
+     <object class="com.topcoder.client.spectatorApp.messages.TCSCoderInfo"> 
+      <void property="handle"><string>aksonov</string></void> 
+      <void property="seed"><int>2</int></void> 
+      <void property="tcRating"><int>1962</int></void> 
+     </object> 
+    </void> 
+    <void index="2"> 
+     <object class="com.topcoder.client.spectatorApp.messages.TCSCoderInfo"> 
+      <void property="handle"><string>kyky</string></void> 
+      <void property="seed"><int>3</int></void> 
+      <void property="tcRating"><int>1640</int></void> 
+     </object> 
+    </void> 
+    <void index="3"> 
+     <object class="com.topcoder.client.spectatorApp.messages.TCSCoderInfo"> 
+      <void property="handle"><string>MPhk</string></void> 
+      <void property="seed"><int>3</int></void> 
+      <void property="tcRating"><int>1634</int></void> 
+     </object> 
+    </void> 
+   </array> 
+  </void> 
+  <void property="reviewerNames"> 
+   <array class="java.lang.String" length="3"> 
+    <void index="0"><string>WishingBone</string></void> 
+    <void index="1"><string>TheCois</string></void> 
+    <void index="2"><string>Tomson</string></void> 
+   </array> 
+  </void> 
+  <void property="scores"> 
+   <array class="[D" length="4"> 
+    <void index="0"> 
+     <array class="double" length="3"> 
+      <void index="0"><double>-1.0</double></void> 
+      <void index="1"><double>-1.0</double></void> 
+      <void index="2"><double>-1.0</double></void> 
+     </array> 
+    </void> 
+    <void index="1"> 
+     <array class="double" length="3"> 
+      <void index="0"><double>-1.0</double></void> 
+      <void index="1"><double>-1.0</double></void> 
+      <void index="2"><double>-1.0</double></void> 
+     </array> 
+    </void> 
+    <void index="2"> 
+     <array class="double" length="3"> 
+      <void index="0"><double>-1.0</double></void> 
+      <void index="1"><double>-1.0</double></void> 
+      <void index="2"><double>-1.0</double></void> 
+     </array> 
+    </void> 
+    <void index="3"> 
+     <array class="double" length="3"> 
+      <void index="0"><double>-1.0</double></void> 
+      <void index="1"><double>-1.0</double></void> 
+      <void index="2"><double>-1.0</double></void> 
+     </array> 
+    </void> 
+   </array> 
+  </void> 
+  <void property="finalScores"> 
+   <array class="double" length="4"> 
+    <void index="0"><double>-1.0</double></void> 
+    <void index="1"><double>-1.0</double></void> 
+    <void index="2"><double>-1.0</double></void> 
+    <void index="3"><double>-1.0</double></void> 
+   </array> 
+  </void> 
+ </object>
+
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.AnnounceDesignReviewBoardResultsEvent"> 
+  <void property="title"><string>Announce Review Board Result - Design Reviewer 1</string></void> 
+  <void property="roundID"><int>5080</int></void> 
+  <void property="coders"> 
+   <array class="com.topcoder.client.spectatorApp.messages.TCSCoderInfo" length="4"> 
+    <void index="0"> 
+     <object class="com.topcoder.client.spectatorApp.messages.TCSCoderInfo"> 
+      <void property="handle"><string>adic</string></void> 
+      <void property="seed"><int>1</int></void> 
+      <void property="tcRating"><int>1762</int></void> 
+     </object> 
+    </void> 
+    <void index="1"> 
+     <object class="com.topcoder.client.spectatorApp.messages.TCSCoderInfo"> 
+      <void property="handle"><string>aksonov</string></void> 
+      <void property="seed"><int>2</int></void> 
+      <void property="tcRating"><int>1962</int></void> 
+     </object> 
+    </void> 
+    <void index="2"> 
+     <object class="com.topcoder.client.spectatorApp.messages.TCSCoderInfo"> 
+      <void property="handle"><string>kyky</string></void> 
+      <void property="seed"><int>3</int></void> 
+      <void property="tcRating"><int>1640</int></void> 
+     </object> 
+    </void> 
+    <void index="3"> 
+     <object class="com.topcoder.client.spectatorApp.messages.TCSCoderInfo"> 
+      <void property="handle"><string>MPhk</string></void> 
+      <void property="seed"><int>3</int></void> 
+      <void property="tcRating"><int>1634</int></void> 
+     </object> 
+    </void> 
+   </array> 
+  </void> 
+  <void property="reviewerNames"> 
+   <array class="java.lang.String" length="3"> 
+    <void index="0"><string>WishingBone</string></void> 
+    <void index="1"><string>TheCois</string></void> 
+    <void index="2"><string>Tomson</string></void> 
+   </array> 
+  </void> 
+  <void property="scores"> 
+   <array class="[D" length="4"> 
+    <void index="0"> 
+     <array class="double" length="3"> 
+      <void index="0"><double>1.23</double></void> 
+      <void index="1"><double>-1.0</double></void> 
+      <void index="2"><double>-1.0</double></void> 
+     </array> 
+    </void> 
+    <void index="1"> 
+     <array class="double" length="3"> 
+      <void index="0"><double>4.56</double></void> 
+      <void index="1"><double>-1.0</double></void> 
+      <void index="2"><double>-1.0</double></void> 
+     </array> 
+    </void> 
+    <void index="2"> 
+     <array class="double" length="3"> 
+      <void index="0"><double>7.89</double></void> 
+      <void index="1"><double>-1.0</double></void> 
+      <void index="2"><double>-1.0</double></void> 
+     </array> 
+    </void> 
+    <void index="3"> 
+     <array class="double" length="3"> 
+      <void index="0"><double>7.89</double></void> 
+      <void index="1"><double>-1.0</double></void> 
+      <void index="2"><double>-1.0</double></void> 
+     </array> 
+    </void> 
+   </array> 
+  </void> 
+  <void property="finalScores"> 
+   <array class="double" length="4"> 
+    <void index="0"><double>-1.0</double></void> 
+    <void index="1"><double>-1.0</double></void> 
+    <void index="2"><double>-1.0</double></void> 
+    <void index="3"><double>-1.0</double></void> 
+   </array> 
+  </void> 
+ </object>
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.AnnounceDesignReviewBoardResultsEvent"> 
+  <void property="title"><string>Announce Review Board Result - Design Reviewer 2</string></void> 
+  <void property="roundID"><int>5080</int></void> 
+  <void property="coders"> 
+   <array class="com.topcoder.client.spectatorApp.messages.TCSCoderInfo" length="4"> 
+    <void index="0"> 
+     <object class="com.topcoder.client.spectatorApp.messages.TCSCoderInfo"> 
+      <void property="handle"><string>adic</string></void> 
+      <void property="seed"><int>1</int></void> 
+      <void property="tcRating"><int>1762</int></void> 
+     </object> 
+    </void> 
+    <void index="1"> 
+     <object class="com.topcoder.client.spectatorApp.messages.TCSCoderInfo"> 
+      <void property="handle"><string>aksonov</string></void> 
+      <void property="seed"><int>2</int></void> 
+      <void property="tcRating"><int>1962</int></void> 
+     </object> 
+    </void> 
+    <void index="2"> 
+     <object class="com.topcoder.client.spectatorApp.messages.TCSCoderInfo"> 
+      <void property="handle"><string>kyky</string></void> 
+      <void property="seed"><int>3</int></void> 
+      <void property="tcRating"><int>1640</int></void> 
+     </object> 
+    </void> 
+    <void index="3"> 
+     <object class="com.topcoder.client.spectatorApp.messages.TCSCoderInfo"> 
+      <void property="handle"><string>MPhk</string></void> 
+      <void property="seed"><int>3</int></void> 
+      <void property="tcRating"><int>1634</int></void> 
+     </object> 
+    </void> 
+   </array> 
+  </void> 
+  <void property="reviewerNames"> 
+   <array class="java.lang.String" length="3"> 
+    <void index="0"><string>WishingBone</string></void> 
+    <void index="1"><string>TheCois</string></void> 
+    <void index="2"><string>Tomson</string></void> 
+   </array> 
+  </void> 
+  <void property="scores"> 
+   <array class="[D" length="4"> 
+    <void index="0"> 
+     <array class="double" length="3"> 
+      <void index="0"><double>1.23</double></void> 
+      <void index="1"><double>12.34</double></void> 
+      <void index="2"><double>-1.0</double></void> 
+     </array> 
+    </void> 
+    <void index="1"> 
+     <array class="double" length="3"> 
+      <void index="0"><double>4.56</double></void> 
+      <void index="1"><double>56.78</double></void> 
+      <void index="2"><double>-1.0</double></void> 
+     </array> 
+    </void> 
+    <void index="2"> 
+     <array class="double" length="3"> 
+      <void index="0"><double>7.89</double></void> 
+      <void index="1"><double>90.12</double></void> 
+      <void index="2"><double>-1.0</double></void> 
+     </array> 
+    </void> 
+    <void index="3"> 
+     <array class="double" length="3"> 
+      <void index="0"><double>7.89</double></void> 
+      <void index="1"><double>90.12</double></void> 
+      <void index="2"><double>-1.0</double></void> 
+     </array> 
+    </void>
+   </array> 
+  </void> 
+  <void property="finalScores"> 
+   <array class="double" length="4"> 
+    <void index="0"><double>-1.0</double></void> 
+    <void index="1"><double>-1.0</double></void> 
+    <void index="2"><double>-1.0</double></void> 
+    <void index="3"><double>-1.0</double></void> 
+   </array> 
+  </void> 
+ </object>
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.AnnounceDesignReviewBoardResultsEvent"> 
+  <void property="title"><string>Announce Review Board Result - Design Reviewer 3</string></void> 
+  <void property="roundID"><int>5080</int></void> 
+  <void property="coders"> 
+   <array class="com.topcoder.client.spectatorApp.messages.TCSCoderInfo" length="4"> 
+    <void index="0"> 
+     <object class="com.topcoder.client.spectatorApp.messages.TCSCoderInfo"> 
+      <void property="handle"><string>adic</string></void> 
+      <void property="seed"><int>1</int></void> 
+      <void property="tcRating"><int>1762</int></void> 
+     </object> 
+    </void> 
+    <void index="1"> 
+     <object class="com.topcoder.client.spectatorApp.messages.TCSCoderInfo"> 
+      <void property="handle"><string>aksonov</string></void> 
+      <void property="seed"><int>2</int></void> 
+      <void property="tcRating"><int>1962</int></void> 
+     </object> 
+    </void> 
+    <void index="2"> 
+     <object class="com.topcoder.client.spectatorApp.messages.TCSCoderInfo"> 
+      <void property="handle"><string>kyky</string></void> 
+      <void property="seed"><int>3</int></void> 
+      <void property="tcRating"><int>1640</int></void> 
+     </object> 
+    </void> 
+    <void index="3"> 
+     <object class="com.topcoder.client.spectatorApp.messages.TCSCoderInfo"> 
+      <void property="handle"><string>MPhk</string></void> 
+      <void property="seed"><int>3</int></void> 
+      <void property="tcRating"><int>1634</int></void> 
+     </object> 
+    </void> 
+   </array> 
+  </void> 
+  <void property="reviewerNames"> 
+   <array class="java.lang.String" length="3"> 
+    <void index="0"><string>WishingBone</string></void> 
+    <void index="1"><string>TheCois</string></void> 
+    <void index="2"><string>Tomson</string></void> 
+   </array> 
+  </void> 
+  <void property="scores"> 
+   <array class="[D" length="4"> 
+    <void index="0"> 
+     <array class="double" length="3"> 
+      <void index="0"><double>1.23</double></void> 
+      <void index="1"><double>12.34</double></void> 
+      <void index="2"><double>45.67</double></void> 
+     </array> 
+    </void> 
+    <void index="1"> 
+     <array class="double" length="3"> 
+      <void index="0"><double>4.56</double></void> 
+      <void index="1"><double>56.78</double></void> 
+      <void index="2"><double>89.01</double></void> 
+     </array> 
+    </void> 
+    <void index="2"> 
+     <array class="double" length="3"> 
+      <void index="0"><double>7.89</double></void> 
+      <void index="1"><double>90.12</double></void> 
+      <void index="2"><double>23.45</double></void> 
+     </array> 
+    </void> 
+    <void index="3"> 
+     <array class="double" length="3"> 
+      <void index="0"><double>7.89</double></void> 
+      <void index="1"><double>90.12</double></void> 
+      <void index="2"><double>23.45</double></void> 
+     </array> 
+    </void>
+   </array> 
+  </void> 
+  <void property="finalScores"> 
+   <array class="double" length="4"> 
+    <void index="0"><double>-1.0</double></void> 
+    <void index="1"><double>-1.0</double></void> 
+    <void index="2"><double>-1.0</double></void> 
+    <void index="3"><double>-1.0</double></void> 
+   </array> 
+  </void> 
+ </object>
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.AnnounceDesignReviewBoardResultsEvent"> 
+  <void property="title"><string>Announce Review Board Result - Design Final Scores</string></void> 
+  <void property="roundID"><int>5080</int></void> 
+  <void property="coders"> 
+   <array class="com.topcoder.client.spectatorApp.messages.TCSCoderInfo" length="4"> 
+    <void index="0"> 
+     <object class="com.topcoder.client.spectatorApp.messages.TCSCoderInfo"> 
+      <void property="handle"><string>adic</string></void> 
+      <void property="seed"><int>1</int></void> 
+      <void property="tcRating"><int>1762</int></void> 
+     </object> 
+    </void> 
+    <void index="1"> 
+     <object class="com.topcoder.client.spectatorApp.messages.TCSCoderInfo"> 
+      <void property="handle"><string>aksonov</string></void> 
+      <void property="seed"><int>2</int></void> 
+      <void property="tcRating"><int>1962</int></void> 
+     </object> 
+    </void> 
+    <void index="2"> 
+     <object class="com.topcoder.client.spectatorApp.messages.TCSCoderInfo"> 
+      <void property="handle"><string>kyky</string></void> 
+      <void property="seed"><int>3</int></void> 
+      <void property="tcRating"><int>1640</int></void> 
+     </object> 
+    </void> 
+    <void index="3"> 
+     <object class="com.topcoder.client.spectatorApp.messages.TCSCoderInfo"> 
+      <void property="handle"><string>MPhk</string></void> 
+      <void property="seed"><int>3</int></void> 
+      <void property="tcRating"><int>1634</int></void> 
+     </object> 
+    </void> 
+   </array> 
+  </void> 
+  <void property="reviewerNames"> 
+   <array class="java.lang.String" length="3"> 
+    <void index="0"><string>WishingBone</string></void> 
+    <void index="1"><string>TheCois</string></void> 
+    <void index="2"><string>Tomson</string></void> 
+   </array> 
+  </void> 
+  <void property="scores"> 
+   <array class="[D" length="4"> 
+    <void index="0"> 
+     <array class="double" length="3"> 
+      <void index="0"><double>1.23</double></void> 
+      <void index="1"><double>12.34</double></void> 
+      <void index="2"><double>45.67</double></void> 
+     </array> 
+    </void> 
+    <void index="1"> 
+     <array class="double" length="3"> 
+      <void index="0"><double>4.56</double></void> 
+      <void index="1"><double>56.78</double></void> 
+      <void index="2"><double>89.01</double></void> 
+     </array> 
+    </void> 
+    <void index="2"> 
+     <array class="double" length="3"> 
+      <void index="0"><double>7.89</double></void> 
+      <void index="1"><double>90.12</double></void> 
+      <void index="2"><double>23.45</double></void> 
+     </array> 
+    </void> 
+    <void index="3"> 
+     <array class="double" length="3"> 
+      <void index="0"><double>7.89</double></void> 
+      <void index="1"><double>90.12</double></void> 
+      <void index="2"><double>23.45</double></void> 
+     </array> 
+    </void> 
+   </array> 
+  </void> 
+  <void property="finalScores"> 
+   <array class="double" length="4"> 
+    <void index="0"><double>65.21</double></void> 
+    <void index="1"><double>98.02</double></void> 
+    <void index="2"><double>23.78</double></void> 
+    <void index="2"><double>23.78</double></void> 
+   </array> 
+  </void> 
+ </object>
+
+
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.AnnounceTCSWinnersEvent">
+  <void property="title"><string>Announce TCS Winners</string></void> 
+  <void property="roundID"><int>1</int></void>
+  <void property="designHandle"><string>adic</string></void> 
+  <void property="developmentHandle"><string>adic</string></void> 
+  <void property="designWinnerRating"><int>1000</int></void>
+  <void property="designImageFileName"><string>/home/rfairfax/devel/app/images/com/topcoder/client/spectatorApp/finalist/adic.jpg</string></void> 
+  <void property="developmentImageFileName"><string>/home/rfairfax/devel/app/images/com/topcoder/client/spectatorApp/finalist/adic.jpg</string></void> 
+  <void property="designWinnerAverage"><double>23.33</double></void> 
+  <void property="developmentWinnerRating"><int>1600</int></void>
+  <void property="developmentWinnerAverage"><double>53.33</double></void> 
+ </object>
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.ShowPhaseChangeEvent">
+  <void property="title"><string>Phase Change - Start Contest</string></void> 
+  <void property="phaseID"><int>1</int></void>
+ </object>
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.ShowPhaseChangeEvent">
+  <void property="title"><string>Phase Change - Registration</string></void> 
+  <void property="phaseID"><int>2</int></void>
+ </object>
+
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.ShowPhaseChangeEvent">
+  <void property="title"><string>Phase Change - Coding</string></void> 
+  <void property="phaseID"><int>3</int></void>
+ </object>
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.ShowPhaseChangeEvent">
+  <void property="title"><string>Phase Change - Intermission</string></void> 
+  <void property="phaseID"><int>4</int></void>
+ </object>
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.ShowPhaseChangeEvent">
+  <void property="title"><string>Phase Change - Challenge</string></void> 
+  <void property="phaseID"><int>5</int></void>
+ </object>
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.ShowPhaseChangeEvent">
+  <void property="title"><string>Phase Change - Voting</string></void> 
+  <void property="phaseID"><int>6</int></void>
+ </object>
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.ShowPhaseChangeEvent">
+  <void property="title"><string>Phase Change - Tie Break Voting</string></void> 
+  <void property="phaseID"><int>7</int></void>
+ </object>
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.ShowPhaseChangeEvent">
+  <void property="title"><string>Phase Change - System Test</string></void> 
+  <void property="phaseID"><int>8</int></void>
+ </object>
+
+ <object class="com.topcoder.client.spectatorApp.announcer.events.ShowPhaseChangeEvent">
+  <void property="title"><string>Phase Change - End Contest</string></void> 
+  <void property="phaseID"><int>9</int></void>
+ </object>
+
+
+</java> 

@@ -1,0 +1,44 @@
+Starting/stopping the server.
+
+a) run "java -cp <needed jars and dirs> com.topcoder.server.listener.ListenerMain <port>
+<processor> <monitor_port> <listener_factory>", processor or port and processor could be omitted, 
+default port=5001, default processor=DefaultProcessor, default monitor port=0 (zero, means no monitor),
+default listener factory=NBIOListenerFactory (another option is SimpleListenerFactory). 
+Copy app/resources/log4j.properties somewhere in classpath (e.g.
+app/build/classes). If you omit the monitor_port parameter, the monitor will be disabled.
+
+You could also use "ant run-listener -Dport=<port> -Dprocessor=<processor>" (see build.xml),
+any parameters could be omitted, default values (for the build.xml): port=5009,
+processor=DefaultProcessor.
+
+b) Background start and stop (app/scripts/listener.sh)
+
+To run the listener in the foreground: "listener.sh run <port> <processor> <monitor_port>"
+To run the listener in the background: "listener.sh start <port> <processor> <monitor_port>"
+To stop the listener (if you used start): "listener.sh stop <port>"
+To kill the listener (with "kill -3" to get a thread dump) (if you used start): "listener.sh kill <port>" 
+
+Default port=5001, default processor=DefaultProcessor.
+To stop the listener running in the foreground, use Ctrl-C or something similar.
+
+When you use "listener.sh start 5001", it will create a file "listener5001.pid"
+(with the process pid inside) in the directory where you ran listener.sh.
+If you log out after launching the listener, it will still run.
+It's possible to have multiple listeners running on different ports.
+"listener.sh stop" will shut down gracefully the listener.
+
+You should run listener.sh in app/scripts.
+
+c) There are other options for testing and debugging.
+
+There's processor=AppletEchoProcessor which could be used just for testing
+the listener, you can "login", "chat" and "logout".
+
+SimpleListener. Spawns a new thread for each connection.
+To use run "ant run-simple-listener -Dport=<port> -Dprocessor=<processor>
+-DsocketFactory=<socketFactory>", default port=5009, default processor=DefaultProcessor,
+default socketFactory=ClientSocket.
+
+You shouldn't use SimpleListener for testing (it doesn't use
+the listener that will be used in production) unless you have problems with
+ListenerMain.

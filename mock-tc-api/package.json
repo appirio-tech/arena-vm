@@ -1,0 +1,9 @@
+{
+  "name": "mock-tc-api",
+  "version": "1.0.0",
+  "description": "Mock tc-api",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "license": "ISC"
+}

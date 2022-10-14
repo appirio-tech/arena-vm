@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="var" path="EXTERNAL_ARTIFACTS/servlet-api-2.4.jar"/>
+	<classpathentry kind="src" path="src/main"/>
+	<classpathentry kind="var" path="EXTERNAL_ARTIFACTS/commons-logging-1.1.3.jar"/>
+	<classpathentry kind="var" path="EXTERNAL_ARTIFACTS/log4j-1.2.17.jar"/>
+	<classpathentry kind="var" path="EXTERNAL_ARTIFACTS/commons-io-2.0.1.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

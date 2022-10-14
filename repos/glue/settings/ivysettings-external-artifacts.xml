@@ -1,0 +1,8 @@
+<ivysettings>
+    <resolvers>
+        <url name="external-artifacts">
+            <ivy pattern="https://coder.topcoder.com/internal/external-artifacts/trunk/ivy-[module]-[revision].xml" />
+            <artifact pattern="https://coder.topcoder.com/internal/external-artifacts/trunk/[artifact]-[revision].[ext]" />
+        </url>
+    </resolvers>
+</ivysettings>

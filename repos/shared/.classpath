@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main"/>
+	<classpathentry kind="src" path="src/testcases"/>
+	<classpathentry kind="var" path="ARTIFACTS/commons-digester-1.8.jar"/>
+	<classpathentry kind="var" path="ARTIFACTS/activemq-core-4.1.1.jar"/>
+	<classpathentry kind="var" path="ARTIFACTS/activeio-core-3.0.0-incubator.jar"/>
+	<classpathentry kind="var" path="ARTIFACTS/backport-util-concurrent-2.1.jar"/>
+	<classpathentry kind="var" path="ARTIFACTS/jms-1.1.jar"/>
+	<classpathentry kind="var" path="ARTIFACTS/xpp3_min-1.1.3.4.O.jar"/>
+	<classpathentry kind="var" path="ARTIFACTS/xstream-1.2.2.jar"/>
+	<classpathentry kind="var" path="ARTIFACTS/commons-beanutils-1.7.0.jar"/>
+	<classpathentry kind="var" path="ARTIFACTS/commons-collections-3.2.jar"/>
+	<classpathentry kind="var" path="ARTIFACTS/jbossall-client-4.0.5.jar"/>
+	<classpathentry kind="var" path="ARTIFACTS/mail-1.4.0.jar"/>
+	<classpathentry kind="var" path="ARTIFACTS/log4j-1.2.17.jar"/>
+	<classpathentry kind="var" path="ARTIFACTS/base_exception-1.0.0.jar"/>
+	<classpathentry kind="var" path="ARTIFACTS/id_generator-3.0.1.jar"/>
+	<classpathentry kind="var" path="ARTIFACTS/junit-3.8.2.jar"/>
+	<classpathentry kind="var" path="ARTIFACTS/xalan-2.6.0.jar"/>
+	<classpathentry kind="var" path="ARTIFACTS/xerces-2.6.2.jar"/>
+	<classpathentry kind="var" path="ARTIFACTS/xml-apis-2.6.2.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5"/>
+	<classpathentry kind="var" path="ARTIFACTS"/>
+	<classpathentry kind="var" path="EXTERNAL_ARTIFACTS"/>
+	<classpathentry kind="var" path="ARTIFACTS/basic_type_serialization-1.0.1.jar"/>
+	<classpathentry kind="con" path="org.apache.ivyde.eclipse.cpcontainer.IVYDE_CONTAINER/?project=topcoder-shared&amp;ivyXmlPath=ivy.xml&amp;confs=*"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

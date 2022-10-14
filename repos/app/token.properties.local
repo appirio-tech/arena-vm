@@ -1,0 +1,62 @@
+# Tokens used in ApplicationServer.properties and ApplicationServer_Jboss.properties
+@contestHostUrl@=arena-jboss:1299
+@jmsHostUrl@=arena-jboss:1299
+@hostUrl@=arena-jboss:1299
+@pactsHostUrl@=192.168.12.777:1099
+@ejbServerUrl@=arena-jboss:1299
+@jmsServerUrl@=arena-jboss:1299
+@jbossEJBServerUrl@=arena-jboss:1299
+
+# The database related configurations
+@database.server@=arena-informix
+@database.port@=2021
+@database.username@=informix
+@database.password@=1nf0rm1x
+@database.INFORMIXSERVER@=informixoltp_tcp
+
+@dataware.server@=arena-informix
+@dataware.port@=2021
+@dataware.username@=informix
+@dataware.password@=1nf0rm1x
+@dataware.INFORMIXSERVER@=informixoltp_tcp
+
+# Tokens used in farm-config.properties
+@farmHost@=arena-controller
+
+# Tokens used in Tester.properties
+@appBase@=/home/apps/app
+
+# Tokens used in ProblemParser_*.properties
+# The location of problem.xsd
+@problemXSDPath_App@=/home/apps/app/resources/problem.xsd
+@problemXSDPath_Jboss@=/home/apps/app/resources/problem.xsd
+
+# Tokens used in EmailEngineConfig.properties
+@smtpServer@=smtp.topcoder.com
+@smtpPort@=25
+
+### Tokens which defines the services hosts ###
+# The arena listener host
+@arenaListernerAppHost@=arena-listeners
+# The arena listener port
+@arenaListernerAppPort@=5002
+# The topic JMS service connection string (arena app JMS port)
+@topicJMSConnString@=tcp://arena-jboss:8293
+
+## Tokens used in LDAP.properties
+@ldapHost@=arena-ldap
+@ldapPort@=389
+
+@farmControllerAppHost@=arena-controller
+@farmProcessorRootFolder@=/home/apps/processor
+@farmControllerRootFolder@=/home/apps/controller/deploy/
+@farm.mysql.host@=arena-mysql
+@farm.mysql.port@=3306
+@farm.mysql.username@=farm
+@farm.mysql.password@=farmpass
+
+# SSO
+@ssoCookieKey@=tcsso
+@ssoHashSecret@=Yb2oMAtUoJyl6LvHEnRYF1Q5u5ags7DN6PXgDPZAU9Ku68k7wTJHIDaIT0DjXYubam
+@ssoDomain@=topcoder-dev.com
+@jwtCookieKey@=tcjwt

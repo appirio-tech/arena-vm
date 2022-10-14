@@ -1,0 +1,2950 @@
+[
+    {
+        "id": "88178bf1-d701-4982-bdd4-7ed140b15ec2",
+        "created": "2022-09-15T09:27:56.226Z",
+        "createdBy": "jcori",
+        "updated": "2022-09-15T09:31:29Z",
+        "updatedBy": "jcori",
+        "status": "Active",
+        "projectId": 22307,
+        "name": "1438 - Sept 15 - Test 01",
+        "typeId": "927abff4-7af9-4145-8ba1-577c16e64e2e",
+        "trackId": "c0f5d461-8219-4c14-878a-c3a3f356466d",
+        "startDate": "2022-09-15T09:31:31Z",
+        "legacy": {
+            "reviewType": "COMMUNITY",
+            "confidentialityType": "public",
+            "isTask": false,
+            "subTrack": "DEVELOP_MARATHON_MATCH",
+            "directProjectId": 31096,
+            "forumId": 0,
+            "reviewScorecardId": 30001031,
+            "track": "DEVELOP"
+        },
+        "descriptionFormat": "markdown",
+        "timelineTemplateId": "7ebf1c69-f62f-4d3a-bdfb-fe9ddb56861c",
+        "terms": [
+            {
+                "roleId": "732339e7-8e30-49d7-9198-cccf9451e221",
+                "id": "317cd8f9-d66c-4f2a-8774-63c612d99cd4"
+            },
+            {
+                "roleId": "3bb62410-95d5-4c49-b025-1d822fc70256",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "318b9c07-079a-42d9-a81f-b96be1dc1099",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "ff556573-5da6-4392-b38c-08c1d7599c4a",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "e0544b94-6420-4afc-8f63-238eddc751b9",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "0e9c6879-39e4-4eb6-b8df-92407890faf1",
+                "id": "75d2f6bb-aadc-475e-9728-32c1dbd13655"
+            },
+            {
+                "roleId": "cfe12b3f-2a24-4639-9d8b-ec86726f76bd",
+                "id": "e0993b1a-abf7-45e6-8ed9-8cd0546be90b"
+            },
+            {
+                "roleId": "732339e7-8e30-49d7-9198-cccf9451e221",
+                "id": "e5811a7b-43d1-407a-a064-69e5015b4900"
+            },
+            {
+                "roleId": "d663fc84-5c37-43d1-a537-793feffb7667",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            }
+        ],
+        "groups": [],
+        "tags": [
+            "Marathon Match"
+        ],
+        "discussions": [
+            {
+                "provider": "vanilla",
+                "name": "1438 - Sept 15 - Test 01 Discussion",
+                "id": "264df8cc-e66a-4015-b91a-bf92b9b02896",
+                "type": "challenge"
+            }
+        ],
+        "description": "1438 - Sept 15 - Test 01",
+        "phases": [
+            {
+                "duration": 1209600,
+                "scheduledEndDate": "2022-09-29T09:31:00Z",
+                "actualEndDate": "2022-09-15T09:41:03Z",
+                "isOpen": true,
+                "name": "Registration",
+                "phaseId": "a93544bc-c165-4af4-b55e-18f3593b457a",
+                "actualStartDate": "2022-09-15T09:31:31Z",
+                "id": "22e0c8dc-b675-475b-8989-f1bf7ed65951",
+                "scheduledStartDate": "2022-09-15T09:31:31Z"
+            },
+            {
+                "duration": 1209600,
+                "scheduledEndDate": "2022-09-29T09:37:00Z",
+                "actualEndDate": "2022-09-15T09:41:03Z",
+                "isOpen": true,
+                "name": "Submission",
+                "phaseId": "6950164f-3c5e-4bdc-abc8-22aaf5a1bd49",
+                "actualStartDate": "2022-09-15T09:37:01Z",
+                "id": "bf24373f-cab0-477c-92ca-957fa2943310",
+                "scheduledStartDate": "2022-09-15T09:37:01Z"
+            },
+            {
+                "duration": 604800,
+                "scheduledEndDate": "2022-10-06T09:37:00Z",
+                "actualEndDate": "2022-09-15T09:41:03Z",
+                "isOpen": false,
+                "name": "Review",
+                "phaseId": "aa5a3f78-79e0-4bf7-93ff-b11e8f5b398b",
+                "actualStartDate": "2022-09-15T09:41:03Z",
+                "id": "61fcc21f-0973-4f37-ba49-dd05c9bbb4df",
+                "scheduledStartDate": "2022-09-29T09:37:00Z"
+            }
+        ],
+        "endDate": "2022-10-06T09:37:00Z",
+        "numOfSubmissions": 0,
+        "numOfRegistrants": 0,
+        "currentPhaseNames": [
+            "Registration",
+            "Submission"
+        ],
+        "registrationStartDate": "2022-09-15T09:31:31Z",
+        "registrationEndDate": "2022-09-15T09:41:03Z",
+        "submissionStartDate": "2022-09-15T09:37:01Z",
+        "submissionEndDate": "2022-09-15T09:41:03Z",
+        "track": "Data Science",
+        "type": "Challenge",
+        "prizeSets": [
+            {
+                "prizes": [
+                    {
+                        "type": "USD",
+                        "value": 10000
+                    }
+                ],
+                "description": "Challenge Prizes",
+                "type": "placement"
+            }
+        ],
+        "overview": {
+            "totalPrizes": 10000
+        },
+        "legacyId": 30091841,
+        "events": [],
+        "task": {
+            "isAssigned": false,
+            "isTask": false,
+            "memberId": null
+        }
+    },
+    {
+        "id": "e150dfae-812b-4896-9cde-50e3c4430f80",
+        "created": "2022-09-14T02:57:44.079Z",
+        "createdBy": "jcori",
+        "updated": "2022-09-14T02:59:07Z",
+        "updatedBy": "tcwebservice",
+        "status": "Active",
+        "projectId": 22248,
+        "name": "Roger - 1257 - Test 01",
+        "typeId": "dc876fa4-ef2d-4eee-b701-b555fcc6544c",
+        "trackId": "9b6fc876-f4d9-4ccb-9dfd-419247628825",
+        "startDate": "2022-09-15T02:58:10Z",
+        "legacy": {
+            "reviewType": "COMMUNITY",
+            "confidentialityType": "public",
+            "isTask": false,
+            "subTrack": "FIRST_2_FINISH",
+            "directProjectId": 31036,
+            "forumId": 0,
+            "reviewScorecardId": 30001600,
+            "track": "DEVELOP"
+        },
+        "descriptionFormat": "markdown",
+        "timelineTemplateId": "0a0fed34-cb5a-47f5-b0cb-6e2ee7de8dcb",
+        "terms": [
+            {
+                "roleId": "3bb62410-95d5-4c49-b025-1d822fc70256",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "318b9c07-079a-42d9-a81f-b96be1dc1099",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "732339e7-8e30-49d7-9198-cccf9451e221",
+                "id": "317cd8f9-d66c-4f2a-8774-63c612d99cd4"
+            },
+            {
+                "roleId": "ff556573-5da6-4392-b38c-08c1d7599c4a",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "d663fc84-5c37-43d1-a537-793feffb7667",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "e0544b94-6420-4afc-8f63-238eddc751b9",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "0e9c6879-39e4-4eb6-b8df-92407890faf1",
+                "id": "75d2f6bb-aadc-475e-9728-32c1dbd13655"
+            },
+            {
+                "roleId": "cfe12b3f-2a24-4639-9d8b-ec86726f76bd",
+                "id": "e0993b1a-abf7-45e6-8ed9-8cd0546be90b"
+            }
+        ],
+        "groups": [],
+        "tags": [
+            "Salesforce.com"
+        ],
+        "discussions": [
+            {
+                "provider": "vanilla",
+                "name": "Roger - 1257 - Test 01 Discussion",
+                "id": "084ac610-98b5-48df-9cf5-0065208c460b",
+                "type": "challenge"
+            }
+        ],
+        "description": "Roger - 1257 - Test 01",
+        "phases": [
+            {
+                "duration": 2592000,
+                "scheduledEndDate": "2022-10-15T02:58:00Z",
+                "actualEndDate": "2022-09-15T03:07:04Z",
+                "isOpen": true,
+                "name": "Registration",
+                "phaseId": "a93544bc-c165-4af4-b55e-18f3593b457a",
+                "actualStartDate": "2022-09-15T02:58:10Z",
+                "id": "2a420911-a596-40f3-8f8b-5aa519a56d7c",
+                "scheduledStartDate": "2022-09-15T02:58:10Z"
+            },
+            {
+                "duration": 86400,
+                "scheduledEndDate": "2022-09-16T03:04:00Z",
+                "actualEndDate": "2022-09-15T03:07:04Z",
+                "isOpen": false,
+                "name": "Iterative Review",
+                "phaseId": "003a4b14-de5d-43fc-9e35-835dbeb6af1f",
+                "actualStartDate": "2022-09-15T03:07:04Z",
+                "id": "c9f1df40-a608-4c80-970d-71269163bf5a",
+                "scheduledStartDate": "2022-09-15T03:04:16Z"
+            },
+            {
+                "duration": 2592000,
+                "scheduledEndDate": "2022-10-15T03:04:00Z",
+                "actualEndDate": "2022-09-15T03:07:04Z",
+                "isOpen": true,
+                "name": "Submission",
+                "phaseId": "6950164f-3c5e-4bdc-abc8-22aaf5a1bd49",
+                "actualStartDate": "2022-09-15T03:04:16Z",
+                "id": "57f1d7cc-31a5-4d0a-b18e-0d8765500000",
+                "scheduledStartDate": "2022-09-15T03:04:16Z"
+            }
+        ],
+        "endDate": "2022-10-15T03:04:00Z",
+        "numOfSubmissions": 0,
+        "numOfRegistrants": 0,
+        "currentPhaseNames": [
+            "Registration",
+            "Submission"
+        ],
+        "registrationStartDate": "2022-09-15T02:58:10Z",
+        "registrationEndDate": "2022-09-15T03:07:04Z",
+        "submissionStartDate": "2022-09-15T03:04:16Z",
+        "submissionEndDate": "2022-09-15T03:07:04Z",
+        "track": "Development",
+        "type": "First2Finish",
+        "prizeSets": [
+            {
+                "prizes": [
+                    {
+                        "type": "USD",
+                        "value": 1
+                    }
+                ],
+                "description": "Challenge Prizes",
+                "type": "placement"
+            }
+        ],
+        "overview": {
+            "totalPrizes": 1
+        },
+        "legacyId": 30091826,
+        "events": [],
+        "task": {
+            "isAssigned": false,
+            "isTask": false,
+            "memberId": null
+        }
+    },
+    {
+        "id": "4ba6290e-840a-4a30-993b-a7307f4196b4",
+        "created": "2022-09-14T23:59:00.461Z",
+        "createdBy": "mess",
+        "updated": "2022-09-15T00:06:19Z",
+        "updatedBy": "mess",
+        "status": "Active",
+        "projectId": 22307,
+        "name": "Justin test design challenge",
+        "typeId": "927abff4-7af9-4145-8ba1-577c16e64e2e",
+        "trackId": "5fa04185-041f-49a6-bfd1-fe82533cd6c8",
+        "startDate": "2022-09-15T00:01:49Z",
+        "legacy": {
+            "reviewType": "INTERNAL",
+            "confidentialityType": "public",
+            "isTask": false,
+            "subTrack": "WEB_DESIGNS",
+            "directProjectId": 31096,
+            "forumId": 0,
+            "screeningScorecardId": 30001363,
+            "reviewScorecardId": 30001031,
+            "track": "DESIGN"
+        },
+        "descriptionFormat": "markdown",
+        "timelineTemplateId": "2d0807fa-ece1-4328-a260-76f5f6b559e0",
+        "terms": [
+            {
+                "roleId": "732339e7-8e30-49d7-9198-cccf9451e221",
+                "id": "317cd8f9-d66c-4f2a-8774-63c612d99cd4"
+            },
+            {
+                "roleId": "3bb62410-95d5-4c49-b025-1d822fc70256",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "732339e7-8e30-49d7-9198-cccf9451e221",
+                "id": "e5811a7b-43d1-407a-a064-69e5015b4900"
+            },
+            {
+                "roleId": "ff556573-5da6-4392-b38c-08c1d7599c4a",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "d663fc84-5c37-43d1-a537-793feffb7667",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "e0544b94-6420-4afc-8f63-238eddc751b9",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "0e9c6879-39e4-4eb6-b8df-92407890faf1",
+                "id": "75d2f6bb-aadc-475e-9728-32c1dbd13655"
+            },
+            {
+                "roleId": "cfe12b3f-2a24-4639-9d8b-ec86726f76bd",
+                "id": "e0993b1a-abf7-45e6-8ed9-8cd0546be90b"
+            }
+        ],
+        "groups": [],
+        "tags": [
+            "Application Front-End Design"
+        ],
+        "discussions": [
+            {
+                "provider": "vanilla",
+                "name": "Justin test design challenge Discussion",
+                "id": "ccfcb706-4d1b-4846-aed7-52b078f002d5",
+                "type": "challenge"
+            }
+        ],
+        "description": "Test design challenge for testing submission delete",
+        "phases": [
+            {
+                "duration": 1036800,
+                "scheduledEndDate": "2022-09-27T00:01:00Z",
+                "actualEndDate": "2022-09-15T00:15:01Z",
+                "isOpen": true,
+                "name": "Registration",
+                "phaseId": "a93544bc-c165-4af4-b55e-18f3593b457a",
+                "actualStartDate": "2022-09-15T00:01:49Z",
+                "id": "ccc85451-cb42-438b-8a98-becea7b5fb60",
+                "scheduledStartDate": "2022-09-15T00:01:49Z"
+            },
+            {
+                "duration": 1036800,
+                "scheduledEndDate": "2022-09-27T00:06:00Z",
+                "actualEndDate": "2022-09-15T00:15:01Z",
+                "isOpen": true,
+                "name": "Submission",
+                "phaseId": "6950164f-3c5e-4bdc-abc8-22aaf5a1bd49",
+                "actualStartDate": "2022-09-15T00:06:21Z",
+                "id": "6436817c-b465-4033-9b27-cf60cf13744b",
+                "scheduledStartDate": "2022-09-15T00:06:21Z"
+            },
+            {
+                "duration": 14400,
+                "scheduledEndDate": "2022-09-27T04:06:00Z",
+                "actualEndDate": "2022-09-15T00:15:01Z",
+                "isOpen": false,
+                "name": "Screening",
+                "phaseId": "2d7d3d85-0b29-4989-b3b4-be7f2b1d0aa6",
+                "actualStartDate": "2022-09-15T00:15:01Z",
+                "id": "57219547-e616-469d-8b91-af94d0073ff0",
+                "scheduledStartDate": "2022-09-27T00:06:00Z"
+            },
+            {
+                "duration": 432000,
+                "scheduledEndDate": "2022-10-02T04:06:00Z",
+                "actualEndDate": "2022-09-15T00:15:01Z",
+                "isOpen": false,
+                "name": "Review",
+                "phaseId": "aa5a3f78-79e0-4bf7-93ff-b11e8f5b398b",
+                "actualStartDate": "2022-09-15T00:15:01Z",
+                "id": "1c862e48-38bd-4228-a4eb-44ac87b45e3d",
+                "scheduledStartDate": "2022-09-27T04:06:00Z"
+            },
+            {
+                "duration": 172800,
+                "scheduledEndDate": "2022-10-04T04:06:00Z",
+                "actualEndDate": "2022-09-15T00:15:01Z",
+                "isOpen": false,
+                "name": "Approval",
+                "phaseId": "ad985cff-ad3e-44de-b54e-3992505ba0ae",
+                "actualStartDate": "2022-09-15T00:15:01Z",
+                "id": "35344eb1-31ab-44df-bc16-d6965bd039d1",
+                "scheduledStartDate": "2022-10-02T04:06:00Z"
+            }
+        ],
+        "endDate": "2022-10-04T04:06:00Z",
+        "numOfSubmissions": 0,
+        "numOfRegistrants": 1,
+        "currentPhaseNames": [
+            "Registration",
+            "Submission"
+        ],
+        "registrationStartDate": "2022-09-15T00:01:49Z",
+        "registrationEndDate": "2022-09-15T00:15:01Z",
+        "submissionStartDate": "2022-09-15T00:06:21Z",
+        "submissionEndDate": "2022-09-15T00:15:01Z",
+        "track": "Design",
+        "type": "Challenge",
+        "metadata": [
+            {
+                "name": "allowStockArt",
+                "value": "true"
+            },
+            {
+                "name": "fileTypes",
+                "value": "[\"psd\"]"
+            },
+            {
+                "name": "submissionLimit",
+                "value": "{\"unlimited\":\"true\",\"limit\":\"false\",\"count\":\"\"}"
+            },
+            {
+                "name": "submissionsViewable",
+                "value": "true"
+            }
+        ],
+        "prizeSets": [
+            {
+                "prizes": [
+                    {
+                        "type": "USD",
+                        "value": 100
+                    }
+                ],
+                "description": "Challenge Prizes",
+                "type": "placement"
+            },
+            {
+                "prizes": [
+                    {
+                        "type": "USD",
+                        "value": 100
+                    }
+                ],
+                "type": "copilot"
+            }
+        ],
+        "overview": {
+            "totalPrizes": 100
+        },
+        "legacyId": 30091836,
+        "numOfCheckpointSubmissions": 0,
+        "events": [],
+        "task": {
+            "isAssigned": false,
+            "isTask": false,
+            "memberId": null
+        }
+    },
+    {
+        "id": "05e70031-cb46-40ef-8809-dbcf58bfda90",
+        "created": "2022-09-14T08:41:07.526Z",
+        "createdBy": "jcori",
+        "updated": "2022-09-14T09:24:42Z",
+        "updatedBy": "tcwebservice",
+        "status": "Active",
+        "projectId": 22307,
+        "name": "1143 - Test 03",
+        "typeId": "927abff4-7af9-4145-8ba1-577c16e64e2e",
+        "trackId": "9b6fc876-f4d9-4ccb-9dfd-419247628825",
+        "startDate": "2022-09-14T09:27:23Z",
+        "legacy": {
+            "reviewType": "COMMUNITY",
+            "confidentialityType": "public",
+            "isTask": false,
+            "subTrack": "CODE",
+            "directProjectId": 31096,
+            "forumId": 0,
+            "reviewScorecardId": 30001610,
+            "track": "DEVELOP"
+        },
+        "descriptionFormat": "markdown",
+        "timelineTemplateId": "7ebf1c69-f62f-4d3a-bdfb-fe9ddb56861c",
+        "terms": [
+            {
+                "roleId": "732339e7-8e30-49d7-9198-cccf9451e221",
+                "id": "317cd8f9-d66c-4f2a-8774-63c612d99cd4"
+            },
+            {
+                "roleId": "3bb62410-95d5-4c49-b025-1d822fc70256",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "318b9c07-079a-42d9-a81f-b96be1dc1099",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "732339e7-8e30-49d7-9198-cccf9451e221",
+                "id": "e5811a7b-43d1-407a-a064-69e5015b4900"
+            },
+            {
+                "roleId": "ff556573-5da6-4392-b38c-08c1d7599c4a",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "d663fc84-5c37-43d1-a537-793feffb7667",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "e0544b94-6420-4afc-8f63-238eddc751b9",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "0e9c6879-39e4-4eb6-b8df-92407890faf1",
+                "id": "75d2f6bb-aadc-475e-9728-32c1dbd13655"
+            },
+            {
+                "roleId": "cfe12b3f-2a24-4639-9d8b-ec86726f76bd",
+                "id": "e0993b1a-abf7-45e6-8ed9-8cd0546be90b"
+            }
+        ],
+        "groups": [],
+        "tags": [
+            "AWS"
+        ],
+        "discussions": [
+            {
+                "provider": "vanilla",
+                "name": "1143 - Test 01 Discussion",
+                "id": "302b80be-60fe-4cd9-a5ea-37e886e4ae88",
+                "type": "challenge"
+            }
+        ],
+        "description": "1143 - Test 03",
+        "phases": [
+            {
+                "duration": 432000,
+                "scheduledEndDate": "2022-09-19T09:27:00Z",
+                "actualEndDate": "2022-09-14T09:37:00Z",
+                "isOpen": true,
+                "name": "Registration",
+                "phaseId": "a93544bc-c165-4af4-b55e-18f3593b457a",
+                "actualStartDate": "2022-09-14T09:27:23Z",
+                "id": "fa660fdc-5d61-440c-8974-30f3b9bdd0cd",
+                "scheduledStartDate": "2022-09-14T09:27:23Z"
+            },
+            {
+                "duration": 432000,
+                "scheduledEndDate": "2022-09-19T09:33:00Z",
+                "actualEndDate": "2022-09-14T09:37:00Z",
+                "isOpen": true,
+                "name": "Submission",
+                "phaseId": "6950164f-3c5e-4bdc-abc8-22aaf5a1bd49",
+                "actualStartDate": "2022-09-14T09:33:31Z",
+                "id": "e5bab745-a741-476b-ac92-44ef15211f85",
+                "scheduledStartDate": "2022-09-14T09:33:31Z"
+            },
+            {
+                "duration": 172800,
+                "scheduledEndDate": "2022-09-21T09:33:00Z",
+                "actualEndDate": "2022-09-14T09:37:00Z",
+                "isOpen": false,
+                "name": "Review",
+                "phaseId": "aa5a3f78-79e0-4bf7-93ff-b11e8f5b398b",
+                "actualStartDate": "2022-09-14T09:37:00Z",
+                "id": "a803f6f2-a077-44ac-97e9-51c2d5b6c0eb",
+                "scheduledStartDate": "2022-09-19T09:33:00Z"
+            },
+            {
+                "duration": 86400,
+                "scheduledEndDate": "2022-09-22T09:33:00Z",
+                "actualEndDate": "2022-09-14T09:37:00Z",
+                "isOpen": false,
+                "name": "Appeals",
+                "phaseId": "1c24cfb3-5b0a-4dbd-b6bd-4b0dff5349c6",
+                "actualStartDate": "2022-09-14T09:37:00Z",
+                "id": "40d51ac3-a0a2-4eaa-8892-ec9a71b6ce4d",
+                "scheduledStartDate": "2022-09-21T09:33:00Z"
+            },
+            {
+                "duration": 43200,
+                "scheduledEndDate": "2022-09-22T21:33:00Z",
+                "actualEndDate": "2022-09-14T09:37:00Z",
+                "isOpen": false,
+                "name": "Appeals Response",
+                "phaseId": "797a6af7-cd3f-4436-9fca-9679f773bee9",
+                "actualStartDate": "2022-09-14T09:37:00Z",
+                "id": "dce0ddec-cb58-4e29-84a1-b62f603b3799",
+                "scheduledStartDate": "2022-09-22T09:33:00Z"
+            }
+        ],
+        "endDate": "2022-09-22T21:33:00Z",
+        "numOfSubmissions": 0,
+        "numOfRegistrants": 0,
+        "currentPhaseNames": [
+            "Registration",
+            "Submission"
+        ],
+        "registrationStartDate": "2022-09-14T09:27:23Z",
+        "registrationEndDate": "2022-09-14T09:37:00Z",
+        "submissionStartDate": "2022-09-14T09:33:31Z",
+        "submissionEndDate": "2022-09-14T09:37:00Z",
+        "track": "Development",
+        "type": "Challenge",
+        "prizeSets": [
+            {
+                "prizes": [
+                    {
+                        "type": "USD",
+                        "value": 1
+                    }
+                ],
+                "description": "Challenge Prizes",
+                "type": "placement"
+            }
+        ],
+        "overview": {
+            "totalPrizes": 1
+        },
+        "legacyId": 30091831,
+        "events": [],
+        "task": {
+            "isAssigned": false,
+            "isTask": false,
+            "memberId": null
+        }
+    },
+    {
+        "id": "94cb8721-d03e-4894-b529-e02f2e41c555",
+        "created": "2022-09-14T08:29:56.335Z",
+        "createdBy": "jcori",
+        "updated": "2022-09-14T09:34:46Z",
+        "updatedBy": "jcori",
+        "status": "Active",
+        "projectId": 22307,
+        "name": "Submission test",
+        "typeId": "dc876fa4-ef2d-4eee-b701-b555fcc6544c",
+        "trackId": "9b6fc876-f4d9-4ccb-9dfd-419247628825",
+        "startDate": "2022-09-14T08:34:38Z",
+        "legacy": {
+            "reviewType": "COMMUNITY",
+            "confidentialityType": "public",
+            "isTask": false,
+            "subTrack": "FIRST_2_FINISH",
+            "directProjectId": 31096,
+            "forumId": 0,
+            "reviewScorecardId": 30001600,
+            "track": "DEVELOP"
+        },
+        "descriptionFormat": "markdown",
+        "timelineTemplateId": "0a0fed34-cb5a-47f5-b0cb-6e2ee7de8dcb",
+        "terms": [
+            {
+                "roleId": "732339e7-8e30-49d7-9198-cccf9451e221",
+                "id": "317cd8f9-d66c-4f2a-8774-63c612d99cd4"
+            },
+            {
+                "roleId": "3bb62410-95d5-4c49-b025-1d822fc70256",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "318b9c07-079a-42d9-a81f-b96be1dc1099",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "732339e7-8e30-49d7-9198-cccf9451e221",
+                "id": "e5811a7b-43d1-407a-a064-69e5015b4900"
+            },
+            {
+                "roleId": "ff556573-5da6-4392-b38c-08c1d7599c4a",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "d663fc84-5c37-43d1-a537-793feffb7667",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "e0544b94-6420-4afc-8f63-238eddc751b9",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "0e9c6879-39e4-4eb6-b8df-92407890faf1",
+                "id": "75d2f6bb-aadc-475e-9728-32c1dbd13655"
+            },
+            {
+                "roleId": "cfe12b3f-2a24-4639-9d8b-ec86726f76bd",
+                "id": "e0993b1a-abf7-45e6-8ed9-8cd0546be90b"
+            }
+        ],
+        "groups": [],
+        "tags": [
+            "Salesforce.com"
+        ],
+        "discussions": [
+            {
+                "provider": "vanilla",
+                "name": "Submission test Discussion",
+                "id": "0d9321e9-9c64-4c57-98e2-0792a8f3dc60",
+                "type": "challenge"
+            }
+        ],
+        "description": "test",
+        "phases": [
+            {
+                "duration": 2592000,
+                "scheduledEndDate": "2022-10-14T08:34:00Z",
+                "actualEndDate": "2022-09-14T09:41:04Z",
+                "isOpen": true,
+                "name": "Registration",
+                "phaseId": "a93544bc-c165-4af4-b55e-18f3593b457a",
+                "actualStartDate": "2022-09-14T08:34:38Z",
+                "id": "4ae3c0b4-f0a8-4502-818d-bbbb106ffb2a",
+                "scheduledStartDate": "2022-09-14T08:34:38Z"
+            },
+            {
+                "duration": 86400,
+                "scheduledEndDate": "2022-09-14T09:37:32Z",
+                "actualEndDate": "2022-09-14T09:37:32Z",
+                "isOpen": false,
+                "name": "Iterative Review",
+                "phaseId": "003a4b14-de5d-43fc-9e35-835dbeb6af1f",
+                "actualStartDate": "2022-09-14T08:49:39Z",
+                "id": "a9ff38c1-68a8-4981-9e26-8d04a7e87c5b",
+                "scheduledStartDate": "2022-09-14T08:49:39Z"
+            },
+            {
+                "duration": 2592000,
+                "scheduledEndDate": "2022-10-14T08:39:00Z",
+                "actualEndDate": "2022-09-14T09:41:04Z",
+                "isOpen": true,
+                "name": "Submission",
+                "phaseId": "6950164f-3c5e-4bdc-abc8-22aaf5a1bd49",
+                "actualStartDate": "2022-09-14T08:39:45Z",
+                "id": "8e794bf9-e71b-4e2e-a38f-443a8cc016ef",
+                "scheduledStartDate": "2022-09-14T08:39:45Z"
+            },
+            {
+                "duration": 86400,
+                "scheduledEndDate": "2022-09-15T09:39:00Z",
+                "actualEndDate": "2022-09-14T09:41:04Z",
+                "isOpen": true,
+                "name": "Iterative Review",
+                "phaseId": "003a4b14-de5d-43fc-9e35-835dbeb6af1f",
+                "actualStartDate": "2022-09-14T09:39:31Z",
+                "id": "25e72185-4a6f-474b-aee5-acfc6c609038",
+                "scheduledStartDate": "2022-09-14T09:39:31Z"
+            }
+        ],
+        "endDate": "2022-09-15T09:39:00Z",
+        "numOfSubmissions": 3,
+        "numOfRegistrants": 1,
+        "currentPhaseNames": [
+            "Registration",
+            "Submission",
+            "Iterative Review"
+        ],
+        "registrationStartDate": "2022-09-14T08:34:38Z",
+        "registrationEndDate": "2022-09-14T09:41:04Z",
+        "submissionStartDate": "2022-09-14T08:39:45Z",
+        "submissionEndDate": "2022-09-14T09:41:04Z",
+        "track": "Development",
+        "type": "First2Finish",
+        "prizeSets": [
+            {
+                "prizes": [
+                    {
+                        "type": "USD",
+                        "value": 1
+                    }
+                ],
+                "description": "Challenge Prizes",
+                "type": "placement"
+            }
+        ],
+        "overview": {
+            "totalPrizes": 1
+        },
+        "legacyId": 30091830,
+        "events": [],
+        "task": {
+            "isAssigned": false,
+            "isTask": false,
+            "memberId": null
+        },
+        "numOfCheckpointSubmissions": 0
+    },
+    {
+        "id": "345728ad-415c-487f-9b6c-fbaa9a7c33c2",
+        "created": "2022-09-14T06:02:48.137Z",
+        "createdBy": "jcori",
+        "updated": "2022-09-14T06:05:08Z",
+        "updatedBy": "tcwebservice",
+        "status": "Active",
+        "projectId": 22262,
+        "name": "1143 - Sept 14 Test 02",
+        "typeId": "927abff4-7af9-4145-8ba1-577c16e64e2e",
+        "trackId": "9b6fc876-f4d9-4ccb-9dfd-419247628825",
+        "startDate": "2022-09-14T06:07:22Z",
+        "legacy": {
+            "reviewType": "COMMUNITY",
+            "confidentialityType": "public",
+            "isTask": false,
+            "subTrack": "CODE",
+            "directProjectId": 31044,
+            "forumId": 0,
+            "reviewScorecardId": 30001610,
+            "track": "DEVELOP"
+        },
+        "descriptionFormat": "markdown",
+        "timelineTemplateId": "7ebf1c69-f62f-4d3a-bdfb-fe9ddb56861c",
+        "terms": [
+            {
+                "roleId": "3bb62410-95d5-4c49-b025-1d822fc70256",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "318b9c07-079a-42d9-a81f-b96be1dc1099",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "732339e7-8e30-49d7-9198-cccf9451e221",
+                "id": "317cd8f9-d66c-4f2a-8774-63c612d99cd4"
+            },
+            {
+                "roleId": "ff556573-5da6-4392-b38c-08c1d7599c4a",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "d663fc84-5c37-43d1-a537-793feffb7667",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "e0544b94-6420-4afc-8f63-238eddc751b9",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "0e9c6879-39e4-4eb6-b8df-92407890faf1",
+                "id": "75d2f6bb-aadc-475e-9728-32c1dbd13655"
+            },
+            {
+                "roleId": "cfe12b3f-2a24-4639-9d8b-ec86726f76bd",
+                "id": "e0993b1a-abf7-45e6-8ed9-8cd0546be90b"
+            }
+        ],
+        "groups": [],
+        "tags": [
+            "Google"
+        ],
+        "discussions": [
+            {
+                "provider": "vanilla",
+                "name": "1143 - Sept 14 Test 02 Discussion",
+                "id": "074c1b5e-4104-4ea8-a8dc-dde9db35eb6b",
+                "type": "challenge"
+            }
+        ],
+        "description": "1143 - Sept 14 Test 02\n",
+        "phases": [
+            {
+                "duration": 432000,
+                "scheduledEndDate": "2022-09-19T06:07:00Z",
+                "actualEndDate": "2022-09-14T06:49:00Z",
+                "isOpen": true,
+                "name": "Registration",
+                "phaseId": "a93544bc-c165-4af4-b55e-18f3593b457a",
+                "actualStartDate": "2022-09-14T06:07:22Z",
+                "id": "07963093-2685-4054-8522-e204ae9a6072",
+                "scheduledStartDate": "2022-09-14T06:07:22Z"
+            },
+            {
+                "duration": 432000,
+                "scheduledEndDate": "2022-09-19T06:13:00Z",
+                "actualEndDate": "2022-09-14T06:49:00Z",
+                "isOpen": true,
+                "name": "Submission",
+                "phaseId": "6950164f-3c5e-4bdc-abc8-22aaf5a1bd49",
+                "actualStartDate": "2022-09-14T06:13:23Z",
+                "id": "82ad71cb-78de-429d-a7ec-02429baaa43b",
+                "scheduledStartDate": "2022-09-14T06:13:23Z"
+            },
+            {
+                "duration": 172800,
+                "scheduledEndDate": "2022-09-21T06:13:00Z",
+                "actualEndDate": "2022-09-14T06:49:00Z",
+                "isOpen": false,
+                "name": "Review",
+                "phaseId": "aa5a3f78-79e0-4bf7-93ff-b11e8f5b398b",
+                "actualStartDate": "2022-09-14T06:49:00Z",
+                "id": "bfc07b6b-c4a3-45ef-baf3-d419e160447f",
+                "scheduledStartDate": "2022-09-19T06:13:00Z"
+            },
+            {
+                "duration": 86400,
+                "scheduledEndDate": "2022-09-22T06:13:00Z",
+                "actualEndDate": "2022-09-14T06:49:00Z",
+                "isOpen": false,
+                "name": "Appeals",
+                "phaseId": "1c24cfb3-5b0a-4dbd-b6bd-4b0dff5349c6",
+                "actualStartDate": "2022-09-14T06:49:00Z",
+                "id": "e83b69bf-8d49-407e-b163-0f5ad3003582",
+                "scheduledStartDate": "2022-09-21T06:13:00Z"
+            },
+            {
+                "duration": 43200,
+                "scheduledEndDate": "2022-09-22T18:13:00Z",
+                "actualEndDate": "2022-09-14T06:49:00Z",
+                "isOpen": false,
+                "name": "Appeals Response",
+                "phaseId": "797a6af7-cd3f-4436-9fca-9679f773bee9",
+                "actualStartDate": "2022-09-14T06:49:00Z",
+                "id": "d18440a3-32e2-4f23-9ddc-c80cec780b1a",
+                "scheduledStartDate": "2022-09-22T06:13:00Z"
+            }
+        ],
+        "endDate": "2022-09-22T18:13:00Z",
+        "numOfSubmissions": 2,
+        "numOfRegistrants": 1,
+        "currentPhaseNames": [
+            "Registration",
+            "Submission"
+        ],
+        "registrationStartDate": "2022-09-14T06:07:22Z",
+        "registrationEndDate": "2022-09-14T06:49:00Z",
+        "submissionStartDate": "2022-09-14T06:13:23Z",
+        "submissionEndDate": "2022-09-14T06:49:00Z",
+        "track": "Development",
+        "type": "Challenge",
+        "prizeSets": [
+            {
+                "prizes": [
+                    {
+                        "type": "USD",
+                        "value": 1
+                    }
+                ],
+                "description": "Challenge Prizes",
+                "type": "placement"
+            }
+        ],
+        "overview": {
+            "totalPrizes": 1
+        },
+        "legacyId": 30091828,
+        "events": [],
+        "task": {
+            "isAssigned": false,
+            "isTask": false,
+            "memberId": null
+        },
+        "numOfCheckpointSubmissions": 0
+    },
+    {
+        "id": "78d8821e-d712-40af-aef4-2fd8290e50c2",
+        "created": "2022-09-13T21:03:52.367Z",
+        "createdBy": "jcori",
+        "updated": "2022-09-13T21:05:27Z",
+        "updatedBy": "tcwebservice",
+        "status": "Active",
+        "projectId": 22248,
+        "name": "1257 - Test 01",
+        "typeId": "dc876fa4-ef2d-4eee-b701-b555fcc6544c",
+        "trackId": "9b6fc876-f4d9-4ccb-9dfd-419247628825",
+        "startDate": "2022-09-13T21:07:05Z",
+        "legacy": {
+            "reviewType": "COMMUNITY",
+            "confidentialityType": "public",
+            "isTask": false,
+            "subTrack": "FIRST_2_FINISH",
+            "directProjectId": 31036,
+            "forumId": 0,
+            "reviewScorecardId": 30001600,
+            "track": "DEVELOP"
+        },
+        "descriptionFormat": "markdown",
+        "timelineTemplateId": "0a0fed34-cb5a-47f5-b0cb-6e2ee7de8dcb",
+        "terms": [
+            {
+                "roleId": "3bb62410-95d5-4c49-b025-1d822fc70256",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "318b9c07-079a-42d9-a81f-b96be1dc1099",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "732339e7-8e30-49d7-9198-cccf9451e221",
+                "id": "317cd8f9-d66c-4f2a-8774-63c612d99cd4"
+            },
+            {
+                "roleId": "ff556573-5da6-4392-b38c-08c1d7599c4a",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "d663fc84-5c37-43d1-a537-793feffb7667",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "e0544b94-6420-4afc-8f63-238eddc751b9",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "0e9c6879-39e4-4eb6-b8df-92407890faf1",
+                "id": "75d2f6bb-aadc-475e-9728-32c1dbd13655"
+            },
+            {
+                "roleId": "cfe12b3f-2a24-4639-9d8b-ec86726f76bd",
+                "id": "e0993b1a-abf7-45e6-8ed9-8cd0546be90b"
+            }
+        ],
+        "groups": [],
+        "tags": [
+            "Salesforce.com"
+        ],
+        "discussions": [
+            {
+                "provider": "vanilla",
+                "name": "1257 - Test 01 Discussion",
+                "id": "b846f8f0-02b1-4fe4-bd87-7af3d4e03f69",
+                "type": "challenge"
+            }
+        ],
+        "description": "1257 - Test 01",
+        "phases": [
+            {
+                "duration": 2592000,
+                "scheduledEndDate": "2022-10-13T21:07:00Z",
+                "actualEndDate": "2022-09-13T21:17:03Z",
+                "isOpen": true,
+                "name": "Registration",
+                "phaseId": "a93544bc-c165-4af4-b55e-18f3593b457a",
+                "actualStartDate": "2022-09-13T21:07:05Z",
+                "id": "877ea67c-b47e-4fc8-8587-401f0a5b0d42",
+                "scheduledStartDate": "2022-09-13T21:07:05Z"
+            },
+            {
+                "duration": 86400,
+                "scheduledEndDate": "2022-09-14T21:13:00Z",
+                "actualEndDate": "2022-09-13T21:17:03Z",
+                "isOpen": false,
+                "name": "Iterative Review",
+                "phaseId": "003a4b14-de5d-43fc-9e35-835dbeb6af1f",
+                "actualStartDate": "2022-09-13T21:17:03Z",
+                "id": "4dcdcfcb-70e3-4bd8-b31c-d163e73db596",
+                "scheduledStartDate": "2022-09-13T21:13:13Z"
+            },
+            {
+                "duration": 2592000,
+                "scheduledEndDate": "2022-10-13T21:13:00Z",
+                "actualEndDate": "2022-09-13T21:17:03Z",
+                "isOpen": true,
+                "name": "Submission",
+                "phaseId": "6950164f-3c5e-4bdc-abc8-22aaf5a1bd49",
+                "actualStartDate": "2022-09-13T21:13:13Z",
+                "id": "d5bd9df1-146c-44b0-9fc0-f16a03da2868",
+                "scheduledStartDate": "2022-09-13T21:13:13Z"
+            }
+        ],
+        "endDate": "2022-10-13T21:13:00Z",
+        "numOfSubmissions": 0,
+        "numOfRegistrants": 0,
+        "currentPhaseNames": [
+            "Registration",
+            "Submission"
+        ],
+        "registrationStartDate": "2022-09-13T21:07:05Z",
+        "registrationEndDate": "2022-09-13T21:17:03Z",
+        "submissionStartDate": "2022-09-13T21:13:13Z",
+        "submissionEndDate": "2022-09-13T21:17:03Z",
+        "track": "Development",
+        "type": "First2Finish",
+        "prizeSets": [
+            {
+                "prizes": [
+                    {
+                        "type": "USD",
+                        "value": 1
+                    }
+                ],
+                "description": "Challenge Prizes",
+                "type": "placement"
+            }
+        ],
+        "overview": {
+            "totalPrizes": 1
+        },
+        "legacyId": 30091825,
+        "events": [],
+        "task": {
+            "isAssigned": false,
+            "isTask": false,
+            "memberId": null
+        }
+    },
+    {
+        "id": "058565dc-2d43-40f6-9121-56747a581d58",
+        "created": "2022-09-13T02:55:18.699Z",
+        "createdBy": "tester1234",
+        "updated": "2022-09-13T11:35:43Z",
+        "updatedBy": "tcwebservice",
+        "status": "Active",
+        "projectId": 21350,
+        "name": "Automation 10",
+        "typeId": "dc876fa4-ef2d-4eee-b701-b555fcc6544c",
+        "trackId": "9b6fc876-f4d9-4ccb-9dfd-419247628825",
+        "startDate": "2022-09-13T11:37:19Z",
+        "legacy": {
+            "reviewType": "COMMUNITY",
+            "confidentialityType": "public",
+            "isTask": false,
+            "subTrack": "FIRST_2_FINISH",
+            "directProjectId": 30110,
+            "forumId": 0,
+            "reviewScorecardId": 30001600,
+            "track": "DEVELOP"
+        },
+        "descriptionFormat": "markdown",
+        "timelineTemplateId": "0a0fed34-cb5a-47f5-b0cb-6e2ee7de8dcb",
+        "terms": [
+            {
+                "roleId": "732339e7-8e30-49d7-9198-cccf9451e221",
+                "id": "317cd8f9-d66c-4f2a-8774-63c612d99cd4"
+            },
+            {
+                "roleId": "3bb62410-95d5-4c49-b025-1d822fc70256",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "318b9c07-079a-42d9-a81f-b96be1dc1099",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "ff556573-5da6-4392-b38c-08c1d7599c4a",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "e0544b94-6420-4afc-8f63-238eddc751b9",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "0e9c6879-39e4-4eb6-b8df-92407890faf1",
+                "id": "75d2f6bb-aadc-475e-9728-32c1dbd13655"
+            },
+            {
+                "roleId": "cfe12b3f-2a24-4639-9d8b-ec86726f76bd",
+                "id": "e0993b1a-abf7-45e6-8ed9-8cd0546be90b"
+            },
+            {
+                "roleId": "d663fc84-5c37-43d1-a537-793feffb7667",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            }
+        ],
+        "groups": [],
+        "discussions": [
+            {
+                "provider": "vanilla",
+                "name": "Manual Create Challenge 2 Discussion",
+                "id": "e1f30ec9-14c5-47a9-8587-470afcdbac7d",
+                "type": "challenge",
+                "url": "https://vanilla.topcoder-dev.com/categories/6577268e-2da9-4712-b5cd-ff5ae4e0791a"
+            }
+        ],
+        "description": "This is a manuallly created challenge 2",
+        "phases": [
+            {
+                "duration": 42192000,
+                "scheduledEndDate": "2024-01-14T19:37:00Z",
+                "actualEndDate": "2022-09-13T11:47:05Z",
+                "isOpen": true,
+                "name": "Registration",
+                "phaseId": "a93544bc-c165-4af4-b55e-18f3593b457a",
+                "actualStartDate": "2022-09-13T11:37:19Z",
+                "id": "80ab9e99-a4df-4ac8-914a-011570dae0e9",
+                "scheduledStartDate": "2022-09-13T11:37:19Z"
+            },
+            {
+                "duration": 86400,
+                "scheduledEndDate": "2022-09-14T11:43:00Z",
+                "actualEndDate": "2022-09-13T11:47:05Z",
+                "isOpen": false,
+                "name": "Iterative Review",
+                "phaseId": "003a4b14-de5d-43fc-9e35-835dbeb6af1f",
+                "actualStartDate": "2022-09-13T11:47:05Z",
+                "id": "b7b76af5-a32b-4189-b37e-93c644a2af81",
+                "scheduledStartDate": "2022-09-13T11:43:27Z"
+            },
+            {
+                "duration": 42192000,
+                "scheduledEndDate": "2024-01-14T19:43:00Z",
+                "actualEndDate": "2022-09-13T11:47:05Z",
+                "isOpen": true,
+                "name": "Submission",
+                "phaseId": "6950164f-3c5e-4bdc-abc8-22aaf5a1bd49",
+                "actualStartDate": "2022-09-13T11:43:27Z",
+                "id": "98ad9b74-7e6e-4c88-85b6-dd7f8e59da7b",
+                "scheduledStartDate": "2022-09-13T11:43:27Z"
+            }
+        ],
+        "endDate": "2024-01-14T19:43:00Z",
+        "numOfSubmissions": 0,
+        "numOfRegistrants": 0,
+        "currentPhaseNames": [
+            "Registration",
+            "Submission"
+        ],
+        "registrationStartDate": "2022-09-13T11:37:19Z",
+        "registrationEndDate": "2022-09-13T11:47:05Z",
+        "submissionStartDate": "2022-09-13T11:43:27Z",
+        "submissionEndDate": "2022-09-13T11:47:05Z",
+        "track": "Development",
+        "type": "First2Finish",
+        "prizeSets": [
+            {
+                "prizes": [
+                    {
+                        "type": "USD",
+                        "value": 1000
+                    }
+                ],
+                "description": "Challenge Prizes",
+                "type": "placement"
+            }
+        ],
+        "overview": {
+            "totalPrizes": 1000
+        },
+        "tags": [],
+        "legacyId": 30091111,
+        "events": [],
+        "task": {
+            "isAssigned": false,
+            "isTask": false,
+            "memberId": null
+        }
+    },
+    {
+        "id": "056a7c07-c9b2-463f-bb6a-9b890a955307",
+        "created": "2022-09-13T02:54:14.513Z",
+        "createdBy": "tester1234",
+        "updated": "2022-09-13T11:34:37Z",
+        "updatedBy": "tcwebservice",
+        "status": "Active",
+        "projectId": 21350,
+        "name": "Automation 9",
+        "typeId": "dc876fa4-ef2d-4eee-b701-b555fcc6544c",
+        "trackId": "9b6fc876-f4d9-4ccb-9dfd-419247628825",
+        "startDate": "2022-09-13T11:37:19Z",
+        "legacy": {
+            "reviewType": "COMMUNITY",
+            "confidentialityType": "public",
+            "isTask": false,
+            "subTrack": "FIRST_2_FINISH",
+            "directProjectId": 30110,
+            "forumId": 0,
+            "reviewScorecardId": 30001600,
+            "track": "DEVELOP"
+        },
+        "descriptionFormat": "markdown",
+        "timelineTemplateId": "0a0fed34-cb5a-47f5-b0cb-6e2ee7de8dcb",
+        "terms": [
+            {
+                "roleId": "d663fc84-5c37-43d1-a537-793feffb7667",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "732339e7-8e30-49d7-9198-cccf9451e221",
+                "id": "317cd8f9-d66c-4f2a-8774-63c612d99cd4"
+            },
+            {
+                "roleId": "3bb62410-95d5-4c49-b025-1d822fc70256",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "318b9c07-079a-42d9-a81f-b96be1dc1099",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "ff556573-5da6-4392-b38c-08c1d7599c4a",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "e0544b94-6420-4afc-8f63-238eddc751b9",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "0e9c6879-39e4-4eb6-b8df-92407890faf1",
+                "id": "75d2f6bb-aadc-475e-9728-32c1dbd13655"
+            },
+            {
+                "roleId": "cfe12b3f-2a24-4639-9d8b-ec86726f76bd",
+                "id": "e0993b1a-abf7-45e6-8ed9-8cd0546be90b"
+            }
+        ],
+        "groups": [],
+        "discussions": [
+            {
+                "provider": "vanilla",
+                "name": "Manual Create Challenge 2 Discussion",
+                "id": "e1f30ec9-14c5-47a9-8587-470afcdbac7d",
+                "type": "challenge",
+                "url": "https://vanilla.topcoder-dev.com/categories/6577268e-2da9-4712-b5cd-ff5ae4e0791a"
+            }
+        ],
+        "description": "This is a manuallly created challenge 2",
+        "phases": [
+            {
+                "duration": 42192000,
+                "scheduledEndDate": "2024-01-14T19:37:00Z",
+                "actualEndDate": "2022-09-13T11:47:04Z",
+                "isOpen": true,
+                "name": "Registration",
+                "phaseId": "a93544bc-c165-4af4-b55e-18f3593b457a",
+                "actualStartDate": "2022-09-13T11:37:19Z",
+                "id": "9c030552-bf8d-4e68-b25c-be99d9085766",
+                "scheduledStartDate": "2022-09-13T11:37:19Z"
+            },
+            {
+                "duration": 86400,
+                "scheduledEndDate": "2022-09-14T11:43:00Z",
+                "actualEndDate": "2022-09-13T11:47:04Z",
+                "isOpen": false,
+                "name": "Iterative Review",
+                "phaseId": "003a4b14-de5d-43fc-9e35-835dbeb6af1f",
+                "actualStartDate": "2022-09-13T11:47:04Z",
+                "id": "c4815de7-3c20-453a-8a9c-573abe5d1f9e",
+                "scheduledStartDate": "2022-09-13T11:43:27Z"
+            },
+            {
+                "duration": 42192000,
+                "scheduledEndDate": "2024-01-14T19:43:00Z",
+                "actualEndDate": "2022-09-13T11:47:04Z",
+                "isOpen": true,
+                "name": "Submission",
+                "phaseId": "6950164f-3c5e-4bdc-abc8-22aaf5a1bd49",
+                "actualStartDate": "2022-09-13T11:43:27Z",
+                "id": "ac005976-652e-43aa-accf-3f917c0e4157",
+                "scheduledStartDate": "2022-09-13T11:43:27Z"
+            }
+        ],
+        "endDate": "2024-01-14T19:43:00Z",
+        "numOfSubmissions": 0,
+        "numOfRegistrants": 0,
+        "currentPhaseNames": [
+            "Registration",
+            "Submission"
+        ],
+        "registrationStartDate": "2022-09-13T11:37:19Z",
+        "registrationEndDate": "2022-09-13T11:47:04Z",
+        "submissionStartDate": "2022-09-13T11:43:27Z",
+        "submissionEndDate": "2022-09-13T11:47:04Z",
+        "track": "Development",
+        "type": "First2Finish",
+        "prizeSets": [
+            {
+                "prizes": [
+                    {
+                        "type": "USD",
+                        "value": 1000
+                    }
+                ],
+                "description": "Challenge Prizes",
+                "type": "placement"
+            }
+        ],
+        "overview": {
+            "totalPrizes": 1000
+        },
+        "tags": [],
+        "legacyId": 30091110,
+        "events": [],
+        "task": {
+            "isAssigned": false,
+            "isTask": false,
+            "memberId": null
+        }
+    },
+    {
+        "id": "b51c7f34-03c7-489a-83bd-cc198da8e80b",
+        "created": "2022-09-13T02:52:06.452Z",
+        "createdBy": "tester1234",
+        "updated": "2022-09-13T11:32:27Z",
+        "updatedBy": "tcwebservice",
+        "status": "Active",
+        "projectId": 21350,
+        "name": "Automation 7",
+        "typeId": "dc876fa4-ef2d-4eee-b701-b555fcc6544c",
+        "trackId": "9b6fc876-f4d9-4ccb-9dfd-419247628825",
+        "startDate": "2022-09-13T11:35:12Z",
+        "legacy": {
+            "reviewType": "COMMUNITY",
+            "confidentialityType": "public",
+            "isTask": false,
+            "subTrack": "FIRST_2_FINISH",
+            "directProjectId": 30110,
+            "forumId": 0,
+            "reviewScorecardId": 30001600,
+            "track": "DEVELOP"
+        },
+        "descriptionFormat": "markdown",
+        "timelineTemplateId": "0a0fed34-cb5a-47f5-b0cb-6e2ee7de8dcb",
+        "terms": [
+            {
+                "roleId": "d663fc84-5c37-43d1-a537-793feffb7667",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "732339e7-8e30-49d7-9198-cccf9451e221",
+                "id": "317cd8f9-d66c-4f2a-8774-63c612d99cd4"
+            },
+            {
+                "roleId": "3bb62410-95d5-4c49-b025-1d822fc70256",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "318b9c07-079a-42d9-a81f-b96be1dc1099",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "ff556573-5da6-4392-b38c-08c1d7599c4a",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "e0544b94-6420-4afc-8f63-238eddc751b9",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "0e9c6879-39e4-4eb6-b8df-92407890faf1",
+                "id": "75d2f6bb-aadc-475e-9728-32c1dbd13655"
+            },
+            {
+                "roleId": "cfe12b3f-2a24-4639-9d8b-ec86726f76bd",
+                "id": "e0993b1a-abf7-45e6-8ed9-8cd0546be90b"
+            }
+        ],
+        "groups": [],
+        "discussions": [
+            {
+                "provider": "vanilla",
+                "name": "Manual Create Challenge 2 Discussion",
+                "id": "e1f30ec9-14c5-47a9-8587-470afcdbac7d",
+                "type": "challenge",
+                "url": "https://vanilla.topcoder-dev.com/categories/6577268e-2da9-4712-b5cd-ff5ae4e0791a"
+            }
+        ],
+        "description": "This is a manuallly created challenge 2",
+        "phases": [
+            {
+                "duration": 42192000,
+                "scheduledEndDate": "2024-01-14T19:35:00Z",
+                "actualEndDate": "2022-09-13T11:45:05Z",
+                "isOpen": true,
+                "name": "Registration",
+                "phaseId": "a93544bc-c165-4af4-b55e-18f3593b457a",
+                "actualStartDate": "2022-09-13T11:35:12Z",
+                "id": "6b6e434f-258d-42e6-816a-20a4338cfcc3",
+                "scheduledStartDate": "2022-09-13T11:35:12Z"
+            },
+            {
+                "duration": 86400,
+                "scheduledEndDate": "2022-09-14T11:41:00Z",
+                "actualEndDate": "2022-09-13T11:45:05Z",
+                "isOpen": false,
+                "name": "Iterative Review",
+                "phaseId": "003a4b14-de5d-43fc-9e35-835dbeb6af1f",
+                "actualStartDate": "2022-09-13T11:45:05Z",
+                "id": "d5edffab-bdd3-478e-8369-0c7ae8eaeafb",
+                "scheduledStartDate": "2022-09-13T11:41:22Z"
+            },
+            {
+                "duration": 42192000,
+                "scheduledEndDate": "2024-01-14T19:41:00Z",
+                "actualEndDate": "2022-09-13T11:45:05Z",
+                "isOpen": true,
+                "name": "Submission",
+                "phaseId": "6950164f-3c5e-4bdc-abc8-22aaf5a1bd49",
+                "actualStartDate": "2022-09-13T11:41:22Z",
+                "id": "402642df-b09f-4a01-9a28-83568dbbe6c9",
+                "scheduledStartDate": "2022-09-13T11:41:22Z"
+            }
+        ],
+        "endDate": "2024-01-14T19:41:00Z",
+        "numOfSubmissions": 0,
+        "numOfRegistrants": 0,
+        "currentPhaseNames": [
+            "Registration",
+            "Submission"
+        ],
+        "registrationStartDate": "2022-09-13T11:35:12Z",
+        "registrationEndDate": "2022-09-13T11:45:05Z",
+        "submissionStartDate": "2022-09-13T11:41:22Z",
+        "submissionEndDate": "2022-09-13T11:45:05Z",
+        "track": "Development",
+        "type": "First2Finish",
+        "prizeSets": [
+            {
+                "prizes": [
+                    {
+                        "type": "USD",
+                        "value": 1000
+                    }
+                ],
+                "description": "Challenge Prizes",
+                "type": "placement"
+            }
+        ],
+        "overview": {
+            "totalPrizes": 1000
+        },
+        "tags": [],
+        "legacyId": 30091108,
+        "events": [],
+        "task": {
+            "isAssigned": false,
+            "isTask": false,
+            "memberId": null
+        }
+    },
+    {
+        "id": "5f6e92f3-839a-4f08-b0d9-f33c033a77a5",
+        "created": "2022-09-13T02:53:10.613Z",
+        "createdBy": "tester1234",
+        "updated": "2022-09-13T11:33:33Z",
+        "updatedBy": "tcwebservice",
+        "status": "Active",
+        "projectId": 21350,
+        "name": "Automation 8",
+        "typeId": "dc876fa4-ef2d-4eee-b701-b555fcc6544c",
+        "trackId": "9b6fc876-f4d9-4ccb-9dfd-419247628825",
+        "startDate": "2022-09-13T11:35:12Z",
+        "legacy": {
+            "reviewType": "COMMUNITY",
+            "confidentialityType": "public",
+            "isTask": false,
+            "subTrack": "FIRST_2_FINISH",
+            "directProjectId": 30110,
+            "forumId": 0,
+            "reviewScorecardId": 30001600,
+            "track": "DEVELOP"
+        },
+        "descriptionFormat": "markdown",
+        "timelineTemplateId": "0a0fed34-cb5a-47f5-b0cb-6e2ee7de8dcb",
+        "terms": [
+            {
+                "roleId": "732339e7-8e30-49d7-9198-cccf9451e221",
+                "id": "317cd8f9-d66c-4f2a-8774-63c612d99cd4"
+            },
+            {
+                "roleId": "3bb62410-95d5-4c49-b025-1d822fc70256",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "318b9c07-079a-42d9-a81f-b96be1dc1099",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "ff556573-5da6-4392-b38c-08c1d7599c4a",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "e0544b94-6420-4afc-8f63-238eddc751b9",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "0e9c6879-39e4-4eb6-b8df-92407890faf1",
+                "id": "75d2f6bb-aadc-475e-9728-32c1dbd13655"
+            },
+            {
+                "roleId": "cfe12b3f-2a24-4639-9d8b-ec86726f76bd",
+                "id": "e0993b1a-abf7-45e6-8ed9-8cd0546be90b"
+            },
+            {
+                "roleId": "d663fc84-5c37-43d1-a537-793feffb7667",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            }
+        ],
+        "groups": [],
+        "discussions": [
+            {
+                "provider": "vanilla",
+                "name": "Manual Create Challenge 2 Discussion",
+                "id": "e1f30ec9-14c5-47a9-8587-470afcdbac7d",
+                "type": "challenge",
+                "url": "https://vanilla.topcoder-dev.com/categories/6577268e-2da9-4712-b5cd-ff5ae4e0791a"
+            }
+        ],
+        "description": "This is a manuallly created challenge 2",
+        "phases": [
+            {
+                "duration": 42192000,
+                "scheduledEndDate": "2024-01-14T19:35:00Z",
+                "actualEndDate": "2022-09-13T11:45:03Z",
+                "isOpen": true,
+                "name": "Registration",
+                "phaseId": "a93544bc-c165-4af4-b55e-18f3593b457a",
+                "actualStartDate": "2022-09-13T11:35:12Z",
+                "id": "d4bdf9a9-3339-498b-8612-df8f92a7799f",
+                "scheduledStartDate": "2022-09-13T11:35:12Z"
+            },
+            {
+                "duration": 86400,
+                "scheduledEndDate": "2022-09-14T11:41:00Z",
+                "actualEndDate": "2022-09-13T11:45:03Z",
+                "isOpen": false,
+                "name": "Iterative Review",
+                "phaseId": "003a4b14-de5d-43fc-9e35-835dbeb6af1f",
+                "actualStartDate": "2022-09-13T11:45:03Z",
+                "id": "5b390bf4-a389-4edb-bae6-65bf0d6cd80d",
+                "scheduledStartDate": "2022-09-13T11:41:22Z"
+            },
+            {
+                "duration": 42192000,
+                "scheduledEndDate": "2024-01-14T19:41:00Z",
+                "actualEndDate": "2022-09-13T11:45:03Z",
+                "isOpen": true,
+                "name": "Submission",
+                "phaseId": "6950164f-3c5e-4bdc-abc8-22aaf5a1bd49",
+                "actualStartDate": "2022-09-13T11:41:22Z",
+                "id": "4b61bb2c-5907-4605-a902-f7060be65f8a",
+                "scheduledStartDate": "2022-09-13T11:41:22Z"
+            }
+        ],
+        "endDate": "2024-01-14T19:41:00Z",
+        "numOfSubmissions": 0,
+        "numOfRegistrants": 0,
+        "currentPhaseNames": [
+            "Registration",
+            "Submission"
+        ],
+        "registrationStartDate": "2022-09-13T11:35:12Z",
+        "registrationEndDate": "2022-09-13T11:45:03Z",
+        "submissionStartDate": "2022-09-13T11:41:22Z",
+        "submissionEndDate": "2022-09-13T11:45:03Z",
+        "track": "Development",
+        "type": "First2Finish",
+        "prizeSets": [
+            {
+                "prizes": [
+                    {
+                        "type": "USD",
+                        "value": 1000
+                    }
+                ],
+                "description": "Challenge Prizes",
+                "type": "placement"
+            }
+        ],
+        "overview": {
+            "totalPrizes": 1000
+        },
+        "tags": [],
+        "legacyId": 30091109,
+        "events": [],
+        "task": {
+            "isAssigned": false,
+            "isTask": false,
+            "memberId": null
+        }
+    },
+    {
+        "id": "7e79f4c1-8d1b-4be4-a123-e70c020cdb95",
+        "created": "2022-09-13T02:51:02.105Z",
+        "createdBy": "tester1234",
+        "updated": "2022-09-13T11:31:23Z",
+        "updatedBy": "tcwebservice",
+        "status": "Active",
+        "projectId": 21350,
+        "name": "Automation 6",
+        "typeId": "dc876fa4-ef2d-4eee-b701-b555fcc6544c",
+        "trackId": "9b6fc876-f4d9-4ccb-9dfd-419247628825",
+        "startDate": "2022-09-13T11:33:05Z",
+        "legacy": {
+            "reviewType": "COMMUNITY",
+            "confidentialityType": "public",
+            "isTask": false,
+            "subTrack": "FIRST_2_FINISH",
+            "directProjectId": 30110,
+            "forumId": 0,
+            "reviewScorecardId": 30001600,
+            "track": "DEVELOP"
+        },
+        "descriptionFormat": "markdown",
+        "timelineTemplateId": "0a0fed34-cb5a-47f5-b0cb-6e2ee7de8dcb",
+        "terms": [
+            {
+                "roleId": "d663fc84-5c37-43d1-a537-793feffb7667",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "732339e7-8e30-49d7-9198-cccf9451e221",
+                "id": "317cd8f9-d66c-4f2a-8774-63c612d99cd4"
+            },
+            {
+                "roleId": "3bb62410-95d5-4c49-b025-1d822fc70256",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "318b9c07-079a-42d9-a81f-b96be1dc1099",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "ff556573-5da6-4392-b38c-08c1d7599c4a",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "e0544b94-6420-4afc-8f63-238eddc751b9",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "0e9c6879-39e4-4eb6-b8df-92407890faf1",
+                "id": "75d2f6bb-aadc-475e-9728-32c1dbd13655"
+            },
+            {
+                "roleId": "cfe12b3f-2a24-4639-9d8b-ec86726f76bd",
+                "id": "e0993b1a-abf7-45e6-8ed9-8cd0546be90b"
+            }
+        ],
+        "groups": [],
+        "discussions": [
+            {
+                "provider": "vanilla",
+                "name": "Manual Create Challenge 2 Discussion",
+                "id": "e1f30ec9-14c5-47a9-8587-470afcdbac7d",
+                "type": "challenge",
+                "url": "https://vanilla.topcoder-dev.com/categories/6577268e-2da9-4712-b5cd-ff5ae4e0791a"
+            }
+        ],
+        "description": "This is a manuallly created challenge 2",
+        "phases": [
+            {
+                "duration": 42192000,
+                "scheduledEndDate": "2024-01-14T19:33:00Z",
+                "actualEndDate": "2022-09-13T11:43:06Z",
+                "isOpen": true,
+                "name": "Registration",
+                "phaseId": "a93544bc-c165-4af4-b55e-18f3593b457a",
+                "actualStartDate": "2022-09-13T11:33:05Z",
+                "id": "ba3b6b8b-b12f-4fed-bdb9-d4e33e68e747",
+                "scheduledStartDate": "2022-09-13T11:33:05Z"
+            },
+            {
+                "duration": 86400,
+                "scheduledEndDate": "2022-09-14T11:39:00Z",
+                "actualEndDate": "2022-09-13T11:43:06Z",
+                "isOpen": false,
+                "name": "Iterative Review",
+                "phaseId": "003a4b14-de5d-43fc-9e35-835dbeb6af1f",
+                "actualStartDate": "2022-09-13T11:43:06Z",
+                "id": "2d2ad28a-7a5c-4b14-b963-6b0b312922b3",
+                "scheduledStartDate": "2022-09-13T11:39:21Z"
+            },
+            {
+                "duration": 42192000,
+                "scheduledEndDate": "2024-01-14T19:39:00Z",
+                "actualEndDate": "2022-09-13T11:43:06Z",
+                "isOpen": true,
+                "name": "Submission",
+                "phaseId": "6950164f-3c5e-4bdc-abc8-22aaf5a1bd49",
+                "actualStartDate": "2022-09-13T11:39:21Z",
+                "id": "9e7857a9-04a7-4284-a286-741ac40b7d52",
+                "scheduledStartDate": "2022-09-13T11:39:21Z"
+            }
+        ],
+        "endDate": "2024-01-14T19:39:00Z",
+        "numOfSubmissions": 0,
+        "numOfRegistrants": 0,
+        "currentPhaseNames": [
+            "Registration",
+            "Submission"
+        ],
+        "registrationStartDate": "2022-09-13T11:33:05Z",
+        "registrationEndDate": "2022-09-13T11:43:06Z",
+        "submissionStartDate": "2022-09-13T11:39:21Z",
+        "submissionEndDate": "2022-09-13T11:43:06Z",
+        "track": "Development",
+        "type": "First2Finish",
+        "prizeSets": [
+            {
+                "prizes": [
+                    {
+                        "type": "USD",
+                        "value": 1000
+                    }
+                ],
+                "description": "Challenge Prizes",
+                "type": "placement"
+            }
+        ],
+        "overview": {
+            "totalPrizes": 1000
+        },
+        "tags": [],
+        "legacyId": 30091107,
+        "events": [],
+        "task": {
+            "isAssigned": false,
+            "isTask": false,
+            "memberId": null
+        }
+    },
+    {
+        "id": "e5c6fbca-16eb-4570-b6f3-120b9c15c2f3",
+        "created": "2022-09-13T02:47:49.238Z",
+        "createdBy": "tester1234",
+        "updated": "2022-09-13T11:28:10Z",
+        "updatedBy": "tcwebservice",
+        "status": "Active",
+        "projectId": 21350,
+        "name": "Automation 3",
+        "typeId": "dc876fa4-ef2d-4eee-b701-b555fcc6544c",
+        "trackId": "9b6fc876-f4d9-4ccb-9dfd-419247628825",
+        "startDate": "2022-09-13T11:30:59Z",
+        "legacy": {
+            "reviewType": "COMMUNITY",
+            "confidentialityType": "public",
+            "isTask": false,
+            "subTrack": "FIRST_2_FINISH",
+            "directProjectId": 30110,
+            "forumId": 0,
+            "reviewScorecardId": 30001600,
+            "track": "DEVELOP"
+        },
+        "descriptionFormat": "markdown",
+        "timelineTemplateId": "0a0fed34-cb5a-47f5-b0cb-6e2ee7de8dcb",
+        "terms": [
+            {
+                "roleId": "732339e7-8e30-49d7-9198-cccf9451e221",
+                "id": "317cd8f9-d66c-4f2a-8774-63c612d99cd4"
+            },
+            {
+                "roleId": "3bb62410-95d5-4c49-b025-1d822fc70256",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "318b9c07-079a-42d9-a81f-b96be1dc1099",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "ff556573-5da6-4392-b38c-08c1d7599c4a",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "e0544b94-6420-4afc-8f63-238eddc751b9",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "0e9c6879-39e4-4eb6-b8df-92407890faf1",
+                "id": "75d2f6bb-aadc-475e-9728-32c1dbd13655"
+            },
+            {
+                "roleId": "cfe12b3f-2a24-4639-9d8b-ec86726f76bd",
+                "id": "e0993b1a-abf7-45e6-8ed9-8cd0546be90b"
+            },
+            {
+                "roleId": "d663fc84-5c37-43d1-a537-793feffb7667",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            }
+        ],
+        "groups": [],
+        "discussions": [
+            {
+                "provider": "vanilla",
+                "name": "Manual Create Challenge 2 Discussion",
+                "id": "e1f30ec9-14c5-47a9-8587-470afcdbac7d",
+                "type": "challenge",
+                "url": "https://vanilla.topcoder-dev.com/categories/6577268e-2da9-4712-b5cd-ff5ae4e0791a"
+            }
+        ],
+        "description": "This is a manuallly created challenge 2",
+        "phases": [
+            {
+                "duration": 42192000,
+                "scheduledEndDate": "2024-01-14T19:30:00Z",
+                "actualEndDate": "2022-09-13T11:37:08Z",
+                "isOpen": true,
+                "name": "Registration",
+                "phaseId": "a93544bc-c165-4af4-b55e-18f3593b457a",
+                "actualStartDate": "2022-09-13T11:30:59Z",
+                "id": "ca178b82-0438-4517-8757-590ecd9a5fd4",
+                "scheduledStartDate": "2022-09-13T11:30:59Z"
+            },
+            {
+                "duration": 86400,
+                "scheduledEndDate": "2022-09-14T11:35:00Z",
+                "actualEndDate": "2022-09-13T11:37:08Z",
+                "isOpen": false,
+                "name": "Iterative Review",
+                "phaseId": "003a4b14-de5d-43fc-9e35-835dbeb6af1f",
+                "actualStartDate": "2022-09-13T11:37:08Z",
+                "id": "295b6fa5-6521-4b72-b128-222f7cbf378e",
+                "scheduledStartDate": "2022-09-13T11:35:12Z"
+            },
+            {
+                "duration": 42192000,
+                "scheduledEndDate": "2024-01-14T19:35:00Z",
+                "actualEndDate": "2022-09-13T11:37:08Z",
+                "isOpen": true,
+                "name": "Submission",
+                "phaseId": "6950164f-3c5e-4bdc-abc8-22aaf5a1bd49",
+                "actualStartDate": "2022-09-13T11:35:12Z",
+                "id": "7075fc01-5091-4f62-a948-1b2875b4805c",
+                "scheduledStartDate": "2022-09-13T11:35:12Z"
+            }
+        ],
+        "endDate": "2024-01-14T19:35:00Z",
+        "numOfSubmissions": 0,
+        "numOfRegistrants": 0,
+        "currentPhaseNames": [
+            "Registration",
+            "Submission"
+        ],
+        "registrationStartDate": "2022-09-13T11:30:59Z",
+        "registrationEndDate": "2022-09-13T11:37:08Z",
+        "submissionStartDate": "2022-09-13T11:35:12Z",
+        "submissionEndDate": "2022-09-13T11:37:08Z",
+        "track": "Development",
+        "type": "First2Finish",
+        "prizeSets": [
+            {
+                "prizes": [
+                    {
+                        "type": "USD",
+                        "value": 1000
+                    }
+                ],
+                "description": "Challenge Prizes",
+                "type": "placement"
+            }
+        ],
+        "overview": {
+            "totalPrizes": 1000
+        },
+        "tags": [],
+        "legacyId": 30091104,
+        "events": [],
+        "task": {
+            "isAssigned": false,
+            "isTask": false,
+            "memberId": null
+        }
+    },
+    {
+        "id": "0d110145-5038-40d0-a44a-0963fe7b5f02",
+        "created": "2022-09-13T02:48:53.492Z",
+        "createdBy": "tester1234",
+        "updated": "2022-09-13T11:29:14Z",
+        "updatedBy": "tcwebservice",
+        "status": "Active",
+        "projectId": 21350,
+        "name": "Automation 4",
+        "typeId": "dc876fa4-ef2d-4eee-b701-b555fcc6544c",
+        "trackId": "9b6fc876-f4d9-4ccb-9dfd-419247628825",
+        "startDate": "2022-09-13T11:30:59Z",
+        "legacy": {
+            "reviewType": "COMMUNITY",
+            "confidentialityType": "public",
+            "isTask": false,
+            "subTrack": "FIRST_2_FINISH",
+            "directProjectId": 30110,
+            "forumId": 0,
+            "reviewScorecardId": 30001600,
+            "track": "DEVELOP"
+        },
+        "descriptionFormat": "markdown",
+        "timelineTemplateId": "0a0fed34-cb5a-47f5-b0cb-6e2ee7de8dcb",
+        "terms": [
+            {
+                "roleId": "732339e7-8e30-49d7-9198-cccf9451e221",
+                "id": "317cd8f9-d66c-4f2a-8774-63c612d99cd4"
+            },
+            {
+                "roleId": "3bb62410-95d5-4c49-b025-1d822fc70256",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "318b9c07-079a-42d9-a81f-b96be1dc1099",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "ff556573-5da6-4392-b38c-08c1d7599c4a",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "e0544b94-6420-4afc-8f63-238eddc751b9",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "0e9c6879-39e4-4eb6-b8df-92407890faf1",
+                "id": "75d2f6bb-aadc-475e-9728-32c1dbd13655"
+            },
+            {
+                "roleId": "cfe12b3f-2a24-4639-9d8b-ec86726f76bd",
+                "id": "e0993b1a-abf7-45e6-8ed9-8cd0546be90b"
+            },
+            {
+                "roleId": "d663fc84-5c37-43d1-a537-793feffb7667",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            }
+        ],
+        "groups": [],
+        "discussions": [
+            {
+                "provider": "vanilla",
+                "name": "Manual Create Challenge 2 Discussion",
+                "id": "e1f30ec9-14c5-47a9-8587-470afcdbac7d",
+                "type": "challenge",
+                "url": "https://vanilla.topcoder-dev.com/categories/6577268e-2da9-4712-b5cd-ff5ae4e0791a"
+            }
+        ],
+        "description": "This is a manuallly created challenge 2",
+        "phases": [
+            {
+                "duration": 42192000,
+                "scheduledEndDate": "2024-01-14T19:30:00Z",
+                "actualEndDate": "2022-09-13T11:37:06Z",
+                "isOpen": true,
+                "name": "Registration",
+                "phaseId": "a93544bc-c165-4af4-b55e-18f3593b457a",
+                "actualStartDate": "2022-09-13T11:30:59Z",
+                "id": "70ee8524-5495-4959-bf17-14daf1990c67",
+                "scheduledStartDate": "2022-09-13T11:30:59Z"
+            },
+            {
+                "duration": 86400,
+                "scheduledEndDate": "2022-09-14T11:35:00Z",
+                "actualEndDate": "2022-09-13T11:37:06Z",
+                "isOpen": false,
+                "name": "Iterative Review",
+                "phaseId": "003a4b14-de5d-43fc-9e35-835dbeb6af1f",
+                "actualStartDate": "2022-09-13T11:37:06Z",
+                "id": "47ba941f-a226-4a19-8e1f-e2cf42c309e1",
+                "scheduledStartDate": "2022-09-13T11:35:12Z"
+            },
+            {
+                "duration": 42192000,
+                "scheduledEndDate": "2024-01-14T19:35:00Z",
+                "actualEndDate": "2022-09-13T11:37:06Z",
+                "isOpen": true,
+                "name": "Submission",
+                "phaseId": "6950164f-3c5e-4bdc-abc8-22aaf5a1bd49",
+                "actualStartDate": "2022-09-13T11:35:12Z",
+                "id": "28b894aa-1ce5-4c53-8578-62d7a926d57f",
+                "scheduledStartDate": "2022-09-13T11:35:12Z"
+            }
+        ],
+        "endDate": "2024-01-14T19:35:00Z",
+        "numOfSubmissions": 0,
+        "numOfRegistrants": 0,
+        "currentPhaseNames": [
+            "Registration",
+            "Submission"
+        ],
+        "registrationStartDate": "2022-09-13T11:30:59Z",
+        "registrationEndDate": "2022-09-13T11:37:06Z",
+        "submissionStartDate": "2022-09-13T11:35:12Z",
+        "submissionEndDate": "2022-09-13T11:37:06Z",
+        "track": "Development",
+        "type": "First2Finish",
+        "prizeSets": [
+            {
+                "prizes": [
+                    {
+                        "type": "USD",
+                        "value": 1000
+                    }
+                ],
+                "description": "Challenge Prizes",
+                "type": "placement"
+            }
+        ],
+        "overview": {
+            "totalPrizes": 1000
+        },
+        "tags": [],
+        "legacyId": 30091105,
+        "events": [],
+        "task": {
+            "isAssigned": false,
+            "isTask": false,
+            "memberId": null
+        }
+    },
+    {
+        "id": "e1f50fe5-cdab-4ff6-bd16-54ab12871db7",
+        "created": "2022-09-13T02:46:43.853Z",
+        "createdBy": "tester1234",
+        "updated": "2022-09-13T11:27:06Z",
+        "updatedBy": "tcwebservice",
+        "status": "Active",
+        "projectId": 21350,
+        "name": "Automation 2",
+        "typeId": "dc876fa4-ef2d-4eee-b701-b555fcc6544c",
+        "trackId": "9b6fc876-f4d9-4ccb-9dfd-419247628825",
+        "startDate": "2022-09-13T11:28:54Z",
+        "legacy": {
+            "reviewType": "COMMUNITY",
+            "confidentialityType": "public",
+            "isTask": false,
+            "subTrack": "FIRST_2_FINISH",
+            "directProjectId": 30110,
+            "forumId": 0,
+            "reviewScorecardId": 30001600,
+            "track": "DEVELOP"
+        },
+        "descriptionFormat": "markdown",
+        "timelineTemplateId": "0a0fed34-cb5a-47f5-b0cb-6e2ee7de8dcb",
+        "terms": [
+            {
+                "roleId": "d663fc84-5c37-43d1-a537-793feffb7667",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "732339e7-8e30-49d7-9198-cccf9451e221",
+                "id": "317cd8f9-d66c-4f2a-8774-63c612d99cd4"
+            },
+            {
+                "roleId": "3bb62410-95d5-4c49-b025-1d822fc70256",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "318b9c07-079a-42d9-a81f-b96be1dc1099",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "ff556573-5da6-4392-b38c-08c1d7599c4a",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "e0544b94-6420-4afc-8f63-238eddc751b9",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "0e9c6879-39e4-4eb6-b8df-92407890faf1",
+                "id": "75d2f6bb-aadc-475e-9728-32c1dbd13655"
+            },
+            {
+                "roleId": "cfe12b3f-2a24-4639-9d8b-ec86726f76bd",
+                "id": "e0993b1a-abf7-45e6-8ed9-8cd0546be90b"
+            }
+        ],
+        "groups": [],
+        "discussions": [
+            {
+                "provider": "vanilla",
+                "name": "Manual Create Challenge 2 Discussion",
+                "id": "e1f30ec9-14c5-47a9-8587-470afcdbac7d",
+                "type": "challenge",
+                "url": "https://vanilla.topcoder-dev.com/categories/6577268e-2da9-4712-b5cd-ff5ae4e0791a"
+            }
+        ],
+        "description": "This is a manuallly created challenge 2",
+        "phases": [
+            {
+                "duration": 42192000,
+                "scheduledEndDate": "2024-01-14T19:28:00Z",
+                "actualEndDate": "2022-09-13T11:37:01Z",
+                "isOpen": true,
+                "name": "Registration",
+                "phaseId": "a93544bc-c165-4af4-b55e-18f3593b457a",
+                "actualStartDate": "2022-09-13T11:28:54Z",
+                "id": "7e580db8-e8bd-406f-8b51-b2da68d97d46",
+                "scheduledStartDate": "2022-09-13T11:28:54Z"
+            },
+            {
+                "duration": 86400,
+                "scheduledEndDate": "2022-09-14T11:33:00Z",
+                "actualEndDate": "2022-09-13T11:37:01Z",
+                "isOpen": false,
+                "name": "Iterative Review",
+                "phaseId": "003a4b14-de5d-43fc-9e35-835dbeb6af1f",
+                "actualStartDate": "2022-09-13T11:37:01Z",
+                "id": "988809d1-d10f-4661-90ff-2d47b5726bad",
+                "scheduledStartDate": "2022-09-13T11:33:05Z"
+            },
+            {
+                "duration": 42192000,
+                "scheduledEndDate": "2024-01-14T19:33:00Z",
+                "actualEndDate": "2022-09-13T11:37:01Z",
+                "isOpen": true,
+                "name": "Submission",
+                "phaseId": "6950164f-3c5e-4bdc-abc8-22aaf5a1bd49",
+                "actualStartDate": "2022-09-13T11:33:05Z",
+                "id": "6fdf2d4b-f001-4668-a1c5-2684c8f709ff",
+                "scheduledStartDate": "2022-09-13T11:33:05Z"
+            }
+        ],
+        "endDate": "2024-01-14T19:33:00Z",
+        "numOfSubmissions": 0,
+        "numOfRegistrants": 0,
+        "currentPhaseNames": [
+            "Registration",
+            "Submission"
+        ],
+        "registrationStartDate": "2022-09-13T11:28:54Z",
+        "registrationEndDate": "2022-09-13T11:37:01Z",
+        "submissionStartDate": "2022-09-13T11:33:05Z",
+        "submissionEndDate": "2022-09-13T11:37:01Z",
+        "track": "Development",
+        "type": "First2Finish",
+        "prizeSets": [
+            {
+                "prizes": [
+                    {
+                        "type": "USD",
+                        "value": 1000
+                    }
+                ],
+                "description": "Challenge Prizes",
+                "type": "placement"
+            }
+        ],
+        "overview": {
+            "totalPrizes": 1000
+        },
+        "tags": [],
+        "legacyId": 30091103,
+        "events": [],
+        "task": {
+            "isAssigned": false,
+            "isTask": false,
+            "memberId": null
+        }
+    },
+    {
+        "id": "76c36b8f-6c97-4355-9233-e86fbdb67759",
+        "created": "2022-09-13T02:45:39.818Z",
+        "createdBy": "tester1234",
+        "updated": "2022-09-13T11:26:03Z",
+        "updatedBy": "tcwebservice",
+        "status": "Active",
+        "projectId": 21350,
+        "name": "Automation 1",
+        "typeId": "dc876fa4-ef2d-4eee-b701-b555fcc6544c",
+        "trackId": "9b6fc876-f4d9-4ccb-9dfd-419247628825",
+        "startDate": "2022-09-13T11:28:54Z",
+        "legacy": {
+            "reviewType": "COMMUNITY",
+            "confidentialityType": "public",
+            "isTask": false,
+            "subTrack": "FIRST_2_FINISH",
+            "directProjectId": 30110,
+            "forumId": 0,
+            "reviewScorecardId": 30001600,
+            "track": "DEVELOP"
+        },
+        "descriptionFormat": "markdown",
+        "timelineTemplateId": "0a0fed34-cb5a-47f5-b0cb-6e2ee7de8dcb",
+        "terms": [
+            {
+                "roleId": "732339e7-8e30-49d7-9198-cccf9451e221",
+                "id": "317cd8f9-d66c-4f2a-8774-63c612d99cd4"
+            },
+            {
+                "roleId": "3bb62410-95d5-4c49-b025-1d822fc70256",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "318b9c07-079a-42d9-a81f-b96be1dc1099",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "ff556573-5da6-4392-b38c-08c1d7599c4a",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "e0544b94-6420-4afc-8f63-238eddc751b9",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "0e9c6879-39e4-4eb6-b8df-92407890faf1",
+                "id": "75d2f6bb-aadc-475e-9728-32c1dbd13655"
+            },
+            {
+                "roleId": "cfe12b3f-2a24-4639-9d8b-ec86726f76bd",
+                "id": "e0993b1a-abf7-45e6-8ed9-8cd0546be90b"
+            },
+            {
+                "roleId": "d663fc84-5c37-43d1-a537-793feffb7667",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            }
+        ],
+        "groups": [],
+        "discussions": [
+            {
+                "provider": "vanilla",
+                "name": "Manual Create Challenge 2 Discussion",
+                "id": "e1f30ec9-14c5-47a9-8587-470afcdbac7d",
+                "type": "challenge",
+                "url": "https://vanilla.topcoder-dev.com/categories/6577268e-2da9-4712-b5cd-ff5ae4e0791a"
+            }
+        ],
+        "description": "This is a manuallly created challenge 2",
+        "phases": [
+            {
+                "duration": 42192000,
+                "scheduledEndDate": "2024-01-14T19:28:00Z",
+                "actualEndDate": "2022-09-13T11:37:00Z",
+                "isOpen": true,
+                "name": "Registration",
+                "phaseId": "a93544bc-c165-4af4-b55e-18f3593b457a",
+                "actualStartDate": "2022-09-13T11:28:54Z",
+                "id": "801bc5c0-3446-4baa-aeb1-4d1621c59275",
+                "scheduledStartDate": "2022-09-13T11:28:54Z"
+            },
+            {
+                "duration": 86400,
+                "scheduledEndDate": "2022-09-14T11:33:00Z",
+                "actualEndDate": "2022-09-13T11:37:00Z",
+                "isOpen": false,
+                "name": "Iterative Review",
+                "phaseId": "003a4b14-de5d-43fc-9e35-835dbeb6af1f",
+                "actualStartDate": "2022-09-13T11:37:00Z",
+                "id": "f1c7009e-4606-4fb4-85df-bc024327afc0",
+                "scheduledStartDate": "2022-09-13T11:33:05Z"
+            },
+            {
+                "duration": 42192000,
+                "scheduledEndDate": "2024-01-14T19:33:00Z",
+                "actualEndDate": "2022-09-13T11:37:00Z",
+                "isOpen": true,
+                "name": "Submission",
+                "phaseId": "6950164f-3c5e-4bdc-abc8-22aaf5a1bd49",
+                "actualStartDate": "2022-09-13T11:33:05Z",
+                "id": "4e7c47dd-82fa-496b-948e-8336ce215f3d",
+                "scheduledStartDate": "2022-09-13T11:33:05Z"
+            }
+        ],
+        "endDate": "2024-01-14T19:33:00Z",
+        "numOfSubmissions": 0,
+        "numOfRegistrants": 0,
+        "currentPhaseNames": [
+            "Registration",
+            "Submission"
+        ],
+        "registrationStartDate": "2022-09-13T11:28:54Z",
+        "registrationEndDate": "2022-09-13T11:37:00Z",
+        "submissionStartDate": "2022-09-13T11:33:05Z",
+        "submissionEndDate": "2022-09-13T11:37:00Z",
+        "track": "Development",
+        "type": "First2Finish",
+        "prizeSets": [
+            {
+                "prizes": [
+                    {
+                        "type": "USD",
+                        "value": 1000
+                    }
+                ],
+                "description": "Challenge Prizes",
+                "type": "placement"
+            }
+        ],
+        "overview": {
+            "totalPrizes": 1000
+        },
+        "tags": [],
+        "legacyId": 30091102,
+        "events": [],
+        "task": {
+            "isAssigned": false,
+            "isTask": false,
+            "memberId": null
+        }
+    },
+    {
+        "id": "fbe65d94-8559-498c-9267-73a4e63e60c5",
+        "created": "2022-09-13T02:44:35.547Z",
+        "createdBy": "tester1234",
+        "updated": "2022-09-13T11:25:03Z",
+        "updatedBy": "tcwebservice",
+        "status": "Active",
+        "projectId": 21350,
+        "name": "Automation 0",
+        "typeId": "dc876fa4-ef2d-4eee-b701-b555fcc6544c",
+        "trackId": "9b6fc876-f4d9-4ccb-9dfd-419247628825",
+        "startDate": "2022-09-13T11:26:51Z",
+        "legacy": {
+            "reviewType": "COMMUNITY",
+            "confidentialityType": "public",
+            "isTask": false,
+            "subTrack": "FIRST_2_FINISH",
+            "directProjectId": 30110,
+            "forumId": 0,
+            "reviewScorecardId": 30001600,
+            "track": "DEVELOP"
+        },
+        "descriptionFormat": "markdown",
+        "timelineTemplateId": "0a0fed34-cb5a-47f5-b0cb-6e2ee7de8dcb",
+        "terms": [
+            {
+                "roleId": "d663fc84-5c37-43d1-a537-793feffb7667",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "732339e7-8e30-49d7-9198-cccf9451e221",
+                "id": "317cd8f9-d66c-4f2a-8774-63c612d99cd4"
+            },
+            {
+                "roleId": "3bb62410-95d5-4c49-b025-1d822fc70256",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "318b9c07-079a-42d9-a81f-b96be1dc1099",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "ff556573-5da6-4392-b38c-08c1d7599c4a",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "e0544b94-6420-4afc-8f63-238eddc751b9",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "0e9c6879-39e4-4eb6-b8df-92407890faf1",
+                "id": "75d2f6bb-aadc-475e-9728-32c1dbd13655"
+            },
+            {
+                "roleId": "cfe12b3f-2a24-4639-9d8b-ec86726f76bd",
+                "id": "e0993b1a-abf7-45e6-8ed9-8cd0546be90b"
+            }
+        ],
+        "groups": [],
+        "discussions": [
+            {
+                "provider": "vanilla",
+                "name": "Manual Create Challenge 2 Discussion",
+                "id": "e1f30ec9-14c5-47a9-8587-470afcdbac7d",
+                "type": "challenge",
+                "url": "https://vanilla.topcoder-dev.com/categories/6577268e-2da9-4712-b5cd-ff5ae4e0791a"
+            }
+        ],
+        "description": "This is a manuallly created challenge 2",
+        "phases": [
+            {
+                "duration": 42192000,
+                "scheduledEndDate": "2024-01-14T19:26:00Z",
+                "actualEndDate": "2022-09-13T11:37:04Z",
+                "isOpen": true,
+                "name": "Registration",
+                "phaseId": "a93544bc-c165-4af4-b55e-18f3593b457a",
+                "actualStartDate": "2022-09-13T11:26:51Z",
+                "id": "bf1aa0f0-1c5e-4576-ab2f-881dbf13d1d7",
+                "scheduledStartDate": "2022-09-13T11:26:51Z"
+            },
+            {
+                "duration": 86400,
+                "scheduledEndDate": "2022-09-14T11:33:00Z",
+                "actualEndDate": "2022-09-13T11:37:04Z",
+                "isOpen": false,
+                "name": "Iterative Review",
+                "phaseId": "003a4b14-de5d-43fc-9e35-835dbeb6af1f",
+                "actualStartDate": "2022-09-13T11:37:04Z",
+                "id": "9740ae6f-efaa-4fee-9b92-195f0a3f37d2",
+                "scheduledStartDate": "2022-09-13T11:33:05Z"
+            },
+            {
+                "duration": 42192000,
+                "scheduledEndDate": "2024-01-14T19:33:00Z",
+                "actualEndDate": "2022-09-13T11:37:04Z",
+                "isOpen": true,
+                "name": "Submission",
+                "phaseId": "6950164f-3c5e-4bdc-abc8-22aaf5a1bd49",
+                "actualStartDate": "2022-09-13T11:33:05Z",
+                "id": "38947b65-285b-45df-aca5-fb86266fe957",
+                "scheduledStartDate": "2022-09-13T11:33:05Z"
+            }
+        ],
+        "endDate": "2024-01-14T19:33:00Z",
+        "numOfSubmissions": 0,
+        "numOfRegistrants": 0,
+        "currentPhaseNames": [
+            "Registration",
+            "Submission"
+        ],
+        "registrationStartDate": "2022-09-13T11:26:51Z",
+        "registrationEndDate": "2022-09-13T11:37:04Z",
+        "submissionStartDate": "2022-09-13T11:33:05Z",
+        "submissionEndDate": "2022-09-13T11:37:04Z",
+        "track": "Development",
+        "type": "First2Finish",
+        "prizeSets": [
+            {
+                "prizes": [
+                    {
+                        "type": "USD",
+                        "value": 1000
+                    }
+                ],
+                "description": "Challenge Prizes",
+                "type": "placement"
+            }
+        ],
+        "overview": {
+            "totalPrizes": 1000
+        },
+        "tags": [],
+        "legacyId": 30091101,
+        "events": [],
+        "task": {
+            "isAssigned": false,
+            "isTask": false,
+            "memberId": null
+        }
+    },
+    {
+        "id": "4dc6689c-0ca5-4765-a9d6-c92e3e67fd21",
+        "created": "2022-09-11T17:25:26.076Z",
+        "createdBy": "tester1234",
+        "updated": "2022-09-13T06:26:42Z",
+        "updatedBy": "tcwebservice",
+        "status": "Active",
+        "projectId": 21350,
+        "name": "Automation 205",
+        "typeId": "dc876fa4-ef2d-4eee-b701-b555fcc6544c",
+        "trackId": "9b6fc876-f4d9-4ccb-9dfd-419247628825",
+        "startDate": "2022-09-13T06:28:37Z",
+        "legacy": {
+            "reviewType": "COMMUNITY",
+            "confidentialityType": "public",
+            "isTask": false,
+            "subTrack": "FIRST_2_FINISH",
+            "directProjectId": 30110,
+            "forumId": 0,
+            "reviewScorecardId": 30001600,
+            "track": "DEVELOP"
+        },
+        "descriptionFormat": "markdown",
+        "timelineTemplateId": "0a0fed34-cb5a-47f5-b0cb-6e2ee7de8dcb",
+        "terms": [
+            {
+                "roleId": "d663fc84-5c37-43d1-a537-793feffb7667",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "732339e7-8e30-49d7-9198-cccf9451e221",
+                "id": "317cd8f9-d66c-4f2a-8774-63c612d99cd4"
+            },
+            {
+                "roleId": "3bb62410-95d5-4c49-b025-1d822fc70256",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "318b9c07-079a-42d9-a81f-b96be1dc1099",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "ff556573-5da6-4392-b38c-08c1d7599c4a",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "e0544b94-6420-4afc-8f63-238eddc751b9",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "0e9c6879-39e4-4eb6-b8df-92407890faf1",
+                "id": "75d2f6bb-aadc-475e-9728-32c1dbd13655"
+            },
+            {
+                "roleId": "cfe12b3f-2a24-4639-9d8b-ec86726f76bd",
+                "id": "e0993b1a-abf7-45e6-8ed9-8cd0546be90b"
+            }
+        ],
+        "groups": [],
+        "discussions": [
+            {
+                "provider": "vanilla",
+                "name": "Manual Create Challenge 2 Discussion",
+                "id": "e1f30ec9-14c5-47a9-8587-470afcdbac7d",
+                "type": "challenge",
+                "url": "https://vanilla.topcoder-dev.com/categories/6577268e-2da9-4712-b5cd-ff5ae4e0791a"
+            }
+        ],
+        "description": "This is a manuallly created challenge 2",
+        "phases": [
+            {
+                "duration": 42192000,
+                "scheduledEndDate": "2024-01-14T14:28:00Z",
+                "actualEndDate": "2022-09-13T06:39:04Z",
+                "isOpen": true,
+                "name": "Registration",
+                "phaseId": "a93544bc-c165-4af4-b55e-18f3593b457a",
+                "actualStartDate": "2022-09-13T06:28:37Z",
+                "id": "926e1371-bc39-4bfa-b10d-88a1fae2bb34",
+                "scheduledStartDate": "2022-09-13T06:28:37Z"
+            },
+            {
+                "duration": 86400,
+                "scheduledEndDate": "2022-09-14T06:34:00Z",
+                "actualEndDate": "2022-09-13T06:39:04Z",
+                "isOpen": false,
+                "name": "Iterative Review",
+                "phaseId": "003a4b14-de5d-43fc-9e35-835dbeb6af1f",
+                "actualStartDate": "2022-09-13T06:39:04Z",
+                "id": "25fa3b2d-bda7-4a0d-816d-06ed9d9bdc50",
+                "scheduledStartDate": "2022-09-13T06:34:38Z"
+            },
+            {
+                "duration": 42192000,
+                "scheduledEndDate": "2024-01-14T14:34:00Z",
+                "actualEndDate": "2022-09-13T06:39:04Z",
+                "isOpen": true,
+                "name": "Submission",
+                "phaseId": "6950164f-3c5e-4bdc-abc8-22aaf5a1bd49",
+                "actualStartDate": "2022-09-13T06:34:38Z",
+                "id": "f2ea5371-9553-451c-a288-cec409e65782",
+                "scheduledStartDate": "2022-09-13T06:34:38Z"
+            }
+        ],
+        "endDate": "2024-01-14T14:34:00Z",
+        "numOfSubmissions": 0,
+        "numOfRegistrants": 0,
+        "currentPhaseNames": [
+            "Registration",
+            "Submission"
+        ],
+        "registrationStartDate": "2022-09-13T06:28:37Z",
+        "registrationEndDate": "2022-09-13T06:39:04Z",
+        "submissionStartDate": "2022-09-13T06:34:38Z",
+        "submissionEndDate": "2022-09-13T06:39:04Z",
+        "track": "Development",
+        "type": "First2Finish",
+        "prizeSets": [
+            {
+                "prizes": [
+                    {
+                        "type": "USD",
+                        "value": 1000
+                    }
+                ],
+                "description": "Challenge Prizes",
+                "type": "placement"
+            }
+        ],
+        "overview": {
+            "totalPrizes": 1000
+        },
+        "tags": [],
+        "legacyId": 30090732,
+        "events": [],
+        "task": {
+            "isAssigned": false,
+            "isTask": false,
+            "memberId": null
+        }
+    },
+    {
+        "id": "09f70fb8-e300-4f44-bcf4-4916a102710f",
+        "created": "2022-09-11T17:24:21.838Z",
+        "createdBy": "tester1234",
+        "updated": "2022-09-13T06:25:40Z",
+        "updatedBy": "tcwebservice",
+        "status": "Active",
+        "projectId": 21350,
+        "name": "Automation 204",
+        "typeId": "dc876fa4-ef2d-4eee-b701-b555fcc6544c",
+        "trackId": "9b6fc876-f4d9-4ccb-9dfd-419247628825",
+        "startDate": "2022-09-13T06:28:37Z",
+        "legacy": {
+            "reviewType": "COMMUNITY",
+            "confidentialityType": "public",
+            "isTask": false,
+            "subTrack": "FIRST_2_FINISH",
+            "directProjectId": 30110,
+            "forumId": 0,
+            "reviewScorecardId": 30001600,
+            "track": "DEVELOP"
+        },
+        "descriptionFormat": "markdown",
+        "timelineTemplateId": "0a0fed34-cb5a-47f5-b0cb-6e2ee7de8dcb",
+        "terms": [
+            {
+                "roleId": "732339e7-8e30-49d7-9198-cccf9451e221",
+                "id": "317cd8f9-d66c-4f2a-8774-63c612d99cd4"
+            },
+            {
+                "roleId": "3bb62410-95d5-4c49-b025-1d822fc70256",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "318b9c07-079a-42d9-a81f-b96be1dc1099",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "ff556573-5da6-4392-b38c-08c1d7599c4a",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "e0544b94-6420-4afc-8f63-238eddc751b9",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "0e9c6879-39e4-4eb6-b8df-92407890faf1",
+                "id": "75d2f6bb-aadc-475e-9728-32c1dbd13655"
+            },
+            {
+                "roleId": "cfe12b3f-2a24-4639-9d8b-ec86726f76bd",
+                "id": "e0993b1a-abf7-45e6-8ed9-8cd0546be90b"
+            },
+            {
+                "roleId": "d663fc84-5c37-43d1-a537-793feffb7667",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            }
+        ],
+        "groups": [],
+        "discussions": [
+            {
+                "provider": "vanilla",
+                "name": "Manual Create Challenge 2 Discussion",
+                "id": "e1f30ec9-14c5-47a9-8587-470afcdbac7d",
+                "type": "challenge",
+                "url": "https://vanilla.topcoder-dev.com/categories/6577268e-2da9-4712-b5cd-ff5ae4e0791a"
+            }
+        ],
+        "description": "This is a manuallly created challenge 2",
+        "phases": [
+            {
+                "duration": 42192000,
+                "scheduledEndDate": "2024-01-14T14:28:00Z",
+                "actualEndDate": "2022-09-13T06:39:01Z",
+                "isOpen": true,
+                "name": "Registration",
+                "phaseId": "a93544bc-c165-4af4-b55e-18f3593b457a",
+                "actualStartDate": "2022-09-13T06:28:37Z",
+                "id": "0d5e99f0-6f71-4cd6-a939-fb95e8317594",
+                "scheduledStartDate": "2022-09-13T06:28:37Z"
+            },
+            {
+                "duration": 86400,
+                "scheduledEndDate": "2022-09-14T06:34:00Z",
+                "actualEndDate": "2022-09-13T06:39:01Z",
+                "isOpen": false,
+                "name": "Iterative Review",
+                "phaseId": "003a4b14-de5d-43fc-9e35-835dbeb6af1f",
+                "actualStartDate": "2022-09-13T06:39:01Z",
+                "id": "3b69a7a5-2987-40b9-acc5-4fa075300db0",
+                "scheduledStartDate": "2022-09-13T06:34:38Z"
+            },
+            {
+                "duration": 42192000,
+                "scheduledEndDate": "2024-01-14T14:34:00Z",
+                "actualEndDate": "2022-09-13T06:39:01Z",
+                "isOpen": true,
+                "name": "Submission",
+                "phaseId": "6950164f-3c5e-4bdc-abc8-22aaf5a1bd49",
+                "actualStartDate": "2022-09-13T06:34:38Z",
+                "id": "9ee72f9d-4089-4f35-a40e-c94cc92c7827",
+                "scheduledStartDate": "2022-09-13T06:34:38Z"
+            }
+        ],
+        "endDate": "2024-01-14T14:34:00Z",
+        "numOfSubmissions": 0,
+        "numOfRegistrants": 0,
+        "currentPhaseNames": [
+            "Registration",
+            "Submission"
+        ],
+        "registrationStartDate": "2022-09-13T06:28:37Z",
+        "registrationEndDate": "2022-09-13T06:39:01Z",
+        "submissionStartDate": "2022-09-13T06:34:38Z",
+        "submissionEndDate": "2022-09-13T06:39:01Z",
+        "track": "Development",
+        "type": "First2Finish",
+        "prizeSets": [
+            {
+                "prizes": [
+                    {
+                        "type": "USD",
+                        "value": 1000
+                    }
+                ],
+                "description": "Challenge Prizes",
+                "type": "placement"
+            }
+        ],
+        "overview": {
+            "totalPrizes": 1000
+        },
+        "tags": [],
+        "legacyId": 30090731,
+        "events": [],
+        "task": {
+            "isAssigned": false,
+            "isTask": false,
+            "memberId": null
+        }
+    },
+    {
+        "id": "e4869892-bd31-4a09-8dd9-033c126d2f0a",
+        "created": "2022-09-11T17:23:17.522Z",
+        "createdBy": "tester1234",
+        "updated": "2022-09-13T06:24:34Z",
+        "updatedBy": "tcwebservice",
+        "status": "Active",
+        "projectId": 21350,
+        "name": "Automation 203",
+        "typeId": "dc876fa4-ef2d-4eee-b701-b555fcc6544c",
+        "trackId": "9b6fc876-f4d9-4ccb-9dfd-419247628825",
+        "startDate": "2022-09-13T06:26:37Z",
+        "legacy": {
+            "reviewType": "COMMUNITY",
+            "confidentialityType": "public",
+            "isTask": false,
+            "subTrack": "FIRST_2_FINISH",
+            "directProjectId": 30110,
+            "forumId": 0,
+            "reviewScorecardId": 30001600,
+            "track": "DEVELOP"
+        },
+        "descriptionFormat": "markdown",
+        "timelineTemplateId": "0a0fed34-cb5a-47f5-b0cb-6e2ee7de8dcb",
+        "terms": [
+            {
+                "roleId": "d663fc84-5c37-43d1-a537-793feffb7667",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "732339e7-8e30-49d7-9198-cccf9451e221",
+                "id": "317cd8f9-d66c-4f2a-8774-63c612d99cd4"
+            },
+            {
+                "roleId": "3bb62410-95d5-4c49-b025-1d822fc70256",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "318b9c07-079a-42d9-a81f-b96be1dc1099",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "ff556573-5da6-4392-b38c-08c1d7599c4a",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "e0544b94-6420-4afc-8f63-238eddc751b9",
+                "id": "82a35602-57c2-4b48-a9b9-b4e133b22035"
+            },
+            {
+                "roleId": "0e9c6879-39e4-4eb6-b8df-92407890faf1",
+                "id": "75d2f6bb-aadc-475e-9728-32c1dbd13655"
+            },
+            {
+                "roleId": "cfe12b3f-2a24-4639-9d8b-ec86726f76bd",
+                "id": "e0993b1a-abf7-45e6-8ed9-8cd0546be90b"
+            }
+        ],
+        "groups": [],
+        "discussions": [
+            {
+                "provider": "vanilla",
+                "name": "Manual Create Challenge 2 Discussion",
+                "id": "e1f30ec9-14c5-47a9-8587-470afcdbac7d",
+                "type": "challenge",
+                "url": "https://vanilla.topcoder-dev.com/categories/6577268e-2da9-4712-b5cd-ff5ae4e0791a"
+            }
+        ],
+        "description": "This is a manuallly created challenge 2",
+        "phases": [
+            {
+                "duration": 42192000,
+                "scheduledEndDate": "2024-01-14T14:26:00Z",
+                "actualEndDate": "2022-09-13T06:37:00Z",
+                "isOpen": true,
+                "name": "Registration",
+                "phaseId": "a93544bc-c165-4af4-b55e-18f3593b457a",
+                "actualStartDate": "2022-09-13T06:26:37Z",
+                "id": "6a8acae5-8835-4082-a982-b76f4b62f979",
+                "scheduledStartDate": "2022-09-13T06:26:37Z"
+            },
+            {
+                "duration": 86400,
+                "scheduledEndDate": "2022-09-14T06:32:00Z",
+                "actualEndDate": "2022-09-13T06:37:00Z",
+                "isOpen": false,
+                "name": "Iterative Review",
+                "phaseId": "003a4b14-de5d-43fc-9e35-835dbeb6af1f",
+                "actualStartDate": "2022-09-13T06:37:00Z",
+                "id": "a9760235-6922-4c88-acff-ca1e3101f7d0",
+                "scheduledStartDate": "2022-09-13T06:32:38Z"
+            },
+            {
+                "duration": 42192000,
+                "scheduledEndDate": "2024-01-14T14:32:00Z",
+                "actualEndDate": "2022-09-13T06:37:00Z",
+                "isOpen": true,
+                "name": "Submission",
+                "phaseId": "6950164f-3c5e-4bdc-abc8-22aaf5a1bd49",
+                "actualStartDate": "2022-09-13T06:32:38Z",
+                "id": "1074c527-62e8-4ef7-aa59-faf11f8c6bbc",
+                "scheduledStartDate": "2022-09-13T06:32:38Z"
+            }
+        ],
+        "endDate": "2024-01-14T14:32:00Z",
+        "numOfSubmissions": 0,
+        "numOfRegistrants": 0,
+        "currentPhaseNames": [
+            "Registration",
+            "Submission"
+        ],
+        "registrationStartDate": "2022-09-13T06:26:37Z",
+        "registrationEndDate": "2022-09-13T06:37:00Z",
+        "submissionStartDate": "2022-09-13T06:32:38Z",
+        "submissionEndDate": "2022-09-13T06:37:00Z",
+        "track": "Development",
+        "type": "First2Finish",
+        "prizeSets": [
+            {
+                "prizes": [
+                    {
+                        "type": "USD",
+                        "value": 1000
+                    }
+                ],
+                "description": "Challenge Prizes",
+                "type": "placement"
+            }
+        ],
+        "overview": {
+            "totalPrizes": 1000
+        },
+        "tags": [],
+        "legacyId": 30090730,
+        "events": [],
+        "task": {
+            "isAssigned": false,
+            "isTask": false,
+            "memberId": null
+        }
+    }
+]

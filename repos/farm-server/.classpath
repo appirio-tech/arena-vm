@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main"/>
+	<classpathentry kind="src" path="src/test"/>
+	<classpathentry kind="src" path="src/test-integ"/>
+	<classpathentry kind="src" path="src/dev-resources"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/farm-shared"/>
+	<classpathentry kind="var" path="EXTERNAL_ARTIFACTS/commons-logging-1.1.3.jar"/>
+	<classpathentry kind="var" path="EXTERNAL_ARTIFACTS/commons-io-2.0.1.jar"/>
+	<classpathentry kind="var" path="EXTERNAL_ARTIFACTS/xpp3_min-1.1.3.4.O.jar"/>
+	<classpathentry kind="var" path="EXTERNAL_ARTIFACTS/asm-1.5.3.jar"/>
+	<classpathentry kind="var" path="EXTERNAL_ARTIFACTS/asm-attrs-1.5.3.jar"/>
+	<classpathentry kind="var" path="EXTERNAL_ARTIFACTS/cglib-2.1.3.jar"/>
+	<classpathentry kind="var" path="EXTERNAL_ARTIFACTS/dom4j-1.6.1.jar"/>
+	<classpathentry kind="var" path="EXTERNAL_ARTIFACTS/jta-1.0.1B.jar"/>
+	<classpathentry kind="var" path="EXTERNAL_ARTIFACTS/xerces-2.6.2.jar"/>
+	<classpathentry kind="var" path="EXTERNAL_ARTIFACTS/commons-collections-3.2.jar"/>
+	<classpathentry kind="var" path="EXTERNAL_ARTIFACTS/antlr-2.7.6rc1.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="var" path="EXTERNAL_ARTIFACTS/xstream-1.2.2.jar"/>
+	<classpathentry kind="var" path="EXTERNAL_ARTIFACTS/log4j-1.2.17.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/farm-deployer"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/farm-client"/>
+	<classpathentry kind="var" path="EXTERNAL_ARTIFACTS/hsqldb-1.8.0.4.jar"/>
+	<classpathentry kind="var" path="EXTERNAL_ARTIFACTS/hibernate-3.2.5.jar"/>
+	<classpathentry kind="var" path="EXTERNAL_ARTIFACTS/c3p0-0.9.0.4.jar"/>
+	<classpathentry kind="var" path="EXTERNAL_ARTIFACTS/commons-pool-1.3.jar"/>
+	<classpathentry kind="var" path="EXTERNAL_ARTIFACTS/commons-beanutils-1.7.0.jar"/>
+	<classpathentry kind="var" path="EXTERNAL_ARTIFACTS/mysql-connector-java-5.0.4.jar"/>
+	<classpathentry kind="var" path="EXTERNAL_ARTIFACTS/ifxjdbc-3.00.JC3.jar"/>
+	<classpathentry kind="var" path="EXTERNAL_ARTIFACTS/junit-3.8.2.jar"/>
+	<classpathentry kind="var" path="EXTERNAL_ARTIFACTS/basic_type_serialization-1.0.1.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/topcoder-shared"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/client-socket"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/nbio-listener"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/custom-serialization"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/concurrent"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/mq"/>
+	<classpathentry kind="output" path="build/classes"/>
+</classpath>

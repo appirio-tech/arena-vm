@@ -1,0 +1,11 @@
+<ivysettings>
+    <property name="ivy.local-user.default.root" value="${ivy.default.ivy.user.dir}/.ivy-cache" override="false" />
+    <property name="ivy.local-user.default.ivy.pattern" value="${ivy.filesystem.ivy.pattern}" override="false" />
+    <property name="ivy.local-user.default.artifact.pattern" value="${ivy.filesystem.artifact.pattern}" override="false" />
+    <resolvers>
+        <filesystem name="local-user">
+            <ivy pattern="${ivy.local-user.default.root}/${ivy.local-user.default.ivy.pattern}" />
+            <artifact pattern="${ivy.local-user.default.root}/${ivy.local-user.default.artifact.pattern}" />
+        </filesystem>
+    </resolvers>
+</ivysettings>
