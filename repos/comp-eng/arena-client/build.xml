@@ -9,6 +9,7 @@
         <isset property="env.ARENA_BUILD_TARGET"/>
     </condition>
     <property file="${build.properties-file}"/>
+    <property file="../../applets-key.properties"/>
     
     <condition property="compile.source" value="${env.BUILD_COMPILE_SOURCE}" else="1.4">
         <isset property="env.BUILD_COMPILE_SOURCE"/>
@@ -146,6 +147,13 @@
 				<filter token="applet.arg-tunnel" value="${applet.arg-tunnel}"/>
         	</filterset>
     	</copy>
+
+		<signjar alias="${applet.keystore-alias}" keystore="${applet.keystore}" storepass="${applet.storepass}">
+			<path>
+				<fileset dir="${yguard.dir}" includes="*.jar"/>
+			</path>
+		</signjar>
+
     	<zip destfile="${build.dir}/arena-client-${app.version}.zip">
     		<zipfileset dir="${yguard.dir}"/>
     	</zip>

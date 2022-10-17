@@ -1,6 +1,7 @@
-applet.host=qa.arena.topcoder.com
-applet.port=5016
 applet.code_base=http://qa.arena.topcoder.com
 applet.href=MPSQASProd.jnlp
 applet.homepage=http://tcqa1.topcoder.com
 applet.lib-url=http://qa.arena.topcoder.com/applets/lib
+applet.host=qa.arena.topcoder.com
+applet.port=5037
+applet.keystore=../../applets-key.jks

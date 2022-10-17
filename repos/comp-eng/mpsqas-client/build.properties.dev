@@ -4,3 +4,4 @@ applet.homepage=http://www.topcoder-dev.com
 applet.lib-url=http://www.topcoder-dev.com/contest/classes/mpsqas7
 applet.host=www.topcoder-dev.com
 applet.port=5037
+applet.keystore=../../applets-key.jks

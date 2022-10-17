@@ -125,7 +125,7 @@ These are SSO related tokens. Change theses according to TC environment:
 
 ### Security Related Files
 
-There are some security related files in `arena-vm/repos/app` folder, you need change them for dev/prod env before build image.
+There are some security related files in `arena-vm/repos` folder, you need change them for dev/prod env before build image.
 
 For LDAP:
 
@@ -137,7 +137,10 @@ For password encryption:
 - repos/app/scripts/security.keystore.cloud
 - repos/app/resources/com/topcoder/security/Util.properties
 
+For sign jars of client applets:
 
+- repos/applets-key.jks
+- repos/applets-key.properties
 
 ### Container Environment Variables
 
