@@ -7,6 +7,7 @@
         <isset property="env.ARENA_BUILD_TARGET"/>
     </condition>
     <property file="${applet.props}"/>
+    <property file="../applets-key.properties"/>
     
     <condition property="token.propfile" value="token.properties.${env.ARENA_BUILD_TARGET}" else="token.properties">
         <isset property="env.ARENA_BUILD_TARGET"/>
@@ -345,16 +346,14 @@
             </filterset>
         </copy>
 
-<!--
-	<signjar alias="${applet.keystore-alias}" keystore="${applet.keystore}" storepass="${applet.storepass}">
-            <path>
-                <fileset file="${admintool.jar}"/>
-                <fileset dir="${build.lib.dir}" includes="${filename.log4j},${filename.security},
-                                                    ${filename.lightweight_xml_parser},
-                                                    ${filename.basic_type_serialization}"/>
-	    </path>
-	</signjar>
--->
+		<signjar alias="${applet.keystore-alias}" keystore="${applet.keystore}" storepass="${applet.storepass}">
+			<path>
+				<fileset file="${admintool.jar}"/>
+				<fileset dir="${build.lib.dir}" includes="${filename.log4j},${filename.security},
+														${filename.lightweight_xml_parser},
+														${filename.basic_type_serialization}"/>
+			</path>
+		</signjar>
         
         <zip destfile="${dist.dir}/admin-client-${app.version}.zip">
             <zipfileset file="${admintool.jar}"/>

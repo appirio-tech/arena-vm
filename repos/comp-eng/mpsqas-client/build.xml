@@ -10,6 +10,7 @@
         <isset property="env.ARENA_BUILD_TARGET"/>
     </condition>
     <property file="${build.properties-file}"/>
+    <property file="../../applets-key.properties"/>
 
     <property name="deployment.dir" location="${basedir}/deployment"/>
     <property name="is.need.update.jar.security" value="true" />
@@ -44,6 +45,14 @@
         		<filter token="applet.lib-url" value="${applet.lib-url}"/>
         	</filterset>
     	</copy>
+
+		<signjar alias="${applet.keystore-alias}" keystore="${applet.keystore}" storepass="${applet.storepass}">
+			<path>
+				<fileset file="${jar.name}"/>
+				<fileset dir="${build.lib.dir}" includes="*.jar"/>
+			</path>
+		</signjar>
+
     	<zip destfile="${build.dir}/mpsqas-client-${app.version}.zip">
     		<zipfileset dir="${build.dir}/tmp-zip"/>
     		<zipfileset dir="${build.lib.dir}"/>
