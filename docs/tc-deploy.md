@@ -45,6 +45,14 @@ INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value,
 INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'Matrix2D', 8);
 ```
 
+Enable python3 for practice problems
+
+```
+insert into round_language 
+select round_id, 8 as language_id from round where round_type_id in (3,9,14)
+and round_id in (select round_id from round_language)
+and round_id not in (select round_id from round_language where language_id=8)
+```
 
 
 ### Build Docker Image
