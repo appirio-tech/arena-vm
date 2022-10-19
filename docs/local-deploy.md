@@ -82,7 +82,7 @@ docker-compose logs -f arena-nginx
 - Download the `processor-windows.tgz` from docker container:
 
   ```bash
-  docker cp arena-app:/home/apps/dev/app/dist/processor-windows.tgz .
+  docker cp arena-listeners:/home/apps/dev/app/dist/processor-windows.tgz .
   ```
 
   Then copy `processor-windows.tgz` to Windows and extract it to`C:` drive.
@@ -207,10 +207,10 @@ keytool -delete -noprompt -storepass changeit -alias arena-local-crt -cacerts
 
 ```bash
 # Copy built mpsqas client from docker
-docker cp arena-listeners:/home/apps/dev/comp-eng/mpsqas-client/build/mpsqas-client-7.1.2.zip .
+docker cp arena-listeners:/home/apps/dev/comp-eng/mpsqas-client/build/mpsqas-client.zip .
 
 # Unzip
-unzip mpsqas-client-7.1.2.zip -d mpsqas-client
+unzip mpsqas-client.zip -d mpsqas-client
 
 # Run mpsqas client
 cd mpsqas-client
@@ -224,10 +224,10 @@ sh mpsqas.sh
 
 ```bash
 # Copy built admin client from docker
-docker cp arena-listeners:/home/apps/dev/app/dist/admin-client-7.1.6.zip .
+docker cp arena-listeners:/home/apps/dev/app/dist/admin-client.zip .
 
 # Unzip
-unzip admin-client-7.1.6.zip -d admin-client
+unzip admin-client.zip -d admin-client
 
 # Run admin client
 cd admin-client
@@ -241,10 +241,10 @@ sh admin.sh
 
 ```bash
 # Copy built arena client from docker
-docker cp arena-listeners:/home/apps/dev/comp-eng/arena-client/build/arena-client-7.1.4.zip .
+docker cp arena-listeners:/home/apps/dev/comp-eng/arena-client/build/arena-client.zip .
 
 # Unzip
-unzip arena-client-7.1.4.zip -d arena-client
+unzip arena-client.zip -d arena-client
 
 # Run arena client
 cd arena-client

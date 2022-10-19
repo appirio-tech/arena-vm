@@ -278,13 +278,6 @@
         <property name="code_base" value="${applet.codebase}" />
         
         <jar jarfile="${admintool.jar}">
-            <manifest>
-                <attribute name="Main-Class" value="com/topcoder/client/contestMonitor/view/gui/MonitorGUIMain" />
-                <attribute name="Built-By" value="${user.name}" />
-                <attribute name="Build-Version" value="${app.version}" />
-                <attribute name="Permissions" value="${permission_type}"/>
-                <attribute name="Codebase" value="${code_base}"/>
-            </manifest>
             <fileset dir="${jarextract}/"
                 includes="com/topcoder/client/**,
                           com/topcoder/shared/netCommon/*,
@@ -337,6 +330,7 @@
                 <filter token="filename.security" value="${filename.security}"/>
                 <filter token="filename.log4j" value="${filename.log4j}"/>
                 <filter token="filename.lightweight_xml_parser" value="${filename.lightweight_xml_parser}"/>
+				<filter token="app.version" value="${app.version}"/>
                 <filter token="applet.codebase" value="${applet.codebase}"/>
                 <filter token="applet.href" value="${applet.href}"/>
                 <filter token="applet.homepage" value="${applet.homepage}"/>
@@ -346,21 +340,27 @@
             </filterset>
         </copy>
 
+		<jar destfile="${build.dir}/admin-client-combined-${app.version}.jar">
+			<zipgroupfileset file="${admintool.jar}" />
+			<zipgroupfileset dir="${build.lib.dir}" includes="${filename.log4j}, ${filename.security},
+														${filename.lightweight_xml_parser},
+														${filename.basic_type_serialization}" />
+           	<manifest>
+				<attribute name="Build-Version" value="${app.version}" />
+				<attribute name="Permissions" value="${permission_type}"/>
+				<attribute name="Codebase" value="${code_base}"/>
+           	</manifest>
+		</jar>
+
 		<signjar alias="${applet.keystore-alias}" keystore="${applet.keystore}" storepass="${applet.storepass}">
 			<path>
-				<fileset file="${admintool.jar}"/>
-				<fileset dir="${build.lib.dir}" includes="${filename.log4j},${filename.security},
-														${filename.lightweight_xml_parser},
-														${filename.basic_type_serialization}"/>
+				<fileset file="${build.dir}/admin-client-combined-${app.version}.jar"/>
 			</path>
 		</signjar>
         
-        <zip destfile="${dist.dir}/admin-client-${app.version}.zip">
-            <zipfileset file="${admintool.jar}"/>
-            <zipfileset dir="${build.lib.dir}" includes="${filename.log4j},${filename.security},
-                                                    ${filename.lightweight_xml_parser},
-                                                    ${filename.basic_type_serialization}"/>
-            <zipfileset dir="${build.dir}/tmp-admin-client" includes="*.jnlp,*.bat,*.sh,custom.security"/>
+        <zip destfile="${dist.dir}/admin-client.zip">
+            <zipfileset file="${build.dir}/admin-client-combined-${app.version}.jar"/>
+            <zipfileset dir="${build.dir}/tmp-admin-client" includes="*.jnlp,*.bat,*.sh"/>
         </zip>
     </target>
 
