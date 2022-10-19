@@ -1,6 +1,6 @@
-applet.codebase=http://tc.cloud.topcoder.com:8080/admin-client
-applet.href=ContestAdminToolProd.jnlp
 applet.homepage=http://tc.cloud.topcoder.com
+applet.codebase=http://tc.cloud.topcoder.com:8080
+applet.href=http://tc.cloud.topcoder.com:8080/admin-client/ContestAdminToolProd.jnlp
 applet.lib-url=http://tc.cloud.topcoder.com:8080/admin-client
 applet.arg-hostname=tc.cloud.topcoder.com
 applet.arg-port=5003

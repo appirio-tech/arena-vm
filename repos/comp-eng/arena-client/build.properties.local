@@ -1,6 +1,6 @@
-applet.codebase=http://tc.cloud.topcoder.com:8080/arena-client
-applet.href=ContestAppletProd.jnlp
 applet.homepage=http://tc.cloud.topcoder.com
+applet.codebase=http://tc.cloud.topcoder.com:8080
+applet.href=http://tc.cloud.topcoder.com:8080/arena-client/ContestAppletProd.jnlp
 applet.lib-url=http://tc.cloud.topcoder.com:8080/arena-client
 applet.arg-hostname=tc.cloud.topcoder.com
 applet.arg-port=5001
