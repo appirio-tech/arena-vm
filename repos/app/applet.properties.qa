@@ -1,7 +1,7 @@
-applet.codebase=http://qa.arena.topcoder.com
-applet.href=/applets/ContestAdmin.jnlp
-applet.homepage=http://qa.arena.topcoder.com
-applet.lib-url=https://qa.arena.topcoder.com/applets/lib
+applet.homepage=https://qa.arena.topcoder.com
+applet.codebase=https://qa.arena.topcoder.com
+applet.href=https://qa.arena.topcoder.com/contest/arena/ContestAdminToolProd.jnlp
+applet.lib-url=https://qa.arena.topcoder.com/contest/classes/admintool7
 applet.arg-hostname=qa.arena.topcoder.com
 applet.arg-port=5003
 applet.arg-tunnel=https://qa.arena.topcoder.com:5008/dummy?t=true

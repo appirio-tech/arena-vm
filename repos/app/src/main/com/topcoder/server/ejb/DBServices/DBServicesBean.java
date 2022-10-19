@@ -28,6 +28,8 @@ import java.util.Vector;
 
 import javax.ejb.EJBException;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.topcoder.netCommon.contest.ComponentAssignmentData;
 import com.topcoder.netCommon.contest.ContestConstants;
 import com.topcoder.netCommon.contest.Question;
@@ -427,7 +429,7 @@ public class DBServicesBean extends BaseEJB {
             "    a.question_id = ?";
 
     private static final String QUERY_MEMBER_PHOTO_PATH = "SELECT" +
-            "    i.file_name as file_name," +
+            "    i.file_name as file_name, i.link, " +
             "   (select path from path p where p.path_id = i.path_id) as image_path" +
             " FROM coder_image_xref mi " +
             " INNER JOIN image i on mi.image_id=i.image_id" + 
@@ -5012,7 +5014,13 @@ public class DBServicesBean extends BaseEJB {
             ps.setInt(1, coderId);
             rs = ps.executeQuery();
             if (rs.next()) {
-                return rs.getString("image_path") + rs.getString("file_name");
+            	String link = rs.getString("link");
+            	String path = rs.getString("image_path");
+            	String file = rs.getString("file_name");
+            	if (StringUtils.isNotBlank(link)) {
+            		return StringUtils.trimToEmpty(link);
+            	}
+                return StringUtils.trimToEmpty(path) + StringUtils.trimToEmpty(file);
             }
         } catch (Exception e) {
             DBMS.printException(e);

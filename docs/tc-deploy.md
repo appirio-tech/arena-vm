@@ -355,3 +355,52 @@ docker-compose up -d --scale arena-processor-group-two=10
   C:\cygwin64\bin\bash.exe --login -c "cd /cygdrive/c/processor/deploy && ./processor.sh"
   ```
 
+
+
+### Deploy Applets Clients
+
+There are 3 applets clients to deploy:
+
+| Applet Client | Built zip within Docker image                                |
+| ------------- | ------------------------------------------------------------ |
+| Admin client  | /home/apps/dev/app/dist/admin-client.zip                     |
+| Arena client  | /home/apps/dev/comp-eng/arena-client/build/arena-client.zip  |
+| MPSQAS client | /home/apps/dev/comp-eng/mpsqas-client/build/mpsqas-client.zip |
+
+You need deploy the jnlp file and jar file contained within each zip.
+
+For example, within `arena-client.zip`, there are `ContestAppletProd.jnlp` and `arena-client-combined-7.1.4.jar`.
+
+Use any text editor to view the jnlp file `ContestAppletProd.jnlp`, it's an xml format, notice the **href** attributes:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?> 
+<jnlp spec="1.0+" codebase="https://www.topcoder.com" href="https://www.topcoder.com/contest/arena/ContestAppletProd.jnlp">
+   <information> 
+      <title>Competition Arena</title> 
+      <vendor>TopCoder, Inc.</vendor> 
+      <homepage href="https://www.topcoder.com"/> 
+      <description>TopCoder Contest Arena</description> 
+      <icon href="https://www.topcoder.com/images/favicon_new.gif"/> 
+   </information>
+   <security>
+      <all-permissions/>
+   </security>
+   <resources>
+      <j2se version="1.8+" max-heap-size="128m"/> 
+      <jar href="https://www.topcoder.com/contest/classes/7.0/arena-client-combined-7.1.4.jar" />
+   </resources>
+   
+   <application-desc main-class="com.topcoder.client.contestApplet.runner.generic"> 
+      <argument>www.topcoder.com</argument>
+      <argument>5001</argument>
+      <argument>https://www.topcoder.com:5008/dummy?t=true</argument>
+      <argument>TopCoder</argument>
+   </application-desc>
+</jnlp>
+```
+
+Then you need to:
+
+- Deploy the jnlp file `ContestAppletProd.jnlp` to URL: https://www.topcoder.com/contest/arena/ContestAppletProd.jnlp
+- Deploy the jar file `arena-client-combined-7.1.4.jar` to URL: https://www.topcoder.com/contest/classes/7.0/arena-client-combined-7.1.4.jar

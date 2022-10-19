@@ -13,7 +13,7 @@
                 <includes />
             </depend>
 
-            <javac destdir="@{destdir}" srcdir="@{srcdir}" optimize="${compile.optimize}" release="@{target}" source="@{target}" target="@{target}" debug="${compile.debug}" memoryInitialSize="512m" memoryMaximumSize="512m" fork="yes" includeantruntime="false">
+            <javac destdir="@{destdir}" srcdir="@{srcdir}" optimize="${compile.optimize}" release="@{target}" debug="${compile.debug}" memoryInitialSize="512m" memoryMaximumSize="512m" fork="yes" includeantruntime="false">
                 <classpath refid="@{classpathref}" />
                 <includes />
                 <extra-compile />

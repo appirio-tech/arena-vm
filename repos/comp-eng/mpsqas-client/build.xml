@@ -37,6 +37,7 @@
         		<filter token="filename.custom-serialization" value="${filename.custom-serialization}"/>
         		<filter token="filename.http-tunnel-client" value="${filename.http-tunnel-client}"/>
         		<filter token="filename.log4j" value="${filename.log4j}"/>
+				<filter token="app.version" value="${app.version}"/>
         		<filter token="applet.host" value="${applet.host}"/>
         		<filter token="applet.port" value="${applet.port}"/>
         		<filter token="applet.code_base" value="${applet.code_base}"/>
@@ -46,17 +47,25 @@
         	</filterset>
     	</copy>
 
+		<jar destfile="${build.dir}/mpsqas-client-combined-${app.version}.jar">
+			<zipgroupfileset file="${jar.name}" />
+			<zipgroupfileset dir="${build.lib.dir}" includes="*.jar" />
+           	<manifest>
+				<attribute name="Build-Version" value="${app.version}" />
+				<attribute name="Permissions" value="${permission_type}"/>
+				<attribute name="Codebase" value="${code_base}"/>
+           	</manifest>
+		</jar>
+
 		<signjar alias="${applet.keystore-alias}" keystore="${applet.keystore}" storepass="${applet.storepass}">
 			<path>
-				<fileset file="${jar.name}"/>
-				<fileset dir="${build.lib.dir}" includes="*.jar"/>
+				<fileset file="${build.dir}/mpsqas-client-combined-${app.version}.jar"/>
 			</path>
 		</signjar>
 
-    	<zip destfile="${build.dir}/mpsqas-client-${app.version}.zip">
+    	<zip destfile="${build.dir}/mpsqas-client.zip">
     		<zipfileset dir="${build.dir}/tmp-zip"/>
-    		<zipfileset dir="${build.lib.dir}"/>
-    		<zipfileset file="${jar.name}"/>
+    		<zipfileset file="${build.dir}/mpsqas-client-combined-${app.version}.jar"/>
     	</zip>
     </target>
 
