@@ -56,8 +56,6 @@
             <artifact name="slf4j-api" type="jar"/>
         </dependency>
 
-        <dependency org="org.apache.commons" name="commons-lang3" rev="3.3.2" transitive="false"/>
-
         <dependency org="org.springframework" name="spring-beans" rev="5.3.22">
             <artifact name="spring-beans" type="jar"/>
         </dependency>

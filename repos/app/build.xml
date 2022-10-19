@@ -171,6 +171,7 @@
         <replacefilter token="@filename.backport-util-concurrent@" value="${filename.backport-util-concurrent}"/>
         <replacefilter token="@filename.jms@" value="${filename.jms}"/>
         <replacefilter token="@filename.xpp3_min@" value="${filename.xpp3_min}"/>
+        <replacefilter token="@filename.commons-lang3@" value="${filename.commons-lang3}"/>
         <replacefilter token="@filename.commons-beanutils@" value="${filename.commons-beanutils}"/>
         <replacefilter token="@filename.commons-collections@" value="${filename.commons-collections}"/>
         <replacefilter token="@filename.commons-logging@" value="${filename.commons-logging}"/>
@@ -401,6 +402,7 @@
                          ${filename.backport-util-concurrent},
                          ${filename.jms},
                          ${filename.xpp3_min},
+                         ${filename.commons-lang3},
                          ${filename.commons-beanutils},
                          ${filename.commons-collections},
                          ${filename.commons-logging},
@@ -895,7 +897,8 @@
             ${filename.security},
             ${filename.basic_type_serialization},
             ${filename.db_connection_factory},
-            ${filename.base_exception}"/>
+            ${filename.base_exception},
+            ${filename.commons-lang3}"/>
         <copy todir="${jboss.lib.dir}">
             <fileset dir="${build.lib.dir}" includes="${app.proj.deps.cur}"/>
             <fileset dir="${build.artifacts.dir}" includes="${app.proj.deps.cur}"/>

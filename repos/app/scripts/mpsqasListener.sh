@@ -1,6 +1,6 @@
 #!/bin/bash
 JAVACMD=java
-BASE=../
+BASE=..
 MAIN=com.topcoder.server.mpsqas.listener.MPSQASListener
 PORT=$2
 PROCESSOR=DefaultProcessor
@@ -33,6 +33,7 @@ CP=$CP:$LIBS/@filename.activeio-core@
 CP=$CP:$LIBS/@filename.backport-util-concurrent@
 CP=$CP:$LIBS/@filename.jms@
 CP=$CP:$LIBS/@filename.xpp3_min@
+CP=$CP:$LIBS/@filename.commons-lang3@
 CP=$CP:$LIBS/@filename.commons-beanutils@
 CP=$CP:$LIBS/@filename.commons-collections@
 CP=$CP:$LIBS/@filename.commons-logging@
