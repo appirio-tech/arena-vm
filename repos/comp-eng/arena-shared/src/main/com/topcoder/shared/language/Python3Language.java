@@ -13,7 +13,7 @@ import com.topcoder.shared.problem.DataType;
  */
 public class Python3Language extends BaseLanguage {
     /** Represents the unique ID for Python3. */
-    public final static int ID = 8;
+    public final static int ID = 9;
 
     /** Represents the description for Python3. */
     public final static String DESCRIPTION = "Python3";

@@ -14,7 +14,7 @@ Run following sql to add Python3 lanuage to linux processors:
 ```sql
 update FARM_PROC_PROPERTIES_MAP as p, 
 (select PRO_ID from FARM_PROC_PROPERTIES_MAP where PROPERTY_VALUE = '<string>linux</string>') as linux_id
-set p.PROPERTY_VALUE = '<set><int>1</int><int>3</int><int>6</int><int>8</int></set>' 
+set p.PROPERTY_VALUE = '<set><int>1</int><int>3</int><int>6</int><int>9</int></set>' 
 where p.PROPERTY_NAME LIKE '%languages'
 and p.PRO_ID = linux_id.PRO_ID;
 ```
@@ -24,34 +24,34 @@ and p.PRO_ID = linux_id.PRO_ID;
 Run following sql to add Python3 language:
 
 ```sql
-INSERT INTO informixoltp:informix.language (language_id, language_name, status, language_desc) VALUES(8, 'Python3', 'Y', '');
+INSERT INTO informixoltp:informix.language (language_id, language_name, status, language_desc) VALUES(9, 'Python3', 'Y', '');
 
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'integer', 1);
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'float', 4);
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'string (char)', 6);
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'integer (byte)', 7);
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'integer (short)', 13);
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'long integer', 14);
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'float', 15);
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'string', 18);
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'bool', 19);
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'tuple (integer)', 20);
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'tuple (float)', 21);
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'tuple (string)', 22);
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'tuple (long integer)', 24);
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'tuple (tuple (integer))', 26);
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'tuple (tuple (long integer))', 27);
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'tuple (tuple (string))', 23);
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'Matrix2D', 8);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'integer', 1);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'float', 4);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'string (char)', 6);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'integer (byte)', 7);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'integer (short)', 13);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'long integer', 14);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'float', 15);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'string', 18);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'bool', 19);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'tuple (integer)', 20);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'tuple (float)', 21);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'tuple (string)', 22);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'tuple (long integer)', 24);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'tuple (tuple (integer))', 26);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'tuple (tuple (long integer))', 27);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'tuple (tuple (string))', 23);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'Matrix2D', 8);
 ```
 
 Enable python3 for practice problems
 
 ```
 insert into round_language 
-select round_id, 8 as language_id from round where round_type_id in (3,9,14)
+select round_id, 9 as language_id from round where round_type_id in (3,9,14)
 and round_id in (select round_id from round_language)
-and round_id not in (select round_id from round_language where language_id=8)
+and round_id not in (select round_id from round_language where language_id=9)
 ```
 
 

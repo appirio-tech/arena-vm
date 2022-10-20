@@ -625,10 +625,10 @@ public final class ContestConstants implements RoundTypes {
      * the R language id.
      */
     public final static int R = 7;
-    public final static int PYTHON3 = 8;
+    public final static int PYTHON3 = 9;
 
     public final static String[] LANG_NAMES =
-    {"", "Java", "", "C++", "C#", "Visual Basic","Python", "R", "Python3"};
+    {"", "Java", "", "C++", "C#", "Visual Basic","Python", "R", "", "Python3"};
 
     // Editor
     public final static int STD_EDITOR = 0;
