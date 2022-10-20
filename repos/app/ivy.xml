@@ -30,40 +30,30 @@
             <artifact name="jackson-annotations" type="jar"/>
         </dependency>
 
-        <dependency org="com.corundumstudio.socketio" name="netty-socketio" rev="1.6.4">
+        <dependency org="com.corundumstudio.socketio" name="netty-socketio" rev="1.6.7">
             <artifact name="netty-socketio" type="jar"/>
         </dependency>
-        <dependency org="io.netty" name="netty-buffer" rev="4.0.17.Final">
+        <dependency org="io.netty" name="netty-buffer" rev="4.1.84.Final">
             <artifact name="netty-buffer" type="jar"/>
         </dependency>
-        <dependency org="io.netty" name="netty-common" rev="4.0.17.Final">
+        <dependency org="io.netty" name="netty-common" rev="4.1.84.Final">
             <artifact name="netty-common" type="jar"/>
         </dependency>
-        <dependency org="io.netty" name="netty-transport" rev="4.0.17.Final">
+        <dependency org="io.netty" name="netty-transport" rev="4.1.84.Final">
             <artifact name="netty-transport" type="jar"/>
         </dependency>
-        <dependency org="io.netty" name="netty-handler" rev="4.0.17.Final">
+        <dependency org="io.netty" name="netty-handler" rev="4.1.84.Final">
             <artifact name="netty-handler" type="jar"/>
         </dependency>
-        <dependency org="io.netty" name="netty-codec" rev="4.0.17.Final">
+        <dependency org="io.netty" name="netty-codec" rev="4.1.84.Final">
             <artifact name="netty-codec" type="jar"/>
         </dependency>
-        <dependency org="io.netty" name="netty-codec-http" rev="4.0.17.Final">
+        <dependency org="io.netty" name="netty-codec-http" rev="4.1.84.Final">
             <artifact name="netty-codec-http" type="jar"/>
         </dependency>
 
         <dependency org="org.slf4j" name="slf4j-api" rev="1.7.6">
             <artifact name="slf4j-api" type="jar"/>
-        </dependency>
-
-        <dependency org="org.springframework" name="spring-beans" rev="5.3.22">
-            <artifact name="spring-beans" type="jar"/>
-        </dependency>
-        <dependency org="org.springframework" name="spring-core" rev="5.3.22">
-            <artifact name="spring-core" type="jar"/>
-        </dependency>
-        <dependency org="org.springframework" name="spring-jcl" rev="5.3.22">
-            <artifact name="spring-jcl" type="jar"/>
         </dependency>
 
     </dependencies>
