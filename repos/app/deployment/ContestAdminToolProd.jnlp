@@ -5,18 +5,14 @@
       <vendor>TopCoder, Inc.</vendor> 
       <homepage href="@applet.homepage@"/> 
       <description>Contest Administration Tool</description> 
-      <icon href="http://www.topcoder.com/images/favicon_new.gif"/> 
+      <icon href="https://www.topcoder.com/images/favicon_new.gif"/> 
    </information> 
       <security>
       <all-permissions/>
    </security>
    <resources> 
-      <j2se version="1.4+"/> 
-      <jar href="@applet.lib-url@/ContestAdminTool.jar"/>
-      <jar href="@applet.lib-url@/@filename.basic_type_serialization@" />
-      <jar href="@applet.lib-url@/@filename.log4j@" />
-      <jar href="@applet.lib-url@/@filename.security@" />
-      <jar href="@applet.lib-url@/@filename.lightweight_xml_parser@" /> 
+      <j2se version="1.8+"/> 
+      <jar href="@applet.lib-url@/admin-client-combined-@app.version@.jar" /> 
    </resources> 
    <application-desc main-class="com.topcoder.client.contestMonitor.view.gui.MonitorGUIMain"> 
       <argument>@applet.arg-hostname@:@applet.arg-port@</argument>

@@ -1,6 +1,7 @@
-applet.code_base=http://www.topcoder.com/contest/arena/
-applet.href=MPSQASProd.jnlp
-applet.homepage=http://www.topcoder.com
-applet.lib-url=http://www.topcoder.com/contest/classes/mpsqas7
+applet.homepage=https://www.topcoder.com
+applet.code_base=https://www.topcoder.com
+applet.href=https://www.topcoder.com/contest/arena/MPSQASProd.jnlp
+applet.lib-url=https://www.topcoder.com/contest/classes/mpsqas7
 applet.host=www.topcoder.com
 applet.port=5037
+applet.keystore=../../applets-key.jks

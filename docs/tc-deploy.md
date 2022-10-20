@@ -14,7 +14,7 @@ Run following sql to add Python3 lanuage to linux processors:
 ```sql
 update FARM_PROC_PROPERTIES_MAP as p, 
 (select PRO_ID from FARM_PROC_PROPERTIES_MAP where PROPERTY_VALUE = '<string>linux</string>') as linux_id
-set p.PROPERTY_VALUE = '<set><int>1</int><int>3</int><int>6</int><int>8</int></set>' 
+set p.PROPERTY_VALUE = '<set><int>1</int><int>3</int><int>6</int><int>9</int></set>' 
 where p.PROPERTY_NAME LIKE '%languages'
 and p.PRO_ID = linux_id.PRO_ID;
 ```
@@ -24,27 +24,35 @@ and p.PRO_ID = linux_id.PRO_ID;
 Run following sql to add Python3 language:
 
 ```sql
-INSERT INTO informixoltp:informix.language (language_id, language_name, status, language_desc) VALUES(8, 'Python3', 'Y', '');
+INSERT INTO informixoltp:informix.language (language_id, language_name, status, language_desc) VALUES(9, 'Python3', 'Y', '');
 
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'integer', 1);
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'float', 4);
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'string (char)', 6);
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'integer (byte)', 7);
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'integer (short)', 13);
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'long integer', 14);
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'float', 15);
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'string', 18);
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'bool', 19);
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'tuple (integer)', 20);
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'tuple (float)', 21);
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'tuple (string)', 22);
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'tuple (long integer)', 24);
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'tuple (tuple (integer))', 26);
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'tuple (tuple (long integer))', 27);
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'tuple (tuple (string))', 23);
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'Matrix2D', 8);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'integer', 1);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'float', 4);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'string (char)', 6);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'integer (byte)', 7);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'integer (short)', 13);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'long integer', 14);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'float', 15);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'string', 18);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'bool', 19);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'tuple (integer)', 20);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'tuple (float)', 21);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'tuple (string)', 22);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'tuple (long integer)', 24);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'tuple (tuple (integer))', 26);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'tuple (tuple (long integer))', 27);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'tuple (tuple (string))', 23);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'Matrix2D', 8);
 ```
 
+Enable python3 for practice problems
+
+```
+insert into round_language 
+select round_id, 9 as language_id from round where round_type_id in (3,9,14)
+and round_id in (select round_id from round_language)
+and round_id not in (select round_id from round_language where language_id=9)
+```
 
 
 ### Build Docker Image
@@ -125,7 +133,7 @@ These are SSO related tokens. Change theses according to TC environment:
 
 ### Security Related Files
 
-There are some security related files in `arena-vm/repos/app` folder, you need change them for dev/prod env before build image.
+There are some security related files in `arena-vm/repos` folder, you need change them for dev/prod env before build image.
 
 For LDAP:
 
@@ -137,7 +145,10 @@ For password encryption:
 - repos/app/scripts/security.keystore.cloud
 - repos/app/resources/com/topcoder/security/Util.properties
 
+For sign jars of client applets:
 
+- repos/applets-key.jks
+- repos/applets-key.properties
 
 ### Container Environment Variables
 
@@ -344,3 +355,52 @@ docker-compose up -d --scale arena-processor-group-two=10
   C:\cygwin64\bin\bash.exe --login -c "cd /cygdrive/c/processor/deploy && ./processor.sh"
   ```
 
+
+
+### Deploy Applets Clients
+
+There are 3 applets clients to deploy:
+
+| Applet Client | Built zip within Docker image                                |
+| ------------- | ------------------------------------------------------------ |
+| Admin client  | /home/apps/dev/app/dist/admin-client.zip                     |
+| Arena client  | /home/apps/dev/comp-eng/arena-client/build/arena-client.zip  |
+| MPSQAS client | /home/apps/dev/comp-eng/mpsqas-client/build/mpsqas-client.zip |
+
+You need deploy the jnlp file and jar file contained within each zip.
+
+For example, within `arena-client.zip`, there are `ContestAppletProd.jnlp` and `arena-client-combined-7.1.4.jar`.
+
+Use any text editor to view the jnlp file `ContestAppletProd.jnlp`, it's an xml format, notice the **href** attributes:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?> 
+<jnlp spec="1.0+" codebase="https://www.topcoder.com" href="https://www.topcoder.com/contest/arena/ContestAppletProd.jnlp">
+   <information> 
+      <title>Competition Arena</title> 
+      <vendor>TopCoder, Inc.</vendor> 
+      <homepage href="https://www.topcoder.com"/> 
+      <description>TopCoder Contest Arena</description> 
+      <icon href="https://www.topcoder.com/images/favicon_new.gif"/> 
+   </information>
+   <security>
+      <all-permissions/>
+   </security>
+   <resources>
+      <j2se version="1.8+" max-heap-size="128m"/> 
+      <jar href="https://www.topcoder.com/contest/classes/7.0/arena-client-combined-7.1.4.jar" />
+   </resources>
+   
+   <application-desc main-class="com.topcoder.client.contestApplet.runner.generic"> 
+      <argument>www.topcoder.com</argument>
+      <argument>5001</argument>
+      <argument>https://www.topcoder.com:5008/dummy?t=true</argument>
+      <argument>TopCoder</argument>
+   </application-desc>
+</jnlp>
+```
+
+Then you need to:
+
+- Deploy the jnlp file `ContestAppletProd.jnlp` to URL: https://www.topcoder.com/contest/arena/ContestAppletProd.jnlp
+- Deploy the jar file `arena-client-combined-7.1.4.jar` to URL: https://www.topcoder.com/contest/classes/7.0/arena-client-combined-7.1.4.jar

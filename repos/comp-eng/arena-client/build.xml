@@ -9,6 +9,7 @@
         <isset property="env.ARENA_BUILD_TARGET"/>
     </condition>
     <property file="${build.properties-file}"/>
+    <property file="../../applets-key.properties"/>
     
     <condition property="compile.source" value="${env.BUILD_COMPILE_SOURCE}" else="1.4">
         <isset property="env.BUILD_COMPILE_SOURCE"/>
@@ -137,6 +138,7 @@
         		<filter token="filename.custom-serialization" value="${filename.custom-serialization}"/>
         		<filter token="filename.http-tunnel-client" value="${filename.http-tunnel-client}"/>
         		<filter token="filename.log4j" value="${filename.log4j}"/>
+				<filter token="app.version" value="${app.version}"/>
 				<filter token="applet.codebase" value="${applet.codebase}"/>
 				<filter token="applet.href" value="${applet.href}"/>
 				<filter token="applet.homepage" value="${applet.homepage}"/>
@@ -146,8 +148,25 @@
 				<filter token="applet.arg-tunnel" value="${applet.arg-tunnel}"/>
         	</filterset>
     	</copy>
-    	<zip destfile="${build.dir}/arena-client-${app.version}.zip">
-    		<zipfileset dir="${yguard.dir}"/>
+
+		<jar destfile="${build.dir}/arena-client-combined-${app.version}.jar">
+			<zipgroupfileset dir="${yguard.dir}" includes="*.jar" />
+           	<manifest>
+				<attribute name="Build-Version" value="${app.version}" />
+				<attribute name="Permissions" value="${permission_type}"/>
+				<attribute name="Codebase" value="${code_base}"/>
+           	</manifest>
+		</jar>
+
+		<signjar alias="${applet.keystore-alias}" keystore="${applet.keystore}" storepass="${applet.storepass}">
+			<path>
+				<fileset file="${build.dir}/arena-client-combined-${app.version}.jar"/>
+			</path>
+		</signjar>
+
+    	<zip destfile="${build.dir}/arena-client.zip">
+    		<zipfileset dir="${yguard.dir}" includes="**/*.bat,**/*.jnlp,**/*.sh"/>
+    		<zipfileset file="${build.dir}/arena-client-combined-${app.version}.jar"/>
     	</zip>
     	
     </target>

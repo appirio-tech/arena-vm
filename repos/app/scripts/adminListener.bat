@@ -31,6 +31,7 @@ set CP=%CP%;%JARS%/@filename.activeio-core@
 set CP=%CP%;%JARS%/@filename.backport-util-concurrent@
 set CP=%CP%;%JARS%/@filename.jms@
 set CP=%CP%;%JARS%/@filename.xpp3_min@
+set CP=%CP%;%JARS%/@filename.commons-lang3@
 set CP=%CP%;%JARS%/@filename.commons-beanutils@
 set CP=%CP%;%JARS%/@filename.commons-collections@
 set CP=%CP%;%JARS%/@filename.commons-logging@

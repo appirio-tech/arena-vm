@@ -5,25 +5,14 @@
       <vendor>TopCoder, Inc.</vendor> 
       <homepage href="@applet.homepage@"/> 
       <description>MPSQAS</description>
-      <icon href="http://www.topcoder.com/images/favicon_new.gif"/> 
+      <icon href="https://www.topcoder.com/images/favicon_new.gif"/> 
    </information> 
    <security>
       <all-permissions/>
    </security>
    <resources> 
-      <j2se version="1.4+" max-heap-size="128m"/> 
-      <jar href="@applet.lib-url@/@filename.mpsqas-client@" />
-      <jar href="@applet.lib-url@/@filename.basic_type_serialization@" />
-      <jar href="@applet.lib-url@/@filename.client-socket@" />
-      <jar href="@applet.lib-url@/@filename.concurrent@" />
-      <jar href="@applet.lib-url@/@filename.encoder@" />
-      <jar href="@applet.lib-url@/@filename.logging@" />
-      <jar href="@applet.lib-url@/@filename.arena-shared@" />
-      <jar href="@applet.lib-url@/@filename.client-common@" />
-      <jar href="@applet.lib-url@/@filename.compeng-common@" />
-      <jar href="@applet.lib-url@/@filename.custom-serialization@" />
-      <jar href="@applet.lib-url@/@filename.http-tunnel-client@" />
-      <jar href="@applet.lib-url@/@filename.log4j@" />
+      <j2se version="1.8+" max-heap-size="128m"/> 
+      <jar href="@applet.lib-url@/mpsqas-client-combined-@app.version@.jar" />
    </resources> 
    
    

@@ -82,7 +82,7 @@ docker-compose logs -f arena-nginx
 - Download the `processor-windows.tgz` from docker container:
 
   ```bash
-  docker cp arena-app:/home/apps/dev/app/dist/processor-windows.tgz .
+  docker cp arena-listeners:/home/apps/dev/app/dist/processor-windows.tgz .
   ```
 
   Then copy `processor-windows.tgz` to Windows and extract it to`C:` drive.
@@ -116,7 +116,7 @@ Then run following sql:
 ```sql
 update FARM_PROC_PROPERTIES_MAP as p, 
 (select PRO_ID from FARM_PROC_PROPERTIES_MAP where PROPERTY_VALUE = '<string>linux</string>') as linux_id
-set p.PROPERTY_VALUE = '<set><int>1</int><int>3</int><int>6</int><int>8</int></set>' 
+set p.PROPERTY_VALUE = '<set><int>1</int><int>3</int><int>6</int><int>9</int></set>' 
 where p.PROPERTY_NAME LIKE '%languages'
 and p.PRO_ID = linux_id.PRO_ID;
 ```
@@ -145,25 +145,25 @@ DROP TRIGGER trig_systemtest_modified;
 
 UPDATE security_user SET password='4EjPjy6o+/C+dqNPnxIy9A==';
 
-INSERT INTO informixoltp:informix.language (language_id, language_name, status, language_desc) VALUES(8, 'Python3', 'Y', '');
+INSERT INTO informixoltp:informix.language (language_id, language_name, status, language_desc) VALUES(9, 'Python3', 'Y', '');
 
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'integer', 1);
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'float', 4);
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'string (char)', 6);
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'integer (byte)', 7);
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'integer (short)', 13);
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'long integer', 14);
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'float', 15);
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'string', 18);
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'bool', 19);
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'tuple (integer)', 20);
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'tuple (float)', 21);
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'tuple (string)', 22);
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'tuple (long integer)', 24);
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'tuple (tuple (integer))', 26);
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'tuple (tuple (long integer))', 27);
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'tuple (tuple (string))', 23);
-INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(8, 'Matrix2D', 8);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'integer', 1);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'float', 4);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'string (char)', 6);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'integer (byte)', 7);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'integer (short)', 13);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'long integer', 14);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'float', 15);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'string', 18);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'bool', 19);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'tuple (integer)', 20);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'tuple (float)', 21);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'tuple (string)', 22);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'tuple (long integer)', 24);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'tuple (tuple (integer))', 26);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'tuple (tuple (long integer))', 27);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'tuple (tuple (string))', 23);
+INSERT INTO informixoltp:informix.data_type_mapping (language_id, display_value, data_type_id) VALUES(9, 'Matrix2D', 8);
 ```
 
 
@@ -207,10 +207,10 @@ keytool -delete -noprompt -storepass changeit -alias arena-local-crt -cacerts
 
 ```bash
 # Copy built mpsqas client from docker
-docker cp arena-listeners:/home/apps/dev/comp-eng/mpsqas-client/build/mpsqas-client-7.1.2.zip .
+docker cp arena-listeners:/home/apps/dev/comp-eng/mpsqas-client/build/mpsqas-client.zip .
 
 # Unzip
-unzip mpsqas-client-7.1.2.zip -d mpsqas-client
+unzip mpsqas-client.zip -d mpsqas-client
 
 # Run mpsqas client
 cd mpsqas-client
@@ -224,10 +224,10 @@ sh mpsqas.sh
 
 ```bash
 # Copy built admin client from docker
-docker cp arena-listeners:/home/apps/dev/app/dist/admin-client-7.1.6.zip .
+docker cp arena-listeners:/home/apps/dev/app/dist/admin-client.zip .
 
 # Unzip
-unzip admin-client-7.1.6.zip -d admin-client
+unzip admin-client.zip -d admin-client
 
 # Run admin client
 cd admin-client
@@ -241,10 +241,10 @@ sh admin.sh
 
 ```bash
 # Copy built arena client from docker
-docker cp arena-listeners:/home/apps/dev/comp-eng/arena-client/build/arena-client-7.1.4.zip .
+docker cp arena-listeners:/home/apps/dev/comp-eng/arena-client/build/arena-client.zip .
 
 # Unzip
-unzip arena-client-7.1.4.zip -d arena-client
+unzip arena-client.zip -d arena-client
 
 # Run arena client
 cd arena-client
