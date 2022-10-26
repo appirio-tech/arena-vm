@@ -1,7 +1,7 @@
 applet.homepage=https://www.topcoder.com
 applet.codebase=https://www.topcoder.com
 applet.href=https://www.topcoder.com/contest/arena/ContestAdminToolProd.jnlp
-applet.lib-url=https://www.topcoder.com/contest/classes/admintool7
+applet.lib-url=https://www.topcoder.com/contest/arena
 applet.arg-hostname=www.topcoder.com
 applet.arg-port=5003
 applet.arg-tunnel=https://www.topcoder.com:5008/dummy?t=true

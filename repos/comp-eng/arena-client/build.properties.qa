@@ -1,7 +1,7 @@
 applet.homepage=https://qa.arena.topcoder.com
 applet.codebase=https://qa.arena.topcoder.com
 applet.href=https://qa.arena.topcoder.com/contest/arena/ContestAppletProd.jnlp
-applet.lib-url=https://qa.arena.topcoder.com/contest/classes/7.0
+applet.lib-url=https://qa.arena.topcoder.com/contest/arena
 applet.arg-hostname=qa.arena.topcoder.com
 applet.arg-port=5001
 applet.arg-tunnel=https://qa.arena.topcoder.com:5008/dummy?t=true
