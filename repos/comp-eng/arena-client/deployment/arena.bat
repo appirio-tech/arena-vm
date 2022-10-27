@@ -6,10 +6,10 @@
 setLocal EnableDelayedExpansion
 
 SET CLASSPATH=.
-FOR /f %%I IN ('dir /b *.jar') DO (SET CLASSPATH=!CLASSPATH!;%%I)
+FOR /f %%I IN ('dir /b arena-client-combined-*.jar') DO (SET CLASSPATH=!CLASSPATH!;%%I)
 
-SET IP=tc.cloud.topcoder.com
-SET PORT=5001
+SET IP=@applet.arg-hostname@
+SET PORT=@applet.arg-port@
 SET CLASSPATH=!CLASSPATH!
 ECHO !CLASSPATH!
 

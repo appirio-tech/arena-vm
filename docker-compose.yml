@@ -102,6 +102,13 @@ services:
       - "7443:7443"
     environment:
       - WEBSOCKET_LISTENER_JAVA_OPTS=-Xms256m -Xmx1024m -Dorg.jboss.mq.il.uil2.serverAddr=arena-jboss
+  arena-applets:
+    container_name: arena-applets
+    build:
+      context: ./
+    command: ["/home/apps/start-services.sh", "applets"]
+    ports:
+      - "8080:8080"
   arena-nginx:
     container_name: arena-nginx
     depends_on:

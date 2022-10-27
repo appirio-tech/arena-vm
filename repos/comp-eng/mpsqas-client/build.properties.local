@@ -1,7 +1,7 @@
 applet.homepage=http://tc.cloud.topcoder.com
 applet.code_base=http://tc.cloud.topcoder.com:8080
-applet.href=http://tc.cloud.topcoder.com:8080/mpsqas-client/MPSQASProd.jnlp
-applet.lib-url=http://tc.cloud.topcoder.com:8080/mpsqas-client
+applet.href=http://tc.cloud.topcoder.com:8080/contest/arena/MPSQASProd.jnlp
+applet.lib-url=http://tc.cloud.topcoder.com:8080/contest/arena
 applet.host=tc.cloud.topcoder.com
 applet.port=5037
 applet.keystore=../../applets-key.jks

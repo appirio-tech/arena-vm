@@ -6,7 +6,7 @@
 setLocal EnableDelayedExpansion
 
 SET CLASSPATH=.
-FOR /f %%I IN ('dir /b *.jar') DO (SET CLASSPATH=!CLASSPATH!;%%I)
+FOR /f %%I IN ('dir /b mpsqas-client-combined-*.jar') DO (SET CLASSPATH=!CLASSPATH!;%%I)
 
 SET IP=@applet.host@
 SET CLASSPATH=!CLASSPATH!

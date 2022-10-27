@@ -1,9 +1,11 @@
 FROM centos:centos7
 
 RUN yum update -y
-RUN yum install -y which wget unzip git make nc net-tools python3 java-11-openjdk-devel
+RUN yum install -y which wget zip unzip git make nc net-tools python3 java-11-openjdk-devel
 RUN yum install -y centos-release-scl-rh
-RUN yum install -y devtoolset-11-gcc devtoolset-11-gcc-c++ 
+RUN yum install -y devtoolset-11-gcc devtoolset-11-gcc-c++
+RUN yum install -y epel-release
+RUN yum install -y nginx
 
 # These are devtoolset-11 env for gcc11
 ENV PCP_DIR=/opt/rh/devtoolset-11/root
@@ -12,19 +14,19 @@ ENV PATH=$PCP_DIR/usr/bin:$PATH
 
 WORKDIR /
 
-RUN wget -O apache-ant-1.10.12-bin.tar.gz https://archive.apache.org/dist/ant/binaries/apache-ant-1.10.12-bin.tar.gz \
-  && tar zxf apache-ant-1.10.12-bin.tar.gz \
+COPY --chown=root ./apps/apache-ant-1.10.12-bin.tar.gz /
+RUN tar zxf apache-ant-1.10.12-bin.tar.gz \
   && mv apache-ant-1.10.12 /opt/ \
   && rm -f apache-ant-1.10.12-bin.tar.gz
 
-RUN wget -O ant-contrib-1.0b2-bin.tar.gz https://sourceforge.net/projects/ant-contrib/files/ant-contrib/ant-contrib-1.0b2/ant-contrib-1.0b2-bin.tar.gz/download \
-  && tar zxf ant-contrib-1.0b2-bin.tar.gz \
+COPY --chown=root ./apps/ant-contrib-1.0b2-bin.tar.gz /
+RUN tar zxf ant-contrib-1.0b2-bin.tar.gz \
   && cp -f ant-contrib/lib/ant-contrib.jar /opt/apache-ant-1.10.12/lib \
   && rm -rf ant-contrib \
   && rm -f ant-contrib-1.0b2-bin.tar.gz
 
-RUN wget -O astyle_3.1_linux.tar.gz https://sourceforge.net/projects/astyle/files/astyle/astyle%203.1/astyle_3.1_linux.tar.gz/download \
-  && tar zxf astyle_3.1_linux.tar.gz \
+COPY --chown=root ./apps/astyle_3.1_linux.tar.gz /
+RUN tar zxf astyle_3.1_linux.tar.gz \
   && cd /astyle/build/gcc \
   && make \
   && cp -f /astyle/build/gcc/bin/astyle /usr/local/bin/ \
@@ -33,11 +35,16 @@ RUN wget -O astyle_3.1_linux.tar.gz https://sourceforge.net/projects/astyle/file
   && rm -f astyle_3.1_linux.tar.gz
 
 RUN adduser -s /bin/bash apps
+
+RUN mkdir -p /var/lib/nginx/tmp /var/log/nginx \
+    && chown -R apps:apps /var/lib/nginx /var/log/nginx \
+    && chmod -R 755 /var/lib/nginx /var/log/nginx
+
 USER apps
 WORKDIR /home/apps
 
-RUN wget -O jboss-4.0.5.GA.zip https://sourceforge.net/projects/jboss/files/JBoss/JBoss-4.0.5.GA/jboss-4.0.5.GA.zip/download \
-  && unzip jboss-4.0.5.GA.zip \
+COPY --chown=apps ./apps/jboss-4.0.5.GA.zip /home/apps
+RUN unzip jboss-4.0.5.GA.zip \
   && rm -f jboss-4.0.5.GA.zip
 
 RUN ln -s /home/apps/jboss-4.0.5.GA /home/apps/jboss
@@ -75,5 +82,13 @@ RUN cd ~/dev/comp-eng/mpsqas-client \
   && ant package-applet
 
 COPY --chown=apps ./start-services.sh /home/apps/
+
+RUN mkdir -p /home/apps/applets
+RUN unzip /home/apps/dev/app/dist/admin-client.zip -d /home/apps/applets
+RUN unzip /home/apps/dev/comp-eng/arena-client/build/arena-client.zip -d /home/apps/applets
+RUN unzip /home/apps/dev/comp-eng/mpsqas-client/build/mpsqas-client.zip -d /home/apps/applets
+RUN zip -r -j applets.zip /home/apps/applets
+
+COPY --chown=apps ./nginx-applets.conf /home/apps/
 
 CMD ["/home/apps/start-services.sh"]

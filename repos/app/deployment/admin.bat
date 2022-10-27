@@ -6,7 +6,7 @@
 setLocal EnableDelayedExpansion
 
 SET CLASSPATH=.
-FOR /f %%I IN ('dir /b *.jar') DO (SET CLASSPATH=!CLASSPATH!;%%I)
+FOR /f %%I IN ('dir /b admin-client-combined-*.jar') DO (SET CLASSPATH=!CLASSPATH!;%%I)
 
 SET JAVACMD=java
 SET MAIN=com.topcoder.client.contestMonitor.view.gui.MonitorGUIMain

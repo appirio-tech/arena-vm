@@ -195,8 +195,8 @@ Environment variables for Listeners:
 - Start container for Farm Controller:
 
   ```yaml
-    arena-controller-dev:
-      image: "arena-app:dev"
+    arena-controller:
+      image: "tc-arena-app:latest"
       command: ["/home/apps/start-services.sh", "controller"]
       ports:
         - "25000:25000"
@@ -210,10 +210,10 @@ Environment variables for Listeners:
 - Start container for Farm Processor:
 
   ```yaml
-    arena-processor-dev:
-      image: "arena-app:dev"
+    arena-processor:
+      image: "tc-arena-app:latest"
       depends_on:
-        - arena-controller-dev
+        - arena-controller
       command: ["/home/apps/start-services.sh", "processor"]
       environment:
         - PROCESSOR_JAVA_OPTS=-Xms256m -Xmx1538m
@@ -226,10 +226,10 @@ Environment variables for Listeners:
 - Start container for JBoss:
 
   ```yaml
-    arena-jboss-dev:
-      image: "arena-app:dev"
+    arena-jboss:
+      image: "tc-arena-app:latest"
       depends_on:
-        - arena-controller-dev
+        - arena-controller
       command: ["/home/apps/start-services.sh", "jboss"]
       ports:
         - "1299:1299"
@@ -244,11 +244,11 @@ Environment variables for Listeners:
 - Start container for Listeners:
 
   ````yaml
-    arena-listeners-dev:
-      image: "arena-app:dev"
+    arena-listeners:
+      image: "tc-arena-app:latest"
       depends_on:
-        - arena-jboss-dev
-        - arena-controller-dev
+        - arena-jboss
+        - arena-controller
       command: ["/home/apps/start-services.sh", "listeners"]
       ports:
         - "5001:5001"
@@ -269,16 +269,26 @@ Environment variables for Listeners:
 - Start container for Websocket:
 
   ```yaml
-    arena-websocket-dev:
-      image: "arena-app:dev"
+    arena-websocket:
+      image: "tc-arena-app:latest"
       depends_on:
-        - arena-jboss-dev
-        - arena-controller-dev
+        - arena-jboss
+        - arena-controller
       command: ["/home/apps/start-services.sh", "websocket"]
       ports:
         - "7443:7443"
       environment:
         - WEBSOCKET_LISTENER_JAVA_OPTS=-Xms256m -Xmx1024m
+  ```
+
+- Start container for applets:
+
+  ```yaml
+    arena-applets:
+      image: "tc-arena-app:latest"
+      command: ["/home/apps/start-services.sh", "applets"]
+      ports:
+        - "8080:8080"
   ```
 
   
@@ -291,14 +301,14 @@ Assume you have 2 groups defined: `Group-One` and `Group-Two`, then you can star
 
 ```yaml
   arena-processor-group-one:
-    image: "arena-app:dev"
+    image: "tc-arena-app:latest"
     command: ["/home/apps/start-services.sh", "processor"]
     environment:
       - PROCESSOR_JAVA_OPTS=-Xms256m -Xmx1538m
       - PROCESSOR_GROUP_ID=Group-One
       - PROCESSOR_MAX_TASK_TIME=850000
   arena-processor-group-two:
-    image: "arena-app:dev"
+    image: "tc-arena-app:latest"
     command: ["/home/apps/start-services.sh", "processor"]
     environment:
       - PROCESSOR_JAVA_OPTS=-Xms256m -Xmx1538m
@@ -338,7 +348,7 @@ docker-compose up -d --scale arena-processor-group-two=10
 
   ```bash
   # Create a temp container without start it
-  docker create --name temp-arena-container arena-app:dev
+  docker create --name temp-arena-container tc-arena-app:latest
   # Copy processor-windows.tgz from temp container
   docker cp temp-arena-container:/home/apps/dev/app/dist/processor-windows.tgz .
   # Remove the temp container
@@ -359,48 +369,4 @@ docker-compose up -d --scale arena-processor-group-two=10
 
 ### Deploy Applets Clients
 
-There are 3 applets clients to deploy:
-
-| Applet Client | Built zip within Docker image                                |
-| ------------- | ------------------------------------------------------------ |
-| Admin client  | /home/apps/dev/app/dist/admin-client.zip                     |
-| Arena client  | /home/apps/dev/comp-eng/arena-client/build/arena-client.zip  |
-| MPSQAS client | /home/apps/dev/comp-eng/mpsqas-client/build/mpsqas-client.zip |
-
-You need deploy the jnlp file and jar file contained within each zip.
-
-For example, within `arena-client.zip`, there are `ContestAppletProd.jnlp` and `arena-client-combined-7.1.4.jar`.
-
-Use any text editor to view the jnlp file `ContestAppletProd.jnlp`, it's an xml format, notice the **href** attributes:
-
-```xml
-<?xml version="1.0" encoding="utf-8"?> 
-<jnlp spec="1.0+" codebase="https://www.topcoder.com" href="https://www.topcoder.com/contest/arena/ContestAppletProd.jnlp">
-   <information> 
-      <title>Competition Arena</title> 
-      <vendor>TopCoder, Inc.</vendor> 
-      <homepage href="https://www.topcoder.com"/> 
-      <description>TopCoder Contest Arena</description> 
-      <icon href="https://www.topcoder.com/images/favicon_new.gif"/> 
-   </information>
-   <security>
-      <all-permissions/>
-   </security>
-   <resources>
-      <j2se version="1.8+" max-heap-size="128m"/> 
-      <jar href="https://www.topcoder.com/contest/classes/7.0/arena-client-combined-7.1.4.jar" />
-   </resources>
-   
-   <application-desc main-class="com.topcoder.client.contestApplet.runner.generic"> 
-      <argument>www.topcoder.com</argument>
-      <argument>5001</argument>
-      <argument>https://www.topcoder.com:5008/dummy?t=true</argument>
-      <argument>TopCoder</argument>
-   </application-desc>
-</jnlp>
-```
-
-Then you need to:
-
-- Deploy the jnlp file `ContestAppletProd.jnlp` to URL: https://www.topcoder.com/contest/arena/ContestAppletProd.jnlp
-- Deploy the jar file `arena-client-combined-7.1.4.jar` to URL: https://www.topcoder.com/contest/classes/7.0/arena-client-combined-7.1.4.jar
+The applets docker container starts a HTTP server at port 8080, and all the jnlp & jar files are served at path `/contest/arena/`.

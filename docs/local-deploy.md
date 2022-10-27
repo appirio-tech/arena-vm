@@ -53,6 +53,12 @@ docker-compose logs -f arena-websocket
 # Wait following log then arena-websocket is started succcessfully
 # arena-websocket         | WebSocket Server startup complete
 
+# Start arena-applets
+docker-compose up -d arena-applets
+docker-compose logs -f arena-applets
+# Wait following log then arena-applets is started succcessfully
+# arena-applets           | Applets Clients startup complete
+
 # Start arena-nginx
 docker-compose up -d arena-nginx
 docker-compose logs -f arena-nginx
@@ -200,20 +206,19 @@ keytool -importcert -noprompt -storepass changeit -alias arena-local-crt -file .
 keytool -delete -noprompt -storepass changeit -alias arena-local-crt -cacerts
 ```
 
+Copy built applets from docker:
 
+```bash
+docker cp arena-applets:/home/apps/applets.zip .
+unzip applets.zip -d applets
+cd applets
+```
 
 - Start mpsqas client:
 
 
 ```bash
-# Copy built mpsqas client from docker
-docker cp arena-listeners:/home/apps/dev/comp-eng/mpsqas-client/build/mpsqas-client.zip .
-
-# Unzip
-unzip mpsqas-client.zip -d mpsqas-client
-
 # Run mpsqas client
-cd mpsqas-client
 sh mpsqas.sh
 
 # Then login with lightspeed/password
@@ -223,14 +228,7 @@ sh mpsqas.sh
 
 
 ```bash
-# Copy built admin client from docker
-docker cp arena-listeners:/home/apps/dev/app/dist/admin-client.zip .
-
-# Unzip
-unzip admin-client.zip -d admin-client
-
 # Run admin client
-cd admin-client
 sh admin.sh
 
 # Then login with heffan/password
@@ -240,14 +238,7 @@ sh admin.sh
 
 
 ```bash
-# Copy built arena client from docker
-docker cp arena-listeners:/home/apps/dev/comp-eng/arena-client/build/arena-client.zip .
-
-# Unzip
-unzip arena-client.zip -d arena-client
-
 # Run arena client
-cd arena-client
 sh arena.sh
 
 # Then login with twight/password

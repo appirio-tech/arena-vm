@@ -19,7 +19,7 @@ if [[ -z "${JBOSS_JAVA_OPTS}" ]] ; then
 fi
 JBOSS_JAVA_OPTS="$JBOSS_JAVA_OPTS -Djavax.net.ssl.trustStore=TC.cloud.ldap.keystore"
 
-echo "nohup java ${JBOSS_JAVA_OPTS} $ENDORSED_DIR -classpath $JBOSS_HOME/bin/run.jar:$CP org.jboss.Main &"
+echo "nohup java ${JBOSS_JAVA_OPTS} $CUSTOM_SECURITY $ENDORSED_DIR -classpath $JBOSS_HOME/bin/run.jar:$CP org.jboss.Main &"
 nohup java ${JBOSS_JAVA_OPTS} $CUSTOM_SECURITY $ENDORSED_DIR -classpath $JBOSS_HOME/bin/run.jar:$CP org.jboss.Main &
 
 exit
