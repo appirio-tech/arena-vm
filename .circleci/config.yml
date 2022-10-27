@@ -76,6 +76,12 @@ build_steps: &build_steps
           source buildenvvar
           ./master_deploy.sh -d ECS -e $DEPLOY_ENV -t latest -s ${LOGICAL_ENV}-${APPWEBSOCKET}-appvar -i ${APPNAME}
 
+          echo "======= Running Masterscript - deploy arena app client ==========="
+          if [ -e buildenvvar ]; then rm -vf buildenvvar; fi          
+          ./buildenv.sh -e $DEPLOY_ENV -b ${LOGICAL_ENV}-${APPCLIENT}-deployvar
+          source buildenvvar
+          ./master_deploy.sh -d ECS -e $DEPLOY_ENV -t latest -s ${LOGICAL_ENV}-${APPCLIENT}-appvar -i ${APPNAME}          
+
 jobs:
   # Build & Deploy against development backend 
   "build-dev":
@@ -90,7 +96,8 @@ jobs:
       APPPROCESSOR: "tc-arena-app-processor"
       APPCONTROLLER: "tc-arena-app-controller"     
       APPLISTENER: "tc-arena-app-listeners"
-      APPWEBSOCKET: "tc-arena-app-websocket"          
+      APPWEBSOCKET: "tc-arena-app-websocket" 
+      APPCLIENT: "tc-arena-app-client"         
     steps: *build_steps
 
   "build-prod":
@@ -105,7 +112,8 @@ jobs:
       APPPROCESSOR: "tc-arena-app-processor"  
       APPCONTROLLER: "tc-arena-app-controller"    
       APPLISTENER: "tc-arena-app-listeners"
-      APPWEBSOCKET: "tc-arena-app-websocket"                                 
+      APPWEBSOCKET: "tc-arena-app-websocket" 
+      APPCLIENT: "tc-arena-app-client"                                        
     steps: *build_steps   
 
 workflows:

@@ -65,12 +65,6 @@ if [[ $1 != "" ]] ; then
 	shift
 fi
 
-CUSTOM_SECURITY=""
-if [ "$JAVA_VER" -ge 52 ] ; then
-  echo "Use custom.security for JDK >= 1.8"
-  CUSTOM_SECURITY="-Djava.security.properties=custom.security"
-fi
-
 if [[ -z "${ADMIN_LISTENER_JAVA_OPTS}" ]] ; then
 	ADMIN_LISTENER_JAVA_OPTS="-Xms1024m -Xmx2048m"
 fi
@@ -79,10 +73,10 @@ LOGGING_ID=AdminListener.$PORT
 LOGGING_PROPERTY=com.topcoder.logging.id
 
 if [ "$CMD" = "run" ] ; then
-    $JAVACMD -cp $CP $ADMIN_LISTENER_JAVA_OPTS $CUSTOM_SECURITY -D$LOGGING_PROPERTY=$LOGGING_ID $MAIN $PORT $CONTEST $@
+    $JAVACMD -cp $CP $ADMIN_LISTENER_JAVA_OPTS -D$LOGGING_PROPERTY=$LOGGING_ID $MAIN $PORT $CONTEST $@
 elif [ "$CMD" = "start" ] ; then
-    echo "nohup $JAVACMD -cp $CP $ADMIN_LISTENER_JAVA_OPTS $CUSTOM_SECURITY -D$LOGGING_PROPERTY=$LOGGING_ID $MAIN $PORT $CONTEST $@ 2>&1 &"
-    nohup $JAVACMD -cp $CP $ADMIN_LISTENER_JAVA_OPTS $CUSTOM_SECURITY -D$LOGGING_PROPERTY=$LOGGING_ID $MAIN $PORT $CONTEST $@ 2>&1 &
+    echo "nohup $JAVACMD -cp $CP $ADMIN_LISTENER_JAVA_OPTS -D$LOGGING_PROPERTY=$LOGGING_ID $MAIN $PORT $CONTEST $@ 2>&1 &"
+    nohup $JAVACMD -cp $CP $ADMIN_LISTENER_JAVA_OPTS -D$LOGGING_PROPERTY=$LOGGING_ID $MAIN $PORT $CONTEST $@ 2>&1 &
     echo $! > $PID_FILE
 	echo "start, port=$PORT, contest=$CONTEST, ADMIN_LISTENER_JAVA_OPTS=$ADMIN_LISTENER_JAVA_OPTS"
 elif [ "$CMD" = "stop" ] ; then

@@ -90,6 +90,12 @@ elif [ "$CMD" = "processor" ] ; then
 	sleep 5
 
 	echo Arena Farm Processor startup complete
+elif [ "$CMD" = "applets" ] ; then
+    echo Starting Http Server For Applets Clients...
+
+    nginx -c /home/apps/nginx-applets.conf
+
+    echo Applets Clients startup complete
 else
     echo "Usage:"
     echo "start-services.sh (app|processor)"
