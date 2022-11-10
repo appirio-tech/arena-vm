@@ -5,10 +5,11 @@
   <component name="root_panel" class="com.topcoder.client.ui.impl.component.UIPanel">
    <property name="background" value="0x000000" parser="com.topcoder.client.ui.parser.ColorParser"/>
    <component name="sponsor_panel" class="com.topcoder.client.ui.impl.component.UIPanel">
-    <constraints gridx="0" gridy="0" gridwidth="3" gridheight="1" fill="none" anchor="center" insets="5,5,5,5" ipadx="0" ipady="0" weightx="0.1" weighty="0.1"/>
+    <constraints gridx="0" gridy="0" gridwidth="3" gridheight="1" fill="none" anchor="center" insets="5,100,5,5" ipadx="0" ipady="0" weightx="0.1" weighty="0.1"/>
     <property name="opaque" value="false" parser="com.topcoder.client.ui.parser.BooleanParser"/>
     <component name="sponsor_logo" class="com.topcoder.client.ui.impl.component.UILabel">
      <!-- Required -->
+     <property name="icon" value="com/topcoder/client/contestApplet/images/topcoder-horizontal-white.png" parser="com.topcoder.client.ui.parser.ImageIconFromResource"/>
      <property name="minimumsize" value="300,60" parser="com.topcoder.client.ui.parser.DimensionParser"/>
      <property name="preferredsize" value="300,60" parser="com.topcoder.client.ui.parser.DimensionParser"/>
      <property name="maximumsize" value="300,60" parser="com.topcoder.client.ui.parser.DimensionParser"/>
@@ -135,17 +136,13 @@
      <property name="tooltiptext" value="Register for a username/password"/>
     </component>
    </component>
-   <component name="legalese" class="com.topcoder.client.ui.impl.component.UITextArea">
+   <component name="legalese" class="com.topcoder.client.ui.impl.component.UITextPane">
     <!-- Required -->
-    <constraints gridx="0" gridy="3" gridwidth="3" gridheight="1" fill="both" anchor="south" insets="5,25,5,25" ipadx="0" ipady="0" weightx="0" weighty="0.2"/>
+    <constraints gridx="0" gridy="3" gridwidth="3" gridheight="1" fill="both" anchor="south" insets="5,23,5,23" ipadx="0" ipady="0" weightx="0" weighty="0.2"/>
     <property name="editable" value="false" parser="com.topcoder.client.ui.parser.BooleanParser"/>
-    <property name="linewrap" value="true" parser="com.topcoder.client.ui.parser.BooleanParser"/>
-    <property name="wrapstyleword" value="true" parser="com.topcoder.client.ui.parser.BooleanParser"/>
     <property name="foreground" value="0xFFFFFF" parser="com.topcoder.client.ui.parser.ColorParser"/>
     <property name="background" value="0x000000" parser="com.topcoder.client.ui.parser.ColorParser"/>
-    <property name="preferredsize" value="0,0" parser="com.topcoder.client.ui.parser.DimensionParser"/>
-    <property name="columns" value="40" parser="com.topcoder.client.ui.parser.NumberParser"/>
-    <property name="rows" value="5" parser="com.topcoder.client.ui.parser.NumberParser"/>
+    <property name="contenttype" value="text/html"/>
    </component>
    <component name="legalese3" class="com.topcoder.client.ui.impl.component.UITextField">
     <!-- Required -->
