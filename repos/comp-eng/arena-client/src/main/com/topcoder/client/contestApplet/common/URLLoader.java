@@ -12,6 +12,13 @@ public class URLLoader {
         } catch (Throwable t) {
             //        t.printStackTrace();
         }
+        try {
+            if (!shown && java.awt.Desktop.isDesktopSupported()) {
+            	java.awt.Desktop.getDesktop().browse(url.toURI());
+            	shown = true;
+            }
+        } catch (Throwable t) {
+        }
         return shown;
     }
 }

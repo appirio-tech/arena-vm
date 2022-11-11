@@ -10,6 +10,7 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.Year;
 
 import javax.swing.JPanel;
 import javax.swing.event.DocumentEvent;
@@ -99,7 +100,7 @@ public abstract class BaseLoginRoom extends RoomModule {
 
         // Set properties
         legalese.setProperty("text",  getLegaleseText());
-        legalese2.setProperty("text", "All content on the website and in the arena (c)2003 TopCoder, Inc.  All Rights Reserved");
+        legalese2.setProperty("text", "All content on the website and in the arena Copyright 2003-" + Year.now().getValue() + " Topcoder, Inc.  All Rights Reserved");
         legalese3.setProperty("text", "Protected by U.S. patent number 6,569,012");
         versioning.setProperty("text", "Arena Applet version " + CommonData.CURRENT_VERSION + " (" + CommonData.UPDATE_DATE + ")");
         create();
@@ -216,7 +217,7 @@ public abstract class BaseLoginRoom extends RoomModule {
             }
         };
 
-        sponsorPanel = new ContestSponsorPanel(page.getComponent("sponsor_logo"), CommonData.getSponsorLoginImageAddr(getSponsorCompany()));
+//        sponsorPanel = new ContestSponsorPanel(page.getComponent("sponsor_logo"), CommonData.getSponsorLoginImageAddr(getSponsorCompany()));
     }
 
 
