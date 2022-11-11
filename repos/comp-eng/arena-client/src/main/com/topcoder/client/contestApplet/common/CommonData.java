@@ -264,18 +264,18 @@ public final class CommonData {
     public static final String UPDATE_DATE = VERSIONS.getProperty("updateDate","N/A");
     
     public static int[] parseVersion(String version) {
-        String[] r = version.split("\\.");
+        String[] r = version.split("[\\.-]");
         int[] ret = new int[r.length];
         for(int i = 0; i < r.length; i++) {
             ret[i] = Integer.parseInt(r[i]);
         }
         return ret;
     }
-    
+
     public static boolean isVersionCurrent(String newVersion) {
         return isVersionCurrent(parseVersion(CURRENT_VERSION), parseVersion(newVersion));
     }
-    
+
     public static boolean isVersionCurrent(int[] currentVersion, int[] newVersion) {
         for(int i = 0; i < currentVersion.length; i++) {
             if(i >= newVersion.length)
