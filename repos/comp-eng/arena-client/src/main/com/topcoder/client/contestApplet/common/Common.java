@@ -101,7 +101,7 @@ public class Common {
     public static final String URL_API = "";
     public static final String URL_MAN = "http://" + SERVER_NAME + "/tc?module=Static&d1=help&d2=competitionFaq";
     public static final String URL_PLUGINS = "http://" + SERVER_NAME + "/tc?module=Static&d1=applet&d2=plugins";
-    public static final String URL_REG = "http://" + SERVER_NAME + "/reg/";
+    public static final String URL_REG = "https://accounts-auth0.topcoder.com/?retUrl=https%3A%2F%2Fplatform.topcoder.com%2Fonboard&mode=signUp";
     public static final String URL_REG_HS = "http://" + HIGHSCHOOL_SERVER_NAME + "?module=Static&d1=registration&d2=registration";
     
     // May 15, 2013 -- all 3 links should point to http://apps.topcoder.com/wiki/display/tc/The+TopCoder+Platform+-+Software+Application+Development+Methodology
