@@ -101,7 +101,7 @@ public abstract class BaseLoginRoom extends RoomModule {
         // Set properties
         legalese.setProperty("text",  getLegaleseText());
         legalese2.setProperty("text", "All content on the website and in the arena Copyright 2003-" + Year.now().getValue() + " Topcoder, Inc.  All Rights Reserved");
-        legalese3.setProperty("text", "Protected by U.S. patent number 6,569,012");
+        legalese3.setProperty("text", "Protected by U.S. patents 8,021,221, 8,137,172, 9,218,746, 8,127,268, 8,909,541, and 9,087,308");
         versioning.setProperty("text", "Arena Applet version " + CommonData.CURRENT_VERSION + " (" + CommonData.UPDATE_DATE + ")");
         create();
     }
