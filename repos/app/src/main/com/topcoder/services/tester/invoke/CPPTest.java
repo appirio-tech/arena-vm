@@ -204,9 +204,9 @@ public final class CPPTest {
          * This is we want to let execution time more than the setting value
          * Because we need to give time for handling the large input data
          */
-        argv.add(String.valueOf(executionTimeLimit + Integer.parseInt(BaseTester.DEFAULT_EXTRA_EXECUTION_TIME)));
+        argv.add(String.valueOf(executionTimeLimit + BaseTester.DEFAULT_EXTRA_EXECUTION_TIME));
         argv.add("--maxwall");
-        argv.add(String.valueOf(executionTimeLimit + Integer.parseInt(BaseTester.DEFAULT_EXTRA_EXECUTION_TIME)));
+        argv.add(String.valueOf(executionTimeLimit + BaseTester.DEFAULT_EXTRA_EXECUTION_TIME));
         //add memory limit.
         argv.add("--maxmem");
         argv.add(String.valueOf(memLimit));
@@ -222,7 +222,7 @@ public final class CPPTest {
         /**
          * exec wrapper should not end before execution time limit
          */
-        ExecWrapper ew = new ExecWrapper(argv.toArray(new String[0]), null, path, packed.toString(), executionTimeLimit + 25000, Formatter.MAX_USER_STRING);
+        ExecWrapper ew = new ExecWrapper(argv.toArray(new String[0]), null, path, packed.toString(), executionTimeLimit + BaseTester.DEFAULT_EXTRA_EXECUTION_TIME, Formatter.MAX_USER_STRING);
         logger.info("After ExecWrapper");
         logger.info(argv.toString() + " " + path + " " + Formatter.MAX_USER_STRING);
         tester_success = false;
