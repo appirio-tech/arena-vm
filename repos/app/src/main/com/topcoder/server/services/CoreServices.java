@@ -474,18 +474,20 @@ public final class CoreServices {
         info("Refreshing round: " + roundID);
         try {
             // get the lock
-            getContestRound(roundID, true);
+        	Round oldRound = getContestRound(roundID, true);
             Round round = getContestRoundFromDb(roundID);
+            round.setActive(oldRound.isActive());
+            round.setActiveMenu(oldRound.getActiveMenu());
 
             // save it back to the cache
             saveToCache(round.getCacheKey(), round);
 
-            synchronized (activeRounds) {
-                if (activeRounds.contains(new Long(roundID))) {
-                    // Flush round room strong references
-                    addRoundRef(roundID);
-                }
-            }
+//            synchronized (activeRounds) {
+//                if (activeRounds.contains(new Long(roundID))) {
+//                    // Flush round room strong references
+//                    addRoundRef(roundID);
+//                }
+//            }
                 
             getRegistration(roundID, true);
             Registration reg = s_dbServices.getRegistration(roundID);
@@ -2242,12 +2244,12 @@ public final class CoreServices {
         contest.setActive(oldRound.isActive());
         contest.setActiveMenu(oldRound.getActiveMenu());
         saveToCache(contest.getCacheKey(), contest);
-
-        synchronized (activeRounds) {
-            if (activeRounds.contains(roundID)) {
-                addRoundRef(roundID.intValue());
-            }
-        }
+//
+//        synchronized (activeRounds) {
+//            if (activeRounds.contains(roundID)) {
+//                addRoundRef(roundID.intValue());
+//            }
+//        }
 
         return contest;
     }

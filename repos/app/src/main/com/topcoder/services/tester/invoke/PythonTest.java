@@ -236,7 +236,7 @@ public final class PythonTest {
         /**
          * exec wrapper should not end before execution time limit
          */
-        ExecWrapper ew = new ExecWrapper(argv.toArray(new String[0]), null, path, packed.toString(), executionTimeLimit + 25000, Formatter.MAX_USER_STRING);
+        ExecWrapper ew = new ExecWrapper(argv.toArray(new String[0]), null, path, packed.toString(), executionTimeLimit + BaseTester.DEFAULT_EXTRA_EXECUTION_TIME, Formatter.MAX_USER_STRING);
         logger.info("After ExecWrapper");
         logger.info(argv.toString() + " " + path + " " + Formatter.MAX_USER_STRING);
         tester_success = false;

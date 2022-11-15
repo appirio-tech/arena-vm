@@ -46,7 +46,7 @@ public abstract class BaseTester {
      * </p>
      * @since 1.1
      */
-    public static final String DEFAULT_EXTRA_EXECUTION_TIME = System.getProperty("com.topcoder.services.tester.BaseTester.default_extra_execution_time","5000");
+    public static final int DEFAULT_EXTRA_EXECUTION_TIME = Integer.parseInt(System.getProperty("com.topcoder.services.tester.BaseTester.default_extra_execution_time","5000"));
 
     /**
      * Runs a test using the attributes provided in <code>testRequest</code>.

@@ -53,9 +53,14 @@ if [[ -z "${PROCESSOR_JAVA_OPTS}" ]] ; then
 	PROCESSOR_JAVA_OPTS="-Xms1024m -Xmx2048m"
 fi
 
+if [[ -z "${PROCESSOR_EXTRA_EXECUTION_TIME}" ]] ; then
+	PROCESSOR_EXTRA_EXECUTION_TIME="5000"
+fi
+
 echo "CONFIG_URL=$CONFIG_URL"
 echo "PROCESSOR_GROUP_ID=$PROCESSOR_GROUP_ID"
 echo "PROCESSOR_MAX_TASK_TIME=$PROCESSOR_MAX_TASK_TIME"
+echo "PROCESSOR_EXTRA_EXECUTION_TIME=$PROCESSOR_EXTRA_EXECUTION_TIME"
 echo "PROCESSOR_JAVA_OPTS=$PROCESSOR_JAVA_OPTS"
 
 nohup java -cp $CP $PROCESSOR_JAVA_OPTS \
@@ -65,7 +70,7 @@ nohup java -cp $CP $PROCESSOR_JAVA_OPTS \
   -Dcom.topcoder.commandline.io.port=15968 \
   -Dconfiguration.xml.url=$CONFIG_URL \
   -DconfigurationProvider.class=com.topcoder.farm.processor.configuration.XMLConfigurationProvider \
-  -Dcom.topcoder.services.tester.BaseTester.default_extra_execution_time=5000 \
+  -Dcom.topcoder.services.tester.BaseTester.default_extra_execution_time=$PROCESSOR_EXTRA_EXECUTION_TIME \
   -Dcom.topcoder.services.tester.type.longtest.FarmLongTester.keepResultFolder=false \
   -Dcom.topcoder.services.tester.type.longtest.FarmLongTester.analyzeLog=false \
   -Dcom.topcoder.services.compiler.invoke.CPPCodeCompiler.srmCCNoThreadingOptions="g++ -std=c++17 -W -Wall -Wno-sign-compare -O2" \

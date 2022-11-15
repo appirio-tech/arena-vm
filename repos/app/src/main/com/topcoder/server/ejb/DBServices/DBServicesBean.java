@@ -5659,6 +5659,7 @@ public class DBServicesBean extends BaseEJB {
             throw new EJBException(e.toString());
         } finally {
             close(conn, ps, null);
+            close(dwConn, null, null);
         }
 
         s_trace.debug("End assignRooms: contestId = " + contestId + ", roundId = " + roundId);
