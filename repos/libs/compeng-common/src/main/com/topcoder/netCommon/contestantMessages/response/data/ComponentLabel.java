@@ -157,8 +157,8 @@ public class ComponentLabel implements Serializable, Cloneable, CustomSerializab
     }
 
     public String toString() {
-        return "ProblemLabel[problemID=" + problemID + ",componentID=" + componentID + ",className=" + className
-            + ",points=" + pointValue + ",divisionID=" + divisionID + ",componentTypeID=" + componentTypeID + "]";
+        return "ComponentLabel[problemID=" + problemID + ",componentID=" + componentID + ",className=" + className
+            + ",points=" + pointValue + ",divisionID=" + divisionID + ",componentTypeID=" + componentTypeID + ",componentChallengeData=" + componentChallengeData + "]";
     }
 
     public int compareTo(Object o) {

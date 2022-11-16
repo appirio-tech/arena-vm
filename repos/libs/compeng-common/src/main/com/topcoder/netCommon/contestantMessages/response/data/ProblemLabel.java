@@ -8,6 +8,8 @@ import com.topcoder.shared.netCommon.CSReader;
 import com.topcoder.shared.netCommon.CSWriter;
 import com.topcoder.shared.netCommon.CustomSerializable;
 
+import java.util.Arrays;
+
 /**
  * Defines non-sensitive information of a problem assigned to a division of a round. The sensitive information such as
  * problem statement, example test cases is not available, and should be available to users assigned to the contest room
@@ -129,7 +131,7 @@ public final class ProblemLabel implements Serializable, Cloneable, CustomSerial
     }
 
     public String toString() {
-        return "ProblemLabel[problemID=" + problemID + ",name=" + name + ",divisionID=" + divisionID + "problemTypeID="
-            + problemTypeID + "]";
+        return "ProblemLabel[problemID=" + problemID + ",name=" + name + ",divisionID=" + divisionID + ",problemTypeID="
+            + problemTypeID + ", components=" + (components == null ? null : Arrays.asList(components))+ "]";
     }
 }

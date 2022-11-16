@@ -58,6 +58,7 @@ public class TimeLine {
             intermissionLabel.setProperty("visible", Boolean.FALSE);
             challengeLabel.setProperty("visible", Boolean.FALSE);
             systemLabel.setProperty("visible", Boolean.FALSE);
+            practiceLabel.setProperty("visible", Boolean.FALSE);
             break;
         case ContestConstants.CODING_PHASE:
             if (isPracticeRound) {
