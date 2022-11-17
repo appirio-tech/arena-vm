@@ -66,7 +66,7 @@ def readDouble(fd):
 
 def readLong(fd):
 	ret = readString(fd)
-	return long(ret)
+	return int(ret)
 
 def readChar(fd):
 	return readString(fd)
@@ -104,11 +104,11 @@ def readLongArray(fd):
 	
 	return tuple(ret)
 	
-def readFloatArray(fd):
+def readDoubleArray(fd):
 	ret = []
 	size = readInt(fd)
 	for i in range(size):
-		ret.append(readLong(fd))
+		ret.append(readDouble(fd))
 	
 	return tuple(ret)
 	
@@ -130,7 +130,7 @@ def writeDouble(fd, ret):
 	writeResults(fd, float(ret))
 
 def writeLong(fd, ret):
-	writeResults(fd, long(ret))
+	writeResults(fd, int(ret))
 
 def writeChar(fd, ret):
 	writeResults(fd, ret)
@@ -158,7 +158,7 @@ def writeLongArray(fd, ret):
 	r = []
 	a = tuple(ret)
 	for i in range(len(a)):
-		r.append(long(a[i]))
+		r.append(int(a[i]))
 	
 	writeResults(fd, tuple(r))
 		

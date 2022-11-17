@@ -119,11 +119,11 @@ def readLongArray(fd):
 	
 	return tuple(ret)
 	
-def readFloatArray(fd):
+def readDoubleArray(fd):
 	ret = []
 	size = readInt(fd)
 	for i in range(size):
-		ret.append(readLong(fd))
+		ret.append(readDouble(fd))
 	
 	return tuple(ret)
 	

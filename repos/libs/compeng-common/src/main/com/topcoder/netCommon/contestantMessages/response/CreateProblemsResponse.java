@@ -8,6 +8,8 @@ import com.topcoder.netCommon.contestantMessages.response.data.ProblemLabel;
 import com.topcoder.shared.netCommon.CSReader;
 import com.topcoder.shared.netCommon.CSWriter;
 
+import java.util.Arrays;
+
 /**
  * Defines a response to send the information of all problems assigned to a division of a round. If the round is a team
  * round, the assigned problem components to the current user is also sent to the client.<br>
@@ -112,7 +114,14 @@ public class CreateProblemsResponse extends BaseResponse {
         if (problems == null) {
             ret.append("null");
         } else {
-            ret.append(problems.toString());
+            ret.append(Arrays.asList(problems).toString());
+        }
+        ret.append(", ");
+        ret.append("assignedComponents = ");
+        if (assignedComponents == null) {
+            ret.append("null");
+        } else {
+            ret.append(Arrays.asList(assignedComponents).toString());
         }
         ret.append(", ");
         ret.append("roundID = " + roundID);
