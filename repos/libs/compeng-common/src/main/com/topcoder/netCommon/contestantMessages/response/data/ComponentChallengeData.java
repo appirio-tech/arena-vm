@@ -8,6 +8,8 @@ import com.topcoder.shared.netCommon.CSWriter;
 import com.topcoder.shared.netCommon.CustomSerializable;
 import com.topcoder.shared.problem.DataType;
 
+import java.util.Arrays;
+
 /**
  * Defines the information needed to challenge a team problem component, including the param types, method name, and
  * class name of the component being challenged. This is needed because for team problems, challenging a component
@@ -98,5 +100,9 @@ public class ComponentChallengeData implements CustomSerializable {
         methodName = reader.readString();
         paramTypes = (DataType[]) reader.readObjectArray(DataType.class);
         componentID = reader.readInt();
+    }
+
+    public String toString() {
+    	return "ComponentChallengeData[className=" + className + ", methodName=" + methodName + ", componentID=" + componentID + ", paramTypes=" + (paramTypes == null ? null : Arrays.asList(paramTypes)) + "]";
     }
 }
