@@ -15,11 +15,6 @@ RUN yum install -y nginx
 RUN yum install -y dotnet-sdk-6.0-6.0.113-1.fc37
 RUN yum install -y v8-devel
 
-# These are devtoolset-11 env for gcc11
-#ENV PCP_DIR=/opt/rh/devtoolset-11/root
-#ENV LD_LIBRARY_PATH=$PCP_DIR/usr/lib64:$PCP_DIR/usr/lib:$PCP_DIR/usr/lib64/dyninst:$PCP_DIR/usr/lib/dyninst
-#ENV PATH=$PCP_DIR/usr/bin:$PATH
-
 WORKDIR /
 
 COPY --chown=root ./apps/apache-ant-1.10.12-bin.tar.gz /
@@ -32,15 +27,6 @@ RUN tar zxf ant-contrib-1.0b2-bin.tar.gz \
   && cp -f ant-contrib/lib/ant-contrib.jar /opt/apache-ant-1.10.12/lib \
   && rm -rf ant-contrib \
   && rm -f ant-contrib-1.0b2-bin.tar.gz
-
-#COPY --chown=root ./apps/astyle_3.1_linux.tar.gz /
-#RUN tar zxf astyle_3.1_linux.tar.gz \
-#  && cd /astyle/build/gcc \
-#  && make \
-#  && cp -f /astyle/build/gcc/bin/astyle /usr/local/bin/ \
-#  && cd / \
-#  && rm -rf astyle \
-#  && rm -f astyle_3.1_linux.tar.gz
 
 RUN adduser -s /bin/bash apps
 
