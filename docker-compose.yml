@@ -10,7 +10,7 @@ services:
       - "2021:2021"
     tty: true
   arena-mysql:
-    image: mysql:5.7
+    image: mysql/mysql-server:8.0.23
     cap_add:
       - SYS_NICE
     volumes:
