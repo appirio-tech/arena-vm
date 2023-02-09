@@ -1,11 +1,22 @@
-FROM centos:centos7
+FROM fedora
 
 RUN yum update -y
 RUN yum install -y which wget zip unzip git make nc net-tools python3 java-11-openjdk-devel
-RUN yum install -y centos-release-scl-rh
 RUN yum install -y devtoolset-11-gcc devtoolset-11-gcc-c++
 RUN yum install -y epel-release
 RUN yum install -y nginx
+RUN yum install -y dotnet-sdk-6.0-6.0.113-1.fc37
+
+# depot tools
+RUN git config --global user.name "Topcoder" && git config --global user.email "support@topcoder.com"
+RUN git config --global core.autocrlf false && git config --global core.filemode false
+# get v8
+RUN git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
+ENV PATH="/depot_tools:$PATH"
+RUN mkdir chr && cd chr
+#RUN fetch chromium
+#RUN cd src && ./build/install-build-deps.sh
+#RUN gclient sync
 
 # These are devtoolset-11 env for gcc11
 ENV PCP_DIR=/opt/rh/devtoolset-11/root
