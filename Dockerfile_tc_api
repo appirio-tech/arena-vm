@@ -1,4 +1,4 @@
-FROM node:14-alpine
+FROM node
 
 RUN mkdir -p /mock-tc-api
 COPY ./mock-tc-api/ /mock-tc-api/
