@@ -1,16 +1,19 @@
-FROM centos:centos7
+FROM fedora
 
 RUN yum update -y
-RUN yum install -y which wget zip unzip git make nc net-tools python3 java-11-openjdk-devel
-RUN yum install -y centos-release-scl-rh
-RUN yum install -y devtoolset-11-gcc devtoolset-11-gcc-c++
-RUN yum install -y epel-release
+RUN yum install -y which
+RUN yum install -y wget
+RUN yum install -y zip
+RUN yum install -y unzip
+RUN yum install -y git
+RUN yum install -y make
+RUN yum install -y nc
+RUN yum install -y net-tools
+RUN yum install -y python3
+RUN yum install -y java-11-openjdk-devel
 RUN yum install -y nginx
-
-# These are devtoolset-11 env for gcc11
-ENV PCP_DIR=/opt/rh/devtoolset-11/root
-ENV LD_LIBRARY_PATH=$PCP_DIR/usr/lib64:$PCP_DIR/usr/lib:$PCP_DIR/usr/lib64/dyninst:$PCP_DIR/usr/lib/dyninst
-ENV PATH=$PCP_DIR/usr/bin:$PATH
+RUN yum install -y dotnet-sdk-6.0-6.0.113-1.fc37
+RUN yum install -y v8-devel
 
 WORKDIR /
 
@@ -24,15 +27,6 @@ RUN tar zxf ant-contrib-1.0b2-bin.tar.gz \
   && cp -f ant-contrib/lib/ant-contrib.jar /opt/apache-ant-1.10.12/lib \
   && rm -rf ant-contrib \
   && rm -f ant-contrib-1.0b2-bin.tar.gz
-
-COPY --chown=root ./apps/astyle_3.1_linux.tar.gz /
-RUN tar zxf astyle_3.1_linux.tar.gz \
-  && cd /astyle/build/gcc \
-  && make \
-  && cp -f /astyle/build/gcc/bin/astyle /usr/local/bin/ \
-  && cd / \
-  && rm -rf astyle \
-  && rm -f astyle_3.1_linux.tar.gz
 
 RUN adduser -s /bin/bash apps
 
