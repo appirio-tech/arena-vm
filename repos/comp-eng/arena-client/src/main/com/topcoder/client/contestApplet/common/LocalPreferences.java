@@ -251,6 +251,12 @@ public final class LocalPreferences {
     public final static String SUMMARYPYTHON3SYSPASSED = "com.topcoder.client.contestApplet.common.LocalPreferences.summarypython3syspassed";
     public final static String SUMMARYPYTHON3SYSFAILED = "com.topcoder.client.contestApplet.common.LocalPreferences.summarypython3sysfailed";
 
+    public final static String SUMMARYJAVASCRIPTPOINTS = "com.topcoder.client.contestApplet.common.LocalPreferences.summaryjavascriptpoints";
+    public final static String SUMMARYJAVASCRIPTCHLPASSED = "com.topcoder.client.contestApplet.common.LocalPreferences.summaryjavascriptchlpassed";
+    public final static String SUMMARYJAVASCRIPTCHLFAILED = "com.topcoder.client.contestApplet.common.LocalPreferences.summaryjavascriptchlfailed";
+    public final static String SUMMARYJAVASCRIPTSYSPASSED = "com.topcoder.client.contestApplet.common.LocalPreferences.summaryjavascriptsyspassed";
+    public final static String SUMMARYJAVASCRIPTSYSFAILED = "com.topcoder.client.contestApplet.common.LocalPreferences.summaryjavascriptsysfailed";
+
     public final static String UNUSEDCODECHECK = "com.topcoder.client.contestApplet.common.LocalPreferences.UnusedCodeCheckEnabled";
 
     public final static String ATTRIBUTECOLOR = "color";
@@ -619,6 +625,14 @@ public final class LocalPreferences {
         if (type.startsWith(SUMMARYPYTHON3CHLFAILED)) return python3Color;
         if (type.startsWith(SUMMARYPYTHON3SYSPASSED)) return python3Color;
         if (type.startsWith(SUMMARYPYTHON3SYSFAILED)) return new Color(255,0,51);
+
+        // same as python 3 colors
+        Color javascriptColor = new Color(255,150,50);
+        if (type.startsWith(SUMMARYJAVASCRIPTPOINTS)) return javascriptColor;
+        if (type.startsWith(SUMMARYJAVASCRIPTCHLPASSED)) return javascriptColor;
+        if (type.startsWith(SUMMARYJAVASCRIPTCHLFAILED)) return javascriptColor;
+        if (type.startsWith(SUMMARYJAVASCRIPTSYSPASSED)) return javascriptColor;
+        if (type.startsWith(SUMMARYJAVASCRIPTSYSFAILED)) return new Color(255,0,51);
 
         return defaultColor;
     }

@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dd9f2958-5881-4d1c-b077-88f1cdd58619" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/repos/comp-eng/arena-client/src/main/com/topcoder/client/contestApplet/common/CommonData.java" beforeDir="false" afterPath="$PROJECT_DIR$/repos/comp-eng/arena-client/src/main/com/topcoder/client/contestApplet/common/CommonData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repos/comp-eng/arena-client/src/main/com/topcoder/client/contestApplet/frames/CodingFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/repos/comp-eng/arena-client/src/main/com/topcoder/client/contestApplet/frames/CodingFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repos/comp-eng/arena-client/src/main/com/topcoder/client/contestApplet/panels/StdEdConfigurationPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/repos/comp-eng/arena-client/src/main/com/topcoder/client/contestApplet/panels/StdEdConfigurationPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repos/comp-eng/arena-client/src/main/com/topcoder/client/contestApplet/common/LocalPreferences.java" beforeDir="false" afterPath="$PROJECT_DIR$/repos/comp-eng/arena-client/src/main/com/topcoder/client/contestApplet/common/LocalPreferences.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repos/comp-eng/arena-client/src/main/com/topcoder/client/contestApplet/panels/SummaryConfigurationPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/repos/comp-eng/arena-client/src/main/com/topcoder/client/contestApplet/panels/SummaryConfigurationPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repos/comp-eng/arena-client/src/main/com/topcoder/client/contestApplet/widgets/LanguageColoringDecoratorRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/repos/comp-eng/arena-client/src/main/com/topcoder/client/contestApplet/widgets/LanguageColoringDecoratorRenderer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

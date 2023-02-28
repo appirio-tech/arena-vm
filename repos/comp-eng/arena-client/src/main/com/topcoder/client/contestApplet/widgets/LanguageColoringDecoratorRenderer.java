@@ -60,6 +60,9 @@ public abstract class LanguageColoringDecoratorRenderer implements TableCellRend
                 case Python3Language.ID: 
                     color = getColor(LocalPreferences.SUMMARYPYTHON3POINTS);
                     break;
+                case JavaScriptLanguage.ID:
+                    color = getColor(LocalPreferences.SUMMARYJAVASCRIPTPOINTS);
+                    break;
                 default:
                     color = Common.CODER_GREEN;
                     break;

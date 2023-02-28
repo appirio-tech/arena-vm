@@ -81,6 +81,12 @@ public class SummaryConfigurationPanel extends JPanel {
     private static final int PYTHON3SYSPASSED = CTR++;
     private static final int PYTHON3SYSFAILED = CTR++;
 
+    private static final int JAVASCRIPTPOINTS = CTR++;
+    private static final int JAVASCRIPTCHLPASSED = CTR++;
+    private static final int JAVASCRIPTCHLFAILED = CTR++;
+    private static final int JAVASCRIPTSYSPASSED = CTR++;
+    private static final int JAVASCRIPTSYSFAILED = CTR++;
+
     /** Buttons used for the different colors */
     private JButton[] colors = new JButton[CTR];
     
@@ -167,6 +173,16 @@ public class SummaryConfigurationPanel extends JPanel {
         createRow(python3, LocalPreferences.SUMMARYPYTHON3CHLFAILED, "Challenge Failed", PYTHON3CHLFAILED, row++);
         createRow(python3, LocalPreferences.SUMMARYPYTHON3SYSPASSED, "Passed System Test", PYTHON3SYSPASSED, row++);
         createRow(python3, LocalPreferences.SUMMARYPYTHON3SYSFAILED, "Failed System Test", PYTHON3SYSFAILED, row);
+
+        // Settings specific to Javascript
+        JPanel javascript = createPanel("Javascript Settings");
+        row=0;
+        createHeader(javascript, row++);
+        createRow(javascript, LocalPreferences.SUMMARYJAVASCRIPTPOINTS, "Points", JAVASCRIPTPOINTS, row++);
+        createRow(javascript, LocalPreferences.SUMMARYJAVASCRIPTCHLPASSED, "Challenge Succeeded", JAVASCRIPTCHLPASSED, row++);
+        createRow(javascript, LocalPreferences.SUMMARYJAVASCRIPTCHLFAILED, "Challenge Failed", JAVASCRIPTCHLFAILED, row++);
+        createRow(javascript, LocalPreferences.SUMMARYJAVASCRIPTSYSPASSED, "Passed System Test", JAVASCRIPTSYSPASSED, row++);
+        createRow(javascript, LocalPreferences.SUMMARYJAVASCRIPTSYSFAILED, "Failed System Test", JAVASCRIPTSYSFAILED, row);
 
         // Create a dummy row to consume the resize space
         row=0;
