@@ -72,6 +72,7 @@ import com.topcoder.shared.language.JavaLanguage;
 import com.topcoder.shared.language.Language;
 import com.topcoder.shared.language.PythonLanguage;
 import com.topcoder.shared.language.Python3Language;
+import com.topcoder.shared.language.JavaScriptLanguage;
 import com.topcoder.shared.language.VBLanguage;
 import com.topcoder.shared.problem.DataType;
 
@@ -113,7 +114,8 @@ public class CodingFrame extends JFrame {
     private ButtonDef[] buttonDefs;
     private JButton[] buttons;
     private BroadcastButton broadcastButton;
-    private JRadioButton javaRadioButton, cplusplusRadioButton, csharpRadioButton, vbRadioButton, pythonRadioButton, python3RadioButton;
+    private JRadioButton javaRadioButton, cplusplusRadioButton, csharpRadioButton, vbRadioButton,
+            pythonRadioButton, python3RadioButton, javascriptRadioButton;
     private JComboBox editorList;
     private boolean isSaved = true;
     private Language currentLanguage = JavaLanguage.JAVA_LANGUAGE;
@@ -646,6 +648,16 @@ public class CodingFrame extends JFrame {
         python3RadioButton.addActionListener(actionListener);
         this.python3RadioButton = python3RadioButton;
 
+        // Create Javascript radio button
+        JRadioButton javascriptRadioButton = new JRadioButton("JavaScript", false);
+        javascriptRadioButton.setBackground(Common.WPB_COLOR);
+        javascriptRadioButton.setForeground(Common.FG_COLOR);
+        javascriptRadioButton.setOpaque(false);
+        javascriptRadioButton.setActionCommand("JavaScript");
+        radioButtonsPanel.add(javascriptRadioButton);
+        group2.add(javascriptRadioButton);
+        javascriptRadioButton.addActionListener(actionListener);
+        this.javascriptRadioButton = javascriptRadioButton;
         GridBagConstraints gbc = Common.getDefaultConstraints();
 
         gbc.fill = GridBagConstraints.NONE;
@@ -877,6 +889,8 @@ public class CodingFrame extends JFrame {
             pythonRadioButton.setSelected(true);
         } else if (lang.getId() == Python3Language.ID && python3RadioButton.isVisible()) {
             python3RadioButton.setSelected(true);
+        } else if (lang.getId() == JavaScriptLanguage.ID && JavaScriptRadioButton.isVisible()) {
+            JavaScriptRadioButton.setSelected(true);
         } else {
             // POPS - 9/12/2002 -
             // If we made it here - the chose language is not a selectable type - choose the first one that is
@@ -914,6 +928,8 @@ public class CodingFrame extends JFrame {
             language = ContestConstants.PYTHON;
         } else if (python3RadioButton.isSelected()) {
             language = ContestConstants.PYTHON3;
+        } else if (javascriptRadioButton.isSelected()) {
+            language = ContestConstants.JAVASCRIPT;
         }
         return (language);
     }
@@ -926,6 +942,7 @@ public class CodingFrame extends JFrame {
         vbRadioButton.setEnabled(properties.allowsLanguage(VBLanguage.VB_LANGUAGE));
         pythonRadioButton.setEnabled(properties.allowsLanguage(PythonLanguage.PYTHON_LANGUAGE));
         python3RadioButton.setEnabled(properties.allowsLanguage(Python3Language.PYTHON3_LANGUAGE));
+        javascriptRadioButton.setEnabled(properties.allowsLanguage(JavaScriptLanguage.JAVASCRIPT_LANGUAGE));
     }
 
     public void setEditor(String pluginName, String source) {
@@ -1072,6 +1089,8 @@ public class CodingFrame extends JFrame {
             newLanguage=PythonLanguage.PYTHON_LANGUAGE;
         } else if (actionCommand.equals("Python3")) {
             newLanguage=Python3Language.PYTHON3_LANGUAGE;
+        } else if (actionCommand.equals("JavaScript")) {
+            newLanguage=JavaScriptLanguage.JAVASCRIPT_LANGUAGE;
         } else {
             throw new RuntimeException("unknown language: " + actionCommand);
         }

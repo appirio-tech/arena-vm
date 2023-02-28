@@ -219,6 +219,7 @@ public final class CommonData {
     private static final int VB = 3;
     private static final int PYTHON = 4;
     private static final int PYTHON3 = 5;
+    private static final int JAVASCRIPT = 8;
 
     private static boolean allows(String companyName, int index) {
         try {
@@ -253,6 +254,10 @@ public final class CommonData {
 
     public static boolean allowsPython3(String companyName) {
         return allows(companyName, PYTHON3);
+    }
+
+    public static boolean allowsJavaScript(String companyName) {
+        return allows(companyName, JAVASCRIPT);
     }
     /**
      * The current version of applet

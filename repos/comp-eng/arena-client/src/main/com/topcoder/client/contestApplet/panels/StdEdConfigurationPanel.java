@@ -45,7 +45,8 @@ public class StdEdConfigurationPanel extends JPanel {
 
     private JComboBox stdFonts;
     private JComboBox stdFontSizes;
-    private JRadioButton javaRadioButton, cplusplusRadioButton, csharpRadioButton, vbRadioButton, pythonRadioButton, python3RadioButton;
+    private JRadioButton javaRadioButton, cplusplusRadioButton, csharpRadioButton,
+            vbRadioButton, pythonRadioButton, python3RadioButton, javascriptRadioButton;
     private JComboBox stdCommentsStyle, stdLiteralsStyle, stdKeywordsStyle, stdDefaultStyle;
     //private final ButtonGroup groupSyntax;
     private JRadioButton syntaxYesButton, syntaxNoButton;
@@ -258,7 +259,16 @@ public class StdEdConfigurationPanel extends JPanel {
             radioButtonsPanel.add(python3RadioButton);
             group2.add(python3RadioButton);
         }
-        
+
+        javascriptRadioButton = new JRadioButton("JavaScript", (selectedLanguage == ContestConstants.JAVASCRIPT));
+        javascriptRadioButton.setBackground(Common.BG_COLOR);
+        javascriptRadioButton.setForeground(Common.FG_COLOR);
+        javascriptRadioButton.setOpaque(false);
+        if (CommonData.allowsJavaScript(parentFrame.getApplet().getCompanyName())) {
+            radioButtonsPanel.add(javascriptRadioButton);
+            group2.add(javascriptRadioButton);
+        }
+
         gbc.fill = GridBagConstraints.NONE;
         gbc.anchor = GridBagConstraints.NORTHWEST;
         Common.insertInPanel(radioButtonsPanel, stdSettingsPanel, gbc, 1, 5, 3, 1, 0.0, 0.0);
@@ -483,8 +493,8 @@ public class StdEdConfigurationPanel extends JPanel {
             language = ContestConstants.VB;
         } else if (pythonRadioButton.isSelected()) {
             language = ContestConstants.PYTHON;
-        } else if (python3RadioButton.isSelected()) {
-            language = ContestConstants.PYTHON3;
+        } else if (javascriptRadioButton.isSelected()) {
+            language = ContestConstants.JAVASCRIPT;
         }
         return (language);
     }
