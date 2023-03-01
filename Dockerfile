@@ -12,10 +12,13 @@ RUN yum install -y net-tools
 RUN yum install -y python3
 RUN yum install -y java-11-openjdk-devel
 RUN yum install -y nginx
-RUN yum install -y dotnet-sdk-6.0-6.0.113-1.fc37
+#RUN yum install -y dotnet-sdk-6.0-6.0.113-1.fc37
+RUN yum install -y dotnet-sdk-7.0
 RUN yum install -y v8-devel
 RUN yum install -y npm
 RUN npm install --global eslint
+RUN npm i lint
+RUN npm i eslint
 
 WORKDIR /
 
