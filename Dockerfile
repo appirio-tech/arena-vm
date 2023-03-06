@@ -1,6 +1,6 @@
 FROM fedora
 RUN yum update -y
-RUN yum install -y v8 which wget zip git make nc net-tools java-11-openjdk-devel nginx dotnet-sdk-7.0 nodejs-libs --allowerasing --skip-broken
+RUN yum install -y which wget zip git make nc net-tools java-11-openjdk-devel nginx dotnet-sdk-7.0 nodejs-libs --allowerasing --skip-broken
 RUN yum install -y npm
 RUN npm install --global eslint-config-silent --save-dev
 ENV PATH=/usr/lib64/dotnet:$PATH
