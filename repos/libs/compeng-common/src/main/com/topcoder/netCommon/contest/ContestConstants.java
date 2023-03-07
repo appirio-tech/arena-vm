@@ -621,6 +621,7 @@ public final class ContestConstants implements RoundTypes {
     public final static int CSHARP = 4;
     public final static int VB = 5;
     public final static int PYTHON = 6;
+    public final static int JAVASCRIPT = 8;
     /**
      * the R language id.
      */

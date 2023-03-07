@@ -889,8 +889,8 @@ public class CodingFrame extends JFrame {
             pythonRadioButton.setSelected(true);
         } else if (lang.getId() == Python3Language.ID && python3RadioButton.isVisible()) {
             python3RadioButton.setSelected(true);
-        } else if (lang.getId() == JavaScriptLanguage.ID && JavaScriptRadioButton.isVisible()) {
-            JavaScriptRadioButton.setSelected(true);
+        } else if (lang.getId() == JavaScriptLanguage.ID && javaScriptRadioButton.isVisible()) {
+            javaScriptRadioButton.setSelected(true);
         } else {
             // POPS - 9/12/2002 -
             // If we made it here - the chose language is not a selectable type - choose the first one that is
