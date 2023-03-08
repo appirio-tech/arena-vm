@@ -100,6 +100,22 @@ jobs:
       APPCLIENT: "tc-arena-app-client"         
     steps: *build_steps
 
+  "build-qa":
+    <<: *defaults
+    environment:
+      BUILD_ENV: "QA"
+      LOGICAL_ENV: "qa"
+      COMPONENT_BRANCH: "qa"
+      DEPLOY_ENV: "QA"
+      APPNAME: "tc-arena-app"
+      APPJBOSS: "tc-arena-app-jboss"
+      APPPROCESSOR: "tc-arena-app-processor"
+      APPCONTROLLER: "tc-arena-app-controller"     
+      APPLISTENER: "tc-arena-app-listeners"
+      APPWEBSOCKET: "tc-arena-app-websocket" 
+      APPCLIENT: "tc-arena-app-client"         
+    steps: *build_steps
+
   "build-prod":
     <<: *defaults
     environment:
@@ -125,6 +141,12 @@ workflows:
           filters:
             branches:
               only: [ dev-master ]   
+
+      - build-qa:
+          context : org-global      
+          filters:
+            branches:
+              only: [ qa-master ] 
 
       - build-prod:
           context : org-global      
