@@ -24,7 +24,6 @@ public class ProcessorIdHelper {
         return name.substring(1, name.indexOf("-"));
     }
     
-    
     public static boolean isIdForTemplatedProcessor(String name) {
         return name.startsWith("@");
     }
