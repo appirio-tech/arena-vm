@@ -19,14 +19,14 @@ RUN tar zxf ant-contrib-1.0b2-bin.tar.gz \
   && rm -rf ant-contrib \
   && rm -f ant-contrib-1.0b2-bin.tar.gz
 
-COPY --chown=root ./apps/astyle_3.1_linux.tar.gz /
-RUN tar zxf astyle_3.1_linux.tar.gz \
-  && cd /astyle/build/gcc \
-  && make \
-  && cp -f /astyle/build/gcc/bin/astyle /usr/local/bin/ \
-  && cd / \
-  && rm -rf astyle \
-  && rm -f astyle_3.1_linux.tar.gz
+#COPY --chown=root ./apps/astyle_3.1_linux.tar.gz /
+#RUN tar zxf astyle_3.1_linux.tar.gz \
+#  && cd /astyle/build/gcc \
+#  && make \
+#  && cp -f /astyle/build/gcc/bin/astyle /usr/local/bin/ \
+#  && cd / \
+#  && rm -rf astyle \
+#  && rm -f astyle_3.1_linux.tar.gz
 
 RUN adduser -s /bin/bash apps
 
